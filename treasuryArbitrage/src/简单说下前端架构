@@ -1,0 +1,12 @@
+1、基本上每个页面一个包，
+  futuresMarket是期货行情，arbitragePortfolio是套利组合，holdings是持仓情况，news是新闻，personalCenter是个人中心，
+     每个包都有一个主类，我已经建好了，但只设定了panel的背景颜色
+2、framework包包括了最基本的Frame类以及启动程序类Launch
+3、navigater包是导航
+4、factory包是工厂，工厂都是单例。
+      从MajorPartsFactory中可以获得frame以及每个主页面的实例。
+      从DataInterfaceFactory中可以获得与服务器的数据接口
+5、resources包包括了各种文字资源、颜色资源什么的，打开看看就知道了
+6、与服务器通信那块在network包里，所有需要向服务器获取数据的函数都写在DataInterface里，然后在它的桩DataInterfacePile类里完成最简单的本地实现，比如返回“123”什么的，便于测试
+
+then。。大家愉快地开发吧~~~
