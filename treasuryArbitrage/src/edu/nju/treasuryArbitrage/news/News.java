@@ -81,13 +81,7 @@ public class News extends JPanel{
 	 	   tableModel.addRow(new Object[]{"2014/08/16", "长江期货", "移仓进行时","李明宇"});
 	 	   
 	 	  class MyMSL implements MouseListener {
-	 	 		
-	 		public String GetNewsTitle( int newsID ) {
-	            String res;
-	            res="移仓进行时" + newsID;   // 
-	 			return res;
-	        } 
-	 		
+	 	 			 		
 	 		public void mousePressed(MouseEvent e){
 	  				
 	 	    }
@@ -98,7 +92,7 @@ public class News extends JPanel{
 							{
 								table.removeRowSelectionInterval( j, j );
 								if(j > 0){
-									NewsDetail myWnd = new NewsDetail(GetNewsTitle(j));
+									NewsDetail myWnd = new NewsDetail(j);
 								}
 			 	            	table.clearSelection();
 							}
@@ -120,7 +114,7 @@ public class News extends JPanel{
 	 						{
 	 							table.removeRowSelectionInterval( j, j );
 	 							if(j > 0){
-	 								NewsDetail myWnd = new NewsDetail(GetNewsTitle(j));
+	 								NewsDetail myWnd = new NewsDetail(j);
 	 							}
 	 		 	            	table.clearSelection();
 	 						}
@@ -216,27 +210,35 @@ public class News extends JPanel{
 	   	  
 	      }
 
+	    
+	    public String GetNewsTitle( int newsID ) {
+            String res;
+            res="移仓进行时" + newsID;   // 
+ 			return res;
+        } 
 }
 
 class NewsDetail extends JFrame{
-	    JTextArea text;
+	    JLabel newsTitle;
+	    JTextField newsCon;
 	    JPanel panel;
 	    JButton closebtn;
-	    int x,y,r =10;
-	    int mouseFlg=0;
-	    static String mouseStates[]={"鼠标键按下","鼠标松开","鼠标进来","鼠标走开","鼠标双击"};
-	    NewsDetail(String s){
-	        super(s);
+	    int newsID;
+	    String sNewsTitle; 
+	    
+	    NewsDetail(int newsID){
+	        //super(sNewsTitle);
+
+	    	//GetNewsTitle(newsID);
 	        Container con = this.getContentPane();
-	        con.setLayout(new GridLayout(2,1));
+	        con.setLayout(new GridLayout(3,1));
 	        this.setSize(200,300);
 	        this.setLocation(100,100);
 	        panel = new JPanel();
+	        newsTitle = new JLabel(sNewsTitle);
 	        closebtn = new JButton("关闭窗口");
 	        //con.add(panel);
-	        text = new JTextArea(10,20);
-	        text.setBackground(Color.blue);
-	        con.add(text);
+	        
 	        con.add(closebtn);
 	        this.setVisible(true);
 	        this.pack();
