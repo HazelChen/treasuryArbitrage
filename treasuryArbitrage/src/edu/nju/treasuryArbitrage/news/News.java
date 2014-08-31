@@ -40,15 +40,18 @@ public class News extends JPanel{
 	  
 	 JLabel jL1,jL2,jL3,hlabel;
 	 static JButton b1;
-	JButton b2;
-	 JButton bnp,bpp;
+	 static JButton b2;
+	 static JButton bnp,bpp;
 	 static JTextField text1;
 	 static JTextArea testm = new JTextArea();
 	 JComboBox cB1,cB2;
+	 dateInTextField fDateIn,tDateIn;
 	 JPanel panel1,panel2,bottomnavi,hL;
 	 static String preKeyword = ""; //记录检索约束，待刷新使用
 	 static String keyword = "";
-	 Date pD1,pD2;
+	 static Date fD1;
+
+	 static Date tD2;
 	 static Color sblue = new Color(219, 231, 243);
 	 static JTable table;
 	 static DefaultTableCellRenderer tcr;
@@ -80,6 +83,8 @@ public class News extends JPanel{
 	 		
 	 		cB1 = new JComboBox(p1);
 	 	    cB2 = new JComboBox(p2);
+	 	    fDateIn = new dateInTextField();
+	 	    tDateIn = new dateInTextField();
 	 	    
 	 	    panel1 = new JPanel();
 	 		panel2 = new JPanel();
@@ -118,8 +123,8 @@ public class News extends JPanel{
 	 	    panel1.setBackground(sblue);
 	 		panel1.setPreferredSize(new Dimension(Numbers.SCREEN_WIDTH, 32));
 	 		panel1.add(jL1);panel1.add(text1);
-	 		panel1.add(jL2);panel1.add(cB1);
-	 		panel1.add(jL3);panel1.add(cB2);
+	 		panel1.add(jL2);panel1.add(fDateIn);
+	 		panel1.add(jL3);panel1.add(tDateIn);
 	 		panel1.add(b1);panel1.add(b2);
 	 		
 	 		hL.add(hlabel);
@@ -158,6 +163,7 @@ public class News extends JPanel{
 	 		 */
 	 		
 	    }
+		
 	    
 	    public static void makeFace(JTable table) {
 	 	   table.setRowHeight(30);
@@ -212,11 +218,19 @@ public class News extends JPanel{
 	        String res;
 	        res="移仓进行时" + newsID;   // 
 				return res;
-	    } 
+	    }
+
+
+		//检索
+		public static void search(String keyword2, Date fD, Date tD) {
+			// TODO 自动生成的方法存根
+			
+		} 
 	    
 }
 
-class NewsDetail extends JDialog{
+class NewsDetailDg extends JDialog{
+	private NewsDetailDg curdg = this;
 		 JLabel newsTitle;
 		    JTextArea newsDetail;
 		    JPanel panel;
@@ -225,8 +239,8 @@ class NewsDetail extends JDialog{
 		    int newsID;
 		    String sNewsTitle = "移仓进行时",
 		    		snewsDetail = "新闻内容"; 
-		    
-		    NewsDetail(int newsID){
+		    detailML dml;
+		    NewsDetailDg(int newsID){
 		        //super(sNewsTitle);
 
 		    	//GetNewsTitle(newsID);
@@ -236,7 +250,7 @@ class NewsDetail extends JDialog{
 		    	this.setMaximumSize(new Dimension(600,400));
 		    	this.setMinimumSize(new Dimension(600,400));
 				this.setResizable(false);
-		    	
+		    	dml = new detailML();
 		        Container con = this.getContentPane();
 		        con.setLayout(new GridLayout(3,1));
 		        this.setLocation((News.Numbers.SCREEN_WIDTH - this.getWidth())/2,
@@ -250,6 +264,7 @@ class NewsDetail extends JDialog{
 		        newsDetail = new JTextArea(snewsDetail,20,30);
 		        panel2.add(newsDetail);
 		        closebtn = new JButton("关闭窗口");
+		        closebtn.addMouseListener(dml);
 		        
 		        con.setSize(600, 600);
 		        con.add(panel);
@@ -258,7 +273,30 @@ class NewsDetail extends JDialog{
 		        this.setVisible(true);
 		        this.pack();
 		    }
+		    class detailML implements MouseListener{
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					curdg.dispose();
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {}
+
+				@Override
+				public void mouseReleased(MouseEvent e) {}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {}
+
+				@Override
+				public void mouseExited(MouseEvent e) {}
+		    	
+		    }
 }
+
+
+//----------------------------事件响应-------------------------------//
 
 class MyMSL implements MouseListener {
 			
@@ -270,19 +308,19 @@ class MyMSL implements MouseListener {
 		    }
 		    public void mouseReleased(MouseEvent e){
 		    	if(e.getSource() == News.table){
-	 	    	if(News.table.isRowSelected(0))News.table.clearSelection();// 让第一行不可选
-	 	    	for(int j = 1; j < News.table.getRowCount(); j++)
-					{
-						if(News.table.isRowSelected(j))
-							{
-							News.table.removeRowSelectionInterval( j, j );
-								if(j > 0){
-									NewsDetail myWnd = new NewsDetail(j);
+		 	    	if(News.table.isRowSelected(0))News.table.clearSelection();// 让第一行不可选
+		 	    	for(int j = 1; j < News.table.getRowCount(); j++)
+						{
+							if(News.table.isRowSelected(j))
+								{
+								News.table.removeRowSelectionInterval( j, j );
+									if(j > 0){
+										NewsDetailDg myWnd = new NewsDetailDg(j);
+									}
+									News.table.clearSelection();// 让第一行不可选
 								}
-								News.table.clearSelection();// 让第一行不可选
-							}
-		            	 
-					}
+			            	 
+						}
 		    	}
 		    }
 		    public void mouseEntered(MouseEvent e){
@@ -298,24 +336,29 @@ class MyMSL implements MouseListener {
 		    	if(e.getSource() == News.table){
 		    		if(e.getClickCount() == 2 || e.getClickCount() == 1){
 		    	
-	 	        	for(int j = 0; j < News.table.getRowCount(); j++)
-	 				{
-	 					if(News.table.isRowSelected(j))
-	 						{
-	 						News.table.removeRowSelectionInterval( j, j );
-	 							if(j > 0){
-	 								NewsDetail myWnd = new NewsDetail(j);
-	 							}
-	 							News.table.clearSelection();// 让第一行不可选
-	 						}
-	 	            	 
-	 				}
-	 	        }
-	 	        else{}
-	 	    }
-		    	if(e.getSource() == News.b1){
+		 	        	for(int j = 0; j < News.table.getRowCount(); j++)
+		 				{
+		 					if(News.table.isRowSelected(j))
+		 						{
+		 						News.table.removeRowSelectionInterval( j, j );
+		 							if(j > 0){
+		 								NewsDetailDg myWnd = new NewsDetailDg(j);
+		 							}
+		 							News.table.clearSelection();// 让第一行不可选
+		 						}
+		 	            	 
+		 				}
+		    		}	
+		    		else{}
+		    	}
+		    	else	if(e.getSource() == News.b1){
 		    		News.preKeyword = News.keyword;
+		    		News.search( News.keyword, News.fD1, News.tD2);
 		    		News.keyword = News.text1.getText();
+		    		News.testm.setText("pk:" + News.preKeyword + "     k:" + News.keyword);
+		    	}
+		    	else if(e.getSource() == News.b2){
+		    		News.search( News.keyword, News.fD1, News.tD2);
 		    		News.testm.setText("pk:" + News.preKeyword + "     k:" + News.keyword);
 		    	}
 		    		
