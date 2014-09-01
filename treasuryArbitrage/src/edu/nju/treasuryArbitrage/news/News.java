@@ -8,7 +8,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -29,6 +28,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.*;
+
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
 public class News extends JPanel{
@@ -40,7 +41,10 @@ public class News extends JPanel{
 	 static JButton bnp,bpp;
 	 static JTextField text1;
 	 //JComboBox cB1,cB2;
-	 dateInTextField fDateIn,tDateIn;
+	 //dateInTextField fDateIn,tDateIn;
+	 
+	 JDateChooser fromDateIn,toDateIn;
+	 
 	 JPanel panel1,panel2,bottomnavi,hL;
 	 static String preKeyword = ""; //记录检索约束，待刷新使用
 	 static String keyword = "";
@@ -78,9 +82,16 @@ public class News extends JPanel{
 	 		
 	 		//cB1 = new JComboBox(p1);
 	 	    //cB2 = new JComboBox(p2);
-	 	    fDateIn = new dateInTextField();
-	 	    tDateIn = new dateInTextField();
-	 	    
+	 	    //fDateIn = new dateInTextField();
+	 	    //tDateIn = new dateInTextField();
+	 		Dimension dateTextdem = new Dimension(90,20);
+	 		
+	 		toDateIn = new JDateChooser("yyyy/MM/dd","####/##/##",'_');
+	 		fromDateIn = new JDateChooser("yyyy/MM/dd","####/##/##",'_');
+	 		fromDateIn.setPreferredSize(dateTextdem);
+	 		toDateIn.setPreferredSize(dateTextdem);
+
+	 		
 	 	    panel1 = new JPanel();
 	 		panel2 = new JPanel();
 	 		bottomnavi = new JPanel();
@@ -125,8 +136,8 @@ public class News extends JPanel{
 	 	    panel1.setBackground(sblue);
 	 		panel1.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 40));
 	 		panel1.add(jL1);panel1.add(text1);
-	 		panel1.add(jL2);panel1.add(fDateIn);
-	 		panel1.add(jL3);panel1.add(tDateIn);
+	 		panel1.add(jL2);panel1.add(fromDateIn);
+	 		panel1.add(jL3);panel1.add(toDateIn);
 	 		panel1.add(b1);panel1.add(b2);
 	 		
 	 		hL.add(hlabel);
