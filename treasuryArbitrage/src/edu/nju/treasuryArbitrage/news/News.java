@@ -1,13 +1,13 @@
 
 package edu.nju.treasuryArbitrage.news;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,18 +17,14 @@ import java.awt.event.MouseMotionListener;
 import java.util.Date;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -43,8 +39,7 @@ public class News extends JPanel{
 	 static JButton b2;
 	 static JButton bnp,bpp;
 	 static JTextField text1;
-	 static JTextArea testm = new JTextArea();
-	 JComboBox cB1,cB2;
+	 //JComboBox cB1,cB2;
 	 dateInTextField fDateIn,tDateIn;
 	 JPanel panel1,panel2,bottomnavi,hL;
 	 static String preKeyword = ""; //记录检索约束，待刷新使用
@@ -58,15 +53,15 @@ public class News extends JPanel{
 	 String p1[] = { "踢足球","打篮球","打排球" };
 	 String p2[] = {"踢足球","打篮球","打排球" };
 	 static Object colummnames[]={"时间","来源","标题","作者"};
+	 static NewsDetailDg myWnd;
 
 	 static NumericalResources Numbers;
 		MyMSL listener1ms = new MyMSL();
 		MyAcL listener2ac = new MyAcL();
 		MyMML listener3mm = new MyMML();
 		
-		public News(){
-	        testm.setText(new String().format("%d", Numbers.SCREEN_WIDTH));//
-	        
+		public News(){	       
+	        //setBackground(sblue);
 	    	jL1 = new JLabel("关键字",JLabel.CENTER);
 	 		jL2 = new JLabel("起始日期",JLabel.CENTER);
 	 		jL3 = new JLabel("截止日期",JLabel.CENTER);
@@ -81,8 +76,8 @@ public class News extends JPanel{
 	 		bpp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	 		text1 = new  JTextField(20);
 	 		
-	 		cB1 = new JComboBox(p1);
-	 	    cB2 = new JComboBox(p2);
+	 		//cB1 = new JComboBox(p1);
+	 	    //cB2 = new JComboBox(p2);
 	 	    fDateIn = new dateInTextField();
 	 	    tDateIn = new dateInTextField();
 	 	    
@@ -92,7 +87,12 @@ public class News extends JPanel{
 	 		hL = new JPanel();
 	 		
 	 	    table = new JTable(0,4){
-	            public boolean isCellEditable(int row, int column)
+	            /**
+				 * 
+				 */
+				private static final long serialVersionUID = 1585833408958801322L;
+
+				public boolean isCellEditable(int row, int column)
 	            {
 	                       return false;
 	            }//表格不允许被编辑
@@ -107,53 +107,57 @@ public class News extends JPanel{
 	 	   tableModel.addRow(new Object[]{"2014/08/16", "长江期货", "移仓进行时","李明宇"});
 	 	   tableModel.addRow(new Object[]{"2014/08/16", "长江期货", "移仓进行时","李明宇"});
 	 	   
+	 	   //tableModel.removeRow(tableModel.getRowCount() - 1);
 	 	 
 	 	text1.addActionListener(listener2ac);
 	    b1.addMouseListener(listener1ms);
 		 table.addMouseMotionListener(listener3mm);       
 		 table.addMouseListener(listener1ms);
 		 
-		 GridBagLayout gridbag = new GridBagLayout();
+		/* GridBagLayout gridbag = new GridBagLayout();
          GridBagConstraints c = new GridBagConstraints();
          c.fill = GridBagConstraints.BOTH;
          c.weightx=0.0;//默认值为0.0
          c.weighty=0.0;//默认值为0.0
-	 	    setLayout(gridbag);
+*/	 	    
+		    setLayout(new BorderLayout());
 	 	    //setSize(960,580); 
 	 	    panel1.setBackground(sblue);
-	 		panel1.setPreferredSize(new Dimension(Numbers.SCREEN_WIDTH, 32));
+	 		panel1.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 40));
 	 		panel1.add(jL1);panel1.add(text1);
 	 		panel1.add(jL2);panel1.add(fDateIn);
 	 		panel1.add(jL3);panel1.add(tDateIn);
 	 		panel1.add(b1);panel1.add(b2);
 	 		
 	 		hL.add(hlabel);
-	 		hL.setPreferredSize(new Dimension(Numbers.SCREEN_WIDTH, 3));
+	 		hL.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 3));
 	 		hL.setBackground(Color.WHITE);
-	 		hL.setBorder(null);
+	 		hL.setBorder(new LineBorder(Color.WHITE,1));
 	 		
-	 		panel1.add(hL);
+	 		panel1.add(hL,BorderLayout.SOUTH);
 	 		bottomnavi.add(bpp);
 	 		bottomnavi.add(bnp);
 	 		
-	 		panel2.setSize(Numbers.SCREEN_WIDTH, 500);
-	 		panel2.setLayout(new GridLayout(3,1));
+	 		panel2.setBackground(Color.WHITE);
+	 		panel2.setPreferredSize(new Dimension(50, 680));
+	 		bottomnavi.setBackground(Color.WHITE);
+	 		bottomnavi.setPreferredSize(new Dimension(100, 100));
+	 		panel2.setLayout(new BorderLayout());
 	 		panel2.setAlignmentX(CENTER_ALIGNMENT);
-	 		panel2.add(table);
-	 		panel2.add(bottomnavi);
-	 		panel2.add(testm);
+	 		panel2.add(table,"North");
+	 		panel2.add(bottomnavi,"South");
 	 		
-	 		c.anchor = GridBagConstraints.NORTH;
+	 		/*c.anchor = GridBagConstraints.NORTH;
 	 		c.gridx = 0;c.gridy = 0;
 	         c.gridheight=1;
 	         c.gridwidth=0;
 	 		 gridbag.setConstraints(panel1, c);
 	 		 c.gridheight=50;c.gridy ++;
-	 		 gridbag.setConstraints(panel2, c);
+	 		 gridbag.setConstraints(panel2, c);*/
 	 		 
-	 		add(panel1);
+	 		add(panel1,"North");
 	 		//add(hL);
-	 		add(panel2);
+	 		add(panel2,"Center");
 	 		
 	 		/*
 	 		 * super.setBorder(new LineBorder(Color.BLUE)); // test
@@ -161,7 +165,8 @@ public class News extends JPanel{
 	 		 */ hL.setBorder(new LineBorder(Color.WHITE));
 	 		 /* panel2.setBorder(new LineBorder(Color.RED));
 	 		 */
-	 		
+	 		myWnd = new NewsDetailDg(0);
+	 		myWnd.setVisible(false);
 	    }
 		
 	    
@@ -179,7 +184,12 @@ public class News extends JPanel{
 	 	    
 	        try {
 	          tcr = new DefaultTableCellRenderer() {
-	            public Component getTableCellRendererComponent(JTable table,
+	            /**
+				 * 
+				 */
+				private static final long serialVersionUID = 2220633049102091416L;
+
+				public Component getTableCellRendererComponent(JTable table,
 	                Object value, boolean isSelected, boolean hasFocus,
 	                int row, int column) {
 	              	
@@ -223,61 +233,94 @@ public class News extends JPanel{
 
 		//检索
 		public static void search(String keyword2, Date fD, Date tD) {
-			// TODO 自动生成的方法存根
 			
 		} 
 	    
 }
 
 class NewsDetailDg extends JDialog{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5893692668956428617L;
+	
 	private NewsDetailDg curdg = this;
-		 JLabel newsTitle;
+		 JLabel newsTitle,inv;
 		    JTextArea newsDetail;
-		    JPanel panel;
-		    JScrollPane panel2;
+		    JPanel panel,panel2,panelbottom,conp;
 		    JButton closebtn;
 		    int newsID;
 		    String sNewsTitle = "移仓进行时",
-		    		snewsDetail = "新闻内容"; 
+		    		snewsDetail = "    操作建议 国债期货昨日上涨,近期新一轮IPO将启动,对市场的资金将会" +
+		    				"产生影响,股指近期的横盘给予债券一定的机会。我们认为政策上的利多国债将会发挥一定的效应,此" +
+		    				"外,发改委官员称降息降准时机已到,我们预期后续政策依然偏松,体现托底保增长意图,国债中线存在机" +
+		    				"会做多,短期内如果经济数据并非一路走强,那么国债有望短期摸高震荡区间上沿。" +
+		    				"    20日，农畜产品多弱势，预计今日弱势；化工品除橡胶横盘外多弱势，预计今日弱势；金属" +
+		    				"除黑色弱势外多强势，预计今日偏强；能源类出铁矿偏弱外多横盘，预计今日弱势横盘；玻璃强除纤板" +
+		    				"偏弱外横盘，预计今日弱势；股指国债横盘，预计今日横盘；近期关注鸡蛋和塑料。（期货投资QQ群：102664812）"; 
 		    detailML dml;
 		    NewsDetailDg(int newsID){
 		        //super(sNewsTitle);
 
-		    	//GetNewsTitle(newsID);
+		    	GetNews(newsID);
 		    	//this.setModalityType(DEFAULT_MODALITY_TYPE);
-		    	this.setUndecorated(true);
-		    	this.setBackground(Color.WHITE);
-		    	this.setMaximumSize(new Dimension(600,400));
-		    	this.setMinimumSize(new Dimension(600,400));
-				this.setResizable(false);
+		    	setUndecorated(true);
+		    	setBackground(Color.WHITE);
+		    	setMaximumSize(new Dimension(720,510));
+		    	setMinimumSize(new Dimension(750,510));
+				setResizable(false);
+				setModal(true);//
 		    	dml = new detailML();
-		        Container con = this.getContentPane();
-		        con.setLayout(new GridLayout(3,1));
-		        this.setLocation((News.Numbers.SCREEN_WIDTH - this.getWidth())/2,
-		        		(News.Numbers.SCREEN_HEIGHT - this.getHeight())/2);
+		        conp = new JPanel();
+		        conp.setLayout(new BorderLayout());
+		        this.setLocation((NumericalResources.SCREEN_WIDTH - this.getWidth())/2,
+		        		(NumericalResources.SCREEN_HEIGHT - this.getHeight())/2);
 		        panel = new JPanel();
+		        panelbottom = new JPanel();
 		        newsTitle = new JLabel(sNewsTitle);
-		        panel.add(newsTitle);
-		       
-		        panel2 = new JScrollPane();
-		        panel2.setSize(500,500);
-		        newsDetail = new JTextArea(snewsDetail,20,30);
+		        Font titlef=new Font("宋体",Font.BOLD,24);
+		        newsTitle.setFont(titlef);
+		        inv = new JLabel("");
+		        inv.setPreferredSize(new Dimension(33, 1));
+		        //inv.setVisible(false);
+
+		        panel.setLayout(new BorderLayout());
+		        panel.setPreferredSize(new Dimension(750,52));
+		        panel.add(newsTitle,FlowLayout.LEFT);
+		        panel.add(inv,"West");
+		        
+		        panel2 = new JPanel();
+		        panel2.setSize(682,398);
+		        newsDetail = new JTextArea(snewsDetail,25,62);
+		        newsDetail.setEditable(false);
+		        newsDetail.setLineWrap(true);
+		        newsDetail.setBorder(new LineBorder(Color.BLACK, 1));
+		        newsDetail.setBackground(Color.WHITE);
+		        
 		        panel2.add(newsDetail);
 		        closebtn = new JButton("关闭窗口");
 		        closebtn.addMouseListener(dml);
-		        
-		        con.setSize(600, 600);
-		        con.add(panel);
-		        con.add(panel2);
-		        con.add(closebtn);
-		        this.setVisible(true);
+		        closebtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		        panelbottom.setPreferredSize(new Dimension(750,52));
+		        panelbottom.add(closebtn);
+
+		        conp.setSize(720, 510);
+		        conp.setBorder(new LineBorder(Color.GRAY, 1));
+		        conp.add(panel,"North");
+		        conp.add(panel2,"Center");
+		        conp.add(panelbottom,"South");
+		        add(conp);
 		        this.pack();
 		    }
-		    class detailML implements MouseListener{
+		    private void GetNews(int newsID) {
+				// TODO 自动生成的方法存根
+				
+			}
+			class detailML implements MouseListener{
 
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					curdg.dispose();
+					curdg.setVisible(false);
 				}
 
 				@Override
@@ -315,7 +358,9 @@ class MyMSL implements MouseListener {
 								{
 								News.table.removeRowSelectionInterval( j, j );
 									if(j > 0){
-										NewsDetailDg myWnd = new NewsDetailDg(j);
+										News.myWnd = new NewsDetailDg(j);
+										News.myWnd.setVisible(true);
+										
 									}
 									News.table.clearSelection();// 让第一行不可选
 								}
@@ -342,7 +387,9 @@ class MyMSL implements MouseListener {
 		 						{
 		 						News.table.removeRowSelectionInterval( j, j );
 		 							if(j > 0){
-		 								NewsDetailDg myWnd = new NewsDetailDg(j);
+		 								News.myWnd = new NewsDetailDg(j);
+										News.myWnd.setVisible(true);
+
 		 							}
 		 							News.table.clearSelection();// 让第一行不可选
 		 						}
@@ -355,11 +402,9 @@ class MyMSL implements MouseListener {
 		    		News.preKeyword = News.keyword;
 		    		News.search( News.keyword, News.fD1, News.tD2);
 		    		News.keyword = News.text1.getText();
-		    		News.testm.setText("pk:" + News.preKeyword + "     k:" + News.keyword);
 		    	}
 		    	else if(e.getSource() == News.b2){
 		    		News.search( News.keyword, News.fD1, News.tD2);
-		    		News.testm.setText("pk:" + News.preKeyword + "     k:" + News.keyword);
 		    	}
 		    		
 		    }
@@ -385,8 +430,6 @@ class MyMML implements MouseMotionListener {
 	  	             }
 		    		}
 		    		
-		    		News.testm.setText("cur.y:" + e.getY() + 
-		    				"    keyword:"+News.keyword);
 		    }
 		    public void mouseDragged(MouseEvent e){
 		    	if(News.table.isRowSelected(0)) News.table.clearSelection();
@@ -397,7 +440,6 @@ class MyAcL implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO 自动生成的方法存根
 			 if(e.getSource()==News.text1){
 				 News.keyword=(News.text1.getText());
 		           
