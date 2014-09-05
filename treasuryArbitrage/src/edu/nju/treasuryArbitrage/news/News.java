@@ -31,11 +31,15 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.*;
 
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
+import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.network.DataInterfacePile;
 
 public class News extends JPanel{
 	private static final long serialVersionUID = -3044620398021541690L;
-	  
-	 JLabel jL1,jL2,jL3,hlabel;
+	
+	private DataInterface di;
+	static int NewsNum = 0;
+	 JLabel jL1,jL2,jL3,hlabel,inv,inv2;
 	 static JButton b1;
 	 static JButton b2;
 	 static JButton bnp,bpp;
@@ -43,7 +47,9 @@ public class News extends JPanel{
 	 //JComboBox cB1,cB2;
 	 //dateInTextField fDateIn,tDateIn;
 	 
-	 JDateChooser fromDateIn,toDateIn;
+	 static JDateChooser fromDateIn;
+
+	static JDateChooser toDateIn;
 	 
 	 JPanel panel1,panel2,bottomnavi,hL;
 	 static String preKeyword = ""; //记录检索约束，待刷新使用
@@ -54,8 +60,6 @@ public class News extends JPanel{
 	 static Color sblue = new Color(219, 231, 243);
 	 static JTable table;
 	 static DefaultTableCellRenderer tcr;
-	 String p1[] = { "踢足球","打篮球","打排球" };
-	 String p2[] = {"踢足球","打篮球","打排球" };
 	 static Object colummnames[]={"时间","来源","标题","作者"};
 	 static NewsDetailDg myWnd;
 
@@ -64,16 +68,19 @@ public class News extends JPanel{
 		MyAcL listener2ac = new MyAcL();
 		MyMML listener3mm = new MyMML();
 		
-		public News(){	       
-	        //setBackground(sblue);
+		public News(){	      
+			di = new DataInterfacePile();
 	    	jL1 = new JLabel("关键字",JLabel.CENTER);
-	 		jL2 = new JLabel("起始日期",JLabel.CENTER);
-	 		jL3 = new JLabel("截止日期",JLabel.CENTER);
+	 		jL2 = new JLabel("        起始日期",JLabel.CENTER);
+	 		jL3 = new JLabel("        截止日期",JLabel.CENTER);
+	 		inv = new JLabel("    ");//占位
+	 		inv2 = new JLabel("    ");//占位
 	 		hlabel = new JLabel(" ",JLabel.CENTER);
-	 		b1 = new JButton("检索");
-	 		b2 = new JButton("刷新");
-	 		bnp = new JButton("下一页");
-	 		bpp = new JButton("上一页");
+	 		b1 = new JButton("检索");    b1.setFocusPainted(false);
+	 		b2 = new JButton("刷新");    b2.setFocusPainted(false);
+	 		
+	 		bnp = new JButton("下一页");  bnp.setFocusPainted(false);
+	 		bpp = new JButton("上一页");  bpp.setFocusPainted(false);
 	 		b1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	 		b2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	 		bnp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -90,7 +97,7 @@ public class News extends JPanel{
 	 		fromDateIn = new JDateChooser("yyyy/MM/dd","####/##/##",'_');
 	 		fromDateIn.setPreferredSize(dateTextdem);
 	 		toDateIn.setPreferredSize(dateTextdem);
-
+	 		
 	 		
 	 	    panel1 = new JPanel();
 	 		panel2 = new JPanel();
@@ -115,13 +122,33 @@ public class News extends JPanel{
 	       table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	 	    tableModel.addRow(colummnames);
 	 	   
-	 	   tableModel.addRow(new Object[]{"2014/08/16", "长江期货", "移仓进行时","李明宇"});
-	 	   tableModel.addRow(new Object[]{"2014/08/16", "长江期货", "移仓进行时","李明宇"});
+	 	   //获取所有新闻标题等内容显示
+	 	   /*
+	 	   */
+	 	    NewsBrief[] newsTable = di.GetALLNewsBrief();
+ 	    	NewsNum = newsTable.length;
+	 	    if(NewsNum == 0){
+	 	    	tableModel.addRow(new Object[]{"", "", "暂无新闻！",""}); 	
+	 	    }
+	 	    else{
+	 	    	for(int i = 1;i < News.table.getRowCount();i ++){
+	 	    		tableModel.removeRow(i);
+	 	    	} 
+	 	    	for(int j = 0;j < NewsNum;j ++){
+		 	    	tableModel.addRow(new Object[]{
+		 	    			newsTable[j].getSdate(),
+		 	    			newsTable[j].getSrc(),
+		 	    			newsTable[j].getTitle(),
+		 	    			newsTable[j].getAuthor()});
+	 	    	} 
+	 	    }
+	 	   //tableModel.addRow(new Object[]{"2014/08/16", "长江期货", "移仓进行时","李明宇"});
 	 	   
 	 	   //tableModel.removeRow(tableModel.getRowCount() - 1);
 	 	 
 	 	text1.addActionListener(listener2ac);
 	    b1.addMouseListener(listener1ms);
+	    b2.addMouseListener(listener1ms);
 		 table.addMouseMotionListener(listener3mm);       
 		 table.addMouseListener(listener1ms);
 		 
@@ -138,7 +165,12 @@ public class News extends JPanel{
 	 		panel1.add(jL1);panel1.add(text1);
 	 		panel1.add(jL2);panel1.add(fromDateIn);
 	 		panel1.add(jL3);panel1.add(toDateIn);
-	 		panel1.add(b1);panel1.add(b2);
+	        inv.setPreferredSize(new Dimension(33, 1));
+	 		panel1.add(inv);
+	 		panel1.add(b1);
+	        inv2.setPreferredSize(new Dimension(16, 1));
+	 		panel1.add(inv2);
+	        panel1.add(b2);
 	 		
 	 		hL.add(hlabel);
 	 		hL.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 3));
@@ -176,8 +208,6 @@ public class News extends JPanel{
 	 		 */ hL.setBorder(new LineBorder(Color.WHITE));
 	 		 /* panel2.setBorder(new LineBorder(Color.RED));
 	 		 */
-	 		myWnd = new NewsDetailDg(0);
-	 		myWnd.setVisible(false);
 	    }
 		
 	    
@@ -235,16 +265,13 @@ public class News extends JPanel{
 	   	  
 	      }
 
-	    public String GetNewsTitle( int newsID ) {
-	        String res;
-	        res="移仓进行时" + newsID;   // 
-				return res;
-	    }
+		public static Date setFromDate() {
+			return fromDateIn.getDate();
+		}
 
 
-		//检索
-		public static void search(String keyword2, Date fD, Date tD) {
-			
+		public static Date setToDate() {
+			return toDateIn.getDate();
 		} 
 	    
 }
@@ -255,25 +282,20 @@ class NewsDetailDg extends JDialog{
 	 */
 	private static final long serialVersionUID = 5893692668956428617L;
 	
+	private DataInterface di;
 	private NewsDetailDg curdg = this;
 		 JLabel newsTitle,inv;
 		    JTextArea newsDetail;
 		    JPanel panel,panel2,panelbottom,conp;
 		    JButton closebtn;
 		    int newsID;
-		    String sNewsTitle = "移仓进行时",
-		    		snewsDetail = "    操作建议 国债期货昨日上涨,近期新一轮IPO将启动,对市场的资金将会" +
-		    				"产生影响,股指近期的横盘给予债券一定的机会。我们认为政策上的利多国债将会发挥一定的效应,此" +
-		    				"外,发改委官员称降息降准时机已到,我们预期后续政策依然偏松,体现托底保增长意图,国债中线存在机" +
-		    				"会做多,短期内如果经济数据并非一路走强,那么国债有望短期摸高震荡区间上沿。" +
-		    				"    20日，农畜产品多弱势，预计今日弱势；化工品除橡胶横盘外多弱势，预计今日弱势；金属" +
-		    				"除黑色弱势外多强势，预计今日偏强；能源类出铁矿偏弱外多横盘，预计今日弱势横盘；玻璃强除纤板" +
-		    				"偏弱外横盘，预计今日弱势；股指国债横盘，预计今日横盘；近期关注鸡蛋和塑料。（期货投资QQ群：102664812）"; 
+		    String sNewsTitle,
+		    		snewsDetail; 
 		    detailML dml;
 		    NewsDetailDg(int newsID){
-		        //super(sNewsTitle);
-
-		    	GetNews(newsID);
+		    	di = new DataInterfacePile();
+		    	sNewsTitle = di.GetNewsTitle(newsID);
+		    	snewsDetail = di.GetNewsContent(newsID);
 		    	//this.setModalityType(DEFAULT_MODALITY_TYPE);
 		    	setUndecorated(true);
 		    	setBackground(Color.WHITE);
@@ -310,6 +332,7 @@ class NewsDetailDg extends JDialog{
 		        
 		        panel2.add(newsDetail);
 		        closebtn = new JButton("关闭窗口");
+		        closebtn.setFocusPainted(false);
 		        closebtn.addMouseListener(dml);
 		        closebtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		        panelbottom.setPreferredSize(new Dimension(750,52));
@@ -323,10 +346,7 @@ class NewsDetailDg extends JDialog{
 		        add(conp);
 		        this.pack();
 		    }
-		    private void GetNews(int newsID) {
-				// TODO 自动生成的方法存根
-				
-			}
+		   
 			class detailML implements MouseListener{
 
 				@Override
@@ -353,8 +373,9 @@ class NewsDetailDg extends JDialog{
 //----------------------------事件响应-------------------------------//
 
 class MyMSL implements MouseListener {
-			
-			public void mousePressed(MouseEvent e){
+	  private DataInterface di;
+		
+	  public void mousePressed(MouseEvent e){
 				if(News.table.isRowSelected(0))
 			{
 					News.table.clearSelection();// 让第一行不可选
@@ -363,7 +384,7 @@ class MyMSL implements MouseListener {
 		    public void mouseReleased(MouseEvent e){
 		    	if(e.getSource() == News.table){
 		 	    	if(News.table.isRowSelected(0))News.table.clearSelection();// 让第一行不可选
-		 	    	for(int j = 1; j < News.table.getRowCount(); j++)
+		 	    	/*for(int j = 1; j < News.table.getRowCount(); j++)
 						{
 							if(News.table.isRowSelected(j))
 								{
@@ -377,18 +398,20 @@ class MyMSL implements MouseListener {
 								}
 			            	 
 						}
+						*/
 		    	}
 		    }
 		    public void mouseEntered(MouseEvent e){
-		    	News.table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		    	if(News.NewsNum > 0)News.table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		    }
 		    public void mouseExited(MouseEvent e){
-		    	News.table.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		    	if(News.NewsNum > 0)News.table.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		    	if(e.getSource() == News.table){
 		    		News.table.clearSelection();
 		    	}
 		    }
 		    public void mouseClicked(MouseEvent e){
+		    	di = new DataInterfacePile();
 		    	if(e.getSource() == News.table){
 		    		if(e.getClickCount() == 2 || e.getClickCount() == 1){
 		    	
@@ -402,20 +425,24 @@ class MyMSL implements MouseListener {
 										News.myWnd.setVisible(true);
 
 		 							}
-		 							News.table.clearSelection();// 让第一行不可选
+		 							News.table.clearSelection();// 
 		 						}
 		 	            	 
 		 				}
 		    		}	
-		    		else{}
+		    		else{News.table.clearSelection();// 
+		    		}
 		    	}
-		    	else	if(e.getSource() == News.b1){
+		    	else if(e.getSource() == News.b1){
 		    		News.preKeyword = News.keyword;
-		    		News.search( News.keyword, News.fD1, News.tD2);
 		    		News.keyword = News.text1.getText();
+		    		
+		    		News.fD1 = News.setFromDate();
+		    		News.tD2 = News.setToDate();
+		    		di.searchNews( News.keyword, News.fD1, News.tD2);
 		    	}
 		    	else if(e.getSource() == News.b2){
-		    		News.search( News.keyword, News.fD1, News.tD2);
+		    		di.searchNews( News.keyword, News.fD1, News.tD2);
 		    	}
 		    		
 		    }
@@ -424,7 +451,7 @@ class MyMSL implements MouseListener {
 class MyMML implements MouseMotionListener {
 	 	private	int index0,index1,mousey;
 		    public void mouseMoved(MouseEvent e){
-		    		if((mousey = e.getY()) >= 30){
+		    		if((mousey = e.getY()) >= 30 && News.NewsNum > 0){
 		    			News.table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		    		}
 		    		else{
@@ -434,7 +461,7 @@ class MyMML implements MouseMotionListener {
 		    			
 		    		index0 = mousey / 30 - 1;
 		    		index1 = index0 + 1;
-		    		if(index0 >= 0){
+		    		if(index0 >= 0 && News.NewsNum > 0){
 		    			News.table.setRowSelectionInterval(index0, index1);
 	  	    		 for (int i = 0; i < News.table.getColumnCount(); i++) {
 	  	    			News.table.getColumn(News.table.getColumnName(i)).setCellRenderer(News.tcr);
