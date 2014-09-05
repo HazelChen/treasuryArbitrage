@@ -17,6 +17,7 @@ public class MessContainer {
 	void ReadMess(int MessID){}
 	void DeleteMess(int MessID){}
 	
+	@SuppressWarnings("unused")
 	private class Message{
 		String info;	//简单信息
 		String time;	//消息时间
