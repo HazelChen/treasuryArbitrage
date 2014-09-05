@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
+import edu.nju.treasuryArbitrage.login.Login;
 import edu.nju.treasuryArbitrage.navigater.Navigater;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 import edu.nju.treasuryArbitrage.resources.TextResources;
@@ -18,7 +19,7 @@ public class TreasuryFrame extends JFrame{
 	
 	public TreasuryFrame() {
 		init();
-		assemble();
+//		assemble();
 	}
 
 	public void setPage(JPanel panel) {
@@ -33,20 +34,27 @@ public class TreasuryFrame extends JFrame{
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setTitle(TextResources.TITLE_CHS);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_WIDTH);
+		this.setSize(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
 		this.setLocation(0, 0);
 		this.setResizable(false);
 		
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 		factory.setFrame(this);
+		
+		Login login = new Login();
+		this.add(login);
+		login.assemble(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
 	}
 	
-	private void assemble() {
+	public void enterMainPage() {
+		this.getContentPane().removeAll();
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 		Navigater navigater = factory.getNavigater();
 		FuturesMarket market = factory.getFuturesMarket();
 		mainPage = market;
 		this.add(navigater, BorderLayout.NORTH);
 		this.add(mainPage, BorderLayout.CENTER);
+		this.getContentPane().repaint();
+		this.validate();
 	}
 }

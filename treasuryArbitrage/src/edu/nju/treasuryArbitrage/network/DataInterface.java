@@ -6,4 +6,5 @@ package edu.nju.treasuryArbitrage.network;
  */
 public interface DataInterface {
 
+	public boolean loginValidate(String username, String password);
 }
