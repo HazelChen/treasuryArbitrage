@@ -52,4 +52,23 @@ public class Record {
 	public void setToBuy(Arbitrage toBuy) {
 		this.toBuy = toBuy;
 	}
+	
+	//持有静态信息即可,内部类
+	public class Arbitrage {
+		String id;
+		double value;
+		
+		public String getId() {
+			return id;
+		}
+		public void setId(String id) {
+			this.id = id;
+		}
+		public double getValue() {
+			return value;
+		}
+		public void setValue(double value) {
+			this.value = value;
+		}
+	}
 }

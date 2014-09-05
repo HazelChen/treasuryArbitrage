@@ -7,8 +7,8 @@ public class Repository {
 	double guarantee;	//投入保证金
 	double profit;	//收益金额……方法计算得出
 
-	Arbitrage toSell;	//空头
-	Arbitrage toBuy;	//多头
+	Arb_detail toSell;	//空头
+	Arb_detail toBuy;	//多头
 	
 	public String getRepo_ID() {
 		return repo_ID;
@@ -40,16 +40,17 @@ public class Repository {
 	public void setProfit(double profit) {
 		this.profit = profit;
 	}
-	public Arbitrage getToSell() {
+	public Arb_detail getToSell() {
 		return toSell;
 	}
-	public void setToSell(Arbitrage toSell) {
+	public void setToSell(Arb_detail toSell) {
 		this.toSell = toSell;
 	}
-	public Arbitrage getToBuy() {
+	public Arb_detail getToBuy() {
 		return toBuy;
 	}
-	public void setToBuy(Arbitrage toBuy) {
+	public void setToBuy(Arb_detail toBuy) {
 		this.toBuy = toBuy;
 	}
+
 }
