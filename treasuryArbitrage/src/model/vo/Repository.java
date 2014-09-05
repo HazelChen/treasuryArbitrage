@@ -7,8 +7,8 @@ public class Repository {
 	double guarantee;	//投入保证金
 	double profit;	//收益金额……方法计算得出
 
-	Arbitrage toSell;	//多头
-	Arbitrage toBuy;	//空头
+	Arbitrage toSell;	//空头
+	Arbitrage toBuy;	//多头
 	
 	public String getRepo_ID() {
 		return repo_ID;

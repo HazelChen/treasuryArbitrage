@@ -1,7 +1,7 @@
 package model.vo;
 
 public class Record {
-	String repo_ID;	//持仓标记……………………我感觉蛮有必要
+	String reco_ID;	//记录标记……………………我感觉蛮有必要
 	String time;	//交易结束时间
 	int count;		//交易手数
 	double guarantee;	//投入保证金
@@ -11,10 +11,10 @@ public class Record {
 	Arbitrage toBuy;	//多头
 	
 	public String getRepo_ID() {
-		return repo_ID;
+		return reco_ID;
 	}
-	public void setRepo_ID(String repo_ID) {
-		this.repo_ID = repo_ID;
+	public void setRepo_ID(String reco_ID) {
+		this.reco_ID = reco_ID;
 	}
 	public String getTime() {
 		return time;
