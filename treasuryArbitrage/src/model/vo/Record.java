@@ -1,0 +1,55 @@
+package model.vo;
+
+public class Record {
+	String repo_ID;	//持仓标记……………………我感觉蛮有必要
+	String time;	//交易结束时间
+	int count;		//交易手数
+	double guarantee;	//投入保证金
+	String state;	//交易状态
+
+	Arbitrage toSell;	//空头
+	Arbitrage toBuy;	//多头
+	
+	public String getRepo_ID() {
+		return repo_ID;
+	}
+	public void setRepo_ID(String repo_ID) {
+		this.repo_ID = repo_ID;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public double getGuarantee() {
+		return guarantee;
+	}
+	public void setGuarantee(double guarantee) {
+		this.guarantee = guarantee;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public Arbitrage getToSell() {
+		return toSell;
+	}
+	public void setToSell(Arbitrage toSell) {
+		this.toSell = toSell;
+	}
+	public Arbitrage getToBuy() {
+		return toBuy;
+	}
+	public void setToBuy(Arbitrage toBuy) {
+		this.toBuy = toBuy;
+	}
+}
