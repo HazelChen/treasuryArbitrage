@@ -4,6 +4,8 @@ import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.network.DataInterfacePile;
 
 public class DataInterfaceFactory {
+	private static DataInterfaceFactory self = new DataInterfaceFactory();
+	
 	private DataInterfacePile pile;
 	
 	private DataInterfaceFactory() {}
@@ -13,5 +15,9 @@ public class DataInterfaceFactory {
 			pile = new DataInterfacePile();
 		}
 		return pile;
+	}
+	
+	public static DataInterfaceFactory getInstance() {
+		return self;
 	}
 }
