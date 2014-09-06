@@ -2,15 +2,15 @@ package vo;
 
 public class UserVO {
 	String userID;	//用户名
-	String state;	//登录状态……………………暂时先留着，不提供方法
+	boolean isAutoLogin;
 	
 	double max_prof;
 	double max_loss;
 	double max_guar;
 	
-	public UserVO(String userID,String state){
+	public UserVO(String userID,boolean isAutoLogin){
 		this.userID = userID;
-		this.state = state;
+		this.isAutoLogin = isAutoLogin;
 	}
 	
 	public String getUserID() {
@@ -19,11 +19,11 @@ public class UserVO {
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
-	public String getState() {
-		return state;
+	public boolean isAutoLogin() {
+		return isAutoLogin;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setAutoLogin(boolean isAutoLogin) {
+		this.isAutoLogin = isAutoLogin;
 	}
 	public double getMax_prof() {
 		return max_prof;
