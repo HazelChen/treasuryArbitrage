@@ -79,9 +79,9 @@ public class News extends JPanel{
 			pageNum=0;curPageNo=0;
 			
 			MaxNumPerpage = (int) (NumericalResources.SCREEN_HEIGHT - 180)/31;
-	    	jL1 = new JLabel("关键字",JLabel.CENTER);
-	 		jL2 = new JLabel("        起始日期",JLabel.CENTER);
-	 		jL3 = new JLabel("        截止日期",JLabel.CENTER);
+	    	jL1 = new JLabel("关键字",JLabel.CENTER);jL1.setForeground(Color.WHITE);
+	 		jL2 = new JLabel("        起始日期",JLabel.CENTER);jL2.setForeground(Color.WHITE);
+	 		jL3 = new JLabel("        截止日期",JLabel.CENTER);jL3.setForeground(Color.WHITE);
 	 		inv = new JLabel("    ");//占位
 	 		inv2 = new JLabel("    ");//占位
 	 		hlabel = new JLabel(" ",JLabel.CENTER);
@@ -95,7 +95,7 @@ public class News extends JPanel{
 	 		btnAllnews.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	 		bnp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	 		bpp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	 		text1 = new  JTextField(20);
+	 		text1 = new  JTextField(40);
 	 		
 	 		//cB1 = new JComboBox(p1);
 	 	    //cB2 = new JComboBox(p2);
@@ -131,7 +131,8 @@ public class News extends JPanel{
 	 	   DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 	       table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	 	    tableModel.addRow(colummnames);
-	 	   
+	 	   table.setIntercellSpacing(new Dimension(0,1));//修改单元格间隔，因此也将影响网格线的粗细。 
+	          table.setRowMargin   (0);//设置相邻两行单元格的距离
 	 	   //获取所有新闻标题等内容显示
 	 	   /*
 	 	   */
@@ -157,7 +158,7 @@ public class News extends JPanel{
 */	 	    
 		    setLayout(new BorderLayout());
 	 	    //setSize(960,580); 
-	 	    panel1.setBackground(sblue);
+	 	    panel1.setBackground(Color.DARK_GRAY);
 	 		panel1.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 40));
 	 		panel1.add(jL1);panel1.add(text1);
 	 		panel1.add(jL2);panel1.add(fromDateIn);
@@ -166,22 +167,22 @@ public class News extends JPanel{
 	 		panel1.add(inv);
 	 		panel1.add(b1);
 	        inv2.setPreferredSize(new Dimension(16, 1));
-	 		panel1.add(inv2);
+	 		//panel1.add(inv2);
 	        panel1.add(b2);
 	        //panel1.add(btnAllnews);
 	 		
 	 		hL.add(hlabel);
-	 		hL.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 3));
-	 		hL.setBackground(Color.WHITE);
-	 		hL.setBorder(new LineBorder(Color.WHITE,1));
-	 		
+	 		hL.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 1));
+	 		hL.setBackground(Color.darkGray);
+	 		hL.setBorder(new LineBorder(Color.darkGray,1));
+	 		hL.setVisible(false);
 	 		panel1.add(hL,BorderLayout.SOUTH);
 	 		bottomnavi.add(bpp);
 	 		bottomnavi.add(bnp);
 	 		
-	 		panel2.setBackground(Color.WHITE);
+	 		panel2.setBackground(Color.BLACK);
 	 		panel2.setPreferredSize(new Dimension(50, 680));
-	 		bottomnavi.setBackground(Color.WHITE);
+	 		bottomnavi.setBackground(Color.BLACK);
 	 		bottomnavi.setPreferredSize(new Dimension(100, 100));
 	 		panel2.setLayout(new BorderLayout());
 	 		panel2.setAlignmentX(CENTER_ALIGNMENT);
@@ -196,7 +197,8 @@ public class News extends JPanel{
 	 		 gridbag.setConstraints(panel1, c);
 	 		 c.gridheight=50;c.gridy ++;
 	 		 gridbag.setConstraints(panel2, c);*/
-	 		 
+	 		setForeground(Color.WHITE);
+	 		setBackground(Color.BLACK);
 	 		add(panel1,"North");
 	 		//add(hL);
 	 		add(panel2,"Center");
@@ -220,10 +222,10 @@ public class News extends JPanel{
 	      // table.getColumn(table.getColumnName(2)).setMaxWidth(569);
 	       table.getColumn(table.getColumnName(3)).setMinWidth(148);
 	       table.getColumn(table.getColumnName(3)).setMaxWidth(148);
-
+	       table.setSelectionBackground(Color.DARK_GRAY);
+	       table.setSelectionForeground(Color.white);
 	 	    
-	        try {
-	          tcr = new DefaultTableCellRenderer() {
+	          tcr = new DefaultTableCellRenderer(){
 	            /**
 				 * 
 				 */
@@ -231,24 +233,18 @@ public class News extends JPanel{
 
 				public Component getTableCellRendererComponent(JTable table,
 	                Object value, boolean isSelected, boolean hasFocus,
-	                int row, int column) {
-	              	
+	                int row, int column) {          	
 	              /*if (row % 2 == 0)
 	                setBackground(Color.white); //设置奇数行底色
 	              else if (row % 2 == 1)
 	                setBackground(new Color(206, 231, 255)); //设置偶数行底色
-	                */
-	              if(row == 0){
-	            	  setBackground(sblue);
-	              }
-	              else 
-	            	  setBackground(Color.white);
-	              if(isSelected){
-	            	  setBackground(sblue);
-	              }
-	                            
+	                */    
+	            	  setBackground(Color.black);
+		              if(column == 0){setForeground(Color.blue);}
+		              else{      	  setForeground(Color.gray);}
+			          if(row == 0){setForeground(Color.white);}
 	              setHorizontalAlignment(SwingConstants.CENTER);
-	              
+
 	              return super.getTableCellRendererComponent(table, value,
 	                  isSelected, hasFocus, row, column);
 	            }
@@ -256,12 +252,7 @@ public class News extends JPanel{
 	          for (int i = 0; i < table.getColumnCount(); i++) {
 	            table.getColumn(table.getColumnName(i)).setCellRenderer(tcr);
 	          }
-	        }
-	        catch (Exception ex) {
-	          ex.printStackTrace();
-	        }
-
-	   	  
+	             	  
 	      }
 
 		public static Date setFromDate() {
@@ -379,22 +370,26 @@ class NewsDetailDg extends JDialog{
 		        newsTitle = new JLabel(sNewsTitle);
 		        Font titlef=new Font("宋体",Font.BOLD,24);
 		        newsTitle.setFont(titlef);
+		        newsTitle.setForeground(Color.WHITE);
 		        inv = new JLabel("");
 		        inv.setPreferredSize(new Dimension(33, 1));
 		        //inv.setVisible(false);
 
 		        panel.setLayout(new BorderLayout());
 		        panel.setPreferredSize(new Dimension(750,52));
+		        panel.setBackground(Color.DARK_GRAY);
 		        panel.add(newsTitle,FlowLayout.LEFT);
 		        panel.add(inv,"West");
 		        
 		        panel2 = new JPanel();
 		        panel2.setSize(682,398);
+		        panel2.setBackground(Color.DARK_GRAY);
 		        newsDetail = new JTextArea(snewsDetail,25,62);
 		        newsDetail.setEditable(false);
 		        newsDetail.setLineWrap(true);
-		        newsDetail.setBorder(new LineBorder(Color.BLACK, 1));
-		        newsDetail.setBackground(Color.WHITE);
+		        newsDetail.setBorder(new LineBorder(Color.gray, 1));
+		        newsDetail.setBackground(Color.BLACK);
+		        newsDetail.setForeground(Color.WHITE);
 		        
 		        panel2.add(newsDetail);
 		        closebtn = new JButton("关闭窗口");
@@ -403,12 +398,14 @@ class NewsDetailDg extends JDialog{
 		        closebtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		        panelbottom.setPreferredSize(new Dimension(750,52));
 		        panelbottom.add(closebtn);
+		        panelbottom.setBackground(Color.DARK_GRAY);
 
 		        conp.setSize(720, 510);
 		        conp.setBorder(new LineBorder(Color.GRAY, 1));
 		        conp.add(panel,"North");
 		        conp.add(panel2,"Center");
 		        conp.add(panelbottom,"South");
+		        conp.setBackground(Color.DARK_GRAY);
 		        add(conp);
 		        this.pack();
 		    }
@@ -506,13 +503,16 @@ class MyMSL implements MouseListener {
 		    		News.tD2 = News.setToDate();
 		    		NewsBrief[] newsTable = di.searchNews( News.keyword, News.fD1, News.tD2);
 		 	 	   News.updateTable(newsTable);
+		    		News.newsTable = newsTable;
 		    	}
 		    	else if(e.getSource() == News.b2){
 			    		NewsBrief[] newsTable = di.GetALLNewsBrief();
 			    		News.updateTable(newsTable);
+			    		News.newsTable = newsTable;
 		    	}else if(e.getSource() == News.btnAllnews){
 		    		NewsBrief[] newsTable = di.GetALLNewsBrief();
 		    		News.updateTable(newsTable);
+		    		//News.newsTable = newsTable;
 		    	}
 		    	else if(e.getSource() == News.bnp){
 		    		News.nextpage(News.curPageNo);
@@ -539,9 +539,6 @@ class MyMML implements MouseMotionListener {
 		    		index1 = index0 + 1;
 		    		if(index0 >= 0 && News.NewsNum > 0){
 		    			News.table.setRowSelectionInterval(index0, index1);
-	  	    		 for (int i = 0; i < News.table.getColumnCount(); i++) {
-	  	    			News.table.getColumn(News.table.getColumnName(i)).setCellRenderer(News.tcr);
-	  	             }
 		    		}
 		    		
 		    }

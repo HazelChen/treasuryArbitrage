@@ -105,12 +105,12 @@ public class DataInterfacePile implements DataInterface{
 			*/
 			//test
 			num = 1;
-			res = new NewsBrief[num];
-	    	res[num - 1] = new NewsBrief(new Date(),"最后","一页的最后","一条");
 		}
 		
 		if(num > 0){
-	    	
+
+			res = new NewsBrief[num];
+	    	res[num - 1] = new NewsBrief(new Date(),"最后","一页的最后","一条");
 	    	return res;
 	    }
 		else{
