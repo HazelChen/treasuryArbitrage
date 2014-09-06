@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Label;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.resources.ColorResources;
@@ -35,5 +36,7 @@ public class Login extends JPanel{
 		this.setBackground(Color.BLACK);
 		this.setLayout(null);
 	}
+	
+	
 	
 }
