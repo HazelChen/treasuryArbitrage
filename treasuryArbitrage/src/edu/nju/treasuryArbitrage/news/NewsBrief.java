@@ -8,7 +8,8 @@ public class NewsBrief{
 	private Date date;
 	private String sdate;
 	private String src,title,author;
-	SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");//小写的mm表示的是分钟  
+	//DateFormat("yyyy/MM/dd");//小写的mm表示的是分钟  
+	
 	
 	public NewsBrief(){
 		this.setDate(null);
@@ -21,8 +22,8 @@ public class NewsBrief{
 		this.setDate(date);
 		this.setSdate();
 		this.setTitle(title);
-		this.setSrc(author);
 		this.setSrc(src);
+		this.setAuthor(author);
 	}
 	public Date getDate() {
 		return date;
@@ -52,6 +53,10 @@ public class NewsBrief{
 		return sdate;
 	}
 	public void setSdate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");  
+		if(this.date != null)this.sdate = sdf.format(this.date);
+		else this.sdate = "";
+		
 		//this.sdate = sdf.format(this.getDate());
 	}
 };

@@ -38,10 +38,11 @@ public class News extends JPanel{
 	private static final long serialVersionUID = -3044620398021541690L;
 	
 	private DataInterface di;
-	static int NewsNum = 0;
+	static int NewsNum,MaxNumPerpage,pageNum,curPageNo;
+	static NewsBrief[] newsTable;
 	 JLabel jL1,jL2,jL3,hlabel,inv,inv2;
 	 static JButton b1;
-	 static JButton b2;
+	 static JButton b2,btnAllnews;
 	 static JButton bnp,bpp;
 	 static JTextField text1;
 	 //JComboBox cB1,cB2;
@@ -51,11 +52,14 @@ public class News extends JPanel{
 
 	static JDateChooser toDateIn;
 	 
-	 JPanel panel1,panel2,bottomnavi,hL;
+	 JPanel panel1,panel2;
+
+	static JPanel bottomnavi;
+
+	JPanel hL;
 	 static String preKeyword = ""; //记录检索约束，待刷新使用
 	 static String keyword = "";
 	 static Date fD1;
-
 	 static Date tD2;
 	 static Color sblue = new Color(219, 231, 243);
 	 static JTable table;
@@ -70,19 +74,25 @@ public class News extends JPanel{
 		
 		public News(){	      
 			di = new DataInterfacePile();
+			NewsNum = 0;
+			MaxNumPerpage=0;
+			pageNum=0;curPageNo=0;
+			
+			MaxNumPerpage = (int) (NumericalResources.SCREEN_HEIGHT - 180)/31;
 	    	jL1 = new JLabel("关键字",JLabel.CENTER);
 	 		jL2 = new JLabel("        起始日期",JLabel.CENTER);
 	 		jL3 = new JLabel("        截止日期",JLabel.CENTER);
 	 		inv = new JLabel("    ");//占位
 	 		inv2 = new JLabel("    ");//占位
 	 		hlabel = new JLabel(" ",JLabel.CENTER);
-	 		b1 = new JButton("检索");    b1.setFocusPainted(false);
+	 		b1 = new JButton("搜索");    b1.setFocusPainted(false);
 	 		b2 = new JButton("刷新");    b2.setFocusPainted(false);
-	 		
+	 		btnAllnews = new JButton("所有新闻");    btnAllnews.setFocusPainted(false);
 	 		bnp = new JButton("下一页");  bnp.setFocusPainted(false);
 	 		bpp = new JButton("上一页");  bpp.setFocusPainted(false);
 	 		b1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	 		b2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	 		btnAllnews.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	 		bnp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	 		bpp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	 		text1 = new  JTextField(20);
@@ -125,23 +135,8 @@ public class News extends JPanel{
 	 	   //获取所有新闻标题等内容显示
 	 	   /*
 	 	   */
-	 	    NewsBrief[] newsTable = di.GetALLNewsBrief();
- 	    	NewsNum = newsTable.length;
-	 	    if(NewsNum == 0){
-	 	    	tableModel.addRow(new Object[]{"", "", "暂无新闻！",""}); 	
-	 	    }
-	 	    else{
-	 	    	for(int i = 1;i < News.table.getRowCount();i ++){
-	 	    		tableModel.removeRow(i);
-	 	    	} 
-	 	    	for(int j = 0;j < NewsNum;j ++){
-		 	    	tableModel.addRow(new Object[]{
-		 	    			newsTable[j].getSdate(),
-		 	    			newsTable[j].getSrc(),
-		 	    			newsTable[j].getTitle(),
-		 	    			newsTable[j].getAuthor()});
-	 	    	} 
-	 	    }
+	 	    newsTable = di.GetALLNewsBrief();
+	 	   updateTable(newsTable);
 	 	   //tableModel.addRow(new Object[]{"2014/08/16", "长江期货", "移仓进行时","李明宇"});
 	 	   
 	 	   //tableModel.removeRow(tableModel.getRowCount() - 1);
@@ -149,9 +144,11 @@ public class News extends JPanel{
 	 	text1.addActionListener(listener2ac);
 	    b1.addMouseListener(listener1ms);
 	    b2.addMouseListener(listener1ms);
+	    btnAllnews.addMouseListener(listener1ms);
 		 table.addMouseMotionListener(listener3mm);       
 		 table.addMouseListener(listener1ms);
-		 
+		 bpp.addMouseListener(listener1ms);
+		 bnp.addMouseListener(listener1ms);
 		/* GridBagLayout gridbag = new GridBagLayout();
          GridBagConstraints c = new GridBagConstraints();
          c.fill = GridBagConstraints.BOTH;
@@ -169,8 +166,9 @@ public class News extends JPanel{
 	 		panel1.add(inv);
 	 		panel1.add(b1);
 	        inv2.setPreferredSize(new Dimension(16, 1));
-	 		panel1.add(inv2);
+	 		//panel1.add(inv2);
 	        panel1.add(b2);
+	        panel1.add(btnAllnews);
 	 		
 	 		hL.add(hlabel);
 	 		hL.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 3));
@@ -189,7 +187,8 @@ public class News extends JPanel{
 	 		panel2.setAlignmentX(CENTER_ALIGNMENT);
 	 		panel2.add(table,"North");
 	 		panel2.add(bottomnavi,"South");
-	 		
+	 		if(pageNum > 1) bottomnavi.setVisible(true);
+	 		else bottomnavi.setVisible(false);
 	 		/*c.anchor = GridBagConstraints.NORTH;
 	 		c.gridx = 0;c.gridy = 0;
 	         c.gridheight=1;
@@ -273,7 +272,74 @@ public class News extends JPanel{
 		public static Date setToDate() {
 			return toDateIn.getDate();
 		} 
-	    
+		
+		public static void updateTable(NewsBrief[] newsTable){
+			if(newsTable == null){
+		 		   NewsNum = 0;
+		 	   }
+		 	   else {
+		 	    	NewsNum = newsTable.length;
+		 	   }
+			 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+	 	    	for(int i = 1;i < table.getRowCount();){
+	 	    		tableModel.removeRow(i);
+	 	    	} 
+	 	    	
+		 	    if(NewsNum == 0){
+		 	    	tableModel.addRow(new Object[]{"", "", "暂无新闻！",""}); 	
+		 	    	bottomnavi.setVisible(false);
+		 	    }
+		 	    else{
+		 	    	pageNum = NewsNum / (MaxNumPerpage) + 1;
+		 	    	if(pageNum > 1) curPageNo = 1;
+		 	    	for(int j = 0;j < NewsNum && j < MaxNumPerpage;j ++){
+			 	    	tableModel.addRow(new Object[]{
+			 	    			newsTable[j].getSdate(),
+			 	    			newsTable[j].getSrc(),
+			 	    			newsTable[j].getTitle(),
+			 	    			newsTable[j].getAuthor()});
+		 	    	} 
+		 	    	if(pageNum > 1) bottomnavi.setVisible(true);
+			 		else bottomnavi.setVisible(false);
+		 	    }
+		}
+		
+		public static void nextpage(int curPage){
+			DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+
+			if(curPage < News.pageNum && NewsNum > 0){
+				for(int i = 1;i < table.getRowCount();){
+	 	    		tableModel.removeRow(i);
+	 	    	} 
+	 	    	for(int j = (curPage)*MaxNumPerpage;j < NewsNum && j < MaxNumPerpage*(curPage + 1);j ++){
+		 	    	tableModel.addRow(new Object[]{
+		 	    			newsTable[j].getSdate(),
+		 	    			newsTable[j].getSrc(),
+		 	    			newsTable[j].getTitle(),
+		 	    			newsTable[j].getAuthor()});
+	 	    	} 
+	 	    	News.curPageNo ++;
+			}
+		}
+		
+		public static void prepage(int curPage){
+			DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+
+			if(curPage > 1 && NewsNum > 0){
+				for(int i = 1;i < table.getRowCount();){
+	 	    		tableModel.removeRow(i);
+	 	    	} 
+				curPage --;
+	 	    	News.curPageNo --;
+	 	    	for(int j = (curPage - 1)*MaxNumPerpage;j < NewsNum && j < MaxNumPerpage*curPage;j ++){
+		 	    	tableModel.addRow(new Object[]{
+		 	    			newsTable[j].getSdate(),
+		 	    			newsTable[j].getSrc(),
+		 	    			newsTable[j].getTitle(),
+		 	    			newsTable[j].getAuthor()});
+	 	    	} 
+			}
+		}
 }
 
 class NewsDetailDg extends JDialog{
@@ -402,10 +468,9 @@ class MyMSL implements MouseListener {
 		    	}
 		    }
 		    public void mouseEntered(MouseEvent e){
-		    	if(News.NewsNum > 0)News.table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		    
 		    }
 		    public void mouseExited(MouseEvent e){
-		    	if(News.NewsNum > 0)News.table.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		    	if(e.getSource() == News.table){
 		    		News.table.clearSelection();
 		    	}
@@ -439,10 +504,27 @@ class MyMSL implements MouseListener {
 		    		
 		    		News.fD1 = News.setFromDate();
 		    		News.tD2 = News.setToDate();
-		    		di.searchNews( News.keyword, News.fD1, News.tD2);
+		    		NewsBrief[] newsTable = di.searchNews( News.keyword, News.fD1, News.tD2);
+		 	 	   News.updateTable(newsTable);
 		    	}
 		    	else if(e.getSource() == News.b2){
-		    		di.searchNews( News.keyword, News.fD1, News.tD2);
+		    		if(News.keyword.equals("")
+		    				&& News.fD1 == null
+		    				&& News.tD2 == null){
+		    			News.updateTable(News.newsTable);
+		    		}else{
+			    		NewsBrief[] newsTable = di.searchNews( News.keyword, News.fD1, News.tD2);
+			    		News.updateTable(newsTable);
+		    		}
+		    	}else if(e.getSource() == News.btnAllnews){
+		    		NewsBrief[] newsTable = di.GetALLNewsBrief();
+		    		News.updateTable(newsTable);
+		    	}
+		    	else if(e.getSource() == News.bnp){
+		    		News.nextpage(News.curPageNo);
+		    	}
+		    	else if(e.getSource() == News.bpp){		    		
+		    		News.prepage(News.curPageNo);
 		    	}
 		    		
 		    }

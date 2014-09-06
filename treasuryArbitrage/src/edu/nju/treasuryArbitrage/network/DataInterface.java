@@ -12,7 +12,7 @@ import edu.nju.treasuryArbitrage.news.NewsBrief;
 public interface DataInterface {
 	/**
 	 * 
-	 * 获取所有新闻标题以用于列表显示在新闻界面
+	 * 获取所有新闻概要以用于列表显示在新闻界面，根据时间从新到旧排序
 	 * 
 	 */
 	public NewsBrief[] GetALLNewsBrief();
