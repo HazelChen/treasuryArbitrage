@@ -9,6 +9,16 @@ public class PersonalCenter extends JPanel{
 	
 	public PersonalCenter() {
 		this.setBackground(Color.PINK);
+		init();
+	}
+	
+	private MessageCenter messageCenter;
+	private JPanel settingPanel;
+	private JPanel historyRecord;
+	
+	
+	private void init(){
+		
 	}
 
 }
