@@ -5,9 +5,11 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import edu.nju.treasuryArbitrage.PersonalCenter.Login;
+import edu.nju.treasuryArbitrage.PersonalCenter.LoginStateRecorder;
+import edu.nju.treasuryArbitrage.PersonalCenter.UserInfo;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
-import edu.nju.treasuryArbitrage.login.Login;
 import edu.nju.treasuryArbitrage.navigater.Navigater;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 import edu.nju.treasuryArbitrage.resources.TextResources;
@@ -41,9 +43,17 @@ public class TreasuryFrame extends JFrame{
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 		factory.setFrame(this);
 		
-		Login login = new Login();
-		this.add(login);
-		login.assemble(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
+		LoginStateRecorder stateRecorder = new LoginStateRecorder();
+		boolean isAutoLogin = stateRecorder.isAutoLogin();
+		if (isAutoLogin) {
+			enterMainPage();
+			UserInfo userInfo = stateRecorder.getRememberedUser();
+			LoginedUser.setLoginedUser(userInfo.getUsername());
+		} else {
+			Login login = new Login();
+			this.add(login);
+			login.assemble(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
+		}
 	}
 	
 	public void enterMainPage() {
