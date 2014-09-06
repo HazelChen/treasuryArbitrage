@@ -8,6 +8,7 @@ import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfacePile implements DataInterface{
 
+
 	public NewsBrief[] GetALLNewsBrief() {
 		int num = 0;
 	    NewsBrief[] res = null;
@@ -114,6 +115,15 @@ public class DataInterfacePile implements DataInterface{
 	    }
 		else{
 			return null;
+			}
+	}
+
+	@Override
+	public boolean loginValidate(String username, String password) {
+		if (username.equals("123") && password.equals("123")) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

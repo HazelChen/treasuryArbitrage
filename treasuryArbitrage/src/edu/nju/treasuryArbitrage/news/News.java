@@ -166,9 +166,9 @@ public class News extends JPanel{
 	 		panel1.add(inv);
 	 		panel1.add(b1);
 	        inv2.setPreferredSize(new Dimension(16, 1));
-	 		//panel1.add(inv2);
+	 		panel1.add(inv2);
 	        panel1.add(b2);
-	        panel1.add(btnAllnews);
+	        //panel1.add(btnAllnews);
 	 		
 	 		hL.add(hlabel);
 	 		hL.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 3));
@@ -508,14 +508,8 @@ class MyMSL implements MouseListener {
 		 	 	   News.updateTable(newsTable);
 		    	}
 		    	else if(e.getSource() == News.b2){
-		    		if(News.keyword.equals("")
-		    				&& News.fD1 == null
-		    				&& News.tD2 == null){
-		    			News.updateTable(News.newsTable);
-		    		}else{
-			    		NewsBrief[] newsTable = di.searchNews( News.keyword, News.fD1, News.tD2);
+			    		NewsBrief[] newsTable = di.GetALLNewsBrief();
 			    		News.updateTable(newsTable);
-		    		}
 		    	}else if(e.getSource() == News.btnAllnews){
 		    		NewsBrief[] newsTable = di.GetALLNewsBrief();
 		    		News.updateTable(newsTable);

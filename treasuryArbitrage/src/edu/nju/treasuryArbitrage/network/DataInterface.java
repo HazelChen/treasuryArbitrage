@@ -38,4 +38,6 @@ public interface DataInterface {
 	 */
 	public NewsBrief[] searchNews(String keyword, Date fD, Date tD);
 	
+
+	public boolean loginValidate(String username, String password);
 }
