@@ -21,7 +21,6 @@ public class TreasuryFrame extends JFrame{
 	
 	public TreasuryFrame() {
 		init();
-//		assemble();
 	}
 
 	public void setPage(JPanel panel) {
@@ -46,14 +45,21 @@ public class TreasuryFrame extends JFrame{
 		LoginStateRecorder stateRecorder = new LoginStateRecorder();
 		boolean isAutoLogin = stateRecorder.isAutoLogin();
 		if (isAutoLogin) {
-			enterMainPage();
 			UserInfo userInfo = stateRecorder.getRememberedUser();
 			LoginedUser.setLoginedUser(userInfo.getUsername());
+			enterMainPage();
 		} else {
-			Login login = new Login();
-			this.add(login);
-			login.assemble(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
+			enterLogin();
 		}
+	}
+	
+	public void enterLogin() {
+		this.getContentPane().removeAll();
+		Login login = new Login();
+		this.add(login);
+		login.assemble(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
+		this.getContentPane().repaint();
+		this.validate();
 	}
 	
 	public void enterMainPage() {
