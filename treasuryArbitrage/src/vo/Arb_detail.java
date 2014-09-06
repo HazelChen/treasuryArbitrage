@@ -2,7 +2,6 @@ package vo;
 
 //这个类需要修改
 public class Arb_detail {
-	String treasuryID;			//序号
 	String symbol;				//代码
 	String name;				//名称
 	double presentPrice;		//现价
