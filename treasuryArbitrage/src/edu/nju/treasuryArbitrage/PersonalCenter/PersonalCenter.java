@@ -12,7 +12,7 @@ public class PersonalCenter extends JPanel{
 		init();
 	}
 	
-	private MessageCenter messageCenter;
+//	private MessageCenter messageCenter;
 	private JPanel settingPanel;
 	private JPanel historyRecord;
 	
