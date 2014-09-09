@@ -13,9 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -25,20 +23,16 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.RowSorter;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
 
-import com.toedter.calendar.*;
+import com.toedter.calendar.JDateChooser;
 
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.network.DataInterfacePile;
+import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
 public class News extends JPanel{
 	private static final long serialVersionUID = -3044620398021541690L;
@@ -135,8 +129,6 @@ public class News extends JPanel{
 	    	
 	 	   makeFace(table);
 	 	   DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-		 	 RowSorter sorter = new TableRowSorter(tableModel);  
-		 	 table.setRowSorter(sorter);
 	       table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	 	    tableModel.addRow(colummnames);
 	 	   table.setIntercellSpacing(new Dimension(0,1));//修改单元格间隔，因此也将影响网格线的粗细。 

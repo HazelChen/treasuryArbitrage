@@ -149,7 +149,11 @@ public class DataInterfacePile implements DataInterface{
 	@Override
 	public ArrayList<Finance> getFinanceList() {
 		// TODO 自动生成的方法存根
-		return null;
+		ArrayList<Finance> RES;
+		RES =new ArrayList<Finance>();
+		RES.add(new Finance("2014-7-15",20000,10000,10000));
+		RES.add(new Finance("2014-7-18",30000,10000,20000));
+		return RES;
 	}
 
 	@Override
@@ -184,8 +188,17 @@ public class DataInterfacePile implements DataInterface{
 
 	@Override
 	public ArrayList<Record> getRecordList() {
-		// TODO 自动生成的方法存根
-		return null;
+		ArrayList<Record> RES;
+		Record r= new Record();
+		
+		r.setCount(3);r.setGuarantee(10000);
+		r.setRepo_ID("1");r.setTime("2014-08-25");
+		r.setToBuy(null);r.setToSell(null);
+		RES =new ArrayList<Record>();
+		
+		RES.add(r);
+		RES.add(r);
+		return RES;
 	}
 
 	@Override
