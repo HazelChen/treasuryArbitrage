@@ -18,13 +18,13 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
-	public String GetNewsTitle(int NewsID) {
+	public String GetNewsTitle(String NewsID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String GetNewsContent(int NewsID) {
+	public String GetNewsContent(String NewsID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
