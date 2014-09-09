@@ -25,7 +25,7 @@ public class DataInterfacePile implements DataInterface{
 	    
 		
 		
-		//--------------------获取后台所有新闻概要------------
+		//--------------------获取后台所有新闻概要, order by date desc------------
 		
 		
 		//test
@@ -43,13 +43,10 @@ public class DataInterfacePile implements DataInterface{
 	    if(num > 0){
 	    	res = new NewsBrief[num];
 	    	for(int i = 0;i < num; i++){
-	    		res[i] = new NewsBrief(date,src,title,author);
+	    		date.setDate(i + 1);
+	    		res[i] = new NewsBrief(String.valueOf(i),date,src,title,author);
 	    	}
 	    	
-	    	//test
-	    	res[num - 1] = new NewsBrief(new Date(),"最后","一页的最后","一条");
-	    	
-	    	//--------------排序----------------
 	    	
 	    	return res;
 	    }
@@ -60,14 +57,14 @@ public class DataInterfacePile implements DataInterface{
 		}
 	}
 
-	public String GetNewsTitle(int NewsID) {
+	public String GetNewsTitle(String NewsID) {
 	    //test
 		String str = "移仓进行时11";
 		
 		return str;
 	}
 
-	public String GetNewsContent(int NewsID) {
+	public String GetNewsContent(String NewsID) {
 
 	    //test
 		String str = "操作建议    \r\n"
@@ -110,7 +107,7 @@ public class DataInterfacePile implements DataInterface{
 		if(num > 0){
 
 			res = new NewsBrief[num];
-	    	res[num - 1] = new NewsBrief(new Date(),"最后","一页的最后","一条");
+	    	res[num - 1] = new NewsBrief("98",new Date(),"查询","结果","一条");
 	    	return res;
 	    }
 		else{

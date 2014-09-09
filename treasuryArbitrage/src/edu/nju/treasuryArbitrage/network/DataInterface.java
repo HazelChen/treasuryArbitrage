@@ -22,14 +22,14 @@ public interface DataInterface {
 	 * 根据ID获取新闻标题；；
 	 * 
 	 */
-	public String GetNewsTitle(int NewsID);
+	public String GetNewsTitle(String newsID);
 	
 	/**
 	 * 
 	 * 根据ID获取新闻详细内容；
 	 * 
 	 */
-	public String GetNewsContent(int NewsID);
+	public String GetNewsContent(String NewsID);
 	
 	/**
 	 * 
