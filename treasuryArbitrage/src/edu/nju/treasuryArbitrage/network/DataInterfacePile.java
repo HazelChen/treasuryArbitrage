@@ -8,6 +8,7 @@ import java.util.Date;
 import vo.Finance;
 import vo.Message;
 import vo.Record;
+import vo.Repository;
 import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfacePile implements DataInterface{
@@ -157,9 +158,21 @@ public class DataInterfacePile implements DataInterface{
 	}
 
 	@Override
-	public ArrayList<Finance> getRepoList() {
+	public ArrayList<Repository> getRepoList() {
 		// TODO 自动生成的方法存根
-		return null;
+		ArrayList<Repository> res = new ArrayList<Repository>();
+		
+		Repository e = new Repository();
+		e.setCount(4);
+		e.setGuarantee(20000);
+		e.setRepo_ID("1");
+		e.setProfit(10000);
+		e.setTime("2014-7-25");
+		e.setToBuy("TF1409");
+		e.setToSell("TF1412");
+		
+		res.add(e);
+		return res;
 	}
 
 	@Override

@@ -66,7 +66,7 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
-	public ArrayList<Finance> getRepoList() {
+	public ArrayList<Repository> getRepoList() {
 		// TODO 自动生成的方法存根
 		return null;
 	}

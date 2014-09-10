@@ -14,12 +14,15 @@ import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 
+import vo.Record;
+import vo.Repository;
+
 public class MyTableEditor implements TableCellEditor {
 	private JPanel panel;
 
     private JTable table;
     
-    public MyTableEditor() {
+    public MyTableEditor(Repository repo) {
         initTable();
 
         initPanel();
