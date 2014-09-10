@@ -181,7 +181,7 @@ public class MessageCenter extends JPanel{
 		return table;
 	}
 	
-	/*public static void main (String[] args) {
+	public static void main (String[] args) {
 		JFrame jFrame = new JFrame();
 		MessageCenter jPanel = new MessageCenter();
 		jFrame.add(jPanel);
@@ -189,7 +189,7 @@ public class MessageCenter extends JPanel{
 		jFrame.setVisible(true);
 		jFrame.repaint();
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}*/
+	}
 	
 
 
