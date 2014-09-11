@@ -18,13 +18,13 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
-	public String GetNewsTitle(int NewsID) {
+	public String GetNewsTitle(String NewsID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String GetNewsContent(int NewsID) {
+	public String GetNewsContent(String NewsID) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -66,7 +66,7 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
-	public ArrayList<Finance> getRepoList() {
+	public ArrayList<Repository> getRepoList() {
 		// TODO 自动生成的方法存根
 		return null;
 	}
