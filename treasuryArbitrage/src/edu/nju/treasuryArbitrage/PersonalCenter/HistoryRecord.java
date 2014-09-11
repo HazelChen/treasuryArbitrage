@@ -187,7 +187,7 @@ public class HistoryRecord extends JPanel {
 		setBackground(Color.BLACK);
 	}
 
-	public static void main (String[] args) {
+	/*public static void main (String[] args) {
 		JFrame jFrame = new JFrame();
 		JPanel jPanel = new HistoryRecord();
 		jFrame.add(jPanel);
@@ -195,7 +195,7 @@ public class HistoryRecord extends JPanel {
 		jFrame.setVisible(true);
 		jFrame.repaint();
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+	}*/
 
 }
 
