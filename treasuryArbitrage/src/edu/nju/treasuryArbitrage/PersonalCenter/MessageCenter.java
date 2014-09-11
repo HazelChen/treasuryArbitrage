@@ -38,10 +38,10 @@ public class MessageCenter extends JPanel{
 	private void init(){
 		setBackground(Color.BLACK);
 		setLayout(null);
-		icon = new ImageIcon("C:\\Users\\Administrator\\Desktop\\icon.jpg");
-		icon1 = new ImageIcon("C:\\Users\\Administrator\\Desktop\\icon2.jpg");
-		icon2 = new ImageIcon("C:\\Users\\Administrator\\Desktop\\icon3.jpg");
-		icon3 = new ImageIcon("C:\\Users\\Administrator\\Desktop\\icon4.jpg");
+		icon = new ImageIcon("image/icon.jpg");
+		icon1 = new ImageIcon("image/icon2.jpg");
+		icon2 = new ImageIcon("image/icon3.jpg");
+		icon3 = new ImageIcon("image/icon4.jpg");
 		bxJLabel = new JLabel(icon);
 		bxJLabel.setSize(100,100);
 		add(bxJLabel);
@@ -64,7 +64,7 @@ public class MessageCenter extends JPanel{
 		add(table);
 		table.setBounds(0,45, 600,200);
 		
-		JButton deleteButton = new JButton(new ImageIcon("C:\\Users\\Administrator\\Desktop\\É¾³ý.jpg"));
+		JButton deleteButton = new JButton(new ImageIcon("image/É¾³ý.jpg"));
 		add(deleteButton);
 		
 		deleteButton.setBounds(80, 20, 40, 25);
@@ -181,7 +181,7 @@ public class MessageCenter extends JPanel{
 		return table;
 	}
 	
-	/*public static void main (String[] args) {
+	public static void main (String[] args) {
 		JFrame jFrame = new JFrame();
 		MessageCenter jPanel = new MessageCenter();
 		jFrame.add(jPanel);
@@ -189,7 +189,7 @@ public class MessageCenter extends JPanel{
 		jFrame.setVisible(true);
 		jFrame.repaint();
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}*/
+	}
 	
 
 
