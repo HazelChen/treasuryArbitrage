@@ -28,11 +28,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import com.toedter.calendar.*;
+import com.toedter.calendar.JDateChooser;
 
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.network.DataInterfacePile;
+import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
 public class News extends JPanel{
 	private static final long serialVersionUID = -3044620398021541690L;
@@ -64,7 +64,7 @@ public class News extends JPanel{
 	 static Color sblue = new Color(219, 231, 243);
 	 static JTable table;
 	 static DefaultTableCellRenderer tcr;
-	 static Object colummnames[]={"时间","来源","标题","作者"};
+	 static Object colummnames[]={"ID","时间","来源","标题","作者"};//ID列被隐藏
 	 static NewsDetailDg myWnd;
 
 	 static NumericalResources Numbers;
@@ -113,8 +113,8 @@ public class News extends JPanel{
 	 		panel2 = new JPanel();
 	 		bottomnavi = new JPanel();
 	 		hL = new JPanel();
-	 		
-	 	    table = new JTable(0,4){
+
+	 	    table = new JTable(0,5){
 	            /**
 				 * 
 				 */
@@ -132,16 +132,16 @@ public class News extends JPanel{
 	       table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	 	    tableModel.addRow(colummnames);
 	 	   table.setIntercellSpacing(new Dimension(0,1));//修改单元格间隔，因此也将影响网格线的粗细。 
-	          table.setRowMargin   (0);//设置相邻两行单元格的距离
+	          table.setRowMargin(0);//设置相邻两行单元格的距离
 	 	   //获取所有新闻标题等内容显示
 	 	   /*
 	 	   */
-	 	    newsTable = di.GetALLNewsBrief();
+	 	    newsTable = di.GetALLNewsBrief();//接收已将按照时间排好顺序的结果
 	 	   updateTable(newsTable);
 	 	   //tableModel.addRow(new Object[]{"2014/08/16", "长江期货", "移仓进行时","李明宇"});
 	 	   
 	 	   //tableModel.removeRow(tableModel.getRowCount() - 1);
-	 	 
+	 	   
 	 	text1.addActionListener(listener2ac);
 	    b1.addMouseListener(listener1ms);
 	    b2.addMouseListener(listener1ms);
@@ -214,14 +214,18 @@ public class News extends JPanel{
 	    
 	    public static void makeFace(JTable table) {
 	 	   table.setRowHeight(30);
-	       table.getColumn(table.getColumnName(0)).setMinWidth(121);
-	       table.getColumn(table.getColumnName(0)).setMaxWidth(121);
+	 	   table.getColumn(table.getColumnName(0)).setMinWidth(0);
+	       table.getColumn(table.getColumnName(0)).setMaxWidth(0);
+	       table.getColumn(table.getColumnName(0)).setPreferredWidth(0);
+	       table.getColumn(table.getColumnName(0)).setResizable(false);//隐藏第一列
 	       table.getColumn(table.getColumnName(1)).setMinWidth(121);
-	       table.getColumn(table.getColumnName(1)).setMaxWidth(122);
-	       table.getColumn(table.getColumnName(2)).setMinWidth(569);
+	       table.getColumn(table.getColumnName(1)).setMaxWidth(121);
+	       table.getColumn(table.getColumnName(2)).setMinWidth(121);
+	       table.getColumn(table.getColumnName(2)).setMaxWidth(122);
+	       table.getColumn(table.getColumnName(3)).setMinWidth(569);
 	      // table.getColumn(table.getColumnName(2)).setMaxWidth(569);
-	       table.getColumn(table.getColumnName(3)).setMinWidth(148);
-	       table.getColumn(table.getColumnName(3)).setMaxWidth(148);
+	       table.getColumn(table.getColumnName(4)).setMinWidth(148);
+	       table.getColumn(table.getColumnName(4)).setMaxWidth(148);
 	       table.setSelectionBackground(Color.DARK_GRAY);
 	       table.setSelectionForeground(Color.white);
 	 	    
@@ -240,7 +244,7 @@ public class News extends JPanel{
 	                setBackground(new Color(206, 231, 255)); //设置偶数行底色
 	                */    
 	            	  setBackground(Color.black);
-		              if(column == 0){setForeground(Color.blue);}
+		              if(column == 1){setForeground(Color.blue);}
 		              else{      	  setForeground(Color.gray);}
 			          if(row == 0){setForeground(Color.white);}
 	              setHorizontalAlignment(SwingConstants.CENTER);
@@ -277,7 +281,7 @@ public class News extends JPanel{
 	 	    	} 
 	 	    	
 		 	    if(NewsNum == 0){
-		 	    	tableModel.addRow(new Object[]{"", "", "暂无新闻！",""}); 	
+		 	    	tableModel.addRow(new Object[]{"","", "", "暂无新闻！",""}); 	
 		 	    	bottomnavi.setVisible(false);
 		 	    }
 		 	    else{
@@ -285,6 +289,7 @@ public class News extends JPanel{
 		 	    	if(pageNum > 1) curPageNo = 1;
 		 	    	for(int j = 0;j < NewsNum && j < MaxNumPerpage;j ++){
 			 	    	tableModel.addRow(new Object[]{
+			 	    			newsTable[j].newsID,
 			 	    			newsTable[j].getSdate(),
 			 	    			newsTable[j].getSrc(),
 			 	    			newsTable[j].getTitle(),
@@ -293,6 +298,10 @@ public class News extends JPanel{
 		 	    	if(pageNum > 1) bottomnavi.setVisible(true);
 			 		else bottomnavi.setVisible(false);
 		 	    }
+		}
+		
+		public static String getNewsID(int Rsel){
+			return (String) table.getValueAt(Rsel, 0);
 		}
 		
 		public static void nextpage(int curPage){
@@ -304,6 +313,7 @@ public class News extends JPanel{
 	 	    	} 
 	 	    	for(int j = (curPage)*MaxNumPerpage;j < NewsNum && j < MaxNumPerpage*(curPage + 1);j ++){
 		 	    	tableModel.addRow(new Object[]{
+		 	    			newsTable[j].newsID,
 		 	    			newsTable[j].getSdate(),
 		 	    			newsTable[j].getSrc(),
 		 	    			newsTable[j].getTitle(),
@@ -324,6 +334,7 @@ public class News extends JPanel{
 	 	    	News.curPageNo --;
 	 	    	for(int j = (curPage - 1)*MaxNumPerpage;j < NewsNum && j < MaxNumPerpage*curPage;j ++){
 		 	    	tableModel.addRow(new Object[]{
+		 	    			newsTable[j].newsID,
 		 	    			newsTable[j].getSdate(),
 		 	    			newsTable[j].getSrc(),
 		 	    			newsTable[j].getTitle(),
@@ -331,6 +342,8 @@ public class News extends JPanel{
 	 	    	} 
 			}
 		}
+
+		
 }
 
 class NewsDetailDg extends JDialog{
@@ -345,13 +358,17 @@ class NewsDetailDg extends JDialog{
 		    JTextArea newsDetail;
 		    JPanel panel,panel2,panelbottom,conp;
 		    JButton closebtn;
-		    int newsID;
-		    String sNewsTitle,
+		    int RowSel;
+		    String sNewsTitle,newsID,
 		    		snewsDetail; 
 		    detailML dml;
-		    NewsDetailDg(int newsID){
+		    NewsDetailDg(int Rsel){
 		    	di = new DataInterfacePile();
-		    	sNewsTitle = di.GetNewsTitle(newsID);
+		    	RowSel = Rsel;
+		    	newsID = News.getNewsID(RowSel);
+		    	sNewsTitle = di.GetNewsTitle(newsID)/* test  String
+		    			+ " ID=" + String.valueOf(newsID)
+		    			+ "  "+ News.table.getValueAt(Rsel, 1).toString() */;
 		    	snewsDetail = di.GetNewsContent(newsID);
 		    	//this.setModalityType(DEFAULT_MODALITY_TYPE);
 		    	setUndecorated(true);
