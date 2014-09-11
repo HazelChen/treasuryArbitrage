@@ -1,6 +1,7 @@
 package edu.nju.treasuryArbitrage.PersonalCenter;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -36,7 +37,7 @@ public class ModifyPasswd extends JPanel{
 		
 		setLayout(null);
 		setBackground(Color.BLACK);
-		setSize(400, 400);
+		setPreferredSize(new Dimension(400, 400));
 		add(confirmJLabel);
 		add(confirmJTextField);
 		add(confirmation);

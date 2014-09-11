@@ -1,11 +1,11 @@
 package edu.nju.treasuryArbitrage.PersonalCenter;
 
+import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class SettingStopParameters extends JFrame{
@@ -43,8 +43,7 @@ public class SettingStopParameters extends JFrame{
 		add(title);
 		add(confirmation);
 		
-		setSize(600,400);
-		
+		setPreferredSize(new Dimension(600, 400));
 		
 		title.setFont(new  Font("Dialog",1,30));
 		title.setBounds(200, 20, 200, 50);

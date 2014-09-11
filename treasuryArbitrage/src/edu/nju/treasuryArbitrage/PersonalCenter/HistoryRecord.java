@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,14 +16,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 public class HistoryRecord extends JPanel {
 	private static final long serialVersionUID = -4056530132719983788L;
 	Object[][] data = null;
-	/*
-	 * We create an Array String to hold the name of the main table columns In
-	 * this example case we are going to store a contact name, his email
-	 * address(es) and his phone numer(s) We’re also going to store the creation
-	 * date.
-	 */
 	String[] columns ={ "套利组合信息", "交易时间", "交易手数", "投入保证金", "交易状态" };
 	JTable jTableData;
+	JScrollPane jScrollPane;
 	
 	public Object[][] getData(){
 		data = new Object[4][columns.length];
@@ -56,6 +50,18 @@ public class HistoryRecord extends JPanel {
 	}
 
 	public HistoryRecord() {
+		init();
+	}
+	public HistoryRecord(int w,int h) {
+		init();
+		if(jTableData.getRowCount()*60+38<h){
+			jScrollPane.setBounds(0, 0, w, jTableData.getRowCount()*60+38);
+		}else{
+			jScrollPane.setBounds(0, 0, w, h);
+		}
+	}
+	
+	private void init(){
 		jTableData = new JTable();
 		data = getData();
 		AbstractTableModel modelo = new AbstractTableModel(){
@@ -179,23 +185,18 @@ public class HistoryRecord extends JPanel {
 		column5.setMinWidth(140);*/
 		setLayout(null);
 		jTableData.setBackground(Color.BLACK);
-		JScrollPane jScrollPane=new JScrollPane(jTableData);
+		jScrollPane=new JScrollPane(jTableData);
 		jScrollPane.setBackground(Color.BLACK);
 		add(jScrollPane);
-		jScrollPane.setBounds(0, 0, 980, jTableData.getRowCount()*60+38);
-		setSize(980, 400);
+		if(jTableData.getRowCount()*60+38<400){
+			jScrollPane.setBounds(0, 0, 980, jTableData.getRowCount()*60+38);
+		}else{
+			jScrollPane.setBounds(0, 0, 980, 400);
+		}
+		setPreferredSize(new Dimension(980, 400));
 		setBackground(Color.BLACK);
 	}
 
-	/*public static void main (String[] args) {
-		JFrame jFrame = new JFrame();
-		JPanel jPanel = new HistoryRecord();
-		jFrame.add(jPanel);
-		jFrame.setSize(980,400);
-		jFrame.setVisible(true);
-		jFrame.repaint();
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}*/
 
 }
 

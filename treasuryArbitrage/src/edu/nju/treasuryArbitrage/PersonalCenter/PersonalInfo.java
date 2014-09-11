@@ -1,12 +1,10 @@
 package edu.nju.treasuryArbitrage.PersonalCenter;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,14 +23,38 @@ public class PersonalInfo extends JPanel{
 	private JLabel stateJLabel;
 	private JButton stateButton;
 	
+	public PersonalInfo(final int w,final int h){
+		init();
+		user.setBounds(w*50/400, h*30/400, w*148/400, h*35/400);
+		userName.setBounds(w*202/400, h*30/400, w*148/400, h*35/400);
+		modifyPasswd.setBounds(w*50/400, h*250/400, w*300/400, h*30/400);
+		settingButton.setBounds(w*50/400, h*300/400, w*300/400, h*30/400);
+		stateJLabel.setBounds(w*50/400, h*150/400, w*148/400, h*35/400);
+		stateButton.setBounds(w*202/400, h*150/400, w*148/400, h*35/400);
+		modifyPasswd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				removeAll();
+				JPanel modifyPasswdJPanel = new ModifyPasswd();
+				add(modifyPasswdJPanel);
+				modifyPasswdJPanel.setBounds(0, 0, w, h);
+				repaint();
+			}
+		});
+	}
+	
 	public PersonalInfo(){
+		init();
+	}
+	
+	private void init(){
 		user = new JLabel("用户名",JLabel.CENTER);
 		userName = new JLabel("12345",JLabel.CENTER);
 		modifyPasswd=new JButton("修改密码");
 		settingButton = new JButton("设置参数");
 		setLayout(null);
 		setBackground(Color.BLACK);
-		setSize(400, 400);
+		setPreferredSize(new Dimension(400, 400));
 		add(user);
 		add(userName);
 		add(modifyPasswd);
