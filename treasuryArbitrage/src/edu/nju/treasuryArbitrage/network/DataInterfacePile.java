@@ -5,10 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import vo.Finance;
-import vo.Message;
-import vo.Record;
-import vo.Repository;
+import vo.*;
 import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfacePile implements DataInterface{
@@ -188,13 +185,13 @@ public class DataInterfacePile implements DataInterface{
 	}
 
 	@Override
-	public void ReadMess(String MessID) {
+	public void ReadMess(int index) {
 		// TODO 自动生成的方法存根
 		
 	}
 
 	@Override
-	public void DeleteMess(String MessID) {
+	public void DeleteMess(int index) {
 		// TODO 自动生成的方法存根
 		
 	}
@@ -206,7 +203,8 @@ public class DataInterfacePile implements DataInterface{
 		
 		r.setCount(3);r.setGuarantee(10000);
 		r.setRepo_ID("1");r.setTime("2014-08-25");
-		r.setToBuy(null);r.setToSell(null);
+		r.setToBuy(r.new Arbitrage("TF1409",100));
+		r.setToSell(r.new Arbitrage("TF1409",100));
 		RES =new ArrayList<Record>();
 		
 		RES.add(r);

@@ -51,8 +51,8 @@ public interface DataInterface {
 	public boolean Trade(String Repo_ID);		//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean
 	
 	public ArrayList<Message> getMessList();
-	public void ReadMess(String MessID);
-	public void DeleteMess(String MessID);
+	public void ReadMess(int index);
+	public void DeleteMess(int index);
 	
 	public ArrayList<Record> getRecordList();
 	

@@ -17,15 +17,15 @@ public class MessContainerBL {
 		return messages;
 	}
 	
-	void AddUnwind(){
+	public void AddUnwind(){
 		AddMess("unwind");
 	}
 	
-	void AddArb(){
+	public void AddArb(){
 		AddMess("arbitrage");
 	}
 	
-	void AddMess(String kind){
+	private void AddMess(String kind){
 		String info;
 		String time;
 		if(kind.equalsIgnoreCase("unwind")){
@@ -41,10 +41,10 @@ public class MessContainerBL {
 		
 		messages.add(new Message(info,time,kind));
 	}
-	void ReadMess(int index){
+	public void ReadMess(int index){
 		messages.get(index).setRead(true);
 	}
-	void DeleteMess(int index){
+	public void DeleteMess(int index){
 		messages.remove(index);
 	}
 		

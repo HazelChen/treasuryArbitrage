@@ -9,7 +9,15 @@ import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfaceToServer implements DataInterface{
 
-	UserBL userBl;
+	UserBL userbl;
+	MessContainerBL messbl;
+	FinanceBL finanbl;
+	
+	public DataInterfaceToServer(){
+		
+		userbl = new UserBL();
+		messbl= new MessContainerBL();
+	}
 	
 	@Override
 	public NewsBrief[] GetALLNewsBrief() {
@@ -35,34 +43,38 @@ public class DataInterfaceToServer implements DataInterface{
 		return null;
 	}
 
+	//==================================================================================================
 	@Override
 	public boolean register(String username, String password) {
 		// TODO 自动生成的方法存根
-		return false;
+		return userbl.register(username, password);
 	}
 
 	@Override
 	public boolean loginValidate(String username, String password) {
 		// TODO Auto-generated method stub
-		return false;
+		return userbl.login(username, password);
 	}
 	
 	@Override
 	public boolean changePWD(String username, String oldpwd, String newpwd) {
 		// TODO 自动生成的方法存根
-		return false;
+		return userbl.changePWD(username, oldpwd, newpwd);
 	}
 
 	@Override
 	public boolean logout() {
 		// TODO 自动生成的方法存根
-		return false;
+		UserVO user = userbl.getUser();
+		return userbl.logout(user.getUserID());
 	}
-
+	//==================================================================================================
+	
 	@Override
 	public ArrayList<Finance> getFinanceList() {
 		// TODO 自动生成的方法存根
-		return null;
+		UserVO user = userbl.getUser();
+		return finanbl.getFinanceList(user.getUserID());
 	}
 
 	@Override
@@ -80,19 +92,19 @@ public class DataInterfaceToServer implements DataInterface{
 	@Override
 	public ArrayList<Message> getMessList() {
 		// TODO 自动生成的方法存根
-		return null;
+		return messbl.getmessages();
 	}
 
 	@Override
-	public void ReadMess(String MessID) {
+	public void ReadMess(int index) {
 		// TODO 自动生成的方法存根
-		
+		messbl.ReadMess(index);
 	}
 
 	@Override
-	public void DeleteMess(String MessID) {
+	public void DeleteMess(int index) {
 		// TODO 自动生成的方法存根
-		
+		messbl.DeleteMess(index);
 	}
 
 	@Override
@@ -101,28 +113,30 @@ public class DataInterfaceToServer implements DataInterface{
 		return null;
 	}
 
+	
+	//==================================================================================================
 	@Override
 	public double getPara_PROF() {
 		// TODO 自动生成的方法存根
-		return 0;
+		return userbl.getPara_PROF();
 	}
 
 	@Override
 	public double getPara_LOSS() {
 		// TODO 自动生成的方法存根
-		return 0;
+		return userbl.getPara_LOSS();
 	}
 
 	@Override
 	public double getPara_GUAR() {
 		// TODO 自动生成的方法存根
-		return 0;
+		return userbl.getPara_GUAR();
 	}
 
 	@Override
 	public boolean setPara(double PROF, double LOSS, double GUAR) {
 		// TODO 自动生成的方法存根
-		return false;
+		return userbl.setParams(PROF, LOSS, GUAR);
 	}
 
 }

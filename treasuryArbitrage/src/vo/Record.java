@@ -10,9 +10,7 @@ public class Record {
 	Arbitrage toSell;	//ø’Õ∑
 	Arbitrage toBuy;	//∂‡Õ∑
 	
-	public Record(){
-		
-	}
+	public Record(){}
 	
 	public String getRepo_ID() {
 		return reco_ID;
@@ -61,6 +59,11 @@ public class Record {
 	public class Arbitrage {
 		String id;
 		double value;
+		
+		public Arbitrage(String id,double value){
+			this.id = id;
+			this.value = value;
+		}
 		
 		public String getId() {
 			return id;

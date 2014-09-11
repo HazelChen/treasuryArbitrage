@@ -9,6 +9,8 @@ public class Repository {
 
 	String toSell;	//ø’Õ∑
 	String toBuy;	//∂‡Õ∑
+	int toSell_price;
+	int toBuy_price;
 	
 	public Repository(){
 		
