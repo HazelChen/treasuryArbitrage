@@ -6,15 +6,23 @@ import java.util.Date;
 
 import vo.Message;
 
-public class MessContainer {
+public class MessContainerBL {
 	private ArrayList<Message> messages;
 	
-	public MessContainer(){
+	public MessContainerBL(){
 		messages = new ArrayList<Message>();
 	}
 	
 	public ArrayList<Message> getmessages(){
 		return messages;
+	}
+	
+	void AddUnwind(){
+		AddMess("unwind");
+	}
+	
+	void AddArb(){
+		AddMess("arbitrage");
 	}
 	
 	void AddMess(String kind){

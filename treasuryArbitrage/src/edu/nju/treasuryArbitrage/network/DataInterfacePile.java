@@ -2,8 +2,13 @@ package edu.nju.treasuryArbitrage.network;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
+import vo.Finance;
+import vo.Message;
+import vo.Record;
+import vo.Repository;
 import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfacePile implements DataInterface{
@@ -25,7 +30,7 @@ public class DataInterfacePile implements DataInterface{
 	    
 		
 		
-		//--------------------获取后台所有新闻概要------------
+		//--------------------获取后台所有新闻概要, order by date desc------------
 		
 		
 		//test
@@ -43,13 +48,10 @@ public class DataInterfacePile implements DataInterface{
 	    if(num > 0){
 	    	res = new NewsBrief[num];
 	    	for(int i = 0;i < num; i++){
-	    		res[i] = new NewsBrief(date,src,title,author);
+	    		date.setDate(i + 1);
+	    		res[i] = new NewsBrief(String.valueOf(i),date,src,title,author);
 	    	}
 	    	
-	    	//test
-	    	res[num - 1] = new NewsBrief(new Date(),"最后","一页的最后","一条");
-	    	
-	    	//--------------排序----------------
 	    	
 	    	return res;
 	    }
@@ -60,14 +62,14 @@ public class DataInterfacePile implements DataInterface{
 		}
 	}
 
-	public String GetNewsTitle(int NewsID) {
+	public String GetNewsTitle(String NewsID) {
 	    //test
 		String str = "移仓进行时11";
 		
 		return str;
 	}
 
-	public String GetNewsContent(int NewsID) {
+	public String GetNewsContent(String NewsID) {
 
 	    //test
 		String str = "操作建议    \r\n"
@@ -110,7 +112,7 @@ public class DataInterfacePile implements DataInterface{
 		if(num > 0){
 
 			res = new NewsBrief[num];
-	    	res[num - 1] = new NewsBrief(new Date(),"最后","一页的最后","一条");
+	    	res[num - 1] = new NewsBrief("98",new Date(),"查询","结果","一条");
 	    	return res;
 	    }
 		else{
@@ -125,6 +127,115 @@ public class DataInterfacePile implements DataInterface{
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public boolean register(String username, String password) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean changePWD(String username, String oldpwd, String newpwd) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean logout() {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public ArrayList<Finance> getFinanceList() {
+		// TODO 自动生成的方法存根
+		ArrayList<Finance> RES;
+		RES =new ArrayList<Finance>();
+		RES.add(new Finance("2014-7-15",20000,10000,10000));
+		RES.add(new Finance("2014-7-18",30000,10000,20000));
+		return RES;
+	}
+
+	@Override
+	public ArrayList<Repository> getRepoList() {
+		// TODO 自动生成的方法存根
+		ArrayList<Repository> res = new ArrayList<Repository>();
+		
+		Repository e = new Repository();
+		e.setCount(4);
+		e.setGuarantee(20000);
+		e.setRepo_ID("1");
+		e.setProfit(10000);
+		e.setTime("2014-7-25");
+		e.setToBuy("TF1409");
+		e.setToSell("TF1412");
+		
+		res.add(e);
+		return res;
+	}
+
+	@Override
+	public boolean Trade(String Repo_ID) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public ArrayList<Message> getMessList() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public void ReadMess(String MessID) {
+		// TODO 自动生成的方法存根
+		
+	}
+
+	@Override
+	public void DeleteMess(String MessID) {
+		// TODO 自动生成的方法存根
+		
+	}
+
+	@Override
+	public ArrayList<Record> getRecordList() {
+		ArrayList<Record> RES;
+		Record r= new Record();
+		
+		r.setCount(3);r.setGuarantee(10000);
+		r.setRepo_ID("1");r.setTime("2014-08-25");
+		r.setToBuy(null);r.setToSell(null);
+		RES =new ArrayList<Record>();
+		
+		RES.add(r);
+		RES.add(r);
+		return RES;
+	}
+
+	@Override
+	public double getPara_PROF() {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
+	@Override
+	public double getPara_LOSS() {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
+	@Override
+	public double getPara_GUAR() {
+		// TODO 自动生成的方法存根
+		return 0;
+	}
+
+	@Override
+	public boolean setPara(double PROF, double LOSS, double GUAR) {
+		// TODO 自动生成的方法存根
+		return false;
 	}
 
 }

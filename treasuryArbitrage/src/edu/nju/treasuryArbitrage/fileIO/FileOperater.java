@@ -19,7 +19,7 @@ public class FileOperater {
 			String tempString = null;
 			// 一次读入一行，直到读入null为文件结束
 			while ((tempString = reader.readLine()) != null) {
-				sb.append(tempString + " ");
+				sb.append(tempString + "\n");
 			}
 			reader.close();
 		} catch (IOException e) {

@@ -7,8 +7,8 @@ public class Repository {
 	double guarantee;	//投入保证金
 	double profit;	//收益金额……方法计算得出
 
-	Arb_detail toSell;	//空头
-	Arb_detail toBuy;	//多头
+	String toSell;	//空头
+	String toBuy;	//多头
 	
 	public Repository(){
 		
@@ -44,16 +44,16 @@ public class Repository {
 	public void setProfit(double profit) {
 		this.profit = profit;
 	}
-	public Arb_detail getToSell() {
+	public String getToSell() {
 		return toSell;
 	}
-	public void setToSell(Arb_detail toSell) {
+	public void setToSell(String toSell) {
 		this.toSell = toSell;
 	}
-	public Arb_detail getToBuy() {
+	public String getToBuy() {
 		return toBuy;
 	}
-	public void setToBuy(Arb_detail toBuy) {
+	public void setToBuy(String toBuy) {
 		this.toBuy = toBuy;
 	}
 

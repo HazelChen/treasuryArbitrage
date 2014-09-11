@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class NewsBrief{
-	int newsID;
+	String newsID;
 	private Date date;
 	private String sdate;
 	private String src,title,author;
@@ -12,13 +12,15 @@ public class NewsBrief{
 	
 	
 	public NewsBrief(){
+		this.newsID = "";
 		this.setDate(null);
 		this.setSdate();
 		this.setTitle(null);
 		this.setSrc(null);
 		this.setSrc(null);
 	}
-	public NewsBrief(Date date,String src,String title,String author){
+	public NewsBrief(String ID,Date date,String src,String title,String author){
+		this.newsID = ID;
 		this.setDate(date);
 		this.setSdate();
 		this.setTitle(title);

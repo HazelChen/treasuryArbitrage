@@ -24,7 +24,7 @@ public class LoginStateRecorder {
 		
 		String[] userAndPwd = content.split(" ");
 		String username = userAndPwd[0];
-		String pwd = userAndPwd[1];
+		String pwd = userAndPwd[1].trim();
 		UserInfo userInfo = new UserInfo(username, pwd);
 		return userInfo;
 	}

@@ -49,6 +49,14 @@ public class LoginInput extends JPanel{
 		UserInfo userInfo = stateRecorder.getRememberedUser();
 		userTextField.setText(userInfo.username);
 		passwordField.setText(userInfo.password);
+		
+		if (userInfo.username.equals("")) {
+			readRiskWarning.setSelected(false);
+			okButton.setEnabled(false);
+		} else {
+			readRiskWarning.setSelected(true);
+			okButton.setEnabled(true);
+		}
 	}
 	
 	private void assemble() {
@@ -128,6 +136,20 @@ public class LoginInput extends JPanel{
 					frame.enterMainPage();
 				} else {
 					JOptionPane.showMessageDialog(null, "用户名和密码错误！！");
+				}
+			}
+		});
+		
+		readRiskWarning.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (readRiskWarning.isSelected()) {
+					RiskTipDialog dialog = new RiskTipDialog();
+					dialog.setVisible(true);
+					okButton.setEnabled(true);
+				} else {
+					okButton.setEnabled(false);
 				}
 			}
 		});
