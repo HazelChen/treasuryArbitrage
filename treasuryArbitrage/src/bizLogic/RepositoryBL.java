@@ -27,9 +27,23 @@ public class RepositoryBL {
 			JSONObject temp = ret.getJSONObject(i);
 			Repository rep = new Repository();
 			
-			rep.setRepo_ID(temp.getString("repo_ID"));
+			//这里未完工！！！！！！
+			JSONArray a_temp = temp.getJSONArray("arbitrage");
+			for(int j=0;j<a_temp.length();j++){
+				String orientation = a_temp.getJSONObject(j).getString("orientation");
+				if(orientation.equals("")){
+					
+				}else if(orientation.equals("")){
+					
+				}
+			}
+			
+			rep.setRepo_ID(temp.getInt("repo_ID")+"");
 			rep.setCount(temp.getInt("count"));
-			rep.setGuarantee(temp.getDouble(""));
+			rep.setGuarantee(temp.getDouble("confirm"));
+			rep.setProfit(temp.getDouble("profit"));
+			
+			
 			
 			repo_list.add(rep);
 		}

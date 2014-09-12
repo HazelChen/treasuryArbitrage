@@ -1,5 +1,6 @@
 package bizLogic;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,13 +24,16 @@ public class FinanceBL {
 		NetHelper helper = new NetHelper("funds",params);
 		JSONArray ret = helper.getJSONArrayByGet();
 		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		for(int i=0;i<ret.length();i++){
 			JSONObject temp = ret.getJSONObject(i);
-			String time = temp.getString("time");
+			
+			String time = df.format((temp.getLong("time")));
 			double total = temp.getDouble("total_fund");
 			double invest = temp.getDouble("invest_fund");
 			double free = temp.getDouble("free_fund");
 			Finance finance = new Finance(time,total,invest,free);
+			
 			finance_list.add(finance);
 		}
 		

@@ -242,4 +242,22 @@ public class DataInterfacePile implements DataInterface{
 		return null;
 	}
 
+	@Override
+	public ArrayList<ArbGroup> getArbGroup() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public boolean cancleOrder(String record_id) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean Order() {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
 }

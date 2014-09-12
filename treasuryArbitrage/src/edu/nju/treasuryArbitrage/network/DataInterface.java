@@ -40,26 +40,28 @@ public interface DataInterface {
 	 */
 	public NewsBrief[] searchNews(String keyword, Date fD, Date tD);
 	
-
 	public boolean register(String username,String password);
 	public boolean loginValidate(String username, String password);
 	public boolean changePWD(String username,String oldpwd,String newpwd);
 	public boolean logout();
 	
-	public Arb_detail getArbDetail(String id);
-	
 	public ArrayList<Finance> getFinanceList();
 	public ArrayList<Repository> getRepoList();
-	public boolean Trade(String Repo_ID);		//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean
+	public ArrayList<Record> getRecordList();
 	
 	public ArrayList<Message> getMessList();
 	public void ReadMess(int index);
 	public void DeleteMess(int index);
 	
-	public ArrayList<Record> getRecordList();
-	
 	public double getPara_PROF();
 	public double getPara_LOSS();
 	public double getPara_GUAR();
 	public boolean setPara(double PROF,double LOSS,double GUAR);
+	
+	public Arb_detail getArbDetail(String id);
+	public ArrayList<ArbGroup> getArbGroup();
+	
+	public boolean Order();
+	public boolean cancleOrder(String Record_ID);
+	public boolean Trade(String Repo_ID);//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean
 }

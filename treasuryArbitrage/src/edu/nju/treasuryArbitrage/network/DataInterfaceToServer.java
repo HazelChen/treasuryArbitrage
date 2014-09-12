@@ -12,12 +12,17 @@ public class DataInterfaceToServer implements DataInterface{
 	UserBL userbl;
 	MessContainerBL messbl;
 	FinanceBL finanbl;
+	RepositoryBL repobl;
+	RecordBL recordbl;
 	
 	public DataInterfaceToServer(){
 		
 		userbl = new UserBL();
-		messbl = new MessContainerBL();
 		finanbl = new FinanceBL();
+		repobl = new RepositoryBL();
+		recordbl = new RecordBL();
+		messbl = new MessContainerBL();
+		
 	}
 	
 	@Override
@@ -62,13 +67,14 @@ public class DataInterfaceToServer implements DataInterface{
 		// TODO 自动生成的方法存根
 		return userbl.changePWD(username, oldpwd, newpwd);
 	}
-
+	
 	@Override
 	public boolean logout() {
 		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return userbl.logout(user.getUserID());
 	}
+	
 	//==================================================================================================
 	
 	@Override
@@ -81,15 +87,19 @@ public class DataInterfaceToServer implements DataInterface{
 	@Override
 	public ArrayList<Repository> getRepoList() {
 		// TODO 自动生成的方法存根
-		return null;
+		UserVO user = userbl.getUser();
+		return repobl.getRepoList(user.getUserID());
 	}
 
 	@Override
-	public boolean Trade(String Repo_ID) {
+	public ArrayList<Record> getRecordList() {
 		// TODO 自动生成的方法存根
-		return false;
+		UserVO user = userbl.getUser();
+		return recordbl.getRecordList(user.getUserID());
 	}
-
+	
+	//==================================================================================================
+	
 	@Override
 	public ArrayList<Message> getMessList() {
 		// TODO 自动生成的方法存根
@@ -108,14 +118,8 @@ public class DataInterfaceToServer implements DataInterface{
 		messbl.DeleteMess(index);
 	}
 
-	@Override
-	public ArrayList<Record> getRecordList() {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	
 	//==================================================================================================
+	
 	@Override
 	public double getPara_PROF() {
 		// TODO 自动生成的方法存根
@@ -140,10 +144,35 @@ public class DataInterfaceToServer implements DataInterface{
 		return userbl.setParams(PROF, LOSS, GUAR);
 	}
 
+	//==================================================================================================
+	
 	@Override
 	public Arb_detail getArbDetail(String id) {
 		// TODO 自动生成的方法存根
 		return null;
 	}
 
+	@Override
+	public ArrayList<ArbGroup> getArbGroup() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public boolean Order() {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean cancleOrder(String record_ID) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean Trade(String Repo_ID) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
 }
