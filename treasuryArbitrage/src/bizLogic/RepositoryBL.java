@@ -29,6 +29,7 @@ public class RepositoryBL {
 			
 			rep.setRepo_ID(temp.getString("repo_ID"));
 			rep.setCount(temp.getInt("count"));
+			rep.setGuarantee(temp.getDouble(""));
 			
 			repo_list.add(rep);
 		}

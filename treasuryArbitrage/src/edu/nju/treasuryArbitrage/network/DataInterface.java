@@ -46,6 +46,8 @@ public interface DataInterface {
 	public boolean changePWD(String username,String oldpwd,String newpwd);
 	public boolean logout();
 	
+	public Arb_detail getArbDetail(String id);
+	
 	public ArrayList<Finance> getFinanceList();
 	public ArrayList<Repository> getRepoList();
 	public boolean Trade(String Repo_ID);		//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean

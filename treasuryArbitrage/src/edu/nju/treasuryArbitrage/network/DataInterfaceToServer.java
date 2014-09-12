@@ -16,7 +16,8 @@ public class DataInterfaceToServer implements DataInterface{
 	public DataInterfaceToServer(){
 		
 		userbl = new UserBL();
-		messbl= new MessContainerBL();
+		messbl = new MessContainerBL();
+		finanbl = new FinanceBL();
 	}
 	
 	@Override
@@ -137,6 +138,12 @@ public class DataInterfaceToServer implements DataInterface{
 	public boolean setPara(double PROF, double LOSS, double GUAR) {
 		// TODO 自动生成的方法存根
 		return userbl.setParams(PROF, LOSS, GUAR);
+	}
+
+	@Override
+	public Arb_detail getArbDetail(String id) {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 
 }

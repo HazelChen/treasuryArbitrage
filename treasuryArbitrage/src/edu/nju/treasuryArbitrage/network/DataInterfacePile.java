@@ -236,4 +236,10 @@ public class DataInterfacePile implements DataInterface{
 		return false;
 	}
 
+	@Override
+	public Arb_detail getArbDetail(String id) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
 }
