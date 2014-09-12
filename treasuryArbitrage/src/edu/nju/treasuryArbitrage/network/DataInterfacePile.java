@@ -11,6 +11,7 @@ import edu.nju.treasuryArbitrage.news.NewsBrief;
 public class DataInterfacePile implements DataInterface{
 
 
+	@SuppressWarnings("deprecation")
 	public NewsBrief[] GetALLNewsBrief() {
 		int num = 0;
 	    NewsBrief[] res = null;
@@ -258,6 +259,12 @@ public class DataInterfacePile implements DataInterface{
 	public boolean Order() {
 		// TODO 自动生成的方法存根
 		return false;
+	}
+
+	@Override
+	public ArrayList<News> getNewsList() {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 
 }

@@ -14,6 +14,7 @@ public class DataInterfaceToServer implements DataInterface{
 	FinanceBL finanbl;
 	RepositoryBL repobl;
 	RecordBL recordbl;
+	NewsBL newsbl;
 	
 	public DataInterfaceToServer(){
 		
@@ -98,6 +99,12 @@ public class DataInterfaceToServer implements DataInterface{
 		return recordbl.getRecordList(user.getUserID());
 	}
 	
+	@Override
+	public ArrayList<News> getNewsList() {
+		// TODO 自动生成的方法存根
+		return newsbl.getNewsList();
+	}
+	
 	//==================================================================================================
 	
 	@Override
@@ -175,4 +182,5 @@ public class DataInterfaceToServer implements DataInterface{
 		// TODO 自动生成的方法存根
 		return false;
 	}
+
 }

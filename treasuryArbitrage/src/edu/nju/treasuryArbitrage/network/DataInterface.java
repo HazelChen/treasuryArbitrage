@@ -48,6 +48,7 @@ public interface DataInterface {
 	public ArrayList<Finance> getFinanceList();
 	public ArrayList<Repository> getRepoList();
 	public ArrayList<Record> getRecordList();
+	public ArrayList<News> getNewsList();
 	
 	public ArrayList<Message> getMessList();
 	public void ReadMess(int index);
