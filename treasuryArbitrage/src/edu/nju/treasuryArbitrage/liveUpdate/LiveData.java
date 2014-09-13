@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import vo.Arb_detail;
 
 public class LiveData {
-	private LiveData self = new LiveData();
+	private static LiveData self = new LiveData();
 	private ArrayList<Arb_detail> arb_details;
+	private 
 	
 	private LiveData(){}
 	
-	public LiveData getInstance() {
+	public static LiveData getInstance() {
 		return self;
 	}
 	
