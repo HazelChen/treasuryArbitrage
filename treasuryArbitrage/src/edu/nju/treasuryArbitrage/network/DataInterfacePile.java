@@ -193,7 +193,7 @@ public class DataInterfacePile implements DataInterface{
 	}
 
 	@Override
-	public boolean Trade(String Repo_ID) {
+	public boolean Trade(int Repo_ID) {
 		// TODO 自动生成的方法存根
 		return false;
 	}
@@ -270,7 +270,7 @@ public class DataInterfacePile implements DataInterface{
 	}
 
 	@Override
-	public boolean cancleOrder(String record_id) {
+	public boolean cancleOrder(int record_id) {
 		// TODO 自动生成的方法存根
 		return false;
 	}

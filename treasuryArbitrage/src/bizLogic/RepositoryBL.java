@@ -28,6 +28,7 @@ public class RepositoryBL {
 			Repository rep = new Repository();
 			
 			rep.setRepo_ID(temp.getInt("id"));
+			rep.setTime(temp.getLong("time"));
 			rep.setCount(temp.getInt("hand"));
 			rep.setGuarantee(temp.getDouble("bond"));
 			rep.setToBuy(temp.getString("more_contract"));

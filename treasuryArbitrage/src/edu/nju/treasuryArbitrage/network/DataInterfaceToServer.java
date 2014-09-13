@@ -16,6 +16,8 @@ public class DataInterfaceToServer implements DataInterface{
 	RecordBL recordbl;
 	NewsBL newsbl;
 	
+	ArbitrageBL arbtbl;
+	
 	public DataInterfaceToServer(){
 		
 		userbl = new UserBL();
@@ -23,7 +25,7 @@ public class DataInterfaceToServer implements DataInterface{
 		repobl = new RepositoryBL();
 		recordbl = new RecordBL();
 		messbl = new MessContainerBL();
-		
+		arbtbl = new ArbitrageBL();
 	}
 	
 	@Override
@@ -53,25 +55,21 @@ public class DataInterfaceToServer implements DataInterface{
 	//==================================================================================================
 	@Override
 	public boolean register(String username, String password) {
-		// TODO 自动生成的方法存根
 		return userbl.register(username, password);
 	}
 
 	@Override
 	public boolean loginValidate(String username, String password) {
-		// TODO Auto-generated method stub
 		return userbl.login(username, password);
 	}
 	
 	@Override
-	public boolean changePWD(String username, String oldpwd, String newpwd) {
-		// TODO 自动生成的方法存根
+public boolean changePWD(String username, String oldpwd, String newpwd) {
 		return userbl.changePWD(username, oldpwd, newpwd);
 	}
 	
 	@Override
 	public boolean logout() {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return userbl.logout(user.getUserID());
 	}
@@ -80,21 +78,18 @@ public class DataInterfaceToServer implements DataInterface{
 	
 	@Override
 	public ArrayList<Finance> getFinanceList() {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return finanbl.getFinanceList(user.getUserID());
 	}
 
 	@Override
 	public ArrayList<Repository> getRepoList() {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return repobl.getRepoList(user.getUserID());
 	}
 
 	@Override
 	public ArrayList<Record> getRecordList() {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return recordbl.getRecordList(user.getUserID());
 	}
@@ -109,19 +104,16 @@ public class DataInterfaceToServer implements DataInterface{
 	
 	@Override
 	public ArrayList<Message> getMessList() {
-		// TODO 自动生成的方法存根
 		return messbl.getmessages();
 	}
 
 	@Override
 	public void ReadMess(int index) {
-		// TODO 自动生成的方法存根
 		messbl.ReadMess(index);
 	}
 
 	@Override
 	public void DeleteMess(int index) {
-		// TODO 自动生成的方法存根
 		messbl.DeleteMess(index);
 	}
 
@@ -129,25 +121,21 @@ public class DataInterfaceToServer implements DataInterface{
 	
 	@Override
 	public double getPara_PROF() {
-		// TODO 自动生成的方法存根
 		return userbl.getPara_PROF();
 	}
 
 	@Override
 	public double getPara_LOSS() {
-		// TODO 自动生成的方法存根
 		return userbl.getPara_LOSS();
 	}
 
 	@Override
 	public double getPara_GUAR() {
-		// TODO 自动生成的方法存根
 		return userbl.getPara_GUAR();
 	}
 
 	@Override
 	public boolean setPara(double PROF, double LOSS, double GUAR) {
-		// TODO 自动生成的方法存根
 		return userbl.setParams(PROF, LOSS, GUAR);
 	}
 
@@ -156,7 +144,8 @@ public class DataInterfaceToServer implements DataInterface{
 	@Override
 	public Arb_detail getArbDetail(String id) {
 		// TODO 自动生成的方法存根
-		return null;
+		UserVO user = userbl.getUser();
+		return arbtbl.getDetail(user.getUserID());
 	}
 
 	@Override
@@ -172,13 +161,13 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
-	public boolean cancleOrder(String record_ID) {
+	public boolean cancleOrder(int record_ID) {
 		// TODO 自动生成的方法存根
 		return false;
 	}
 
 	@Override
-	public boolean Trade(String Repo_ID) {
+	public boolean Trade(int Repo_ID) {
 		// TODO 自动生成的方法存根
 		return false;
 	}
