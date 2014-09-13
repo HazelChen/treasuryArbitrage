@@ -15,6 +15,7 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -22,6 +23,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 
 import vo.Repository;
+import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.network.DataInterfacePile;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
@@ -242,6 +244,9 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 						dg.setVisible(true);
 						//-------------------卖出对应合约-----
 						//repository;  更新数据库
+						//JOptionPane.showMessageDialog(null, "更新");
+						MajorPartsFactory.getInstance().getHoldings().updateFTable();
+						MajorPartsFactory.getInstance().getHoldings().updateRepoList();
 						//--------------------------------
 						curdg.dispose();
 					}

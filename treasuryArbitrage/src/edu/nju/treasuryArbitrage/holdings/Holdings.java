@@ -95,8 +95,7 @@ public class Holdings extends JPanel{
 	          fTable.getTableHeader().setPreferredSize(new Dimension(0,0));
 	          fTable.getTableHeader().setVisible(false);
 	          makeFace2(fTable);
-	          fTableRec = di.getFinanceList();//接收已将按照时间排好顺序的结果
-		 	   updateFTable(fTableRec);
+		 	   updateFTable();
 	    jsp1 = new JScrollPane(fTable);
 	    jsp1.getViewport().setBackground(Color.black);
  		p11 = new JPanel();
@@ -212,6 +211,7 @@ public class Holdings extends JPanel{
 	 	 		hTable.getColumnModel().getColumn(0).setCellEditor(new MyTableEditor(info));
 	 	 		hTable.getColumnModel().getColumn(0).setCellRenderer(new MyTableCellRenderer(info));//
 	    	}
+	    	hTable.repaint();
 	}
 
 	private void makeFace2(JTable table) {
@@ -245,9 +245,11 @@ public class Holdings extends JPanel{
         
 	}
 
-	private void updateFTable(ArrayList<Finance> fTableRec) {
+	public void updateFTable() {
 		int recnum = 0;
 
+        fTableRec = di.getFinanceList();//接收已将按照时间排好顺序的结果
+        
 		DefaultTableModel tableModel = (DefaultTableModel) fTable.getModel();
 	    	for(int i = 1;i < fTable.getRowCount();){
 	    		tableModel.removeRow(i);
