@@ -10,28 +10,26 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.event.CellEditorListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import vo.Finance;
-import vo.Record;
 import vo.Repository;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.network.DataInterfacePile;
+import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
 public class Holdings extends JPanel{
 	private static final long serialVersionUID = 6470810944009110491L;
 	private DataInterface di;
+	DataInterfaceToServer dif;
 	static ArrayList<Finance> fTableRec;
 	static ArrayList<Repository> info;
 	static Object colummnames1[]={"时间","总资金","已投入保证金","空闲资金"},
@@ -56,6 +54,8 @@ public class Holdings extends JPanel{
 	
 	public Holdings() {
 		di = new DataInterfacePile();
+		dif = new DataInterfaceToServer();
+		dif.loginValidate("a", "c");
 		this.setBackground(Color.DARK_GRAY);
 		
 		l1 = new JLabel("  资金状况  ",JLabel.CENTER);
@@ -125,7 +125,8 @@ public class Holdings extends JPanel{
  		DefaultTableModel tableModel21 = (DefaultTableModel) hTableHeader.getModel();
 	 	   tableModel21.addRow(colummnames2); 
 
-	 	info = di.getRepoList();//从服务器获取数据
+		//info = di.getRepoList();//从桩获取数据
+	 	info = dif.getRepoList();//从服务器获取数据
  		hTable = new JTable(new DefaultTableModel() {
  			@Override
             public Object getValueAt(int row, int column) {
@@ -197,8 +198,8 @@ public class Holdings extends JPanel{
 	}
 
 	public void updateRepoList() {
- 		info = di.getRepoList();//从服务器获取数据
-	    	
+ 		info = dif.getRepoList();//从服务器获取数据
+ 		//info = di.getRepoList();//从桩获取数据
 	    	if(info.size() > 0){
 	    		for(int j = 0;j < info.size();j ++){
 		 	    	hTable.setValueAt(info.get(j).getTime(), j, 1);
@@ -246,9 +247,10 @@ public class Holdings extends JPanel{
 	}
 
 	public void updateFTable() {
+		//更新资金状况列表
+		
 		int recnum = 0;
-
-        fTableRec = di.getFinanceList();//接收已将按照时间排好顺序的结果
+        fTableRec = dif.getFinanceList();//接收已将按照时间排好顺序的结果
         
 		DefaultTableModel tableModel = (DefaultTableModel) fTable.getModel();
 	    	for(int i = 1;i < fTable.getRowCount();){

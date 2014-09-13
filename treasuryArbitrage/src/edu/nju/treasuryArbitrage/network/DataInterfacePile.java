@@ -188,7 +188,7 @@ public class DataInterfacePile implements DataInterface{
 		e2.settoSell_price(95.12);
 		e2.settoBuy_price(93.02);
 		
-		res.add(e2);
+		//res.add(e2);
 		return res;
 	}
 
