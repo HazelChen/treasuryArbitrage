@@ -1,9 +1,12 @@
 package edu.nju.treasuryArbitrage.PersonalCenter;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -30,6 +33,7 @@ public class LoginInput extends JPanel{
 	private JCheckBox autoLoginCheckBox = new JCheckBox("自动登录");
 	private JCheckBox readRiskWarning = new JCheckBox("已阅读风险提示");
 	private JButton okButton = new JButton("登录");
+	private Label forgetPasswordLabel = new Label("忘记密码？");
 	
 	public LoginInput() {
 		init();
@@ -67,11 +71,6 @@ public class LoginInput extends JPanel{
 		this.add(userLabel);
 		this.add(userTextField);
 		
-		Label newUserLabel = new Label("新用户注册");
-		newUserLabel.setForeground(ColorResources.LINK_BLUE);
-		newUserLabel.setBounds(380, 50, 100, 20);
-		this.add(newUserLabel);
-		
 		Label passwordLabel = new Label("密  码:");
 		passwordLabel.setForeground(Color.WHITE);
 		passwordLabel.setBounds(50, 100, 80, 20);
@@ -79,7 +78,7 @@ public class LoginInput extends JPanel{
 		this.add(passwordLabel);
 		this.add(passwordField);
 		
-		Label forgetPasswordLabel = new Label("忘记密码？");
+		
 		forgetPasswordLabel.setForeground(ColorResources.LINK_BLUE);
 		forgetPasswordLabel.setBounds(380, 100, 100, 20);
 		this.add(forgetPasswordLabel);
@@ -113,7 +112,7 @@ public class LoginInput extends JPanel{
 				String password = new String(passwordField.getPassword());
 				
 				DataInterfaceFactory factory = DataInterfaceFactory.getInstance();
-				DataInterface dataInterface = factory.getDataInterface();
+				DataInterface dataInterface = factory.getDataInterfaceToServer();
 				boolean isRight = dataInterface.loginValidate(username, password);
 				
 				if (isRight) {
@@ -151,6 +150,19 @@ public class LoginInput extends JPanel{
 				} else {
 					okButton.setEnabled(false);
 				}
+			}
+		});
+		
+		forgetPasswordLabel.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				forgetPasswordLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "请联系客服经理 XXX 130XXXXXXX");
 			}
 		});
 	}
