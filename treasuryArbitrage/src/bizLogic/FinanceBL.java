@@ -9,14 +9,13 @@ import org.json.JSONObject;
 import vo.Finance;
 
 public class FinanceBL {
-	private ArrayList<Finance> finance_list = new ArrayList<Finance>();
+	private ArrayList<Finance> finance_list;
 	
 	public FinanceBL(){}
 	
 	public ArrayList<Finance> getFinanceList(String username){
 		
-//		Finance finance = new Finance("",0,0,0);
-//		finance_list.add(finance);
+		finance_list = new ArrayList<Finance>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);

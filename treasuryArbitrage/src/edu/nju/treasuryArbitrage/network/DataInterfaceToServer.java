@@ -17,6 +17,7 @@ public class DataInterfaceToServer implements DataInterface{
 	NewsBL newsbl;
 	
 	ArbitrageBL arbtbl;
+	TradeBL tradebl;
 	
 	public DataInterfaceToServer(){
 		
@@ -26,6 +27,7 @@ public class DataInterfaceToServer implements DataInterface{
 		recordbl = new RecordBL();
 		messbl = new MessContainerBL();
 		arbtbl = new ArbitrageBL();
+		tradebl = new TradeBL();
 	}
 	
 	@Override
@@ -142,10 +144,10 @@ public boolean changePWD(String username, String oldpwd, String newpwd) {
 	//==================================================================================================
 	
 	@Override
-	public Arb_detail getArbDetail(String id) {
+	public ArrayList<Arb_detail> getArbDetail() {
 		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
-		return arbtbl.getDetail(user.getUserID());
+		return arbtbl.getDetailList(user.getUserID());
 	}
 
 	@Override
@@ -155,21 +157,24 @@ public boolean changePWD(String username, String oldpwd, String newpwd) {
 	}
 
 	@Override
-	public boolean Order() {
+	public boolean Order(String More_contract,String Blank_contract,int hand) {
 		// TODO 自动生成的方法存根
-		return false;
+		UserVO user = userbl.getUser();
+		return tradebl.order(user.getUserID(), More_contract, Blank_contract, hand);
 	}
 
 	@Override
 	public boolean cancleOrder(int record_ID) {
 		// TODO 自动生成的方法存根
-		return false;
+		UserVO user = userbl.getUser();
+		return tradebl.cancleOrder(user.getUserID(), record_ID);
 	}
 
 	@Override
 	public boolean Trade(int Repo_ID) {
 		// TODO 自动生成的方法存根
-		return false;
+		UserVO user = userbl.getUser();
+		return tradebl.trade(user.getUserID(), Repo_ID);
 	}
 
 }
