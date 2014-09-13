@@ -236,7 +236,7 @@ public class Holdings extends JPanel{
 	    	}
 	    	hTable.repaint();
 	    	
-	    	JOptionPane.showMessageDialog(null, "持仓状况记录条数：" + info.size());
+	    	//JOptionPane.showMessageDialog(null, "持仓状况记录条数：" + info.size());
 	}
 
 	private void makeFace2(JTable table) {
@@ -293,7 +293,7 @@ public class Holdings extends JPanel{
 	    	}
 	    	else{
 	    	}
-	    	JOptionPane.showMessageDialog(null, "资金状况记录条数：" + fTableRec.size());
+	    	//JOptionPane.showMessageDialog(null, "资金状况记录条数：" + fTableRec.size());
 	}
 
 	private void makeFace(JTable table) {
