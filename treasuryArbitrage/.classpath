@@ -15,5 +15,7 @@
 	<classpathentry kind="lib" path="lib/linktoservice/httpclient-cache-4.3.5.jar"/>
 	<classpathentry kind="lib" path="lib/linktoservice/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/linktoservice/httpmime-4.3.5.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.23.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

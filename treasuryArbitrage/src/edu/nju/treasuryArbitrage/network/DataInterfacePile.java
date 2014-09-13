@@ -4,8 +4,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-import vo.*;
+import vo.ArbGroup;
+import vo.Arb_detail;
+import vo.Finance;
+import vo.Message;
+import vo.News;
+import vo.Record;
+import vo.Repository;
 import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfacePile implements DataInterface{
@@ -265,8 +273,11 @@ public class DataInterfacePile implements DataInterface{
 
 	@Override
 	public ArrayList<Arb_detail> getArbDetail() {
-		// TODO 自动生成的方法存根
-		return null;
+		ArrayList<Arb_detail> arb_details = new ArrayList<>();
+		arb_details.add(new Arb_detail());
+		arb_details.add(new Arb_detail());
+		arb_details.add(new Arb_detail());
+		return arb_details;
 	}
 
 	@Override
@@ -291,6 +302,23 @@ public class DataInterfacePile implements DataInterface{
 	public ArrayList<News> getNewsList() {
 		// TODO 自动生成的方法存根
 		return null;
+	}
+
+	@Override
+	public HashMap<Long, Double> getDateAndPricePair() {
+		HashMap<Long, Double> dateAndPrice = new LinkedHashMap<>();
+		dateAndPrice.put(1410623682767l, 100.0);
+		dateAndPrice.put(1410624683767l, 120.0);
+		dateAndPrice.put(1410625684767l, 140.0);
+		dateAndPrice.put(1410626685767l, 159.0);
+		dateAndPrice.put(1410627686767l, 120.0);
+		dateAndPrice.put(1410628687767l, 130.0);
+		dateAndPrice.put(1410629688767l, 135.0);
+		dateAndPrice.put(1410630689767l, 125.0);
+		dateAndPrice.put(1410631690767l, 120.0);
+		dateAndPrice.put(1410632691767l, 130.0);
+		dateAndPrice.put(1410633692767l, 140.0);
+		return dateAndPrice;
 	}
 
 }
