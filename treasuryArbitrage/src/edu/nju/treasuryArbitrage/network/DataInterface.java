@@ -63,6 +63,6 @@ public interface DataInterface {
 	public ArrayList<ArbGroup> getArbGroup();
 	
 	public boolean Order();
-	public boolean cancleOrder(String Record_ID);
-	public boolean Trade(String Repo_ID);//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean
+	public boolean cancleOrder(int Record_ID);
+	public boolean Trade(int Repo_ID);//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean
 }
