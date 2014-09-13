@@ -150,8 +150,10 @@ public class DataInterfacePile implements DataInterface{
 		// TODO 自动生成的方法存根
 		ArrayList<Finance> RES;
 		RES =new ArrayList<Finance>();
-		RES.add(new Finance("2014-7-15",20000,10000,10000));
-		RES.add(new Finance("2014-7-18",30000,10000,20000));
+//		RES.add(new Finance("2014-7-15",20000,10000,10000));
+//		RES.add(new Finance("2014-7-18",30000,10000,20000));
+		RES.add(new Finance(100000000,20000,10000,10000));
+		RES.add(new Finance(100000000,30000,10000,20000));
 		return RES;
 	}
 
@@ -163,9 +165,10 @@ public class DataInterfacePile implements DataInterface{
 		Repository e = new Repository();
 		e.setCount(4);
 		e.setGuarantee(20000);
-		e.setRepo_ID("1");
+		e.setRepo_ID(1);
 		e.setProfit(10000);
-		e.setTime("2014-7-25");
+//		e.setTime("2014-7-25");
+		e.setTime(100000000);
 		e.setToBuy("TF1409");
 		e.setToSell("TF1412");
 		
@@ -203,7 +206,8 @@ public class DataInterfacePile implements DataInterface{
 		Record r= new Record();
 		
 		r.setCount(3);r.setGuarantee(10000);
-		r.setRepo_ID("1");r.setTime("2014-08-25");
+		r.setRepo_ID(1);//r.setTime("2014-08-25");
+		r.setTime(1000000000);
 		r.setToBuy(r.new Arbitrage("TF1409",100));
 		r.setToSell(r.new Arbitrage("TF1409",100));
 		RES =new ArrayList<Record>();

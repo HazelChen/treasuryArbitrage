@@ -1,8 +1,8 @@
 package vo;
 
 public class Repository {
-	String repo_ID;	//持仓标记……………………我感觉蛮有必要
-	String time;	//交易结束时间
+	int repo_ID;	//持仓标记……………………我感觉蛮有必要
+	long time;	//交易结束时间
 	int count;		//交易手数
 	double guarantee;	//投入保证金
 	double profit;	//收益金额……方法计算得出
@@ -16,16 +16,16 @@ public class Repository {
 		
 	}
 	
-	public String getRepo_ID() {
+	public int getRepo_ID() {
 		return repo_ID;
 	}
-	public void setRepo_ID(String repo_ID) {
+	public void setRepo_ID(int repo_ID) {
 		this.repo_ID = repo_ID;
 	}
-	public String getTime() {
+	public long getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(long time) {
 		this.time = time;
 	}
 	public int getCount() {

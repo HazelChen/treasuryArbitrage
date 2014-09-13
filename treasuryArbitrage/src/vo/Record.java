@@ -1,8 +1,8 @@
 package vo;
 
 public class Record {
-	String reco_ID;	//记录标记……………………我感觉蛮有必要
-	String time;	//交易结束时间
+	int reco_ID;	//记录标记……………………我感觉蛮有必要
+	long time;	//交易结束时间
 	int count;		//交易手数
 	double guarantee;	//投入保证金
 	String state;	//交易状态
@@ -12,16 +12,16 @@ public class Record {
 	
 	public Record(){}
 	
-	public String getRepo_ID() {
+	public int getRepo_ID() {
 		return reco_ID;
 	}
-	public void setRepo_ID(String reco_ID) {
+	public void setRepo_ID(int reco_ID) {
 		this.reco_ID = reco_ID;
 	}
-	public String getTime() {
+	public long getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(long time) {
 		this.time = time;
 	}
 	public int getCount() {
