@@ -9,8 +9,8 @@ public class Repository {
 
 	String toSell;	//ø’Õ∑
 	String toBuy;	//∂‡Õ∑
-	int toSell_price;
-	int toBuy_price;
+	double toSell_price;
+	double toBuy_price;
 	
 	public Repository(){
 		
@@ -58,5 +58,16 @@ public class Repository {
 	public void setToBuy(String toBuy) {
 		this.toBuy = toBuy;
 	}
-
+	public double gettoBuy_price() {
+		return toBuy_price;
+	}
+	public void settoBuy_price(double toBuy_price) {
+		this.toBuy_price = toBuy_price;
+	}
+	public double gettoSell_price() {
+		return toSell_price;
+	}
+	public void settoSell_price(double d) {
+		this.toSell_price = d;
+	}
 }

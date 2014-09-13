@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.EventObject;
 
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ public class MyTableEditor implements TableCellEditor {
 
     private JTable table;
     
-    public MyTableEditor(Repository repo) {
+    public MyTableEditor(ArrayList<Repository> info) {
         initTable();
 
         initPanel();

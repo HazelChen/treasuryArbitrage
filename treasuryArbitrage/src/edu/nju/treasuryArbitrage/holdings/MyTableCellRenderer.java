@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -21,36 +22,42 @@ import vo.Repository;
 public class MyTableCellRenderer implements TableCellRenderer {
 	private JPanel panel,p2;
 
-    private JTable table;
+    private JTable intable;
+    private int rowN;
+    private ArrayList<Repository> infom;
     
-    public MyTableCellRenderer(Repository repo) {
+    public MyTableCellRenderer(ArrayList<Repository> info) {
         initTable();
-        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
- 		tableModel.addRow(new Object[]{"TF1409","多头","93.123"});
- 		tableModel.addRow(new Object[]{"TF1501","空头","95.123"});
         initPanel();
+        infom = new ArrayList<Repository>();
+        infom = info;
         p2 = new JPanel();
         panel.setLayout(new BorderLayout());
+
+        DefaultTableModel tableModel = (DefaultTableModel) intable.getModel();
+ 		//Repository coding
+        tableModel.addRow(new Object[]{"","多头",""});
+ 		tableModel.addRow(new Object[]{"","空头",""});
         panel.add(p2,"North");
-        p2.add(table,"North");
+        p2.add(intable,"North");
         p2.setBackground(Color.black);
     }
 
     private void initTable() {
-    	table = new JTable(0,3);
-    	table.setFocusable(false);
-    	table.setRowHeight(38);
-    	table.setForeground(Color.white);
-    	table.setBackground(Color.black);
+    	intable = new JTable(0,3);
+    	intable.setFocusable(false);
+    	intable.setRowHeight(38);
+    	intable.setForeground(Color.white);
+    	intable.setBackground(Color.black);
 
- 		for(int i = 0;i<3;i++){
- 			table.getColumn(table.getColumnName(i)).setMinWidth((NumericalResources.SCREEN_WIDTH - 685)/3);
- 	 		table.getColumn(table.getColumnName(i)).setMaxWidth((NumericalResources.SCREEN_WIDTH - 685)/3);
+ 		for(int i = 0;i<intable.getColumnCount();i++){
+ 			intable.getColumn(intable.getColumnName(i)).setMinWidth((NumericalResources.SCREEN_WIDTH - 685)/3);
+ 	 		intable.getColumn(intable.getColumnName(i)).setMaxWidth((NumericalResources.SCREEN_WIDTH - 685)/3);
  		}
     	DefaultTableCellRenderer render = new DefaultTableCellRenderer();
         render.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < table.getColumnCount(); i++) {
-      	  table.getColumn(table.getColumnName(i)).setCellRenderer(render);
+        for (int i = 0; i < intable.getColumnCount(); i++) {
+      	  intable.getColumn(intable.getColumnName(i)).setCellRenderer(render);
 	      }
     }
 
@@ -64,7 +71,11 @@ public class MyTableCellRenderer implements TableCellRenderer {
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
-		// TODO 自动生成的方法存根
+		rowN = row;
+		intable.setValueAt(infom.get(rowN).getToBuy(), 0, 0);
+		intable.setValueAt(infom.get(rowN).gettoBuy_price(), 0, 2);
+		intable.setValueAt(infom.get(rowN).getToSell(), 1, 0);
+		intable.setValueAt(infom.get(rowN).gettoSell_price(), 1, 2);
 		return panel;
 	}
 

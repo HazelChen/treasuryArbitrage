@@ -161,15 +161,31 @@ public class DataInterfacePile implements DataInterface{
 		ArrayList<Repository> res = new ArrayList<Repository>();
 		
 		Repository e = new Repository();
-		e.setCount(4);
+		Date d = new Date();
+		e.setCount(1);
 		e.setGuarantee(20000);
 		e.setRepo_ID("1");
 		e.setProfit(10000);
-		e.setTime("2014-7-25");
-		e.setToBuy("TF1409");
+		e.setTime("2014-8-10");
+		e.setToBuy("TF1401");
 		e.setToSell("TF1412");
+		e.settoSell_price(95.00 + d.getSeconds() * 0.01);
+		e.settoBuy_price(93.00);
 		
 		res.add(e);
+		
+		Repository e2 = new Repository();
+		e2.setCount(2);
+		e2.setGuarantee(20000);
+		e2.setRepo_ID("2");
+		e2.setProfit(20000);
+		e2.setTime("2014-8-12");
+		e2.setToBuy("TF1402");
+		e2.setToSell("TF1412");
+		e2.settoSell_price(95.12);
+		e2.settoBuy_price(93.02);
+		
+		res.add(e2);
 		return res;
 	}
 
