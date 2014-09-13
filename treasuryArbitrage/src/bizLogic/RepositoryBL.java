@@ -1,19 +1,41 @@
 package bizLogic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import vo.*;
 
 
 public class RepositoryBL {
-	private ArrayList<Repository> repo_list;
+	private ArrayList<Repository> repo_list = new ArrayList<Repository>();
 	
 	public RepositoryBL(){}
 	
-	public ArrayList<Repository> getRepoList(){
+	public ArrayList<Repository> getRepoList(String username){
 		
-		Repository rep = new Repository();
-		repo_list.add(rep);
+//		Repository rep = new Repository();
+//		repo_list.add(rep);
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("username", username);
+		NetHelper helper = new NetHelper("repository",params);
+		JSONArray ret = helper.getJSONArrayByGet();
+		
+		for(int i=0;i<ret.length();i++){
+			JSONObject temp = ret.getJSONObject(i);
+			Repository rep = new Repository();
+			
+			rep.setRepo_ID(temp.getInt("id"));
+			rep.setTime(temp.getLong("time"));
+			rep.setCount(temp.getInt("hand"));
+			rep.setGuarantee(temp.getDouble("bond"));
+			rep.setToBuy(temp.getString("more_contract"));
+			rep.setToSell(temp.getString("blank_contract"));
+			
+			repo_list.add(rep);
+		}
 		
 		return repo_list;
 	}
@@ -24,11 +46,11 @@ public class RepositoryBL {
 		repo_list.add(rep);
 	}
 	
-	public boolean Trade(String Repo_ID){
+	public boolean Trade(int Repo_ID){
 		int index = -1;
 		for(Repository rep:repo_list){
 			index++;
-			if(rep.getRepo_ID().equals(Repo_ID)){
+			if(rep.getRepo_ID()==(Repo_ID)){
 				break;
 			}
 		}

@@ -9,7 +9,24 @@ import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfaceToServer implements DataInterface{
 
-	UserBL userBl;
+	UserBL userbl;
+	MessContainerBL messbl;
+	FinanceBL finanbl;
+	RepositoryBL repobl;
+	RecordBL recordbl;
+	NewsBL newsbl;
+	
+	ArbitrageBL arbtbl;
+	
+	public DataInterfaceToServer(){
+		
+		userbl = new UserBL();
+		finanbl = new FinanceBL();
+		repobl = new RepositoryBL();
+		recordbl = new RecordBL();
+		messbl = new MessContainerBL();
+		arbtbl = new ArbitrageBL();
+	}
 	
 	@Override
 	public NewsBrief[] GetALLNewsBrief() {
@@ -35,92 +52,122 @@ public class DataInterfaceToServer implements DataInterface{
 		return null;
 	}
 
+	//==================================================================================================
 	@Override
 	public boolean register(String username, String password) {
-		// TODO 自动生成的方法存根
-		return false;
+		return userbl.register(username, password);
 	}
 
 	@Override
 	public boolean loginValidate(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
+		return userbl.login(username, password);
 	}
 	
 	@Override
-	public boolean changePWD(String username, String oldpwd, String newpwd) {
-		// TODO 自动生成的方法存根
-		return false;
+public boolean changePWD(String username, String oldpwd, String newpwd) {
+		return userbl.changePWD(username, oldpwd, newpwd);
 	}
-
+	
 	@Override
 	public boolean logout() {
-		// TODO 自动生成的方法存根
-		return false;
+		UserVO user = userbl.getUser();
+		return userbl.logout(user.getUserID());
 	}
-
+	
+	//==================================================================================================
+	
 	@Override
 	public ArrayList<Finance> getFinanceList() {
-		// TODO 自动生成的方法存根
-		return null;
+		UserVO user = userbl.getUser();
+		return finanbl.getFinanceList(user.getUserID());
 	}
 
 	@Override
 	public ArrayList<Repository> getRepoList() {
+		UserVO user = userbl.getUser();
+		return repobl.getRepoList(user.getUserID());
+	}
+
+	@Override
+	public ArrayList<Record> getRecordList() {
+		UserVO user = userbl.getUser();
+		return recordbl.getRecordList(user.getUserID());
+	}
+	
+	@Override
+	public ArrayList<News> getNewsList() {
+		// TODO 自动生成的方法存根
+		return newsbl.getNewsList();
+	}
+	
+	//==================================================================================================
+	
+	@Override
+	public ArrayList<Message> getMessList() {
+		return messbl.getmessages();
+	}
+
+	@Override
+	public void ReadMess(int index) {
+		messbl.ReadMess(index);
+	}
+
+	@Override
+	public void DeleteMess(int index) {
+		messbl.DeleteMess(index);
+	}
+
+	//==================================================================================================
+	
+	@Override
+	public double getPara_PROF() {
+		return userbl.getPara_PROF();
+	}
+
+	@Override
+	public double getPara_LOSS() {
+		return userbl.getPara_LOSS();
+	}
+
+	@Override
+	public double getPara_GUAR() {
+		return userbl.getPara_GUAR();
+	}
+
+	@Override
+	public boolean setPara(double PROF, double LOSS, double GUAR) {
+		return userbl.setParams(PROF, LOSS, GUAR);
+	}
+
+	//==================================================================================================
+	
+	@Override
+	public Arb_detail getArbDetail(String id) {
+		// TODO 自动生成的方法存根
+		UserVO user = userbl.getUser();
+		return arbtbl.getDetail(user.getUserID());
+	}
+
+	@Override
+	public ArrayList<ArbGroup> getArbGroup() {
 		// TODO 自动生成的方法存根
 		return null;
 	}
 
 	@Override
-	public boolean Trade(String Repo_ID) {
+	public boolean Order() {
 		// TODO 自动生成的方法存根
 		return false;
 	}
 
 	@Override
-	public ArrayList<Message> getMessList() {
+	public boolean cancleOrder(int record_ID) {
 		// TODO 自动生成的方法存根
-		return null;
+		return false;
 	}
 
 	@Override
-	public void ReadMess(String MessID) {
-		// TODO 自动生成的方法存根
-		
-	}
-
-	@Override
-	public void DeleteMess(String MessID) {
-		// TODO 自动生成的方法存根
-		
-	}
-
-	@Override
-	public ArrayList<Record> getRecordList() {
-		// TODO 自动生成的方法存根
-		return null;
-	}
-
-	@Override
-	public double getPara_PROF() {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
-	@Override
-	public double getPara_LOSS() {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
-	@Override
-	public double getPara_GUAR() {
-		// TODO 自动生成的方法存根
-		return 0;
-	}
-
-	@Override
-	public boolean setPara(double PROF, double LOSS, double GUAR) {
+	public boolean Trade(int Repo_ID) {
 		// TODO 自动生成的方法存根
 		return false;
 	}

@@ -23,6 +23,7 @@ import edu.nju.treasuryArbitrage.resources.ColorResources;
 public class LoginInput extends JPanel{
 	private static final long serialVersionUID = -4223830916730143876L;
 	
+	private RiskTipDialog dialog = new RiskTipDialog();
 	private JTextField userTextField = new JTextField();
 	private JPasswordField passwordField = new JPasswordField();
 	private JCheckBox rememberpwdCheckBox = new JCheckBox("¼Ç×¡ÃÜÂë");
@@ -144,7 +145,7 @@ public class LoginInput extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (readRiskWarning.isSelected()) {
-					RiskTipDialog dialog = new RiskTipDialog();
+					
 					dialog.setVisible(true);
 					okButton.setEnabled(true);
 				} else {
@@ -153,4 +154,6 @@ public class LoginInput extends JPanel{
 			}
 		});
 	}
+	
+	
 }

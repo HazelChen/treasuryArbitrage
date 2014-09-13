@@ -7,6 +7,7 @@ import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.holdings.Holdings;
 import edu.nju.treasuryArbitrage.navigater.Navigater;
 import edu.nju.treasuryArbitrage.news.News;
+import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
 public class MajorPartsFactory {
 	private static MajorPartsFactory self;
@@ -74,6 +75,7 @@ public class MajorPartsFactory {
 	public PersonalCenter getPersonalCenter() {
 		if (personalCenter == null) {
 			personalCenter = new PersonalCenter();
+			personalCenter.assemble(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
 		}
 		return personalCenter;
 	}

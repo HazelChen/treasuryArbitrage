@@ -10,6 +10,7 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.json.JSONArray;
 import org.json.JSONObject;
 /**
  * 
@@ -36,6 +37,16 @@ public class NetHelper {
 //		System.out.println(vo);
 //	}
 	
+//	public static void main(String[] args){
+//		String arr = "[{\"name\":\"jack\"},{\"name\":\"lucy\"}]";
+//		JSONArray temp = new JSONArray(arr);
+//		for(int i=0;i<temp.length();i++){
+//			JSONObject ob = temp.getJSONObject(i);
+//			String aa = ob.getString("name");
+//			System.out.println(aa);
+//		}
+//	}
+	
 	/*
 	 * 设置参数
 	 */
@@ -44,13 +55,11 @@ public class NetHelper {
 		for (String key: param.keySet()) {
 			urlString += key+"="+param.get(key)+"&";
 		}
-		System.out.println(urlString);
+//		System.out.println(urlString);
 	}
 
-	
-	// 得到JSONObject(Get方式)
-	public JSONObject getJSONObjectByGet() {
-		JSONObject resultJsonObject = null;
+	public String getStringByGet(){
+		String resultString = null;
 		if ("".equals(urlString) || urlString == null) {
 			return null;
 		}		
@@ -78,19 +87,72 @@ public class NetHelper {
 					String line = null;
 					while ((line = bufferedReader.readLine()) != null) {
 						entityStringBuilder.append(line + "/n");
-						System.out.println(line);
+//						System.out.println(line);
 					}
 					// 利用从HttpEntity中得到的String生成JsonObject
-					resultJsonObject = new JSONObject(
-							entityStringBuilder.toString());
+					resultString = entityStringBuilder.toString();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		return resultJsonObject;
+		return resultString;
+	}
+	
+//	// 得到JSONObject(Get方式)
+//	public JSONObject getJSONObjectByGet() {
+//		JSONObject resultJsonObject = null;
+//		if ("".equals(urlString) || urlString == null) {
+//			return null;
+//		}		
+//        CloseableHttpClient httpclient = HttpClients.createDefault();  
+//		StringBuilder urlStringBuilder = new StringBuilder(urlString);
+//		StringBuilder entityStringBuilder = new StringBuilder();
+//		// 利用URL生成一个HttpGet请求
+//		HttpGet httpGet = new HttpGet(urlStringBuilder.toString());
+//		BufferedReader bufferedReader = null;
+//		HttpResponse httpResponse = null;
+//		try {
+//			httpResponse = httpclient.execute(httpGet);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		// 得到httpResponse的状态响应码
+//		int statusCode = httpResponse.getStatusLine().getStatusCode();
+//		if (statusCode == HttpStatus.SC_OK) {
+//			// 得到httpResponse的实体数据		
+//			HttpEntity httpEntity = httpResponse.getEntity();
+//			if (httpEntity != null) {
+//				try {
+//					bufferedReader = new BufferedReader(new InputStreamReader(
+//							httpEntity.getContent(), "UTF-8"), 8 * 1024);
+//					String line = null;
+//					while ((line = bufferedReader.readLine()) != null) {
+//						entityStringBuilder.append(line + "/n");
+//						System.out.println(line);
+//					}
+//					// 利用从HttpEntity中得到的String生成JsonObject
+//					resultJsonObject = new JSONObject(
+//							entityStringBuilder.toString());
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		return resultJsonObject;
+//	}
+	
+	// 得到JSONObject(Get方式)
+	public JSONObject getJSONObjectByGet() {
+		JSONObject result = new JSONObject(getStringByGet());
+		return result;
 	}
 	
 	
+	// 得到JSONObject(Get方式)
+	public JSONArray getJSONArrayByGet() {
+		JSONArray result = new JSONArray(getStringByGet());
+		return result;
+	}
 
 }

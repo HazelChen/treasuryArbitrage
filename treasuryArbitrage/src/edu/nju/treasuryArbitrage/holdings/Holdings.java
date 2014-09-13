@@ -10,11 +10,14 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.CellEditorListener;
+import javax.swing.event.ChangeEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -34,6 +37,11 @@ public class Holdings extends JPanel{
 	static Object colummnames1[]={"时间","总资金","已投入保证金","空闲资金"},
 			colummnames2[]={"套利组合信息","交易时间","交易手数","投入保证金","即时损失/盈利金额","操作"},
 			empOb[][] = {{"","","","","",""},
+						 {"","","","","",""},
+						 {"","","","","",""},
+						 {"","","","","",""},
+						 {"","","","","",""},
+						 {"","","","","",""},
 						 {"","","","","",""}};//
 	JPanel con,panel1,panel2,p11,p21;
 	JScrollPane jsp1,jsp2;
@@ -60,9 +68,9 @@ public class Holdings extends JPanel{
 		refreshBtn = new JButton("刷新");    refreshBtn.setFocusPainted(false);
 		refreshBtn.setBackground(rbtnbg); 
 		refreshBtn.addMouseListener(new MouseListener(){
-			public void mouseClicked(MouseEvent e) {}
+			public void mouseClicked(MouseEvent e) {updateRepoList();}
 			public void mousePressed(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {updateRepoList();}
 			public void mouseEntered(MouseEvent e) {}
 			public void mouseExited(MouseEvent e) {}
 		});
@@ -87,8 +95,7 @@ public class Holdings extends JPanel{
 	          fTable.getTableHeader().setPreferredSize(new Dimension(0,0));
 	          fTable.getTableHeader().setVisible(false);
 	          makeFace2(fTable);
-	          fTableRec = di.getFinanceList();//接收已将按照时间排好顺序的结果
-		 	   updateFTable(fTableRec);
+		 	   updateFTable();
 	    jsp1 = new JScrollPane(fTable);
 	    jsp1.getViewport().setBackground(Color.black);
  		p11 = new JPanel();
@@ -117,7 +124,8 @@ public class Holdings extends JPanel{
  		}
  		DefaultTableModel tableModel21 = (DefaultTableModel) hTableHeader.getModel();
 	 	   tableModel21.addRow(colummnames2); 
-	 	
+
+	 	info = di.getRepoList();//从服务器获取数据
  		hTable = new JTable(new DefaultTableModel() {
  			@Override
             public Object getValueAt(int row, int column) {
@@ -130,7 +138,7 @@ public class Holdings extends JPanel{
             }
             @Override
             public int getRowCount() {
-                return 1;
+                return info.size();
             }
             @Override
             public int getColumnCount() {
@@ -146,12 +154,10 @@ public class Holdings extends JPanel{
             }
         });
  		DefaultTableModel tableModel22 = (DefaultTableModel) hTable.getModel();
- 		//tableModel22.addRow(new Object[]{"1","2","3","4","5","平仓"});
         hTable.getTableHeader().setPreferredSize(new Dimension(0,0));
         hTable.getTableHeader().setVisible(false);
  		makeFace2(hTable);
- 		info = di.getRepoList();//从服务器获取数据
- 		updateRecord();
+ 		updateRepoList();
 		hTable.setRowHeight(80);
  		for(int i = 1;i<5;i++){
  			hTable.getColumn(hTable.getColumnName(i)).setMinWidth(
@@ -190,25 +196,22 @@ public class Holdings extends JPanel{
 		add(con);
 	}
 
-	private void updateRecord() {
-		int recnum = 0;
-
-		DefaultTableModel tableModel = (DefaultTableModel) hTable.getModel();
+	public void updateRepoList() {
+ 		info = di.getRepoList();//从服务器获取数据
 	    	
-	    	if((recnum = info.size()) > 0){
-	    		for(int j = 0;j < recnum;j ++){
-		 	    	hTable.setValueAt(info.get(j).getTime(), 0, 1);
-		 	    	hTable.setValueAt(info.get(j).getCount(), 0, 2);
-		 	    	hTable.setValueAt(info.get(j).getGuarantee(), 0, 3);
-		 	    	hTable.setValueAt(info.get(j).getProfit(), 0, 4);
+	    	if(info.size() > 0){
+	    		for(int j = 0;j < info.size();j ++){
+		 	    	hTable.setValueAt(info.get(j).getTime(), j, 1);
+		 	    	hTable.setValueAt(info.get(j).getCount(), j, 2);
+		 	    	hTable.setValueAt(info.get(j).getGuarantee(), j, 3);
+		 	    	hTable.setValueAt(info.get(j).getProfit(), j, 4);
 	 	    	} 
+	 	 		hTable.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(info));
+	 	 		hTable.getColumnModel().getColumn(5).setCellRenderer(new ButtonCellRenderer());
+	 	 		hTable.getColumnModel().getColumn(0).setCellEditor(new MyTableEditor(info));
+	 	 		hTable.getColumnModel().getColumn(0).setCellRenderer(new MyTableCellRenderer(info));//
 	    	}
-		for(int i = 0;i<info.size();i++){
- 	 		hTable.getColumnModel().getColumn(5).setCellEditor(new ButtonEditor(info.get(i)));
- 	 		hTable.getColumnModel().getColumn(5).setCellRenderer(new ButtonCellRenderer());
- 	 		hTable.getColumnModel().getColumn(0).setCellEditor(new MyTableEditor(info.get(i)));
- 	 		hTable.getColumnModel().getColumn(0).setCellRenderer(new MyTableCellRenderer(info.get(i)));//
- 		}	
+	    	hTable.repaint();
 	}
 
 	private void makeFace2(JTable table) {
@@ -242,9 +245,11 @@ public class Holdings extends JPanel{
         
 	}
 
-	private void updateFTable(ArrayList<Finance> fTableRec) {
+	public void updateFTable() {
 		int recnum = 0;
 
+        fTableRec = di.getFinanceList();//接收已将按照时间排好顺序的结果
+        
 		DefaultTableModel tableModel = (DefaultTableModel) fTable.getModel();
 	    	for(int i = 1;i < fTable.getRowCount();){
 	    		tableModel.removeRow(i);

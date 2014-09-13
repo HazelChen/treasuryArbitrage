@@ -5,15 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import vo.Finance;
-import vo.Message;
-import vo.Record;
-import vo.Repository;
+import vo.*;
 import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfacePile implements DataInterface{
 
 
+	@SuppressWarnings("deprecation")
 	public NewsBrief[] GetALLNewsBrief() {
 		int num = 0;
 	    NewsBrief[] res = null;
@@ -152,8 +150,10 @@ public class DataInterfacePile implements DataInterface{
 		// TODO 自动生成的方法存根
 		ArrayList<Finance> RES;
 		RES =new ArrayList<Finance>();
-		RES.add(new Finance("2014-7-15",20000,10000,10000));
-		RES.add(new Finance("2014-7-18",30000,10000,20000));
+//		RES.add(new Finance("2014-7-15",20000,10000,10000));
+//		RES.add(new Finance("2014-7-18",30000,10000,20000));
+		RES.add(new Finance(100000000,20000,10000,10000));
+		RES.add(new Finance(100000000,30000,10000,20000));
 		return RES;
 	}
 
@@ -163,20 +163,37 @@ public class DataInterfacePile implements DataInterface{
 		ArrayList<Repository> res = new ArrayList<Repository>();
 		
 		Repository e = new Repository();
-		e.setCount(4);
+		Date d = new Date();
+		e.setCount(1);
 		e.setGuarantee(20000);
-		e.setRepo_ID("1");
+		e.setRepo_ID(1);
 		e.setProfit(10000);
-		e.setTime("2014-7-25");
-		e.setToBuy("TF1409");
+//		e.setTime("2014-7-25");
+		e.setTime(100000000);
+		e.setToBuy("TF1401");
 		e.setToSell("TF1412");
+		e.settoSell_price(95.00 + d.getSeconds() * 0.01);
+		e.settoBuy_price(93.00);
 		
 		res.add(e);
+		
+		Repository e2 = new Repository();
+		e2.setCount(2);
+		e2.setGuarantee(20000);
+		e2.setRepo_ID(2);
+		e2.setProfit(20000);
+		e2.setTime(100000000);
+		e2.setToBuy("TF1402");
+		e2.setToSell("TF1412");
+		e2.settoSell_price(95.12);
+		e2.settoBuy_price(93.02);
+		
+		res.add(e2);
 		return res;
 	}
 
 	@Override
-	public boolean Trade(String Repo_ID) {
+	public boolean Trade(int Repo_ID) {
 		// TODO 自动生成的方法存根
 		return false;
 	}
@@ -188,13 +205,13 @@ public class DataInterfacePile implements DataInterface{
 	}
 
 	@Override
-	public void ReadMess(String MessID) {
+	public void ReadMess(int index) {
 		// TODO 自动生成的方法存根
 		
 	}
 
 	@Override
-	public void DeleteMess(String MessID) {
+	public void DeleteMess(int index) {
 		// TODO 自动生成的方法存根
 		
 	}
@@ -205,8 +222,10 @@ public class DataInterfacePile implements DataInterface{
 		Record r= new Record();
 		
 		r.setCount(3);r.setGuarantee(10000);
-		r.setRepo_ID("1");r.setTime("2014-08-25");
-		r.setToBuy(null);r.setToSell(null);
+		r.setRepo_ID(1);//r.setTime("2014-08-25");
+		r.setTime(1000000000);
+		r.setToBuy(r.new Arbitrage("TF1409",100));
+		r.setToSell(r.new Arbitrage("TF1409",100));
 		RES =new ArrayList<Record>();
 		
 		RES.add(r);
@@ -236,6 +255,36 @@ public class DataInterfacePile implements DataInterface{
 	public boolean setPara(double PROF, double LOSS, double GUAR) {
 		// TODO 自动生成的方法存根
 		return false;
+	}
+
+	@Override
+	public Arb_detail getArbDetail(String id) {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public ArrayList<ArbGroup> getArbGroup() {
+		// TODO 自动生成的方法存根
+		return null;
+	}
+
+	@Override
+	public boolean cancleOrder(int record_id) {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public boolean Order() {
+		// TODO 自动生成的方法存根
+		return false;
+	}
+
+	@Override
+	public ArrayList<News> getNewsList() {
+		// TODO 自动生成的方法存根
+		return null;
 	}
 
 }
