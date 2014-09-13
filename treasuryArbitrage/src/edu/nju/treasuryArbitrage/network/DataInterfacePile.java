@@ -157,6 +157,7 @@ public class DataInterfacePile implements DataInterface{
 		return RES;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ArrayList<Repository> getRepoList() {
 		// TODO 自动生成的方法存根
@@ -258,7 +259,7 @@ public class DataInterfacePile implements DataInterface{
 	}
 
 	@Override
-	public Arb_detail getArbDetail(String id) {
+	public ArrayList<Arb_detail> getArbDetail() {
 		// TODO 自动生成的方法存根
 		return null;
 	}
@@ -276,7 +277,7 @@ public class DataInterfacePile implements DataInterface{
 	}
 
 	@Override
-	public boolean Order() {
+	public boolean Order(String More_contract,String Blank_contract,int hand) {
 		// TODO 自动生成的方法存根
 		return false;
 	}

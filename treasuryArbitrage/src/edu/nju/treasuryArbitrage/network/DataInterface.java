@@ -59,10 +59,10 @@ public interface DataInterface {
 	public double getPara_GUAR();
 	public boolean setPara(double PROF,double LOSS,double GUAR);
 	
-	public Arb_detail getArbDetail(String id);
+	public ArrayList<Arb_detail> getArbDetail();
 	public ArrayList<ArbGroup> getArbGroup();
 	
-	public boolean Order();
+	public boolean Order(String More_contract,String Blank_contract,int hand);
 	public boolean cancleOrder(int Record_ID);
 	public boolean Trade(int Repo_ID);//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean
 }

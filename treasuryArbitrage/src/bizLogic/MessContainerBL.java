@@ -7,7 +7,7 @@ import java.util.Date;
 import vo.Message;
 
 public class MessContainerBL {
-	private ArrayList<Message> messages = new ArrayList<Message>();
+	private ArrayList<Message> messages;
 	
 	public MessContainerBL(){
 		messages = new ArrayList<Message>();
