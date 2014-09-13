@@ -10,7 +10,7 @@ import vo.*;
 
 
 public class RepositoryBL {
-	private ArrayList<Repository> repo_list;
+	private ArrayList<Repository> repo_list = new ArrayList<Repository>();
 	
 	public RepositoryBL(){}
 	
@@ -27,23 +27,11 @@ public class RepositoryBL {
 			JSONObject temp = ret.getJSONObject(i);
 			Repository rep = new Repository();
 			
-			//这里未完工！！！！！！
-			JSONArray a_temp = temp.getJSONArray("arbitrage");
-			for(int j=0;j<a_temp.length();j++){
-				String orientation = a_temp.getJSONObject(j).getString("orientation");
-				if(orientation.equals("")){
-					
-				}else if(orientation.equals("")){
-					
-				}
-			}
-			
-			rep.setRepo_ID(temp.getInt("repo_ID")+"");
-			rep.setCount(temp.getInt("count"));
-			rep.setGuarantee(temp.getDouble("confirm"));
-			rep.setProfit(temp.getDouble("profit"));
-			
-			
+			rep.setRepo_ID(temp.getInt("id"));
+			rep.setCount(temp.getInt("hand"));
+			rep.setGuarantee(temp.getDouble("bond"));
+			rep.setToBuy(temp.getString("more_contract"));
+			rep.setToSell(temp.getString("blank_contract"));
 			
 			repo_list.add(rep);
 		}
@@ -57,11 +45,11 @@ public class RepositoryBL {
 		repo_list.add(rep);
 	}
 	
-	public boolean Trade(String Repo_ID){
+	public boolean Trade(int Repo_ID){
 		int index = -1;
 		for(Repository rep:repo_list){
 			index++;
-			if(rep.getRepo_ID().equals(Repo_ID)){
+			if(rep.getRepo_ID()==(Repo_ID)){
 				break;
 			}
 		}

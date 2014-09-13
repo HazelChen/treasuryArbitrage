@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import vo.News;
 
 public class NewsBL {
-	private ArrayList<News> newslist;
+	private ArrayList<News> newslist = new ArrayList<News>();
 	
 	public NewsBL(){}
 	

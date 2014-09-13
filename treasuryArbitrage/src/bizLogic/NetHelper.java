@@ -55,7 +55,7 @@ public class NetHelper {
 		for (String key: param.keySet()) {
 			urlString += key+"="+param.get(key)+"&";
 		}
-		System.out.println(urlString);
+//		System.out.println(urlString);
 	}
 
 	public String getStringByGet(){
@@ -87,7 +87,7 @@ public class NetHelper {
 					String line = null;
 					while ((line = bufferedReader.readLine()) != null) {
 						entityStringBuilder.append(line + "/n");
-						System.out.println(line);
+//						System.out.println(line);
 					}
 					// 利用从HttpEntity中得到的String生成JsonObject
 					resultString = entityStringBuilder.toString();

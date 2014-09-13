@@ -150,8 +150,10 @@ public class DataInterfacePile implements DataInterface{
 		// TODO 自动生成的方法存根
 		ArrayList<Finance> RES;
 		RES =new ArrayList<Finance>();
-		RES.add(new Finance("2014-7-15",20000,10000,10000));
-		RES.add(new Finance("2014-7-18",30000,10000,20000));
+//		RES.add(new Finance("2014-7-15",20000,10000,10000));
+//		RES.add(new Finance("2014-7-18",30000,10000,20000));
+		RES.add(new Finance(100000000,20000,10000,10000));
+		RES.add(new Finance(100000000,30000,10000,20000));
 		return RES;
 	}
 
@@ -164,9 +166,10 @@ public class DataInterfacePile implements DataInterface{
 		Date d = new Date();
 		e.setCount(1);
 		e.setGuarantee(20000);
-		e.setRepo_ID("1");
+		e.setRepo_ID(1);
 		e.setProfit(10000);
-		e.setTime("2014-8-10");
+//		e.setTime("2014-7-25");
+		e.setTime(100000000);
 		e.setToBuy("TF1401");
 		e.setToSell("TF1412");
 		e.settoSell_price(95.00 + d.getSeconds() * 0.01);
@@ -177,9 +180,9 @@ public class DataInterfacePile implements DataInterface{
 		Repository e2 = new Repository();
 		e2.setCount(2);
 		e2.setGuarantee(20000);
-		e2.setRepo_ID("2");
+		e2.setRepo_ID(2);
 		e2.setProfit(20000);
-		e2.setTime("2014-8-12");
+		e2.setTime(100000000);
 		e2.setToBuy("TF1402");
 		e2.setToSell("TF1412");
 		e2.settoSell_price(95.12);
@@ -219,7 +222,8 @@ public class DataInterfacePile implements DataInterface{
 		Record r= new Record();
 		
 		r.setCount(3);r.setGuarantee(10000);
-		r.setRepo_ID("1");r.setTime("2014-08-25");
+		r.setRepo_ID(1);//r.setTime("2014-08-25");
+		r.setTime(1000000000);
 		r.setToBuy(r.new Arbitrage("TF1409",100));
 		r.setToSell(r.new Arbitrage("TF1409",100));
 		RES =new ArrayList<Record>();
