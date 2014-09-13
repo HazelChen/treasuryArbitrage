@@ -9,17 +9,28 @@ import edu.nju.treasuryArbitrage.network.DataInterface;
 public class UpdateThread implements Runnable{
 
 	public void run() {
-		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfacePile();
 		ArrayList<Arb_detail> arb_details = dataInterface.getArbDetail();
 		LiveData.getInstance().setArb_details(arb_details);
 		
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		int i = 0;
+		while (true) {
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			arb_details = dataInterface.getArbDetail();
+			LiveData.getInstance().setArb_details(arb_details);
+			//TODO update
+			
+			i++;
+			if (i == 60) {
+				i = 0;
+				//TODO 图表更新数据
+			}
 		}
-		LiveData.getInstance().setArb_details(arb_details);
-		//TODO
+		
 		
 	}
 }
