@@ -259,8 +259,96 @@ public class DataInterfacePile implements DataInterface{
 
 	@Override
 	public Arb_detail getArbDetail(String id) {
-		// TODO 自动生成的方法存根
-		return null;
+		Arb_detail arb1=new Arb_detail();
+		if(id.equals("TF1409")){
+			arb1.setName("国债TF1409");
+			arb1.setRepository(6979);
+			arb1.setWarehouse(0);
+			arb1.setDailyWarehouse(134);
+			arb1.setPreClose(92.984);
+			arb1.setOpen(92.456);
+			arb1.setHigh(92.984);
+			arb1.setLow(92.456);
+			arb1.setFullAmount(16.48);
+			arb1.setPreSettlePrice(92.984);
+			arb1.setSettlePrice(92.456);
+			arb1.setSwing(0.33);
+			arb1.setRatio(1.04);
+			arb1.setOutvol(527);
+			arb1.setInvol(1274);
+			
+			arb1.setCommitteeThan(3.70);
+			arb1.setAskPrice(93.245);
+			arb1.setBidPirce(98.154);
+			arb1.setPresentPrice(93.370);
+			arb1.setPriceChange(0.336);
+			arb1.setChange(0.36);
+			arb1.setNvol(1);
+			arb1.setVol(1770);
+			arb1.setPreRepository(6845);
+			arb1.setHardenPrice(94.769);
+			arb1.setAverPrice(93.125);
+			arb1.setLimitPrice(91.080);
+		}else if(id.equals("TF1412")){
+			arb1.setName("国债TF1412");
+			arb1.setRepository(6979);
+			arb1.setWarehouse(0);
+			arb1.setDailyWarehouse(134);
+			arb1.setPreClose(92.984);
+			arb1.setOpen(92.456);
+			arb1.setHigh(92.984);
+			arb1.setLow(92.456);
+			arb1.setFullAmount(16.48);
+			arb1.setPreSettlePrice(92.984);
+			arb1.setSettlePrice(92.456);
+			arb1.setSwing(0.33);
+			arb1.setRatio(1.04);
+			arb1.setOutvol(527);
+			arb1.setInvol(1274);
+			
+			arb1.setCommitteeThan(3.70);
+			arb1.setAskPrice(93.245);
+			arb1.setBidPirce(98.154);
+			arb1.setPresentPrice(93.370);
+			arb1.setPriceChange(0.336);
+			arb1.setChange(0.36);
+			arb1.setNvol(1111);
+			arb1.setVol(1770);
+			arb1.setPreRepository(6845);
+			arb1.setHardenPrice(94.769);
+			arb1.setAverPrice(93.125);
+			arb1.setLimitPrice(91.080);
+		}else if(id.equals("TF1503")){
+			arb1.setName("国债TF1503");
+			arb1.setRepository(6979);
+			arb1.setWarehouse(0);
+			arb1.setDailyWarehouse(134);
+			arb1.setPreClose(92.984);
+			arb1.setOpen(92.456);
+			arb1.setHigh(92.984);
+			arb1.setLow(92.456);
+			arb1.setFullAmount(16.48);
+			arb1.setPreSettlePrice(92.984);
+			arb1.setSettlePrice(92.456);
+			arb1.setSwing(0.33);
+			arb1.setRatio(1.04);
+			arb1.setOutvol(527);
+			arb1.setInvol(1274);
+			
+			arb1.setCommitteeThan(3.70);
+			arb1.setAskPrice(93.245);
+			arb1.setBidPirce(98.154);
+			arb1.setPresentPrice(93.370);
+			arb1.setPriceChange(0.336);
+			arb1.setChange(0.36);
+			arb1.setNvol(111111);
+			arb1.setVol(1770);
+			arb1.setPreRepository(6845);
+			arb1.setHardenPrice(94.769);
+			arb1.setAverPrice(93.125);
+			arb1.setLimitPrice(91.080);
+		}
+		return arb1;
 	}
 
 	@Override

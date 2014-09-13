@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +24,9 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
+import edu.nju.treasuryArbitrage.network.DataInterfacePile;
+import vo.Arb_detail;
+
 public class FuturesMarket extends JPanel{
 	private static final long serialVersionUID = 4293989421427626065L;
 	private static final int WIDTH=1200;
@@ -41,14 +45,21 @@ public class FuturesMarket extends JPanel{
 	private static TableCellTextPaneRenderer tctpTable1;
 	private static TableCellTextPaneRenderer tctpTable2;
 	private static TableCellTextPaneRenderer tctpTable3;
-	
+	private static Arb_detail arb1,arb2,arb3;
+	private static Object[][] tableInfo1,tableInfo2,tableInfo3;
+	private static DefaultTableModel model1,model2,model3;
 	
 	
 	public FuturesMarket() {
 		this.setBackground(Color.BLACK);
 		this.setSize(WIDTH,HEIGHT);
 		this.setLayout(null);
-		
+		arb3=new Arb_detail();
+		arb3=this.getTableData("TF1503");
+		arb2=new Arb_detail();
+		arb2=this.getTableData("TF1412");
+		arb1=new Arb_detail();
+		arb1=this.getTableData("TF1409");
 		futuresHeader=getHeader();
 		futuresTable1=getTable1();
 		futuresTable2=getTable2();
@@ -74,12 +85,108 @@ public class FuturesMarket extends JPanel{
 		this.add(line2);
 		line2.setBounds((WIDTH/5)*2,10+HEADER_HEIGHT+3*TABLE_HEIGHT+20,1,HEIGHT-190);
 	
+		
 	}
 	
 	public JPanel getPanel(){
 		return this;
 	}
 	
+	public void update(ArrayList<Arb_detail> arb_list){
+
+		arb1=arb_list.get(0);
+		arb2=arb_list.get(1);
+		arb3=arb_list.get(2);
+		
+		
+		String[] columnTitle={"序号","代码","名称","持仓","增仓","日增仓","昨收","今开","最高","最低"
+				,"金额","昨结","今结","振幅","量比","沉淀资金","资金流向","外盘","内盘"};
+		
+		tableInfo1=this.getFuturesInfo(arb1, 1);
+		tableInfo2=this.getFuturesInfo(arb2, 2);
+		tableInfo3=this.getFuturesInfo(arb3, 3);
+		model1 = new DefaultTableModel(tableInfo1,columnTitle) {
+			private static final long serialVersionUID = 1L;
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+        };
+        model2 = new DefaultTableModel(tableInfo2,columnTitle) {
+			private static final long serialVersionUID = 1L;
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+        };
+        model3 = new DefaultTableModel(tableInfo3,columnTitle) {
+			private static final long serialVersionUID = 1L;
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+        };
+        
+		futuresTable1.setModel(model1);		
+		futuresTable2.setModel(model2);	
+		futuresTable3.setModel(model3);
+		futuresTable1.repaint();
+		futuresTable2.repaint();
+		futuresTable3.repaint();
+		
+	}
+	
+	public Object[][] getFuturesInfo(Arb_detail arb,int id){
+		String warehouse="+0";
+		if(arb.getWarehouse()>=0){
+			warehouse="+"+arb.getWarehouse();
+		}else{
+			warehouse=String.valueOf(arb.getWarehouse());
+		}
+		String dailyWh="+0";
+		if(arb.getDailyWarehouse()>=0){
+			dailyWh="+"+arb.getDailyWarehouse();
+		}else{
+			dailyWh=String.valueOf(arb.getDailyWarehouse());
+		}
+		String swing=arb.getSwing()+"%";
+		String fullAmount=arb.getFullAmount()+"亿";
+		if(id==1){
+			Object[][] futuresInfo={				
+					new Object[]{1,"TF1409","国债1409"
+							,arb.getRepository(),warehouse,dailyWh
+							,arb.getPreClose(),arb.getOpen()
+							,arb.getHigh(),arb.getLow(),
+								fullAmount,arb.getPreSettlePrice()
+								,arb.getSettlePrice(),swing
+								,arb.getRatio(),"test","test"
+								,arb.getOutvol(),arb.getInvol()}
+			};
+			return futuresInfo;
+		}else if(id==2){
+			Object[][] futuresInfo={				
+					new Object[]{2,"TF1412","国债1412"
+							,arb.getRepository(),warehouse,dailyWh
+							,arb.getPreClose(),arb.getOpen()
+							,arb.getHigh(),arb.getLow(),
+								fullAmount,arb.getPreSettlePrice()
+								,arb.getSettlePrice(),swing
+								,arb.getRatio(),"xxx","yyy"
+								,arb.getOutvol(),arb.getInvol()}
+			};
+			return futuresInfo;
+		}else if(id==3){
+			Object[][] futuresInfo={				
+					new Object[]{3,"TF1503","国债1503"
+							,arb.getRepository(),warehouse,dailyWh
+							,arb.getPreClose(),arb.getOpen()
+							,arb.getHigh(),arb.getLow(),
+								fullAmount,arb.getPreSettlePrice()
+								,arb.getSettlePrice(),swing
+								,arb.getRatio(),"!!!","~~~~"
+								,arb.getOutvol(),arb.getInvol()}
+			};
+			return futuresInfo;
+		}
+		return null;
+	}
 	private JTable getHeader(){
 		String[] header={"序号","代码","名称","持仓","增仓","日增仓","昨收","今开","最高","最低"
 				,"金额","昨结","今结","振幅","量比","沉淀资金","资金流向","外盘","内盘"};
@@ -104,15 +211,37 @@ public class FuturesMarket extends JPanel{
 	}
 	
 	private JTable getTable1(){
+		
 		String[] columnTitle={"序号","代码","名称","持仓","增仓","日增仓","昨收","今开","最高","最低"
 				,"金额","昨结","今结","振幅","量比","沉淀资金","资金流向","外盘","内盘"};
 		
-		Object[][] futuresInfo={				
-				new Object[]{1,"TF1409","国债1409",6979,"+0","134",92.984,92.456,92.984,92.456,
-							"16.48亿",92.984,92.456,"0.33%",1.04,"64.97亿","93.35万",527,1274}
-		};
+		String warehouse="+0";
+		if(arb1.getWarehouse()>=0){
+			warehouse="+"+arb1.getWarehouse();
+		}else{
+			warehouse=String.valueOf(arb1.getWarehouse());
+		}
+		String dailyWh="+0";
+		if(arb1.getDailyWarehouse()>=0){
+			dailyWh="+"+arb1.getDailyWarehouse();
+		}else{
+			dailyWh=String.valueOf(arb1.getDailyWarehouse());
+		}
+		String swing=arb1.getSwing()+"%";
+		String fullAmount=arb1.getFullAmount()+"亿";
 		
-        DefaultTableModel model = new DefaultTableModel(futuresInfo,columnTitle) {
+		Object[][] futuresInfo={				
+				new Object[]{1,"TF1409","国债1409"
+						,arb1.getRepository(),warehouse,dailyWh
+						,arb1.getPreClose(),arb1.getOpen()
+						,arb1.getHigh(),arb1.getLow(),
+							fullAmount,arb1.getPreSettlePrice()
+							,arb1.getSettlePrice(),swing
+							,arb1.getRatio(),"64.97亿","93.35万"
+							,arb1.getOutvol(),arb1.getInvol()}
+		};
+		tableInfo1=futuresInfo;
+        model1 = new DefaultTableModel(tableInfo1,columnTitle) {
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -120,7 +249,7 @@ public class FuturesMarket extends JPanel{
         };
 
         
-        JTable table = new JTable(model);
+        JTable table = new JTable(model1);
         tctpTable1=new TableCellTextPaneRenderer();
         tctpTable1.setBackground(Color.BLACK);
         
@@ -143,12 +272,33 @@ public class FuturesMarket extends JPanel{
 		String[] columnTitle={"序号","代码","名称","持仓","增仓","日增仓","昨收","今开","最高","最低"
 				,"金额","昨结","今结","振幅","量比","沉淀资金","资金流向","外盘","内盘"};
 		
-		Object[][] futuresInfo={ 
-				new Object[]{2,"TF1412","国债1412",6979,"+0","134",92.984,92.456,92.984,92.456,
-						"16.48亿",92.984,92.456,"0.33%",1.04,"64.97亿","93.35万",527,1274}};
-
+		String warehouse="+0";
+		if(arb2.getWarehouse()>=0){
+			warehouse="+"+arb2.getWarehouse();
+		}else{
+			warehouse=String.valueOf(arb2.getWarehouse());
+		}
+		String dailyWh="+0";
+		if(arb2.getDailyWarehouse()>=0){
+			dailyWh="+"+arb2.getDailyWarehouse();
+		}else{
+			dailyWh=String.valueOf(arb2.getDailyWarehouse());
+		}
+		String swing=arb2.getSwing()+"%";
+		String fullAmount=arb2.getFullAmount()+"亿";
 		
-        DefaultTableModel model = new DefaultTableModel(futuresInfo,columnTitle) {
+		Object[][] futuresInfo={				
+				new Object[]{2,"TF1412","国债1412"
+						,arb2.getRepository(),warehouse,dailyWh
+						,arb2.getPreClose(),arb2.getOpen()
+						,arb2.getHigh(),arb2.getLow(),
+							fullAmount,arb2.getPreSettlePrice()
+							,arb2.getSettlePrice(),swing
+							,arb2.getRatio(),"654.97亿","93.35万"
+							,arb2.getOutvol(),arb2.getInvol()}
+		};
+		tableInfo2=futuresInfo;
+        model2 = new DefaultTableModel(tableInfo2,columnTitle) {
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -156,7 +306,7 @@ public class FuturesMarket extends JPanel{
         };
 
         
-        JTable table = new JTable(model);
+        JTable table = new JTable(model2);
         tctpTable2=new TableCellTextPaneRenderer();
         tctpTable2.setBackground(Color.BLACK);
         
@@ -179,12 +329,33 @@ public class FuturesMarket extends JPanel{
 		String[] columnTitle={"序号","代码","名称","持仓","增仓","日增仓","昨收","今开","最高","最低"
 				,"金额","昨结","今结","振幅","量比","沉淀资金","资金流向","外盘","内盘"};
 		
-		Object[][] futuresInfo={				
-				new Object[]{3,"TF1433","国债1433",6979,"+0","134",92.984,92.456,92.984,92.456,
-						"16.48亿",92.984,92.456,"0.33%",1.04,"64.97亿","93.35万",527,1274}
-		};
+		String warehouse="+0";
+		if(arb3.getWarehouse()>=0){
+			warehouse="+"+arb3.getWarehouse();
+		}else{
+			warehouse=String.valueOf(arb3.getWarehouse());
+		}
+		String dailyWh="+0";
+		if(arb3.getDailyWarehouse()>=0){
+			dailyWh="+"+arb3.getDailyWarehouse();
+		}else{
+			dailyWh=String.valueOf(arb3.getDailyWarehouse());
+		}
+		String swing=arb3.getSwing()+"%";
+		String fullAmount=arb3.getFullAmount()+"亿";
 		
-        DefaultTableModel model = new DefaultTableModel(futuresInfo,columnTitle) {
+		Object[][] futuresInfo={				
+				new Object[]{3,"TF1503","国债1503"
+						,arb3.getRepository(),warehouse,dailyWh
+						,arb3.getPreClose(),arb3.getOpen()
+						,arb3.getHigh(),arb3.getLow(),
+							fullAmount,arb3.getPreSettlePrice()
+							,arb3.getSettlePrice(),swing
+							,arb3.getRatio(),"654.97亿","93.35万"
+							,arb3.getOutvol(),arb3.getInvol()}
+		};
+		tableInfo3=futuresInfo;
+        model3 = new DefaultTableModel(tableInfo3,columnTitle) {
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -192,7 +363,7 @@ public class FuturesMarket extends JPanel{
         };
 
         
-        JTable table = new JTable(model);
+        JTable table = new JTable(model3);
         tctpTable3=new TableCellTextPaneRenderer();
         tctpTable3.setBackground(Color.BLACK);
         
@@ -211,8 +382,10 @@ public class FuturesMarket extends JPanel{
 		
 	}
 	
-	private void getTableData(){
-				
+	private Arb_detail getTableData(String id){
+		DataInterfacePile database=new DataInterfacePile();
+		Arb_detail result=database.getArbDetail(id);
+		return result;
 	}
 	
 	public static void main(String[] args){
@@ -224,6 +397,61 @@ public class FuturesMarket extends JPanel{
 		frame.add(test);
 		frame.setVisible(true);	
 		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ArrayList<Arb_detail> arb_list=new ArrayList<Arb_detail>();
+		Arb_detail arb11;
+		arb11=new Arb_detail();
+		
+
+		arb11.setName("国债TF9999");
+		arb11.setRepository(6979);
+		arb11.setWarehouse(0);
+		arb11.setDailyWarehouse(134);
+		arb11.setPreClose(92.984);
+		arb11.setOpen(92.456);
+		arb11.setHigh(92.984);
+		arb11.setLow(92.456);
+		arb11.setFullAmount(16.48);
+		arb11.setPreSettlePrice(92.984);
+		arb11.setSettlePrice(92.456);
+		arb11.setSwing(0.33);
+		arb11.setRatio(1.04);
+		arb11.setOutvol(527);
+		arb11.setInvol(1274);
+		
+		arb11.setCommitteeThan(3.70);
+		arb11.setAskPrice(93.245);
+		arb11.setBidPirce(98.154);
+		arb11.setPresentPrice(93.370);
+		arb11.setPriceChange(0.336);
+		arb11.setChange(0.36);
+		arb11.setNvol(1);
+		arb11.setVol(1770);
+		arb11.setPreRepository(6845);
+		arb11.setHardenPrice(94.769);
+		arb11.setAverPrice(93.125);
+		arb11.setLimitPrice(91.080);
+		arb_list.add(arb11);
+		arb_list.add(arb11);
+		arb_list.add(arb11);
+		
+		fm.update(arb_list);
+		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		fm.update(arb_list);
 	}
 	
 	class TableSelectionListener1 implements ListSelectionListener{
@@ -238,7 +466,7 @@ public class FuturesMarket extends JPanel{
 			
 			futuresTable1.clearSelection();
 
-			detailPanel.setDetail("test~");
+			detailPanel.setDetail(arb1);
 		}
 	}
 	class TableSelectionListener2 implements ListSelectionListener{
@@ -253,7 +481,7 @@ public class FuturesMarket extends JPanel{
 			
 			futuresTable2.clearSelection();
 
-			detailPanel.setDetail("test~~~");
+			detailPanel.setDetail(arb2);
 		}
 	}
 	class TableSelectionListener3 implements ListSelectionListener{
@@ -268,7 +496,7 @@ public class FuturesMarket extends JPanel{
 			
 			futuresTable3.clearSelection();
 			
-			detailPanel.setDetail("test~~~~~~");
+			detailPanel.setDetail(arb3);
 			
 		}
 	}
@@ -365,9 +593,10 @@ public class FuturesMarket extends JPanel{
 			
 			this.setBackground(Color.BLACK);
 			
-			title.setBounds(155,10,200,30);
-			title.setText("国债TF102");
+			title.setBounds(190,10,200,30);
+			title.setText("国债TF1409");
 			this.add(title);
+			title.setVisible(false);
 			title.setForeground(Color.WHITE);
 			
 			for(int i=0;i<15;i++){
@@ -381,10 +610,67 @@ public class FuturesMarket extends JPanel{
 			}
 		}
 		
-		public void setDetail(String s){
-			for(int i=0;i<27;i++){
-				detail[i].setText(s);
+		public void setDetail(Arb_detail arb){
+			title.setText(arb.getName());
+			title.setVisible(true);
+			String weibi;
+			if(arb.getCommitteeThan()>=0){
+				weibi="+"+arb.getCommitteeThan()+"%";
+			}else{
+				weibi=arb.getCommitteeThan()+"%";
 			}
+			String zhangdie;
+			if(arb.getPriceChange()>=0){
+				zhangdie="+"+arb.getPriceChange()+"%";
+			}else{
+				zhangdie=arb.getPriceChange()+"%";
+			}
+			String zhangfu;
+			if(arb.getChange()>=0){
+				zhangfu="+"+arb.getChange()+"%";
+			}else{
+				zhangfu=arb.getChange()+"%";
+			}
+			String warehouse="+0";
+			if(arb.getWarehouse()>=0){
+				warehouse="+"+arb.getWarehouse();
+			}else{
+				warehouse=String.valueOf(arb.getWarehouse());
+			}
+			String dailyWh="+0";
+			if(arb.getDailyWarehouse()>=0){
+				dailyWh="+"+arb.getDailyWarehouse();
+			}else{
+				dailyWh=String.valueOf(arb.getDailyWarehouse());
+			}
+			detail[0].setText(weibi);
+			detail[1].setText(String.valueOf(arb.getAskPrice()));
+			detail[2].setText(String.valueOf(arb.getBidPirce()));
+			detail[3].setText(String.valueOf(arb.getVol()));
+			detail[4].setText(zhangdie);
+			detail[5].setText(zhangfu);
+			detail[6].setText(String.valueOf(arb.getSwing())+"%");
+			detail[7].setText(String.valueOf(arb.getNvol()));
+			detail[8].setText(String.valueOf(arb.getVol()));
+			detail[9].setText(String.valueOf(arb.getRepository()));
+			detail[10].setText(warehouse);
+			detail[11].setText("换手");
+			detail[12].setText(String.valueOf(arb.getPreRepository()));
+			detail[13].setText(String.valueOf(arb.getHardenPrice()));
+			detail[14].setText(String.valueOf(arb.getOutvol()));
+			detail[15].setText(String.valueOf(arb.getOpen()));
+			detail[16].setText(String.valueOf(arb.getPreClose()));
+			detail[17].setText(String.valueOf(arb.getHigh()));
+			detail[18].setText(String.valueOf(arb.getLow()));
+			detail[19].setText(String.valueOf(arb.getFullAmount())+"亿");
+			detail[20].setText(String.valueOf(arb.getAverPrice()));
+			detail[21].setText(String.valueOf(arb.getSettlePrice()));
+			detail[22].setText(String.valueOf(arb.getPreSettlePrice()));
+			detail[23].setText(dailyWh);
+			detail[24].setText(String.valueOf(arb.getRatio()));
+			detail[25].setText(String.valueOf(arb.getLimitPrice()));
+			detail[26].setText(String.valueOf(arb.getInvol()));
+			
 		}
 	}
 }
