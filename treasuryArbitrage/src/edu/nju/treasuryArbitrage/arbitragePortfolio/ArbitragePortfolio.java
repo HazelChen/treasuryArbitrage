@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -25,6 +27,14 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 
+
+
+
+
+
+
+
+
 import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
 import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 import vo.ArbGroup;
@@ -32,6 +42,8 @@ import vo.Arb_detail;
 
 
 import edu.nju.treasuryArbitrage.framework.ComponentPanel;
+
+
 
 
 
@@ -49,12 +61,15 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 	private static JTable arbitrageHeader;
 	private static TableCellTextPaneRenderer tctpHeader;
 	private static TableCellTextPaneRenderer tctpTable1;
-	private static TableCellTextPaneRenderer tctpTable2;
-	private static TableCellTextPaneRenderer tctpTable3;
+	private static BlueTableCellTextPaneRenderer btctpTable1;
+	private static RedTableCellTextPaneRenderer rtctpTable1;
+	private static GreenTableCellTextPaneRenderer gtctpTable1;
 	private static BuyPanel buyPanel;
 	private static ConfirmPanel confirmPanel;
 	private static ArrayList<ArbGroup> groupList;
 	private static PortfolioLineChart chart1,chart2,chart3;
+	private static DefaultTableModel model1,model2,model3;
+	private static Object[][] tableInfo1,tableInfo2,tableInfo3;
 	
 	public ArbitragePortfolio() {
 		this.setBackground(Color.BLACK);
@@ -98,7 +113,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			group3.setVisible(false);
 			chart1=new PortfolioLineChart(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
 			this.add(chart1);
-			chart1.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			chart1.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3-20,HEIGHT-230);
 		}else if(length==2){
 			group1.setVisible(true);
 			group2.setVisible(true);
@@ -106,9 +121,9 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			chart1=new PortfolioLineChart(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
 			chart2=new PortfolioLineChart(groupList.get(1).getTobuy(),groupList.get(1).getTosell());
 			this.add(chart1);
-			chart1.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			chart1.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3-20,HEIGHT-230);
 			this.add(chart2);
-			chart2.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			chart2.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3-20,HEIGHT-230);
 			chart2.setVisible(false);
 		}else if(length==3){
 			group1.setVisible(true);
@@ -118,11 +133,11 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			chart2=new PortfolioLineChart(groupList.get(1).getTobuy(),groupList.get(1).getTosell());
 			chart3=new PortfolioLineChart(groupList.get(2).getTobuy(),groupList.get(2).getTosell());
 			this.add(chart1);
-			chart1.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			chart1.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3-20,HEIGHT-230);
 			this.add(chart2);
-			chart2.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			chart2.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3-20,HEIGHT-230);
 			this.add(chart3);
-			chart3.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			chart3.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3-20,HEIGHT-230);
 			chart2.setVisible(false);
 			chart3.setVisible(false);
 		}
@@ -192,17 +207,13 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		return detail;
 	}
 	
-	private void showInfo1(){
-		buyPanel.showDetail("test~");
+	private void showInfo1(ArbGroup arbGroup){
+		String tobuy=arbGroup.getTobuy();
+		String tosell=arbGroup.getTosell();
+		buyPanel.showDetail(tobuy,tosell);
 	}
 	
-	private void showInfo2(){
-		buyPanel.showDetail("test~~~");
-	}
-	
-	private void showInfo3(){
-		buyPanel.showDetail("test~~~~~");
-	}
+
 	
 	public JPanel getPanel(){
 		return this;
@@ -234,22 +245,23 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 	}
 	
 	private JTable getTable1(String symbol1,String symbol2){
-		String[] header={"代码","交割月份","现价","涨跌","涨跌幅"
+		String[] columnTitle={"代码","交割月份","现价","涨跌","涨跌幅"
 				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
 				,"前结算价","今开","最高","最低","时间"};
 		
 		Arb_detail arb1=this.getTableData(symbol1);
 		Arb_detail arb2=this.getTableData(symbol2);
-		
+		System.out.println("--------------------------"+symbol1);
+		System.out.println("--------------------------"+symbol2);
 		Object[][] arbitrageInfo={				
-				new Object[]{arb1.getSymbol(),"2014年09月"				
+				new Object[]{arb1.getSymbol(),"2014年12月"				
 						,arb1.getPresentPrice(),arb1.getPriceChange()
 						,arb1.getChange(),arb1.getBid(),arb1.getBidPirce()
 						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
 						,arb1.getRepository(),arb1.getDailyWarehouse(),arb1.getPreSettlePrice()
 						,arb1.getOpen(),arb1.getHigh(),arb1.getLow()
 						,"时间"},
-				new Object[]{arb2.getSymbol(),"2014年09月"				
+				new Object[]{arb2.getSymbol(),"2015年03月"				
 						,arb2.getPresentPrice(),arb2.getPriceChange()
 						,arb2.getChange(),arb2.getBid(),arb2.getBidPirce()
 						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
@@ -258,8 +270,8 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 						,"时间"}
 						
 		};
-		
-        DefaultTableModel model = new DefaultTableModel(arbitrageInfo,header) {
+		tableInfo1=arbitrageInfo;
+        model1 = new DefaultTableModel(tableInfo1,columnTitle) {
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -267,9 +279,42 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
         };
 
         
-        JTable table = new JTable(model);
+        
+        
+        JTable table = new JTable(model1);
         tctpTable1=new TableCellTextPaneRenderer();
         tctpTable1.setBackground(Color.BLACK);
+        
+        btctpTable1=new BlueTableCellTextPaneRenderer();
+        btctpTable1.setBackground(Color.BLACK);
+        rtctpTable1=new RedTableCellTextPaneRenderer();
+        rtctpTable1.setBackground(Color.BLACK);
+        gtctpTable1=new GreenTableCellTextPaneRenderer();
+        gtctpTable1.setBackground(Color.BLACK);
+        
+        table.getColumn(columnTitle[0]).setCellRenderer(tctpTable1);
+        table.getColumn(columnTitle[1]).setCellRenderer(tctpTable1);      
+        table.getColumn(columnTitle[3]).setCellRenderer(btctpTable1);              
+        if(arb1.getPresentPrice()>arb1.getPreSettlePrice()){     	
+        	table.getColumn(columnTitle[2]).setCellRenderer(rtctpTable1);          	   	
+        }else if(arb1.getPresentPrice()<arb1.getPreSettlePrice()){
+        	table.getColumn(columnTitle[2]).setCellRenderer(gtctpTable1);
+        }else{
+        	table.getColumn(columnTitle[2]).setCellRenderer(btctpTable1);
+        }      
+        
+        if(arb1.getChange()>0){
+        	table.getColumn(columnTitle[4]).setCellRenderer(rtctpTable1);         
+        }else if(arb1.getChange()<0){
+        	table.getColumn(columnTitle[4]).setCellRenderer(gtctpTable1);
+        }else{
+        	table.getColumn(columnTitle[4]).setCellRenderer(btctpTable1);
+        }
+        
+        for(int i=5;i<16;i++){
+        	table.getColumn(columnTitle[i]).setCellRenderer(btctpTable1);
+        }
+        table.getColumn(columnTitle[16]).setCellRenderer(tctpTable1);
         
         table.setDefaultRenderer(Object.class,tctpTable1);
         table.setShowGrid(false);
@@ -282,7 +327,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		
 	}	
 	private JTable getTable2(String symbol1,String symbol2){
-		String[] header={"代码","交割月份","现价","涨跌","涨跌幅"
+		String[] columnTitle={"代码","交割月份","现价","涨跌","涨跌幅"
 				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
 				,"前结算价","今开","最高","最低","时间"};
 		
@@ -306,8 +351,8 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 						,"时间"}
 						
 		};
-		
-        DefaultTableModel model = new DefaultTableModel(arbitrageInfo,header) {
+		tableInfo2=arbitrageInfo;
+        model2 = new DefaultTableModel(tableInfo2,columnTitle) {
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -315,9 +360,40 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
         };
 
         
-        JTable table = new JTable(model);
+        JTable table = new JTable(model2);
         tctpTable1=new TableCellTextPaneRenderer();
         tctpTable1.setBackground(Color.BLACK);
+        
+        btctpTable1=new BlueTableCellTextPaneRenderer();
+        btctpTable1.setBackground(Color.BLACK);
+        rtctpTable1=new RedTableCellTextPaneRenderer();
+        rtctpTable1.setBackground(Color.BLACK);
+        gtctpTable1=new GreenTableCellTextPaneRenderer();
+        gtctpTable1.setBackground(Color.BLACK);
+        
+        table.getColumn(columnTitle[0]).setCellRenderer(tctpTable1);
+        table.getColumn(columnTitle[1]).setCellRenderer(tctpTable1);      
+        table.getColumn(columnTitle[3]).setCellRenderer(btctpTable1);              
+        if(arb1.getPresentPrice()>arb1.getPreSettlePrice()){     	
+        	table.getColumn(columnTitle[2]).setCellRenderer(rtctpTable1);          	   	
+        }else if(arb1.getPresentPrice()<arb1.getPreSettlePrice()){
+        	table.getColumn(columnTitle[2]).setCellRenderer(gtctpTable1);
+        }else{
+        	table.getColumn(columnTitle[2]).setCellRenderer(btctpTable1);
+        }      
+        
+        if(arb1.getChange()>0){
+        	table.getColumn(columnTitle[4]).setCellRenderer(rtctpTable1);         
+        }else if(arb1.getChange()<0){
+        	table.getColumn(columnTitle[4]).setCellRenderer(gtctpTable1);
+        }else{
+        	table.getColumn(columnTitle[4]).setCellRenderer(btctpTable1);
+        }
+        
+        for(int i=5;i<16;i++){
+        	table.getColumn(columnTitle[i]).setCellRenderer(btctpTable1);
+        }
+        table.getColumn(columnTitle[16]).setCellRenderer(tctpTable1);
         
         table.setDefaultRenderer(Object.class,tctpTable1);
         table.setShowGrid(false);
@@ -330,7 +406,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		
 	}	
 	private JTable getTable3(String symbol1,String symbol2){
-		String[] header={"代码","交割月份","现价","涨跌","涨跌幅"
+		String[] columnTitle={"代码","交割月份","现价","涨跌","涨跌幅"
 				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
 				,"前结算价","今开","最高","最低","时间"};
 		
@@ -354,8 +430,8 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 						,"时间"}
 						
 		};
-		
-        DefaultTableModel model = new DefaultTableModel(arbitrageInfo,header) {
+		tableInfo3=arbitrageInfo;
+        model3 = new DefaultTableModel(tableInfo3,columnTitle) {
 			private static final long serialVersionUID = 1L;
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -363,9 +439,40 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
         };
 
         
-        JTable table = new JTable(model);
+        JTable table = new JTable(model3);
         tctpTable1=new TableCellTextPaneRenderer();
         tctpTable1.setBackground(Color.BLACK);
+        
+        btctpTable1=new BlueTableCellTextPaneRenderer();
+        btctpTable1.setBackground(Color.BLACK);
+        rtctpTable1=new RedTableCellTextPaneRenderer();
+        rtctpTable1.setBackground(Color.BLACK);
+        gtctpTable1=new GreenTableCellTextPaneRenderer();
+        gtctpTable1.setBackground(Color.BLACK);
+        
+        table.getColumn(columnTitle[0]).setCellRenderer(tctpTable1);
+        table.getColumn(columnTitle[1]).setCellRenderer(tctpTable1);      
+        table.getColumn(columnTitle[3]).setCellRenderer(btctpTable1);              
+        if(arb1.getPresentPrice()>arb1.getPreSettlePrice()){     	
+        	table.getColumn(columnTitle[2]).setCellRenderer(rtctpTable1);          	   	
+        }else if(arb1.getPresentPrice()<arb1.getPreSettlePrice()){
+        	table.getColumn(columnTitle[2]).setCellRenderer(gtctpTable1);
+        }else{
+        	table.getColumn(columnTitle[2]).setCellRenderer(btctpTable1);
+        }      
+        
+        if(arb1.getChange()>0){
+        	table.getColumn(columnTitle[4]).setCellRenderer(rtctpTable1);         
+        }else if(arb1.getChange()<0){
+        	table.getColumn(columnTitle[4]).setCellRenderer(gtctpTable1);
+        }else{
+        	table.getColumn(columnTitle[4]).setCellRenderer(btctpTable1);
+        }
+        
+        for(int i=5;i<16;i++){
+        	table.getColumn(columnTitle[i]).setCellRenderer(btctpTable1);
+        }
+        table.getColumn(columnTitle[16]).setCellRenderer(tctpTable1);
         
         table.setDefaultRenderer(Object.class,tctpTable1);
         table.setShowGrid(false);
@@ -378,16 +485,6 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		
 	}
 	
-	public static void main(String[] args){
-		JFrame frame=new JFrame();
-		ArbitragePortfolio ap=new ArbitragePortfolio();
-		JPanel test=ap.getPanel();
-		frame.setSize(WIDTH,HEIGHT);
-		frame.setLocationRelativeTo(null);
-		frame.add(test);
-		frame.setVisible(true);	
-		
-	}
 	
 	class TableCellTextPaneRenderer extends JTextPane implements TableCellRenderer{
 
@@ -433,7 +530,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			if(chart3!=null)
 				chart3.setVisible(false);
 			
-			showInfo1();
+			showInfo1(groupList.get(0));
 
 		}
 	}
@@ -447,7 +544,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			if(chart3!=null)
 				chart3.setVisible(false);
 			
-			showInfo2();
+			showInfo1(groupList.get(1));
 		}
 	}
 	class Group3Listener implements ActionListener{
@@ -459,7 +556,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			chart2.setVisible(false);
 			chart3.setVisible(true);
 			
-			showInfo3();
+			showInfo1(groupList.get(2));
 		}
 	}
 	
@@ -584,15 +681,32 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			confirm.setForeground(Color.WHITE);
 			confirm.addActionListener(new ConfirmListener());
 			
+			tfdHoldings.addKeyListener(new HoldingsListener());
+			
 		}
 		
-		public void showDetail(String s){
-			name1.setText(s);
-			name2.setText(s);
-			dir1.setText(s);
-			dir2.setText(s);
-			price1.setText(s);
-			price2.setText(s);
+		public void showDetail(String tobuy,String tosell){
+			Arb_detail arb1=getTableData(tobuy);
+			Arb_detail arb2=getTableData(tosell);
+			name1.setText(tobuy);
+			name2.setText(tosell);
+			dir1.setText("多头");
+			dir2.setText("空头");
+			price1.setText(String.valueOf(arb1.getPresentPrice()));
+			price2.setText(String.valueOf(arb2.getPresentPrice()));
+		}
+		
+		public class HoldingsListener implements KeyListener{
+			public void keyPressed(KeyEvent e) {				
+			}
+
+			public void keyReleased(KeyEvent e) {
+				
+				
+			}
+
+			public void keyTyped(KeyEvent e) {
+			}			
 		}
 		
 		public class ConfirmListener implements ActionListener{
@@ -771,10 +885,255 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 
 	}
 
+	class BlueTableCellTextPaneRenderer extends JTextPane implements TableCellRenderer{
 
+		private static final long serialVersionUID = 1L;
+		DefaultStyledDocument doc;
+		MutableAttributeSet attr;
+		SimpleAttributeSet sas;
+		public BlueTableCellTextPaneRenderer(){
+			doc = new DefaultStyledDocument();
+			this.setStyledDocument(doc);
+			sas = new SimpleAttributeSet();
+			StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
+			doc.setParagraphAttributes(0, 0, sas, true);		  
+			attr = new SimpleAttributeSet();	 
+			  
+			StyleConstants.setForeground(attr,new Color(10,156,211));
+			setCharacterAttributes(attr, false);
+		}
+
+		public Component getTableCellRendererComponent(JTable table, Object value,
+	            boolean isSelected, boolean hasFocus, int row, int column) {		
+	        setText(value == null ? "" : value.toString());	
+	        
+            return this;
+	    }
+		
+	}
+	
+	class RedTableCellTextPaneRenderer extends JTextPane implements TableCellRenderer{
+
+		private static final long serialVersionUID = 1L;
+		DefaultStyledDocument doc;
+		MutableAttributeSet attr;
+		SimpleAttributeSet sas;
+		public RedTableCellTextPaneRenderer(){
+			doc = new DefaultStyledDocument();
+			this.setStyledDocument(doc);
+			sas = new SimpleAttributeSet();
+			StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
+			doc.setParagraphAttributes(0, 0, sas, true);		  
+			attr = new SimpleAttributeSet();	 
+			  
+			StyleConstants.setForeground(attr,Color.RED);
+			setCharacterAttributes(attr, false);
+		}
+
+		public Component getTableCellRendererComponent(JTable table, Object value,
+	            boolean isSelected, boolean hasFocus, int row, int column) {		
+	        setText(value == null ? "" : value.toString());	
+	        
+            return this;
+	    }
+		
+	}
+	
+	class GreenTableCellTextPaneRenderer extends JTextPane implements TableCellRenderer{
+
+		private static final long serialVersionUID = 1L;
+		DefaultStyledDocument doc;
+		MutableAttributeSet attr;
+		SimpleAttributeSet sas;
+		public GreenTableCellTextPaneRenderer(){
+			doc = new DefaultStyledDocument();
+			this.setStyledDocument(doc);
+			sas = new SimpleAttributeSet();
+			StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
+			doc.setParagraphAttributes(0, 0, sas, true);		  
+			attr = new SimpleAttributeSet();	 
+			  
+			StyleConstants.setForeground(attr,Color.GREEN);
+			setCharacterAttributes(attr, false);
+		}
+
+		public Component getTableCellRendererComponent(JTable table, Object value,
+	            boolean isSelected, boolean hasFocus, int row, int column) {		
+	        setText(value == null ? "" : value.toString());	
+	        
+            return this;
+	    }
+		
+	}
+
+
+	public void update(ArrayList<ArbGroup> arb_list) {
+		
+		Arb_detail arb1,arb2,arb3,arb4,arb5,arb6;
+		arb1=new Arb_detail();
+		arb2=new Arb_detail();
+		arb3=new Arb_detail();
+		arb4=new Arb_detail();
+		arb5=new Arb_detail();
+		arb6=new Arb_detail();
+		int length=arb_list.size();
+		if(length==1){
+			arb1=this.getTableData(arb_list.get(0).getTobuy());
+			arb2=this.getTableData(arb_list.get(0).getTobuy());
+			tableInfo1=this.getFuturesInfo(arb1,arb2);
+		}else if(length==2){
+			arb1=this.getTableData(arb_list.get(0).getTobuy());
+			arb2=this.getTableData(arb_list.get(0).getTobuy());
+			tableInfo1=this.getFuturesInfo(arb1,arb2);
+			arb3=this.getTableData(arb_list.get(1).getTobuy());
+			arb4=this.getTableData(arb_list.get(1).getTobuy());
+			tableInfo2=this.getFuturesInfo(arb3,arb4);
+		}else if(length==3){
+			arb1=this.getTableData(arb_list.get(0).getTobuy());
+			arb2=this.getTableData(arb_list.get(0).getTobuy());
+			tableInfo1=this.getFuturesInfo(arb1,arb2);
+			arb3=this.getTableData(arb_list.get(1).getTobuy());
+			arb4=this.getTableData(arb_list.get(1).getTobuy());
+			tableInfo2=this.getFuturesInfo(arb3,arb4);
+			arb5=this.getTableData(arb_list.get(2).getTobuy());
+			arb6=this.getTableData(arb_list.get(2).getTobuy());
+			tableInfo3=this.getFuturesInfo(arb5,arb6);
+		}
+		
+		String[] columnTitle={"代码","交割月份","现价","涨跌","涨跌幅"
+				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
+				,"前结算价","今开","最高","最低","时间"};
+		
+		
+		
+		model1 = new DefaultTableModel(tableInfo1,columnTitle) {
+			private static final long serialVersionUID = 1L;
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+        };
+        model2 = new DefaultTableModel(tableInfo2,columnTitle) {
+			private static final long serialVersionUID = 1L;
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+        };
+        model3 = new DefaultTableModel(tableInfo3,columnTitle) {
+			private static final long serialVersionUID = 1L;
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+        };
+        
+		arbitrageTable1.setModel(model1);		
+		arbitrageTable2.setModel(model2);	
+		arbitrageTable3.setModel(model3);	
+		
+		
+		arbitrageTable1.getColumn(columnTitle[0]).setCellRenderer(tctpTable1);
+		arbitrageTable1.getColumn(columnTitle[1]).setCellRenderer(tctpTable1);      
+		arbitrageTable1.getColumn(columnTitle[3]).setCellRenderer(btctpTable1); 
+		arbitrageTable2.getColumn(columnTitle[0]).setCellRenderer(tctpTable1);
+		arbitrageTable2.getColumn(columnTitle[1]).setCellRenderer(tctpTable1);      
+		arbitrageTable2.getColumn(columnTitle[3]).setCellRenderer(btctpTable1); 
+		arbitrageTable2.getColumn(columnTitle[0]).setCellRenderer(tctpTable1);
+		arbitrageTable2.getColumn(columnTitle[1]).setCellRenderer(tctpTable1);      
+		arbitrageTable2.getColumn(columnTitle[3]).setCellRenderer(btctpTable1); 
+	    if(arb1.getPresentPrice()>arb1.getPreSettlePrice()){
+	    	arbitrageTable1.getColumn(columnTitle[2]).setCellRenderer(rtctpTable1);         
+	    }else if(arb1.getPresentPrice()<arb1.getPreSettlePrice()){
+	    	arbitrageTable1.getColumn(columnTitle[2]).setCellRenderer(gtctpTable1);
+	    }else{
+	    	arbitrageTable1.getColumn(columnTitle[2]).setCellRenderer(btctpTable1);
+	    }      
+	    if(arb1.getChange()>0){
+	    	arbitrageTable1.getColumn(columnTitle[4]).setCellRenderer(rtctpTable1);         
+	    }else if(arb1.getChange()<0){
+	    	arbitrageTable1.getColumn(columnTitle[4]).setCellRenderer(gtctpTable1);
+	    }else{
+	    	arbitrageTable1.getColumn(columnTitle[4]).setCellRenderer(btctpTable1);
+	    }
+	    
+        
+        if(arb3.getPresentPrice()>arb3.getPreSettlePrice()){
+        	arbitrageTable2.getColumn(columnTitle[2]).setCellRenderer(rtctpTable1);         
+        }else if(arb3.getPresentPrice()<arb3.getPreSettlePrice()){
+        	arbitrageTable2.getColumn(columnTitle[2]).setCellRenderer(gtctpTable1);
+        }else{
+        	arbitrageTable2.getColumn(columnTitle[2]).setCellRenderer(btctpTable1);
+        }      
+        if(arb3.getChange()>0){
+        	arbitrageTable2.getColumn(columnTitle[4]).setCellRenderer(rtctpTable1);         
+        }else if(arb3.getChange()<0){
+        	arbitrageTable2.getColumn(columnTitle[4]).setCellRenderer(gtctpTable1);
+        }else{
+        	arbitrageTable2.getColumn(columnTitle[4]).setCellRenderer(btctpTable1);
+        }
+        
+        if(arb5.getPresentPrice()>arb5.getPreSettlePrice()){
+        	arbitrageTable3.getColumn(columnTitle[2]).setCellRenderer(rtctpTable1);         
+        }else if(arb5.getPresentPrice()<arb5.getPreSettlePrice()){
+        	arbitrageTable3.getColumn(columnTitle[2]).setCellRenderer(gtctpTable1);
+        }else{
+        	arbitrageTable3.getColumn(columnTitle[2]).setCellRenderer(btctpTable1);
+        }      
+        if(arb5.getChange()>0){
+        	arbitrageTable3.getColumn(columnTitle[4]).setCellRenderer(rtctpTable1);         
+        }else if(arb5.getChange()<0){
+        	arbitrageTable3.getColumn(columnTitle[4]).setCellRenderer(gtctpTable1);
+        }else{
+        	arbitrageTable3.getColumn(columnTitle[4]).setCellRenderer(btctpTable1);
+        }
+	        
+	    for(int i=5;i<16;i++){
+	    	arbitrageTable1.getColumn(columnTitle[i]).setCellRenderer(btctpTable1);
+	    	arbitrageTable2.getColumn(columnTitle[i]).setCellRenderer(btctpTable1);
+	    	arbitrageTable3.getColumn(columnTitle[i]).setCellRenderer(btctpTable1);
+		    
+	    }
+	    arbitrageTable1.getColumn(columnTitle[16]).setCellRenderer(tctpTable1);
+	    arbitrageTable2.getColumn(columnTitle[16]).setCellRenderer(tctpTable1);
+	    arbitrageTable3.getColumn(columnTitle[16]).setCellRenderer(tctpTable1);
+	    arbitrageTable1.repaint();
+		arbitrageTable2.repaint();
+		arbitrageTable3.repaint();
+		
+	}
+
+	public Object[][] getFuturesInfo(Arb_detail arb1,Arb_detail arb2){
+		Object[][] arbitrageInfo={				
+				new Object[]{arb1.getSymbol(),"2014年12月"				
+						,arb1.getPresentPrice(),arb1.getPriceChange()
+						,arb1.getChange(),arb1.getBid(),arb1.getBidPirce()
+						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
+						,arb1.getRepository(),arb1.getDailyWarehouse(),arb1.getPreSettlePrice()
+						,arb1.getOpen(),arb1.getHigh(),arb1.getLow()
+						,"时间"},
+				new Object[]{arb2.getSymbol(),"2015年03月"				
+						,arb2.getPresentPrice(),arb2.getPriceChange()
+						,arb2.getChange(),arb2.getBid(),arb2.getBidPirce()
+						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
+						,arb2.getRepository(),arb2.getDailyWarehouse(),arb2.getPreSettlePrice()
+						,arb2.getOpen(),arb2.getHigh(),arb2.getLow()
+						,"时间"}
+						
+		};
+		return arbitrageInfo;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public void updatePage() {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 }

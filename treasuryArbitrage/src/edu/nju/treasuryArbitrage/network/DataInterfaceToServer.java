@@ -177,7 +177,7 @@ public class DataInterfaceToServer implements DataInterface{
 
 	@Override
 	public ArrayList<ArbGroup> getArbGroup() {
-		ArbGroup arbGroup=new ArbGroup("TF1409","1412");
+		ArbGroup arbGroup=new ArbGroup("TF1412","TF1503");
 		ArrayList<ArbGroup> list=new ArrayList<ArbGroup>();
 		list.add(arbGroup);
 		return list;
