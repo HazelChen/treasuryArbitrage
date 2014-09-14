@@ -8,13 +8,16 @@ public class TradeBL {
 	
 	public TradeBL(){}
 	
-	public boolean order(String username,String More_contract,String Blank_contract,int hand){
+	public boolean order(String username,String More_contract,String Blank_contract,double more_price,double blank_price,int hand,int guarantee){
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
-		params.put("More_contract", More_contract);
-		params.put("Blank_contract", Blank_contract);
-		params.put("hand", hand+"");//++++++++++++++++++++++++++++++++++++++++++++++
+		params.put("more_contract", More_contract);
+		params.put("mlank_contract", Blank_contract);
+		params.put("more_price", more_price+"");
+		params.put("blank_price", blank_price+"");
+		params.put("hand", hand+"");
+		params.put("bond", guarantee+"");
 		
 		NetHelper helper = new NetHelper("order",params);
 		JSONObject ret = helper.getJSONObjectByGet();
@@ -29,8 +32,8 @@ public class TradeBL {
 	public boolean cancleOrder(String username,int record_ID){
 		
 		HashMap<String, String> params = new HashMap<String, String>();
-//		params.put("username", username);
-		params.put("id", record_ID+"");//++++++++++++++++++++++++++++++++++++++++++++++
+		params.put("username", username);
+		params.put("id", record_ID+"");
 		
 		NetHelper helper = new NetHelper("cancelOrder",params);
 		JSONObject ret = helper.getJSONObjectByGet();
@@ -42,11 +45,12 @@ public class TradeBL {
 		return false;
 	}
 	
-	public boolean trade(String username,int Repo_ID){
+	public boolean trade(String username,int Repo_ID,int profit){
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
-		params.put("Repo_ID", Repo_ID+"");//++++++++++++++++++++++++++++++++++++++++++++++
+		params.put("Repo_ID", Repo_ID+"");
+		params.put("profit", profit+"");
 		
 		NetHelper helper = new NetHelper("trade",params);
 		JSONObject ret = helper.getJSONObjectByGet();
