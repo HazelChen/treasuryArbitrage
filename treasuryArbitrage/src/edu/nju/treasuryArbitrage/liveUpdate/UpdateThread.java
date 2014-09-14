@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import vo.Arb_detail;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
+import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 
 public class UpdateThread implements Runnable{
@@ -22,8 +23,8 @@ public class UpdateThread implements Runnable{
 			}
 			arb_details = dataInterface.getArbDetail();
 			LiveData.getInstance().setArb_details(arb_details);
-			//TODO update
 			
+			MajorPartsFactory.getInstance().getFuturesMarket().update(arb_details);
 		}
 		
 		

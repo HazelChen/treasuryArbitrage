@@ -9,7 +9,6 @@ public class Launch {
 		Thread thread = new Thread(new UpdateThread());
 		thread.start();
 		
-		
 		try {
 			Thread.sleep(2000);
 		} catch (InterruptedException e) {
