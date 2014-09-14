@@ -18,6 +18,15 @@ public class LiveData {
 		return arb_details;
 	}
 	
+	public double getPresentPrice(String id) {
+		for (Arb_detail arb_detail : arb_details) {
+			if (arb_detail.getSymbol().equals(id)) {
+				return arb_detail.getPresentPrice();
+			}
+		}
+		return -1;
+	}
+	
 	public void setArb_details(ArrayList<Arb_detail> arb_details) {
 		this.arb_details = arb_details;
 	}

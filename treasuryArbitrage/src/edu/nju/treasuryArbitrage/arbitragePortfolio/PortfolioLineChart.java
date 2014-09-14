@@ -2,7 +2,6 @@ package edu.nju.treasuryArbitrage.arbitragePortfolio;
 
 import java.awt.Font;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JPanel;
@@ -18,7 +17,6 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 
-import vo.Arb_detail;
 import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
 
 public class PortfolioLineChart extends JPanel {
@@ -51,10 +49,10 @@ public class PortfolioLineChart extends JPanel {
 	}
 
 	private XYDataset createDataset() { // 这个数据集有点多，但都不难理解
-		ArrayList<Arb_detail> arb_details = LiveData.getInstance().getArb_details();
+		LiveData liveData = LiveData.getInstance();
 		
-		timeseries1.add(new Second(new Date()), arb_details.get(index1).getPresentPrice());
-		timeseries2.add(new Second(new Date()), arb_details.get(index2).getPresentPrice());
+		timeseries1.add(new Second(new Date()), liveData.getPresentPrice(index1));
+		timeseries2.add(new Second(new Date()), liveData.getPresentPrice(index2));
 		
 		TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
 		timeseriescollection.addSeries(timeseries1);
@@ -63,9 +61,9 @@ public class PortfolioLineChart extends JPanel {
 	}
 	
 	public void update() {
-		ArrayList<Arb_detail> arb_details = LiveData.getInstance().getArb_details();
-		double price1 = arb_details.get(index1).getPresentPrice();
-		double price2 = arb_details.get(index2).getPresentPrice();
+		LiveData liveData = LiveData.getInstance();
+		double price1 = liveData.getPresentPrice(index1);
+		double price2 = liveData.getPresentPrice(index2);
 		timeseries1.add(new Second(new Date()), price1);
 		timeseries2.add(new Second(new Date()), price2);
 	}
