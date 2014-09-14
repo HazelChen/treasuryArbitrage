@@ -48,10 +48,16 @@ public class TreasuryFrame extends JFrame{
 		boolean isAutoLogin = stateRecorder.isAutoLogin();
 		if (isAutoLogin) {
 			UserInfo userInfo = stateRecorder.getRememberedUser();
-			LoginedUser.setLoginedUser(userInfo.getUsername());
 			DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
-			dataInterface.loginValidate(userInfo.getUsername(), userInfo.getPassword());
-			enterMainPage();
+			boolean isRememberedRight = dataInterface.loginValidate(userInfo.getUsername(), userInfo.getPassword());
+			if (isRememberedRight) {
+				enterMainPage();
+				LoginedUser.setLoginedUser(userInfo.getUsername());
+			} else {
+				LoginStateRecorder recorder = new LoginStateRecorder();
+				recorder.cancelAutoLogin();
+				enterLogin();
+			}
 		} else {
 			enterLogin();
 		}
