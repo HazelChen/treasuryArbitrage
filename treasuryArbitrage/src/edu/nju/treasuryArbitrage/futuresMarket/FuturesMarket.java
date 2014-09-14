@@ -82,7 +82,7 @@ public class FuturesMarket extends JPanel{
 		this.add(line2);
 		line2.setBounds((WIDTH/5)*2,10+HEADER_HEIGHT+3*TABLE_HEIGHT+20,1,HEIGHT-190);
 	
-		LineChart chart=new LineChart();
+		LineChart chart=new LineChart(1);
 		this.add(chart);
 		chart.setBounds((WIDTH/5)*2,10+HEADER_HEIGHT+3*TABLE_HEIGHT+20,(WIDTH/5)*3,HEIGHT-190);
 	}

@@ -24,11 +24,6 @@ public class UpdateThread implements Runnable{
 			LiveData.getInstance().setArb_details(arb_details);
 			//TODO update
 			
-			i++;
-			if (i == 60) {
-				i = 0;
-				//TODO 图表更新数据
-			}
 		}
 		
 		
