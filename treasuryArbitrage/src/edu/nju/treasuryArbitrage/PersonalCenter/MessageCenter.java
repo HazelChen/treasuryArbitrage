@@ -215,7 +215,7 @@ public class MessageCenter extends JPanel {
 			}else{
 				cellData[i][1]="·ñ";
 			}
-			cellData[i][2]=String.valueOf(i);
+			cellData[i][2]=String.valueOf(i+1);
 			cellData[i][3]=messageList.get(i).getInfo();
 			cellData[i][4]=messageList.get(i).getTime();
 			messages[i] = messageList.get(i).getInfo();
