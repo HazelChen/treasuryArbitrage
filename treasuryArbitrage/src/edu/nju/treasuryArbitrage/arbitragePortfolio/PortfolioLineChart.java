@@ -27,10 +27,10 @@ public class PortfolioLineChart extends JPanel {
 	private ChartPanel frame1;
 	private TimeSeries timeseries1 = new TimeSeries("价格", Second.class);
 	private TimeSeries timeseries2 = new TimeSeries("价格", Second.class);
-	private int index1;
-	private int index2;
+	private String index1;
+	private String index2;
 	
-	public PortfolioLineChart(int index1, int index2) {
+	public PortfolioLineChart(String index1, String index2) {
 		this.index1 = index1;
 		this.index2 = index2;
 		
