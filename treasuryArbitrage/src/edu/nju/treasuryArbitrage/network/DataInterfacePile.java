@@ -152,8 +152,15 @@ public class DataInterfacePile implements DataInterface{
 		RES =new ArrayList<Finance>();
 //		RES.add(new Finance("2014-7-15",20000,10000,10000));
 //		RES.add(new Finance("2014-7-18",30000,10000,20000));
+		RES.add(new Finance(100000000,10000,10000,10000));
 		RES.add(new Finance(100000000,20000,10000,10000));
 		RES.add(new Finance(100000000,30000,10000,20000));
+		RES.add(new Finance(100000000,40000,10000,10000));
+		RES.add(new Finance(100000000,50000,10000,20000));
+		RES.add(new Finance(100000000,60000,10000,10000));
+		RES.add(new Finance(100000000,70000,10000,20000));
+		RES.add(new Finance(100000000,80000,10000,20000));
+		RES.add(new Finance(100000000,90000,10000,20000));
 		return RES;
 	}
 

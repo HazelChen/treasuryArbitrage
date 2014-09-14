@@ -6,15 +6,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import java.awt.event.MouseMotionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,13 +28,18 @@ import edu.nju.treasuryArbitrage.network.DataInterfacePile;
 import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
+/*
+ * 
+ * updatePage()  用来更新整个页面
+ * 
+ * */
 public class Holdings extends JPanel{
 	private static final long serialVersionUID = 6470810944009110491L;
 	private DataInterface di;
 	DataInterfaceToServer dif;
 	static ArrayList<Finance> fTableRec;
 	static ArrayList<Repository> info;
-	static Object colummnames1[]={"时间","总资金","已投入保证金","空闲资金"},
+	static Object colummnames1[]={"时间","总资金","已投入保证金","空闲资金",""},
 			colummnames2[]={"套利组合信息","交易时间","交易手数","投入保证金","即时损失/盈利金额","操作"," "},
 			empOb[][] = {{"","","","","",""},
 						 {"","","","","",""},
@@ -75,7 +77,12 @@ public class Holdings extends JPanel{
 		refreshBtn.setBackground(rbtnbg);
  		doBtn = new JButton("平仓");    doBtn.setFocusPainted(false);
  		
- 		fTableHeader = new JTable(0,4){
+ 		fTableHeader = new JTable(0,5){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 7984075408609692730L;
+
 			public boolean isCellEditable(int row, int column){return false;}//表格不允许被编辑
     	};
     	fTableHeader.setFocusable(false); 
@@ -84,10 +91,15 @@ public class Holdings extends JPanel{
 	 	   tableModel11.addRow(colummnames1);
 	          makeFace(fTableHeader);
 	 	  fTable = new JTable(0,4){
+				/**
+			 * 
+			 */
+			private static final long serialVersionUID = 7225024107038367101L;
+
 				public boolean isCellEditable(int row, int column){return false;}//表格不允许被编辑
 	    	};
 	    	fTable.setFocusable(false); 
-	    	DefaultTableModel tableModel12 = (DefaultTableModel) fTable.getModel();
+	    	//DefaultTableModel tableModel12 = (DefaultTableModel) fTable.getModel();
 		       fTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	 	  // fTable.setIntercellSpacing(new Dimension(0,1));//修改单元格间隔，因此也将影响网格线的粗细。 
 	        //  fTable.setRowMargin(0);//设置相邻两行单元格的距离
@@ -97,9 +109,9 @@ public class Holdings extends JPanel{
 		 	   updateFTable();
 	    jsp1 = new JScrollPane(fTable);
 	    jsp1.getViewport().setBackground(Color.black);
-		 jsp1.getVerticalScrollBar().setPreferredSize(new Dimension(10,10));
-		jsp1.getVerticalScrollBar().setMaximumSize(new Dimension(10,10));
-		jsp1.getVerticalScrollBar().setMinimumSize(new Dimension(10,10));
+	 		jsp1.getVerticalScrollBar().setPreferredSize(new Dimension(13,12));
+	 		jsp1.getVerticalScrollBar().setMaximumSize(new Dimension(13,12));
+			jsp1.getVerticalScrollBar().setMinimumSize(new Dimension(13,12));
  		p11 = new JPanel();
  		p11.setLayout(new BorderLayout());
  		p11.setBackground(Color.DARK_GRAY);
@@ -114,6 +126,11 @@ public class Holdings extends JPanel{
  		panel1.add(jsp1,"Center");
  		
  		hTableHeader = new JTable(0,7){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 4860796298385794520L;
+
 			public boolean isCellEditable(int row, int column){return false;}//表格不允许被编辑
  		};
     	hTableHeader.setFocusable(false); 
@@ -156,11 +173,10 @@ public class Holdings extends JPanel{
                 }
             }
         });
- 		DefaultTableModel tableModel22 = (DefaultTableModel) hTable.getModel();
+ 		//DefaultTableModel tableModel22 = (DefaultTableModel) hTable.getModel();
         hTable.getTableHeader().setPreferredSize(new Dimension(0,0));
         hTable.getTableHeader().setVisible(false);
  		makeFace2(hTable);
- 		updateRepoList();
 		hTable.setRowHeight(80);
   		for(int i = 1;i<6;i++){
   	 		hTableHeader.getColumn(hTableHeader.getColumnName(i)).setMinWidth(137);
@@ -172,18 +188,19 @@ public class Holdings extends JPanel{
  		}
  		hTable.getColumn(hTable.getColumnName(5)).setMinWidth(135);
  		hTable.getColumn(hTable.getColumnName(5)).setMaxWidth(135);
-    	hTable.setFocusable(false); 
+    	hTable.setFocusable(false);
  		hTable.setBackground(Color.black);
- 		
+ 		updateRepoList();
+ 		hTable.addMouseMotionListener(new MouseMotionListener(){
+			public void mouseDragged(MouseEvent e) {hTable.editCellAt(e.getY()/80, 5);}
+			public void mouseMoved(MouseEvent e) {hTable.editCellAt(e.getY()/80, 5);}
+ 		});
  		 jsp2 = new JScrollPane(hTable);
- 		 jsp2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
- 		 jsp2.getVerticalScrollBar().setPreferredSize(new Dimension(10,10));
- 		jsp2.getVerticalScrollBar().setMaximumSize(new Dimension(10,10));
- 		jsp2.getVerticalScrollBar().setMinimumSize(new Dimension(10,10));
+ 		 jsp2.getVerticalScrollBar().setPreferredSize(new Dimension(13,13));
+ 		jsp2.getVerticalScrollBar().setMaximumSize(new Dimension(13,13));
+ 		jsp2.getVerticalScrollBar().setMinimumSize(new Dimension(13,13));
  	    jsp2.getViewport().setBackground(Color.black);
  		jsp2.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 350));
- 		hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMinWidth(10);
- 		hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMaxWidth(10);
  		p21 = new JPanel();
  		p21.setLayout(new BorderLayout());
  		p21.setBackground(Color.DARK_GRAY);
@@ -200,7 +217,7 @@ public class Holdings extends JPanel{
  		panel2.add(jsp2,"Center");
 		con = new JPanel();
  		con.setLayout(new BorderLayout());
- 		con.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT-70));
+ 		con.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT-61));
 		con.add(panel1,"North");
 		con.add(panel2,"Center");
 		
@@ -216,6 +233,12 @@ public class Holdings extends JPanel{
 		});
 	}
 
+	public void updatePage(){
+		//更新持仓情况页面显示
+		updateFTable();
+		updateRepoList();
+	}
+	
 	public void updateRepoList() {
 		info = dif.getRepoList();//从服务器获取数据
  		//info = di.getRepoList();//从桩获取数据
@@ -233,9 +256,16 @@ public class Holdings extends JPanel{
 	 	 		hTable.getColumnModel().getColumn(5).setCellRenderer(new ButtonCellRenderer());
 	 	 		hTable.getColumnModel().getColumn(0).setCellEditor(new MyTableEditor(info));
 	 	 		hTable.getColumnModel().getColumn(0).setCellRenderer(new MyTableCellRenderer(info));//
+	 	 		if(info.size() > 4){
+	 	  	 		hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMinWidth(13);
+	 	  	 		hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMaxWidth(13);
+	 	 		}
+	 	 		else{
+	 	 			hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMinWidth(0);
+	 	  	 		hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMaxWidth(0);
+	 	 		}
 	    	}
 	    	hTable.repaint();
-	    	
 	    	//JOptionPane.showMessageDialog(null, "持仓状况记录条数：" + info.size());
 	}
 
@@ -253,10 +283,6 @@ public class Holdings extends JPanel{
                 Object value, boolean isSelected, boolean hasFocus,
                 int row, int column) {          	
               
-				if(column == 5){
-					
-				}
-				else{}
 				  setForeground(Color.white);
             	  setBackground(Color.black);
               setHorizontalAlignment(SwingConstants.CENTER);
@@ -290,6 +316,14 @@ public class Holdings extends JPanel{
 		 	    			fTableRec.get(j).getGuarantee(),
 		 	    			fTableRec.get(j).getIdle()});
 	 	    	} 
+	    		if(fTableRec.size() > 8){
+	 	  	 		fTableHeader.getColumn(fTableHeader.getColumnName(4)).setMinWidth(13);
+	 	  	 		fTableHeader.getColumn(fTableHeader.getColumnName(4)).setMaxWidth(13);
+	 	 		}
+	 	 		else{
+	 	 			fTableHeader.getColumn(fTableHeader.getColumnName(4)).setMinWidth(0);
+	 	  	 		fTableHeader.getColumn(fTableHeader.getColumnName(4)).setMaxWidth(0);
+	 	 		}
 	    	}
 	    	else{
 	    	}

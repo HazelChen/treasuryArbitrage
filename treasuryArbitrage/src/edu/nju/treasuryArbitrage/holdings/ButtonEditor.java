@@ -3,6 +3,7 @@ package edu.nju.treasuryArbitrage.holdings;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -54,7 +55,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
         panel.add(p2);
 
         p2.setBounds(20,20, 
-        		100, 30);
+        		100, 40);
         p2.setBackground(Color.black);
         p2.add(button,"Center");
     }
@@ -62,7 +63,9 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
     private void initButton() {
         button = new JButton();
         button.setFocusable(false);
-
+        button.setBackground(Color.white);
+        button.setPreferredSize(new Dimension(60,25));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -152,6 +155,10 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 				btnC.setSize(100,25);
 				btnY.setFocusable(false);
 				btnC.setFocusable(false);
+		        btnY.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		        btnC.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnY.setBackground(Color.white);
+		        btnC.setBackground(Color.white);
 				btnY.addMouseListener(listener);
 				btnC.addMouseListener(listener);
 				confirmL = new JLabel("请确认信息正确后点击确认");
@@ -281,6 +288,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 			setModal(true);//
 			btnY = new JButton("确认");
 			btnY.setFocusable(false);
+			btnY.setBackground(Color.white);
+	        btnY.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			information = new JLabel("下单成功！");
 			Font titlef=new Font("宋体",Font.BOLD,24);
 			information.setFont(titlef);
