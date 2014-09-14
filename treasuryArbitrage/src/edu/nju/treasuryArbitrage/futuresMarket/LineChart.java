@@ -51,7 +51,7 @@ public class LineChart extends JPanel {
 	}
 
 	private XYDataset createDataset() { // 这个数据集有点多，但都不难理解
-		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfacePile();
+		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		HashMap<Long, Double> dateAndPrice = dataInterface.getDateAndPricePair();
 		
 		for (Entry<Long, Double> entry : dateAndPrice.entrySet()) {

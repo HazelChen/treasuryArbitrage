@@ -9,7 +9,7 @@ import edu.nju.treasuryArbitrage.network.DataInterface;
 public class UpdateThread implements Runnable{
 
 	public void run() {
-		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfacePile();
+		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		ArrayList<Arb_detail> arb_details = dataInterface.getArbDetail();
 		LiveData.getInstance().setArb_details(arb_details);
 		

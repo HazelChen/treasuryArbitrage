@@ -16,7 +16,6 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -24,9 +23,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 
 import vo.Repository;
+import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.network.DataInterfacePile;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
 public class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
@@ -128,7 +127,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 			private SellSecMsgDg dg;
 		    
 		    SellDg(Repository repo){
-		    	di = new DataInterfacePile();
+		    	di = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		    	
 		    	data[0][1] = repo.getToBuy() +" " +repo.getToSell();
 		    	data[1][1] = repo.getCount();

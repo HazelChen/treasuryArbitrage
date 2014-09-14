@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -370,7 +371,7 @@ public class ArbitragePortfolio extends JPanel{
 		private JLabel holdings,hld;
 		private JLabel money,mny;
 		private JButton confirm;
-		private JTextField tfdHoldings;
+		public JTextField tfdHoldings;
 		public BuyPanel(){
 			title=new JLabel("下单信息");
 			name=new JLabel("合约名称",JLabel.CENTER);
@@ -449,6 +450,7 @@ public class ArbitragePortfolio extends JPanel{
 			hld.setForeground(Color.WHITE);
 			tfdHoldings.setBounds(140,260,100,30);
 			
+			
 			money.setBounds(50,320,80,30);
 			money.setFont(font);
 			money.setForeground(Color.WHITE);
@@ -477,7 +479,16 @@ public class ArbitragePortfolio extends JPanel{
 		
 		public class ConfirmListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
-				confirmPanel.setVisible(true);
+				String text=tfdHoldings.getText();
+				if(text.length()==0){
+					JOptionPane.showMessageDialog(null,"手数输入错误","错误提示",JOptionPane.WARNING_MESSAGE);
+				}else {
+					if(Integer.parseInt(text)>0){
+						confirmPanel.setVisible(true);
+					}else{
+					JOptionPane.showMessageDialog(null,"手数输入错误","错误提示",JOptionPane.WARNING_MESSAGE);
+				}
+				}
 			}
 		}
 	}

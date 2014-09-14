@@ -10,6 +10,7 @@ import java.awt.event.MouseMotionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,8 +24,8 @@ import javax.swing.table.TableCellRenderer;
 
 import vo.Finance;
 import vo.Repository;
+import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.network.DataInterfacePile;
 import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
@@ -61,7 +62,7 @@ public class Holdings extends JPanel{
 	 int w;
 	 
 	public Holdings() {
-		di = new DataInterfacePile();
+		di = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		dif = new DataInterfaceToServer();
 		dif.loginValidate("a", "c");
 		this.setBackground(Color.DARK_GRAY);
