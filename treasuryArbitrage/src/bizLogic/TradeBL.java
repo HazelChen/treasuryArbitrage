@@ -45,7 +45,7 @@ public class TradeBL {
 		return false;
 	}
 	
-	public boolean trade(String username,int Repo_ID,int profit){
+	public boolean trade(String username,int Repo_ID,double profit){
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);

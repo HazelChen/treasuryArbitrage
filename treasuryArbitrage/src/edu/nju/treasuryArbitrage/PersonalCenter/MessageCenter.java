@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -53,6 +54,12 @@ public class MessageCenter extends JPanel {
 	}
 
 	public MessageCenter(int w, int h) {
+		service.AddArbMess();
+		service.AddUnwindMess();
+		service.AddArbMess();
+		service.AddUnwindMess();
+		service.AddArbMess();
+		service.AddUnwindMess();
 		mainJPanel = new JPanel();
 		init(w, h);
 		setLayout(null);
@@ -113,7 +120,6 @@ public class MessageCenter extends JPanel {
 		mainJPanel.setComponentZOrder(bxJLabel, 0);
 		setData();
 		setTable(w, h);
-		mainJPanel.add(table);
 		deleteButton = new JButton(new ImageIcon("image/删除.jpg"));
 		mainJPanel.add(deleteButton);
 		deleteButton.setBounds(80, 20, 40, 25);
@@ -153,11 +159,26 @@ public class MessageCenter extends JPanel {
 				for (int i = 0; i < table.getRowCount(); i++) {
 					if (table.getValueAt(i, 0).equals(icon3)) {
 						service.DeleteMess(i);
-						setData();
-						setTable(w, h);
-						repaint();
-						break;
 					}
+					setData();
+					mainJPanel.remove(jScrollPane);
+					jScrollPane.remove(table);
+					setTable(w, h);
+					jScrollPane = new JScrollPane(table);
+					jScrollPane.setBackground(Color.BLACK);
+					jScrollPane
+							.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+					jScrollPane
+							.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+					mainJPanel.add(jScrollPane);
+					if (table.getRowCount() * table.getRowHeight() + 35 < 400) {
+						jScrollPane.setBounds(0, 45, w,
+								table.getRowCount() * table.getRowHeight() + 35);
+					} else {
+						jScrollPane.setBounds(0, 45, w, h * 2 / 3);
+					}
+					jScrollPane.repaint();
+					mainJPanel.repaint();
 
 				}
 			}
@@ -194,7 +215,7 @@ public class MessageCenter extends JPanel {
 			}else{
 				cellData[i][1]="否";
 			}
-			cellData[i][2]=i;
+			cellData[i][2]=String.valueOf(i);
 			cellData[i][3]=messageList.get(i).getInfo();
 			cellData[i][4]=messageList.get(i).getTime();
 			messages[i] = messageList.get(i).getInfo();
@@ -286,7 +307,8 @@ public class MessageCenter extends JPanel {
 	private void showMessage(final int row) {
 		remove(mainJPanel);
 		final JPanel jPanel = new JPanel();
-		JLabel jLabel = new JLabel(messages[row]+"前往查看", JLabel.CENTER);
+		JLabel jLabel = new JLabel(messages[row]+" , 前往查看", JLabel.CENTER);
+		jLabel.setFont(new Font("微软雅黑",1,30));
 		JButton cancel = new JButton("取消");
 		jPanel.setLayout(null);
 		jPanel.add(cancel);

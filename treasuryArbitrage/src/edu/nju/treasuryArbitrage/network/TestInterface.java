@@ -8,7 +8,8 @@ public class TestInterface {
 		//System.out.println(dif.loginValidate("name", "psd"));
 		//System.out.println(dif.changePWD("name", "psd", "psdd"));
 		
-		System.out.println(dif.loginValidate("a", "c"));
+		System.out.println(dif.loginValidate("a", "123"));
+		System.out.println(dif.changePWD("a", "c", "123"));
 		System.out.println(dif.getFinanceList());
 		System.out.println(dif.getRecordList());
 		System.out.println(dif.getRepoList());

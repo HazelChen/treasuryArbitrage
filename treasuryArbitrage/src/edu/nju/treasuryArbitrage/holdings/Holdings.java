@@ -27,7 +27,6 @@ import vo.Repository;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
 /*
@@ -37,8 +36,7 @@ import edu.nju.treasuryArbitrage.resources.NumericalResources;
  * */
 public class Holdings extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = 6470810944009110491L;
-	private DataInterface di;
-	DataInterfaceToServer dif;
+	DataInterface dif;
 	static ArrayList<Finance> fTableRec;
 	static ArrayList<Repository> info;
 	static Object colummnames1[]={"时间","总资金","已投入保证金","空闲资金",""},
@@ -63,9 +61,6 @@ public class Holdings extends JPanel implements ComponentPanel{
 	 int w;
 	 
 	public Holdings() {
-		di = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
-		dif = new DataInterfaceToServer();
-		dif.loginValidate("a", "c");
 		this.setBackground(Color.DARK_GRAY);
 		
 		l1 = new JLabel("  资金状况  ",JLabel.CENTER);
@@ -300,7 +295,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 
 	public void updateFTable() {
 		//更新资金状况列表
-		
+		dif = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
         fTableRec = dif.getFinanceList();//接收已将按照时间排好顺序的结果
         
 		DefaultTableModel tableModel = (DefaultTableModel) fTable.getModel();
