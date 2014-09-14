@@ -64,7 +64,7 @@ public class PortfolioLineChart extends JPanel {
 		LiveData liveData = LiveData.getInstance();
 		double price1 = liveData.getPresentPrice(index1);
 		double price2 = liveData.getPresentPrice(index2);
-		timeseries1.add(new Second(new Date()), price1);
-		timeseries2.add(new Second(new Date()), price2);
+		timeseries1.addOrUpdate(new Second(new Date()), price1);
+		timeseries2.addOrUpdate(new Second(new Date()), price2);
 	}
 }

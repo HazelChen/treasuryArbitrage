@@ -23,7 +23,9 @@ public class UpdateThread implements Runnable{
 			arb_details = dataInterface.getArbDetail();
 			LiveData.getInstance().setArb_details(arb_details);
 			
-			MajorPartsFactory.getInstance().getFuturesMarket().updatePage();
+			MajorPartsFactory factory = MajorPartsFactory.getInstance();
+			factory.getFuturesMarket().updatePage();
+			factory.getArbitragePortfolio().updatePage();
 		}
 		
 		

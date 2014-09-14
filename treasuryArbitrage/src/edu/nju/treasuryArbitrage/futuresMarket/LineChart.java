@@ -4,9 +4,6 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 
 import javax.swing.JPanel;
 
@@ -27,7 +24,6 @@ import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
 public class LineChart extends JPanel {
 	private static final long serialVersionUID = 1323688315244501166L;
 
-	private HashMap<Second, Double> hashMap = new LinkedHashMap<>();
 	private TimeSeries timeseries = new TimeSeries("¼Û¸ñ", Second.class);
 	private int index;
 	
@@ -40,10 +36,7 @@ public class LineChart extends JPanel {
 	private XYDataset createDataset() { 
 		ArrayList<Arb_detail> arb_details = LiveData.getInstance().getArb_details();
 		
-		hashMap.put(new Second(new Date()), arb_details.get(index).getPresentPrice());
-		for (Entry<Second, Double> entity : hashMap.entrySet()) {
-			timeseries.addOrUpdate(entity.getKey(), entity.getValue());
-		}
+		timeseries.addOrUpdate(new Second(new Date()), arb_details.get(index).getPresentPrice());
 		
 		TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
 		timeseriescollection.addSeries(timeseries);
@@ -51,10 +44,7 @@ public class LineChart extends JPanel {
 	}
 	
 	public void addNewPrice(double newPrice) {
-		this.removeAll();
-		ChartPanel chartPanel = init();
-		this.add(chartPanel);
-		this.repaint();
+		timeseries.addOrUpdate(new Second(new Date()), newPrice);
 	}
 	
 	private ChartPanel init() {
