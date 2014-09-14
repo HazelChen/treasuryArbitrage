@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -20,11 +19,9 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-
 import vo.Arb_detail;
 import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
-import vo.Arb_detail;
 
 public class FuturesMarket extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = 4293989421427626065L;
@@ -881,7 +878,10 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 
 	@Override
 	public void updatePage() {
-		// TODO Auto-generated method stub
-		
+		ArrayList<Arb_detail> arb_lists = LiveData.getInstance().getArb_details();
+		update(arb_lists);
+		chart1.addNewPrice(arb_lists.get(0).getPresentPrice());
+		chart2.addNewPrice(arb_lists.get(1).getPresentPrice());
+		chart3.addNewPrice(arb_lists.get(2).getPresentPrice());
 	}
 }
