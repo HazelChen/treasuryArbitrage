@@ -31,10 +31,11 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JDateChooser;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
+import edu.nju.treasuryArbitrage.framework.CommentPanel;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
-public class News extends JPanel{
+public class News extends JPanel implements CommentPanel{
 	private static final long serialVersionUID = -3044620398021541690L;
 	
 	private DataInterface di;
@@ -341,6 +342,12 @@ public class News extends JPanel{
 		 	    			newsTable[j].getAuthor()});
 	 	    	} 
 			}
+		}
+
+
+		@Override
+		public void updatePage() {
+			// TODO Auto-generated method stub
 		}
 
 		
