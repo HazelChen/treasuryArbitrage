@@ -23,8 +23,8 @@ import org.json.JSONObject;
 public class NetHelper {
 	String urlString ;
 	public NetHelper (String method, HashMap<String, String> params){
-//		this.urlString = "http://njuhq.sinaapp.com/"+method;
-		this.urlString = "192.168.53.56/"+method;
+		this.urlString = "http://njuhq.sinaapp.com/"+method;
+//		this.urlString = "192.168.53.56/"+method;
 		this.setPara(params);
 	}
 	
