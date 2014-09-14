@@ -60,7 +60,7 @@ public class MessageCenter extends JPanel {
 		mainJPanel.setBounds(0, 0, w, h);
 	}
 
-	private void init(int w, int h) {
+	private void init(final int w, final int h) {
 		mainJPanel.setBackground(Color.BLACK);
 		mainJPanel.setLayout(null);
 		icon = new ImageIcon("image/icon.jpg");
@@ -152,9 +152,9 @@ public class MessageCenter extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				for (int i = 0; i < table.getRowCount(); i++) {
 					if (table.getValueAt(i, 0).equals(icon3)) {
-						table.removeRowSelectionInterval(i, i);
 						service.DeleteMess(i);
 						setData();
+						setTable(w, h);
 						repaint();
 						break;
 					}
@@ -280,6 +280,7 @@ public class MessageCenter extends JPanel {
 		table.setBounds(0, 45, w, h / 2);
 		table.getTableHeader().setResizingAllowed(true);
 		table.getTableHeader().setPreferredSize(new Dimension(5, 35));
+		table.getTableHeader().setReorderingAllowed(false);
 	}
 
 	private void showMessage(final int row) {

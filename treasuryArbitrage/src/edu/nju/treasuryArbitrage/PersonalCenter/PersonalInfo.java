@@ -150,15 +150,11 @@ public class PersonalInfo extends JPanel{
 		stateButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(stateButton.getText().equalsIgnoreCase("取消自动登录")){
 					new LoginStateRecorder().cancelAutoLogin();
 					stateJLabel.setText("当前为正常登录状态");
-					stateButton.setText("自动登录");
-				}else {
-					stateJLabel.setText("当前为自动登录状态");
-					stateButton.setText("取消自动登录");
-				}
-				repaint();
+					stateJLabel.setBounds(w*50/400, h*150/400, w*300/400, h*35/400);
+					mainJPanel.remove(stateButton);
+					mainJPanel.repaint();
 			}
 		});
 		modifyPasswd.addMouseListener(new MouseAdapter() {

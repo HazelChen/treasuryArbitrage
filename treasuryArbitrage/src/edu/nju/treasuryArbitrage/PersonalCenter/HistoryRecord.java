@@ -29,22 +29,18 @@ public class HistoryRecord extends JPanel {
 	JScrollPane jScrollPane;
 	private DataInterface service = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 	
-	public void update(){
-		getData();
-	}
-	
 	public void getData(){
 		ArrayList<Record> records = service.getRecordList();
 		data = new Object[records.size()][columns.length];
 		for(int i = 0 ; i < records.size() ; i++){
 			String[] strings = {records.get(i).getToBuy().getId(),"多头",Double.toString(records.get(i).getToBuy().getValue()),
-					records.get(i).getToSell().getId(),"多头",Double.toString(records.get(i).getToSell().getValue()),};
+					records.get(i).getToSell().getId(),"空头",Double.toString(records.get(i).getToSell().getValue())};
 			data[i][0]=strings;
 			Date date = new Date(records.get(i).getTime());
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");   
 			data[i][1]=sdf.format(date);
-			data[i][2]=records.get(i).getCount();
-			data[i][3]=records.get(i).getGuarantee();
+			data[i][2]=String.valueOf(records.get(i).getCount());
+			data[i][3]=String.valueOf(records.get(i).getGuarantee());
 			data[i][4]=records.get(i).getState();
 		}
 	}
@@ -54,11 +50,7 @@ public class HistoryRecord extends JPanel {
 	}
 	public HistoryRecord(int w,int h) {
 		init(w,h);
-		if(jTableData.getRowCount()*60+38<h){
-			jScrollPane.setBounds(0, 0, w, jTableData.getRowCount()*60+38);
-		}else{
-			jScrollPane.setBounds(0, 0, w, h);
-		}
+		
 	}
 	
 	private void init(int w,int h){
@@ -153,6 +145,7 @@ public class HistoryRecord extends JPanel {
 		jTableData.getTableHeader().setForeground(Color.ORANGE);
 		setLayout(null);
 		jTableData.setBackground(Color.BLACK);
+		jTableData.getTableHeader().setReorderingAllowed(false);
 		jScrollPane=new JScrollPane(jTableData);
 		jScrollPane.setBackground(Color.BLACK);
 		jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
