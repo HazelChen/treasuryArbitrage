@@ -23,13 +23,14 @@ public class SettingStopParameters extends JDialog{
 	public SettingStopParameters(){
 		init();
 		assemble();
+//		addListeners();
 	}
 	
 	private void init() {
 		this.setUndecorated(true);
 		this.setBackground(ColorResources.LOGIN_BORDER_GRAY);
-		this.setMaximumSize(new Dimension(600, 400));
-		this.setMinimumSize(new Dimension(600, 400));
+		this.setMaximumSize(new Dimension(500, 400));
+		this.setMinimumSize(new Dimension(500, 400));
 		this.setResizable(false);
 		this.setModal(true);
 		this.setLocation(
