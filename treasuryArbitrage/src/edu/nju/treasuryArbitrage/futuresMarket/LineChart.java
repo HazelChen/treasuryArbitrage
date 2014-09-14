@@ -27,15 +27,14 @@ import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
 public class LineChart extends JPanel {
 	private static final long serialVersionUID = 1323688315244501166L;
 
-	private ChartPanel frame1;
 	private HashMap<Second, Double> hashMap = new LinkedHashMap<>();
 	private TimeSeries timeseries = new TimeSeries("价格", Second.class);
 	private int index;
 	
 	public LineChart(int index) {
 		this.index = index;
-		init();
-		this.add(frame1);
+		ChartPanel chartPanel = init();
+		this.add(chartPanel);
 	}
 
 	private XYDataset createDataset() { 
@@ -43,7 +42,7 @@ public class LineChart extends JPanel {
 		
 		hashMap.put(new Second(new Date()), arb_details.get(index).getPresentPrice());
 		for (Entry<Second, Double> entity : hashMap.entrySet()) {
-			timeseries.add(entity.getKey(), entity.getValue());
+			timeseries.addOrUpdate(entity.getKey(), entity.getValue());
 		}
 		
 		TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
@@ -52,24 +51,26 @@ public class LineChart extends JPanel {
 	}
 	
 	public void addNewPrice(double newPrice) {
-		this.remove(frame1);
-		init();
-		this.add(frame1);
+		this.removeAll();
+		ChartPanel chartPanel = init();
+		this.add(chartPanel);
+		this.repaint();
 	}
 	
-	private void init() {
+	private ChartPanel init() {
 		XYDataset xydataset = createDataset();
 		JFreeChart jfreechart = ChartFactory.createTimeSeriesChart(
 				"分时走势", "时间", "价格", xydataset, true, true,true);
 		XYPlot xyplot = (XYPlot) jfreechart.getPlot();
 		DateAxis dateaxis = (DateAxis) xyplot.getDomainAxis();
 		dateaxis.setDateFormatOverride(new SimpleDateFormat("hh:mm"));
-		frame1 = new ChartPanel(jfreechart, true);
+		ChartPanel frame1 = new ChartPanel(jfreechart, true);
 		dateaxis.setLabelFont(new Font("黑体", Font.BOLD, 14)); // 水平底部标题
 		dateaxis.setTickLabelFont(new Font("宋体", Font.BOLD, 12)); // 垂直标题
 		ValueAxis rangeAxis = xyplot.getRangeAxis();// 获取柱状
 		rangeAxis.setLabelFont(new Font("黑体", Font.BOLD, 15));
 		jfreechart.getLegend().setItemFont(new Font("黑体", Font.BOLD, 15));
 		jfreechart.getTitle().setFont(new Font("宋体", Font.BOLD, 20));// 设置标题字体
+		return frame1;
 	}
 }
