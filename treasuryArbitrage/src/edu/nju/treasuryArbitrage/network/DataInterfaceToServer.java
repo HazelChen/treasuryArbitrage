@@ -170,10 +170,10 @@ public boolean changePWD(String username, String oldpwd, String newpwd) {
 	}
 
 	@Override
-	public boolean Order(String More_contract,String Blank_contract,int hand) {
+	public boolean Order(String username,String More_contract,String Blank_contract,double more_price,double blank_price,int hand,int guarantee) {
 		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
-		return tradebl.order(user.getUserID(), More_contract, Blank_contract, hand);
+		return tradebl.order(user.getUserID(), More_contract, Blank_contract, more_price, blank_price, hand, guarantee);
 	}
 
 	@Override
@@ -184,10 +184,10 @@ public boolean changePWD(String username, String oldpwd, String newpwd) {
 	}
 
 	@Override
-	public boolean Trade(int Repo_ID) {
+	public boolean Trade(int Repo_ID, int profit) {
 		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
-		return tradebl.trade(user.getUserID(), Repo_ID);
+		return tradebl.trade(user.getUserID(), Repo_ID, profit);
 	}
 
 	@Override
