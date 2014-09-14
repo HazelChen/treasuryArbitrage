@@ -125,6 +125,18 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
+	public void AddUnwindMess() {
+		// TODO 自动生成的方法存根
+		messbl.AddUnwind();
+	}
+
+	@Override
+	public void AddArbMess() {
+		// TODO 自动生成的方法存根
+		messbl.AddArb();
+	}
+	
+	@Override
 	public void ReadMess(int index) {
 		messbl.ReadMess(index);
 	}
@@ -195,7 +207,6 @@ public class DataInterfaceToServer implements DataInterface{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 	
 
 }
