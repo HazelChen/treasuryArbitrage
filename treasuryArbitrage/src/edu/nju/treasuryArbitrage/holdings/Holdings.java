@@ -25,6 +25,7 @@ import javax.swing.table.TableCellRenderer;
 import vo.Finance;
 import vo.Repository;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
+import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
@@ -34,7 +35,7 @@ import edu.nju.treasuryArbitrage.resources.NumericalResources;
  * updatePage()  用来更新整个页面
  * 
  * */
-public class Holdings extends JPanel{
+public class Holdings extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = 6470810944009110491L;
 	private DataInterface di;
 	DataInterfaceToServer dif;

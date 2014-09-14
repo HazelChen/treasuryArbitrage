@@ -8,7 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PersonalCenter extends JPanel{
+import edu.nju.treasuryArbitrage.framework.ComponentPanel;
+
+public class PersonalCenter extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = -7820319557370987327L;
 	
 	private int w;
@@ -96,6 +98,12 @@ public class PersonalCenter extends JPanel{
 		historyRecord=new HistoryRecord( w, (int) (h*0.5));
 		add(historyRecord);
 		historyRecord.setBounds(0, (int) (h*0.5)+25, w, (int) (h*0.5)-25);
+	}
+
+	@Override
+	public void updatePage() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

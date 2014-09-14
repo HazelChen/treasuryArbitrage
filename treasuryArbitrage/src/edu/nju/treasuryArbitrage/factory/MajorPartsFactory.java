@@ -20,7 +20,7 @@ public class MajorPartsFactory {
 	private Holdings holdings;
 	private News news;
 	private PersonalCenter personalCenter;
-	private SettingStopParameters settingStopParameters = new SettingStopParameters();
+	private SettingStopParameters settingStopParameters;
 	
 	private MajorPartsFactory(){}
 	
@@ -83,6 +83,9 @@ public class MajorPartsFactory {
 	}
 	
 	public SettingStopParameters getSettingStopParameters() {
+		if (settingStopParameters == null) {
+			settingStopParameters = new SettingStopParameters();
+		}
 		return settingStopParameters;
 	}
 }
