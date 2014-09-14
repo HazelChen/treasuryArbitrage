@@ -15,6 +15,7 @@ public class TestInterface {
 		System.out.println(dif.getRepoList());
 		System.out.println(dif.getPara_GUAR());
 		System.out.println(dif.getArbDetail());
+		System.out.println(dif.getNewsList());
 	}
 
 }

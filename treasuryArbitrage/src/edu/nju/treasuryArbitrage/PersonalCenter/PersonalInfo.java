@@ -89,8 +89,11 @@ public class PersonalInfo extends JPanel{
 		confirmation.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( newPasswdJTextField.getPassword().toString().equals(confirmJTextField.getPassword().toString())&& newPasswdJTextField.getPassword().toString().equals("")){
-					service.changePWD(LoginedUser.getLoginedUser(), oldPasswdJTextField.getPassword().toString(), newPasswdJTextField.getPassword().toString());
+				String newPassword = new String(newPasswdJTextField.getPassword());
+				String oldPassword = new String(oldPasswdJTextField.getPassword());
+				String confirm = new String(confirmJTextField.getPassword());
+				if( newPassword.equals(confirm)&& !newPassword.equals("")){
+					service.changePWD(LoginedUser.getLoginedUser(), oldPassword,newPassword);
 				}
 				remove(modifyPasswdJPanel);
 				add(mainJPanel);

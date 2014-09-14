@@ -61,6 +61,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 	 int w;
 	 
 	public Holdings() {
+		dif = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		this.setBackground(Color.DARK_GRAY);
 		
 		l1 = new JLabel("  ×Ê½ð×´¿ö  ",JLabel.CENTER);
