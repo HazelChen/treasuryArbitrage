@@ -2,9 +2,24 @@ package edu.nju.treasuryArbitrage.network;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
-import bizLogic.*;
-import vo.*;
+import vo.ArbGroup;
+import vo.Arb_detail;
+import vo.Finance;
+import vo.Message;
+import vo.News;
+import vo.Record;
+import vo.Repository;
+import vo.UserVO;
+import bizLogic.ArbitrageBL;
+import bizLogic.FinanceBL;
+import bizLogic.MessContainerBL;
+import bizLogic.NewsBL;
+import bizLogic.RecordBL;
+import bizLogic.RepositoryBL;
+import bizLogic.TradeBL;
+import bizLogic.UserBL;
 import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfaceToServer implements DataInterface{
@@ -175,6 +190,12 @@ public boolean changePWD(String username, String oldpwd, String newpwd) {
 		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return tradebl.trade(user.getUserID(), Repo_ID);
+	}
+
+	@Override
+	public HashMap<Long, Double> getDateAndPricePair() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

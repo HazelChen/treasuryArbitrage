@@ -2,8 +2,15 @@ package edu.nju.treasuryArbitrage.network;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
-import vo.*;
+import vo.ArbGroup;
+import vo.Arb_detail;
+import vo.Finance;
+import vo.Message;
+import vo.News;
+import vo.Record;
+import vo.Repository;
 import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 
@@ -61,6 +68,7 @@ public interface DataInterface {
 	
 	public ArrayList<Arb_detail> getArbDetail();
 	public ArrayList<ArbGroup> getArbGroup();
+	public HashMap<Long, Double> getDateAndPricePair();
 	
 	public boolean Order(String More_contract,String Blank_contract,int hand);
 	public boolean cancleOrder(int Record_ID);

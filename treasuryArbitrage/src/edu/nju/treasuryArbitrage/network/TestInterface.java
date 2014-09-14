@@ -13,6 +13,7 @@ public class TestInterface {
 		System.out.println(dif.getRecordList());
 		System.out.println(dif.getRepoList());
 		System.out.println(dif.getPara_GUAR());
+		System.out.println(dif.getArbDetail());
 	}
 
 }

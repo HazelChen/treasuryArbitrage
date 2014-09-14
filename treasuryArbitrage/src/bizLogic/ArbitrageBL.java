@@ -27,7 +27,7 @@ public class ArbitrageBL {
 			JSONObject temp = ret.getJSONObject(i);
 			Arb_detail detail = new Arb_detail();
 			
-			detail.setSymbol(temp.getString("RT_NAME"));
+			detail.setSymbol(temp.getString("RT_CODE"));
 			
 			detail.setDate(temp.getInt("RT_DATE"));
 			detail.setDay(temp.getInt("RT_TIME"));
