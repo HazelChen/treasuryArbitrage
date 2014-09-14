@@ -869,10 +869,10 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			price.setBounds(50,230,80,30);
 			price.setFont(font);
 			price.setForeground(Color.BLACK);
-			price_name1.setBounds(160,260,80,30);
+			price_name1.setBounds(160,230,80,30);
 			price1.setBounds(280,230,80,30);
 			price_name2.setBounds(160,260,80,30);
-			price2.setBounds(280,230,80,30);
+			price2.setBounds(280,260,80,30);
 			price_name1.setFont(font);
 			price_name1.setForeground(Color.BLACK);
 			price_name2.setFont(font);
@@ -892,7 +892,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			money.setBounds(50,350,80,30);
 			money.setFont(font);
 			money.setForeground(Color.BLACK);
-			mny.setBounds(140,350,80,30);
+			mny.setBounds(140,350,240,30);
 			mny.setFont(font);
 			mny.setForeground(Color.BLACK);
 			
@@ -945,6 +945,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		
 		public class ConfirmDetailListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,"下单成功！");
 				
 			}	
 		}
