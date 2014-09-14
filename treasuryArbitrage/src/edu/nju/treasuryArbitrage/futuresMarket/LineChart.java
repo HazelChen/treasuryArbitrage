@@ -4,6 +4,9 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import javax.swing.JPanel;
 
@@ -25,12 +28,36 @@ public class LineChart extends JPanel {
 	private static final long serialVersionUID = 1323688315244501166L;
 
 	private ChartPanel frame1;
+	private HashMap<Second, Double> hashMap = new LinkedHashMap<>();
 	private TimeSeries timeseries = new TimeSeries("价格", Second.class);
 	private int index;
 	
 	public LineChart(int index) {
 		this.index = index;
+		init();
+		this.add(frame1);
+	}
+
+	private XYDataset createDataset() { 
+		ArrayList<Arb_detail> arb_details = LiveData.getInstance().getArb_details();
 		
+		hashMap.put(new Second(new Date()), arb_details.get(index).getPresentPrice());
+		for (Entry<Second, Double> entity : hashMap.entrySet()) {
+			timeseries.add(entity.getKey(), entity.getValue());
+		}
+		
+		TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
+		timeseriescollection.addSeries(timeseries);
+		return timeseriescollection;
+	}
+	
+	public void addNewPrice(double newPrice) {
+		this.remove(frame1);
+		init();
+		this.add(frame1);
+	}
+	
+	private void init() {
 		XYDataset xydataset = createDataset();
 		JFreeChart jfreechart = ChartFactory.createTimeSeriesChart(
 				"分时走势", "时间", "价格", xydataset, true, true,true);
@@ -44,20 +71,5 @@ public class LineChart extends JPanel {
 		rangeAxis.setLabelFont(new Font("黑体", Font.BOLD, 15));
 		jfreechart.getLegend().setItemFont(new Font("黑体", Font.BOLD, 15));
 		jfreechart.getTitle().setFont(new Font("宋体", Font.BOLD, 20));// 设置标题字体
-		this.add(frame1);
-	}
-
-	private XYDataset createDataset() { // 这个数据集有点多，但都不难理解
-		ArrayList<Arb_detail> arb_details = LiveData.getInstance().getArb_details();
-		
-		timeseries.add(new Second(new Date()), arb_details.get(index).getPresentPrice());
-		
-		TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
-		timeseriescollection.addSeries(timeseries);
-		return timeseriescollection;
-	}
-	
-	public void addNewPrice(double newPrice) {
-		timeseries.add(new Second(new Date()), newPrice);
 	}
 }
