@@ -4,35 +4,45 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class SettingStopParameters extends JFrame{
+import edu.nju.treasuryArbitrage.resources.ColorResources;
+import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
+public class SettingStopParameters extends JDialog{
 	private static final long serialVersionUID = -7449799153447097837L;
 	
-	private JLabel title ;
-	private JLabel stopProfitLaJLabel ;
-	private JLabel stopLossJlJLabel ;
-	private JLabel maxInvestmentJLabel ;//最大保证金投入
+	private JTextField stopProfitJTextField  = new JTextField();
+	private JTextField stopLossJTextField = new JTextField();
+	private JTextField maxInvestmentJTextField = new JTextField();
 	
-	private JTextField stopProfitJTextField;
-	private JTextField stopLossJTextField;
-	private JTextField maxInvestmentJTextField;
-	
-	private JButton confirmation;
+	private JButton confirmation =new JButton("确认");
 	
 	public SettingStopParameters(){
-		title = new JLabel("模型参数设置");
-		stopProfitLaJLabel = new JLabel("止盈点");
-		stopLossJlJLabel = new JLabel("止损点");
-		maxInvestmentJLabel = new JLabel("最大保证金投入");
-		stopProfitJTextField = new JTextField();
-		stopLossJTextField = new JTextField();
-		maxInvestmentJTextField = new JTextField();
-		confirmation=new JButton("确认");
-		setLayout(null);
+		init();
+		assemble();
+	}
+	
+	private void init() {
+		this.setUndecorated(true);
+		this.setBackground(ColorResources.LOGIN_BORDER_GRAY);
+		this.setMaximumSize(new Dimension(600, 400));
+		this.setMinimumSize(new Dimension(600, 400));
+		this.setResizable(false);
+		this.setModal(true);
+		this.setLocation(
+				(NumericalResources.SCREEN_WIDTH - this.getWidth()) / 2,
+				(NumericalResources.SCREEN_HEIGHT - this.getHeight()) / 2);
+		this.setLayout(null);
+	}
+	
+	private void assemble() {
+		JLabel title = new JLabel("模型参数设置");;
+		JLabel stopProfitLaJLabel = new JLabel("止盈点");
+		JLabel stopLossJlJLabel = new JLabel("止损点");
+		JLabel maxInvestmentJLabel = new JLabel("最大保证金投入");//最大保证金投入
 		
 		add(stopProfitLaJLabel);
 		add(stopLossJlJLabel);
@@ -43,28 +53,16 @@ public class SettingStopParameters extends JFrame{
 		add(title);
 		add(confirmation);
 		
-		setPreferredSize(new Dimension(600, 400));
-		
-		title.setFont(new  Font("Dialog",1,30));
-		title.setBounds(200, 20, 200, 50);
-		confirmation.setBounds(200,300,200,50);
-		
 		stopProfitLaJLabel.setBounds(100, 100, 150, 40);
 		stopLossJlJLabel.setBounds(100, 150, 150, 40);
 		maxInvestmentJLabel.setBounds(100, 200, 150, 40);
-		
+		title.setFont(new  Font("Dialog",1,30));
+		title.setBounds(200, 20, 200, 50);
+		confirmation.setBounds(200,300,200,50);
 		stopProfitJTextField.setBounds(300,100, 150, 40);
 		stopLossJTextField.setBounds(300, 150, 150, 40);
 		maxInvestmentJTextField.setBounds(300, 200, 150, 40);
 		
 	}
-	/*public static void main(String[] args){
-		JFrame jFrame = new SettingStopParameters();
-		//jFrame.add(jPanel);
-		jFrame.setSize(600,400);
-		jFrame.setVisible(true);
-		jFrame.repaint();
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}*/
 
 }

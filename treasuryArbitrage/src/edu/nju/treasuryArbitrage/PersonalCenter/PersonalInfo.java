@@ -7,7 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -15,6 +15,7 @@ import javax.swing.JPasswordField;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.framework.LoginedUser;
 import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 
 public class PersonalInfo extends JPanel{
 
@@ -172,20 +173,11 @@ public class PersonalInfo extends JPanel{
 		settingButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JFrame settingStopParameter = new SettingStopParameters();
-				settingStopParameter.setSize(600, 400);
+
+				JDialog settingStopParameter = MajorPartsFactory.getInstance().getSettingStopParameters();
 				settingStopParameter.setVisible(true);
 			}
 		});
-	}
-	public static void main(String[] args) {
-		JFrame jFrame = new JFrame();
-		JPanel jPanel = new PersonalInfo(400, 400);
-		jFrame.add(jPanel);
-		jFrame.setSize(400, 400);
-		jFrame.setVisible(true);
-		jFrame.repaint();
-		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 }
