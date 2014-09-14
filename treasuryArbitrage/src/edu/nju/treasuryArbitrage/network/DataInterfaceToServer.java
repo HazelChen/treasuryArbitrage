@@ -39,7 +39,8 @@ public class DataInterfaceToServer implements DataInterface {
 		arbtbl = new ArbitrageBL();
 		tradebl = new TradeBL();
 		calcbl = new CalculateBL();
-
+		newsbl = new NewsBL();
+		
 	}
 
 	@Override

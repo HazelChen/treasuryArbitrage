@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -57,11 +59,11 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 		
 		
 		arb1=new Arb_detail();
-		arb1=this.getTableData(1);
+		arb1=this.getTableData("TF1412");
 		arb2=new Arb_detail();
-		arb2=this.getTableData(2);
+		arb2=this.getTableData("TF1503");
 		arb3=new Arb_detail();
-		arb3=this.getTableData(3);
+		arb3=this.getTableData("TF1506");
 		futuresHeader=getHeader();
 		futuresTable1=getTable1();
 		futuresTable2=getTable2();
@@ -214,37 +216,41 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 	}
 	
 	public Object[][] getFuturesInfo(Arb_detail arb,int id){
+		
+		Date date = new Date(arb.getTime());
+		int hour=date.getHours();
+		int min=date.getMinutes();
 		if(id==1){
-			Object[][] futuresInfo={				
-					new Object[]{"TF1409","2014年09月"				
-							,arb.getPresentPrice(),arb.getPriceChange()
-							,arb.getChange(),arb.getBid(),arb.getBidPirce()
-							,arb.getAskPrice(),arb.getAsk(),arb.getVol()
-							,"持仓量","日增仓",arb.getPreSettlePrice()
-							,arb.getOpen(),arb.getHigh(),arb.getLow()
-							,"时间"}
-			};
-			return futuresInfo;
-		}else if(id==2){
 			Object[][] futuresInfo={				
 					new Object[]{"TF1412","2014年12月"				
 							,arb.getPresentPrice(),arb.getPriceChange()
 							,arb.getChange(),arb.getBid(),arb.getBidPirce()
 							,arb.getAskPrice(),arb.getAsk(),arb.getVol()
-							,"持仓量","日增仓",arb.getPreSettlePrice()
+							,arb.getRepository(),arb.getDailyWarehouse(),arb.getPreSettlePrice()
 							,arb.getOpen(),arb.getHigh(),arb.getLow()
-							,"时间"}
+							,hour+":"+min}
 			};
 			return futuresInfo;
-		}else if(id==3){
+		}else if(id==2){
 			Object[][] futuresInfo={				
 					new Object[]{"TF1503","2015年03月"				
 							,arb.getPresentPrice(),arb.getPriceChange()
 							,arb.getChange(),arb.getBid(),arb.getBidPirce()
 							,arb.getAskPrice(),arb.getAsk(),arb.getVol()
-							,"持仓量","日增仓",arb.getPreSettlePrice()
+							,arb.getRepository(),arb.getDailyWarehouse(),arb.getPreSettlePrice()
 							,arb.getOpen(),arb.getHigh(),arb.getLow()
-							,"时间"}
+							,hour+":"+min}
+			};
+			return futuresInfo;
+		}else if(id==3){
+			Object[][] futuresInfo={				
+					new Object[]{"TF1506","2015年06月"				
+							,arb.getPresentPrice(),arb.getPriceChange()
+							,arb.getChange(),arb.getBid(),arb.getBidPirce()
+							,arb.getAskPrice(),arb.getAsk(),arb.getVol()
+							,arb.getRepository(),arb.getDailyWarehouse(),arb.getPreSettlePrice()
+							,arb.getOpen(),arb.getHigh(),arb.getLow()
+							,hour+":"+min}
 			};
 			return futuresInfo;
 		}
@@ -281,6 +287,11 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
 				,"前结算价","今开","最高","最低","时间"};
 		
+		Date date = new Date(arb1.getTime());
+		int hour=date.getHours();
+		int min=date.getMinutes();
+		
+		
 		Object[][] futuresInfo={				
 				new Object[]{"TF1412","2014年12月"				
 						,arb1.getPresentPrice(),arb1.getPriceChange()
@@ -288,7 +299,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
 						,arb1.getRepository(),arb1.getDailyWarehouse(),arb1.getPreSettlePrice()
 						,arb1.getOpen(),arb1.getHigh(),arb1.getLow()
-						,"时间"
+						,hour+":"+min
 							}
 				};
 		tableInfo1=futuresInfo;
@@ -353,7 +364,9 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
 				,"前结算价","今开","最高","最低","时间"};
 		
-		
+		Date date = new Date(arb2.getTime());
+		int hour=date.getHours();
+		int min=date.getMinutes();
 		Object[][] futuresInfo={				
 				new Object[]{"TF1503","2015年03月"				
 						,arb2.getPresentPrice(),arb2.getPriceChange()
@@ -361,7 +374,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
 						,arb2.getRepository(),arb2.getDailyWarehouse(),arb2.getPreSettlePrice()
 						,arb2.getOpen(),arb2.getHigh(),arb2.getLow()
-						,"时间"}
+						,hour+":"+min}
 		};
 		tableInfo2=futuresInfo;
         model2 = new DefaultTableModel(tableInfo2,columnTitle) {
@@ -426,7 +439,9 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
 				,"前结算价","今开","最高","最低","时间"};
 		
-
+		Date date = new Date(arb3.getTime());
+		int hour=date.getHours();
+		int min=date.getMinutes();
 		
 		Object[][] futuresInfo={				
 				new Object[]{"TF1506","2015年06月"				
@@ -435,7 +450,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 						,arb3.getAskPrice(),arb3.getAsk(),arb3.getVol()
 						,arb3.getRepository(),arb3.getDailyWarehouse(),arb3.getPreSettlePrice()
 						,arb3.getOpen(),arb3.getHigh(),arb3.getLow()
-						,"时间"}
+						,hour+":"+min}
 		};
 		tableInfo3=futuresInfo;
         model3 = new DefaultTableModel(tableInfo3,columnTitle) {
@@ -494,31 +509,17 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 		
 	}
 	
-	private Arb_detail getTableData(int id){		
+	private Arb_detail getTableData(String symbol){		
 		ArrayList<Arb_detail> result=LiveData.getInstance().getArb_details();
 		Arb_detail detail=new Arb_detail();
-		if(id==1){
+
 			for(int i=0;i<3;i++){
-				if(result.get(i).getSymbol().equals("TF1412")){
+				if(result.get(i).getSymbol().equals(symbol)){
 					detail=result.get(i);
 					break;
 				}		
 			}
-		}else if(id==2){
-			for(int i=0;i<3;i++){
-				if(result.get(i).getSymbol().equals("TF1503")){
-					detail=result.get(i);
-					break;
-				}		
-			}
-		}else if(id==3){
-			for(int i=0;i<3;i++){
-				if(result.get(i).getSymbol().equals("TF1506")){
-					detail=result.get(i);
-					break;
-				}		
-			}
-		}
+		
 		return detail;
 	}
 	
@@ -878,10 +879,12 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 
 	@Override
 	public void updatePage() {
+
 		ArrayList<Arb_detail> arb_lists = LiveData.getInstance().getArb_details();
 		update(arb_lists);
 		chart1.addNewPrice(arb_lists.get(0).getPresentPrice());
 		chart2.addNewPrice(arb_lists.get(1).getPresentPrice());
 		chart3.addNewPrice(arb_lists.get(2).getPresentPrice());
+
 	}
 }
