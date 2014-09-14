@@ -285,7 +285,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 				,"前结算价","今开","最高","最低","时间"};
 		
 		Object[][] futuresInfo={				
-				new Object[]{"TF1409","2014年09月"				
+				new Object[]{"TF1412","2014年12月"				
 						,arb1.getPresentPrice(),arb1.getPriceChange()
 						,arb1.getChange(),arb1.getBid(),arb1.getBidPirce()
 						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
@@ -358,7 +358,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 		
 		
 		Object[][] futuresInfo={				
-				new Object[]{"TF1412","2014年12月"				
+				new Object[]{"TF1503","2015年03月"				
 						,arb2.getPresentPrice(),arb2.getPriceChange()
 						,arb2.getChange(),arb2.getBid(),arb2.getBidPirce()
 						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
@@ -432,7 +432,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 
 		
 		Object[][] futuresInfo={				
-				new Object[]{"TF1503","2015年03月"				
+				new Object[]{"TF1506","2015年06月"				
 						,arb3.getPresentPrice(),arb3.getPriceChange()
 						,arb3.getChange(),arb3.getBid(),arb3.getBidPirce()
 						,arb3.getAskPrice(),arb3.getAsk(),arb3.getVol()
@@ -502,21 +502,21 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 		Arb_detail detail=new Arb_detail();
 		if(id==1){
 			for(int i=0;i<3;i++){
-				if(result.get(i).getSymbol().equals("TF1409")){
+				if(result.get(i).getSymbol().equals("TF1412")){
 					detail=result.get(i);
 					break;
 				}		
 			}
 		}else if(id==2){
 			for(int i=0;i<3;i++){
-				if(result.get(i).getSymbol().equals("TF1412")){
+				if(result.get(i).getSymbol().equals("TF1503")){
 					detail=result.get(i);
 					break;
 				}		
 			}
 		}else if(id==3){
 			for(int i=0;i<3;i++){
-				if(result.get(i).getSymbol().equals("TF1503")){
+				if(result.get(i).getSymbol().equals("TF1506")){
 					detail=result.get(i);
 					break;
 				}		
@@ -808,11 +808,11 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 		
 		public void setDetail(Arb_detail arb,int i){
 			if(i==1){
-				title.setText("国债1409");
-			}else if(i==2){
 				title.setText("国债1412");
-			}else if(i==3){
+			}else if(i==2){
 				title.setText("国债1503");
+			}else if(i==3){
+				title.setText("国债1506");
 			}
 			title.setVisible(true);
 
