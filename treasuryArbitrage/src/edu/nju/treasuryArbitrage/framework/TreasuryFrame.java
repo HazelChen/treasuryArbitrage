@@ -8,9 +8,11 @@ import javax.swing.JPanel;
 import edu.nju.treasuryArbitrage.PersonalCenter.Login;
 import edu.nju.treasuryArbitrage.PersonalCenter.LoginStateRecorder;
 import edu.nju.treasuryArbitrage.PersonalCenter.UserInfo;
+import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.navigater.Navigater;
+import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 import edu.nju.treasuryArbitrage.resources.TextResources;
 
@@ -47,6 +49,8 @@ public class TreasuryFrame extends JFrame{
 		if (isAutoLogin) {
 			UserInfo userInfo = stateRecorder.getRememberedUser();
 			LoginedUser.setLoginedUser(userInfo.getUsername());
+			DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+			dataInterface.loginValidate(userInfo.getUsername(), userInfo.getPassword());
 			enterMainPage();
 		} else {
 			enterLogin();
