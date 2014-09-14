@@ -12,7 +12,6 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,22 +25,13 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-
-
-
-
-
-
-
-
-
-import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
-import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 import vo.ArbGroup;
 import vo.Arb_detail;
-
-
+import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.framework.ComponentPanel;
+import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 
 
 
@@ -1131,8 +1121,17 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 	
 	@Override
 	public void updatePage() {
-		// TODO Auto-generated method stub
-		
+		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+		update(dataInterface.getArbGroup());
+		if (chart1 != null) {
+			chart1.update();
+		}
+		if (chart2 != null) {
+			chart2.update();
+		}
+		if (chart3 != null) {
+			chart3.update();
+		}
 	}
 	
 	
