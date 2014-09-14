@@ -51,8 +51,8 @@ public class Arb_detail {
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
-		int year = Integer.getInteger(symbol.substring(2, 4));
-		int month = Integer.getInteger(symbol.substring(4, 6));
+		int year = Integer.valueOf(symbol.substring(2, 4));
+		int month = Integer.valueOf(symbol.substring(4, 6));
 		this.month = 20+""+year+"Äê"+month+"ÔÂ";
 	}
 
