@@ -32,7 +32,7 @@ public class MyTableCellRenderer implements TableCellRenderer {
         infom = new ArrayList<Repository>();
         infom = info;
         p2 = new JPanel();
-        panel.setLayout(new BorderLayout());
+        p2.setLayout(new BorderLayout());
 
         DefaultTableModel tableModel = (DefaultTableModel) intable.getModel();
  		//Repository coding
@@ -40,13 +40,14 @@ public class MyTableCellRenderer implements TableCellRenderer {
  		tableModel.addRow(new Object[]{"","ПеЭЗ",""});
         panel.add(p2,"North");
         p2.add(intable,"North");
-        p2.setBackground(Color.black);
+        //p2.setBackground(Color.blue);
+        //panel.setBackground(Color.red);
     }
 
     private void initTable() {
     	intable = new JTable(0,3);
     	intable.setFocusable(false);
-    	intable.setRowHeight(38);
+    	intable.setRowHeight(40);
     	intable.setForeground(Color.white);
     	intable.setBackground(Color.black);
 
@@ -65,8 +66,8 @@ public class MyTableCellRenderer implements TableCellRenderer {
         panel = new JPanel();
         panel.setBackground(Color.black);
         panel.setLayout(new BorderLayout());
-        panel.setPreferredSize(new Dimension(200,60));
-        panel.setSize(200,60);
+        panel.setPreferredSize(new Dimension(200,80));
+        panel.setSize(200,80);
     }
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,

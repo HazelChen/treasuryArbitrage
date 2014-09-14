@@ -9,14 +9,13 @@ import org.json.JSONObject;
 import vo.Record;
 
 public class RecordBL {
-	private ArrayList<Record> record_list = new ArrayList<Record>();
+	private ArrayList<Record> record_list;
 	
 	public RecordBL(){}
 	
 	public ArrayList<Record> getRecordList(String username){
 		
-//		Record record = new Record();
-//		record_list.add(record);
+		record_list = new ArrayList<Record>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);

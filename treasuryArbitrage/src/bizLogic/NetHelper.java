@@ -50,12 +50,12 @@ public class NetHelper {
 	/*
 	 * 设置参数
 	 */
-	public void setPara(HashMap<String, String> param){
+	public void setPara(HashMap<String, String> params){
 		urlString = urlString+"?";
-		for (String key: param.keySet()) {
-			urlString += key+"="+param.get(key)+"&";
+		for (String key: params.keySet()) {
+			urlString += key+"="+params.get(key)+"&";
 		}
-//		System.out.println(urlString);
+		System.out.println(urlString);
 	}
 
 	public String getStringByGet(){

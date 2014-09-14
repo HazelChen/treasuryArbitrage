@@ -10,14 +10,14 @@ import vo.*;
 
 
 public class RepositoryBL {
-	private ArrayList<Repository> repo_list = new ArrayList<Repository>();
+	private ArrayList<Repository> repo_list;
 	
 	public RepositoryBL(){}
 	
 	public ArrayList<Repository> getRepoList(String username){
 		
-//		Repository rep = new Repository();
-//		repo_list.add(rep);
+		repo_list = new ArrayList<Repository>();
+
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
 		NetHelper helper = new NetHelper("repository",params);
