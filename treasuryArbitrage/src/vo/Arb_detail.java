@@ -2,7 +2,7 @@ package vo;
 
 public class Arb_detail {
 	String symbol;			//***国债期货代码
-	int month;				//交割月份
+	String month;			//交割月份
 	
 	int date;				//***日期
 	int day;				//***时间
@@ -19,10 +19,10 @@ public class Arb_detail {
 
 	int nvol;				//***现手
  	int vol;				//***成交量（总手等于成交量，统一成成交量）
-	int preRepository;		//昨持仓
-	int repository;			//持仓量
+	int preRepository;		//***昨持仓
+	int repository;			//***持仓量
 	
-	int dailyWarehouse;		//日增仓
+	int dailyWarehouse;		//***日增仓
 	double preClose;		//***昨收
 	double open;			//***开盘（今开等于开盘，统一成开盘）
 	double high;			//***最高
@@ -51,6 +51,9 @@ public class Arb_detail {
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
+		int year = Integer.getInteger(symbol.substring(2, 4));
+		int month = Integer.getInteger(symbol.substring(4, 6));
+		this.month = 20+""+year+"年"+month+"月";
 	}
 
 	public int getDate() {

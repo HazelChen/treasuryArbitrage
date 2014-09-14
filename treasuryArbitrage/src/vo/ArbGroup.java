@@ -1,10 +1,10 @@
 package vo;
 
 public class ArbGroup {
-	private Arb_detail tobuy;
-	private Arb_detail tosell;
+	private String tobuy;
+	private String tosell;
 	
-	public ArbGroup(Arb_detail tobuy,Arb_detail tosell){
+	public ArbGroup(String tobuy,String tosell){
 		this.tobuy = tobuy;
 		this.tosell = tosell;
 	}
@@ -13,19 +13,19 @@ public class ArbGroup {
 //		
 //	}
 	
-	public Arb_detail getTobuy() {
+	public String getTobuy() {
 		return tobuy;
 	}
 
-	public void setTobuy(Arb_detail tobuy) {
+	public void setTobuy(String tobuy) {
 		this.tobuy = tobuy;
 	}
 
-	public Arb_detail getTosell() {
+	public String getTosell() {
 		return tosell;
 	}
 
-	public void setTosell(Arb_detail tosell) {
+	public void setTosell(String tosell) {
 		this.tosell = tosell;
 	}
 }
