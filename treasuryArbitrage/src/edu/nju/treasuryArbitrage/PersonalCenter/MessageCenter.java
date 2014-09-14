@@ -166,9 +166,11 @@ public class MessageCenter extends JPanel {
 	}
 	private int getNoRead() {
 		int result = 0;
-		for (int i = 0; i < cellData.length; i++) {
-			if (cellData[i][1].equals("·ñ")) {
-				result++;
+		if(cellData.length>0){
+			for (int i = 0; i < cellData.length; i++) {
+				if (cellData[i][1].equals("·ñ")) {
+					result++;
+				}
 			}
 		}
 		return result;
@@ -183,6 +185,8 @@ public class MessageCenter extends JPanel {
 
 	private void setData() {
 		ArrayList<Message> messageList = service.getMessList();
+		cellData = new Object[messageList.size()][5];
+		messages = new String[messageList.size()];
 		for(int i = 0 ; i<messageList.size();i++){
 			cellData[i][0]=icon2;
 			if(messageList.get(i).getRead()){

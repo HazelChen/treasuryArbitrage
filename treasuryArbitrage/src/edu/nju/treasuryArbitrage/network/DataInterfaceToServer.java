@@ -81,7 +81,7 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 	
 	@Override
-public boolean changePWD(String username, String oldpwd, String newpwd) {
+	public boolean changePWD(String username, String oldpwd, String newpwd) {
 		return userbl.changePWD(username, oldpwd, newpwd);
 	}
 	
