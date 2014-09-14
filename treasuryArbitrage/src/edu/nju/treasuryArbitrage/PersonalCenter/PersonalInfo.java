@@ -150,8 +150,9 @@ public class PersonalInfo extends JPanel{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(stateButton.getText().equalsIgnoreCase("取消自动登录")){
-				stateJLabel.setText("当前为正常登录状态");
-				stateButton.setText("自动登录");
+					new LoginStateRecorder().cancelAutoLogin();
+					stateJLabel.setText("当前为正常登录状态");
+					stateButton.setText("自动登录");
 				}else {
 					stateJLabel.setText("当前为自动登录状态");
 					stateButton.setText("取消自动登录");

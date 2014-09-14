@@ -160,9 +160,7 @@ public class DataInterfaceToServer implements DataInterface{
 	
 	@Override
 	public ArrayList<Arb_detail> getArbDetail() {
-		// TODO 自动生成的方法存根
-		UserVO user = userbl.getUser();
-		return arbtbl.getDetailList(user.getUserID());
+		return arbtbl.getDetailList();
 	}
 
 	@Override
@@ -172,10 +170,10 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
-	public boolean Order(String More_contract,String Blank_contract,int hand) {
+	public boolean Order(String username,String More_contract,String Blank_contract,double more_price,double blank_price,int hand,int guarantee) {
 		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
-		return tradebl.order(user.getUserID(), More_contract, Blank_contract, hand);
+		return tradebl.order(user.getUserID(), More_contract, Blank_contract, more_price, blank_price, hand, guarantee);
 	}
 
 	@Override
@@ -186,10 +184,10 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
-	public boolean Trade(int Repo_ID) {
+	public boolean Trade(int Repo_ID, int profit) {
 		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
-		return tradebl.trade(user.getUserID(), Repo_ID);
+		return tradebl.trade(user.getUserID(), Repo_ID, profit);
 	}
 
 	@Override

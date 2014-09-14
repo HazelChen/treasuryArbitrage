@@ -14,12 +14,12 @@ public class ArbitrageBL {
 	
 	public ArbitrageBL(){}
 	
-	public ArrayList<Arb_detail> getDetailList(String username){
+	public ArrayList<Arb_detail> getDetailList(){
 		
 		detail_list = new ArrayList<Arb_detail>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("username", username);
+//		params.put("username", username);
 		NetHelper helper = new NetHelper("detail",params);
 		JSONArray ret = helper.getJSONArrayByGet();
 		

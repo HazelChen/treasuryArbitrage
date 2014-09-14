@@ -4,13 +4,21 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+
+import vo.Record;
+import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
+import edu.nju.treasuryArbitrage.network.DataInterface;
 
 
 public class HistoryRecord extends JPanel {
@@ -19,33 +27,22 @@ public class HistoryRecord extends JPanel {
 	String[] columns ={ "套利组合信息", "交易时间", "交易手数", "投入保证金", "交易状态" };
 	JTable jTableData;
 	JScrollPane jScrollPane;
+	private DataInterface service = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 	
 	public Object[][] getData(){
-		data = new Object[4][columns.length];
-		String[] strings = {"TF1409","多头","93.066","TF1409","多头","93.066"};
-		data[0][0]=strings;
-		data[0][1]="2014-07-18 19:32:40";
-		data[0][2]="2";
-		data[0][3]="20000";
-		data[0][4]="成交1";
-		String[] strings2 = {"TF1409","多头","93.066","TF1409","多头","93.066"};
-		data[1][0]=strings2;
-		data[1][1]="2014-07-18 19:32:40";
-		data[1][2]="2";
-		data[1][3]="20000";
-		data[1][4]="成交2";
-		String[] strings3 = {"TF1409","多头","93.066","TF1409","多头","93.066"};
-		data[2][0]=strings3;
-		data[2][1]="2014-07-18 19:32:40";
-		data[2][2]="2";
-		data[2][3]="20000";
-		data[2][4]="成交3";
-		String[] strings4 = {"TF1409","多头","93.066","TF1409","多头","93.066"};
-		data[3][0]=strings4;
-		data[3][1]="2014-07-18 19:32:40";
-		data[3][2]="2";
-		data[3][3]="20000";
-		data[3][4]="成交4";
+		 ArrayList<Record> records = service.getRecordList();
+		data = new Object[records.size()][columns.length];
+		for(int i = 0 ; i < records.size() ; i++){
+			String[] strings = {records.get(i).getToBuy().getId(),"多头",Double.toString(records.get(i).getToBuy().getValue()),
+					records.get(i).getToSell().getId(),"多头",Double.toString(records.get(i).getToSell().getValue()),};
+			data[i][0]=strings;
+			Date date = new Date(records.get(i).getTime());
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");   
+			data[i][1]=sdf.format(date);
+			data[i][2]=records.get(i).getCount();
+			data[i][3]=records.get(i).getGuarantee();
+			data[i][4]=records.get(i).getState();
+		}
 		return data;
 	}
 
@@ -197,6 +194,15 @@ public class HistoryRecord extends JPanel {
 		}
 		setPreferredSize(new Dimension(980, 400));
 		setBackground(Color.BLACK);
+	}
+	public static void main(String[] args) {
+		JFrame jFrame = new JFrame();
+		JPanel jPanel = new HistoryRecord(980, 400);
+		jFrame.add(jPanel);
+		jFrame.setSize(980, 400);
+		jFrame.setVisible(true);
+		jFrame.repaint();
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 
