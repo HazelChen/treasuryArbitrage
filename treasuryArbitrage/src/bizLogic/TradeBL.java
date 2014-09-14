@@ -8,7 +8,7 @@ public class TradeBL {
 	
 	public TradeBL(){}
 	
-	public boolean order(String username,String More_contract,String Blank_contract,double more_price,double blank_price,int hand,int guarantee){
+	public boolean order(String username,String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee){
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);

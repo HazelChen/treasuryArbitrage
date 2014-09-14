@@ -68,7 +68,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		
 		confirmPanel=new ConfirmPanel();
 		this.add(confirmPanel);
-		confirmPanel.setBounds(WIDTH/5*3,HEIGHT/5-50,WIDTH/5*2-20,HEIGHT-250);
+		confirmPanel.setBounds(WIDTH/5*3,HEIGHT/5+70,WIDTH/5*2-20,HEIGHT-250);
 		confirmPanel.setVisible(false);
 		
 		group1=new JButton("组合一");
@@ -927,7 +927,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		public class ConfirmDetailListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,"下单成功！");
-				
+				database.Order(tobuy, tosell, prePrice1, prePrice2, holds, guar);
 			}	
 		}
 		

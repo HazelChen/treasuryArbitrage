@@ -72,7 +72,7 @@ public interface DataInterface {
 	public ArrayList<ArbGroup> getArbGroup();
 	public HashMap<Long, Double> getDateAndPricePair();
 	
-	public boolean Order(String More_contract,String Blank_contract,double more_price,double blank_price,int hand,int guarantee);
+	public boolean Order(String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee);
 	public boolean cancleOrder(int Record_ID);
 	public boolean Trade(int Repo_ID, double profit);//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean
 	
