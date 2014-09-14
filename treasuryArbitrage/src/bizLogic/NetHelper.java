@@ -55,7 +55,7 @@ public class NetHelper {
 		for (String key: params.keySet()) {
 			urlString += key+"="+params.get(key)+"&";
 		}
-//		System.out.println(urlString);
+		System.out.println(urlString);
 	}
 
 	public String getStringByGet(){

@@ -16,7 +16,7 @@ public class TradeBL {
 		params.put("Blank_contract", Blank_contract);
 		params.put("hand", hand+"");//++++++++++++++++++++++++++++++++++++++++++++++
 		
-		NetHelper helper = new NetHelper("trade",params);
+		NetHelper helper = new NetHelper("order",params);
 		JSONObject ret = helper.getJSONObjectByGet();
 		
 		if(ret.getInt("result ")==1){
