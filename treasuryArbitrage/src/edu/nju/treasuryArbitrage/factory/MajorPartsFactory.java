@@ -1,6 +1,7 @@
 package edu.nju.treasuryArbitrage.factory;
 
 import edu.nju.treasuryArbitrage.PersonalCenter.PersonalCenter;
+import edu.nju.treasuryArbitrage.PersonalCenter.SettingStopParameters;
 import edu.nju.treasuryArbitrage.arbitragePortfolio.ArbitragePortfolio;
 import edu.nju.treasuryArbitrage.framework.TreasuryFrame;
 import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
@@ -19,6 +20,7 @@ public class MajorPartsFactory {
 	private Holdings holdings;
 	private News news;
 	private PersonalCenter personalCenter;
+	private SettingStopParameters settingStopParameters = new SettingStopParameters();
 	
 	private MajorPartsFactory(){}
 	
@@ -80,4 +82,7 @@ public class MajorPartsFactory {
 		return personalCenter;
 	}
 	
+	public SettingStopParameters getSettingStopParameters() {
+		return settingStopParameters;
+	}
 }

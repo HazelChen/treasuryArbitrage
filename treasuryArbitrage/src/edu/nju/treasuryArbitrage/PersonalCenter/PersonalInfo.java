@@ -7,9 +7,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 
 public class PersonalInfo extends JPanel{
 
@@ -110,7 +112,7 @@ public class PersonalInfo extends JPanel{
 		settingButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JFrame settingStopParameter = new SettingStopParameters();
+				JDialog settingStopParameter = MajorPartsFactory.getInstance().getSettingStopParameters();
 				settingStopParameter.setVisible(true);
 			}
 		});

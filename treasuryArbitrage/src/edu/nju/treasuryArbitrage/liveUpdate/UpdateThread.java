@@ -14,7 +14,6 @@ public class UpdateThread implements Runnable{
 		ArrayList<Arb_detail> arb_details = dataInterface.getArbDetail();
 		LiveData.getInstance().setArb_details(arb_details);
 		
-		int i = 0;
 		while (true) {
 			try {
 				Thread.sleep(1000);
