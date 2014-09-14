@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +26,11 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
+import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
+import vo.ArbGroup;
+import vo.Arb_detail;
+
 
 
 public class ArbitragePortfolio extends JPanel{
@@ -36,7 +42,7 @@ public class ArbitragePortfolio extends JPanel{
 	private static final int HEADER_HEIGHT=40;
 	private static final int BUTTON_WIDTH=80;
 	private static final int BUTTON_HEIGHT=20;
-	private static JButton group1,group2,group3,refresh;
+	private static JButton group1,group2,group3;
 	private static JTable arbitrageTable1,arbitrageTable2,arbitrageTable3;
 	private static JTable arbitrageHeader;
 	private static TableCellTextPaneRenderer tctpHeader;
@@ -45,6 +51,8 @@ public class ArbitragePortfolio extends JPanel{
 	private static TableCellTextPaneRenderer tctpTable3;
 	private static BuyPanel buyPanel;
 	private static ConfirmPanel confirmPanel;
+	private static ArrayList<ArbGroup> groupList;
+	private static PortfolioLineChart chart1,chart2,chart3;
 	
 	public ArbitragePortfolio() {
 		this.setBackground(Color.BLACK);
@@ -59,17 +67,15 @@ public class ArbitragePortfolio extends JPanel{
 		group1=new JButton("组合一");
 		group2=new JButton("组合二");
 		group3=new JButton("组合三");
-		refresh=new JButton("刷新");
 		
 		this.add(group1);
 		this.add(group2);
 		this.add(group3);
-		this.add(refresh);
 		
 		group1.setBounds(0, 5,BUTTON_WIDTH,BUTTON_HEIGHT);
 		group2.setBounds(BUTTON_WIDTH, 5,BUTTON_WIDTH,BUTTON_HEIGHT);
 		group3.setBounds(2*BUTTON_WIDTH, 5,BUTTON_WIDTH,BUTTON_HEIGHT);
-		refresh.setBounds(WIDTH-BUTTON_WIDTH,5,BUTTON_WIDTH,BUTTON_HEIGHT);
+		
 		group1.setContentAreaFilled(false);
 		group1.setBorderPainted(false);
 		group1.setForeground(new Color(169,169,169));
@@ -79,17 +85,63 @@ public class ArbitragePortfolio extends JPanel{
 		group3.setContentAreaFilled(false);
 		group3.setBorderPainted(false);
 		group3.setForeground(new Color(169,169,169));
-		refresh.setContentAreaFilled(false);
-		refresh.setBorderPainted(false);
-		refresh.setForeground(new Color(135,206,250));
+		
+		groupList=this.getData();
+		int length=groupList.size();
+		
+		
+		if(length==1){
+			group1.setVisible(true);
+			group2.setVisible(false);
+			group3.setVisible(false);
+			chart1=new PortfolioLineChart(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
+			this.add(chart1);
+			chart1.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+		}else if(length==2){
+			group1.setVisible(true);
+			group2.setVisible(true);
+			group3.setVisible(false);
+			chart1=new PortfolioLineChart(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
+			chart2=new PortfolioLineChart(groupList.get(1).getTobuy(),groupList.get(1).getTosell());
+			this.add(chart1);
+			chart1.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			this.add(chart2);
+			chart2.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			chart2.setVisible(false);
+		}else if(length==3){
+			group1.setVisible(true);
+			group2.setVisible(true);
+			group3.setVisible(true);
+			chart1=new PortfolioLineChart(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
+			chart2=new PortfolioLineChart(groupList.get(1).getTobuy(),groupList.get(1).getTosell());
+			chart3=new PortfolioLineChart(groupList.get(2).getTobuy(),groupList.get(2).getTosell());
+			this.add(chart1);
+			chart1.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			this.add(chart2);
+			chart2.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			this.add(chart3);
+			chart3.setBounds(0,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT-230);
+			chart2.setVisible(false);
+			chart3.setVisible(false);
+		}
+		
 		
 		arbitrageHeader=getHeader();
 		this.add(arbitrageHeader);
 		arbitrageHeader.setBounds(0,30,WIDTH-10,HEADER_HEIGHT);
-		
-		arbitrageTable1=getTable1();
-		arbitrageTable2=getTable2();
-		arbitrageTable3=getTable3();
+		if(length==1){
+			arbitrageTable1=getTable1(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
+			arbitrageTable2=getTable2(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
+			arbitrageTable3=getTable3(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
+		}else if(length==2){
+			arbitrageTable1=getTable1(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
+			arbitrageTable2=getTable2(groupList.get(1).getTobuy(),groupList.get(1).getTosell());
+			arbitrageTable3=getTable3(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
+		}else if(length==3){
+			arbitrageTable1=getTable1(groupList.get(0).getTobuy(),groupList.get(0).getTosell());
+			arbitrageTable2=getTable2(groupList.get(1).getTobuy(),groupList.get(1).getTosell());
+			arbitrageTable3=getTable3(groupList.get(2).getTobuy(),groupList.get(2).getTosell());
+		}
 		this.add(arbitrageTable1);
 		this.add(arbitrageTable2);
 		this.add(arbitrageTable3);
@@ -113,12 +165,29 @@ public class ArbitragePortfolio extends JPanel{
 		LinePanel line2=new LinePanel((WIDTH/5)*3,30+HEADER_HEIGHT+TABLE_HEIGHT*4/3,(WIDTH/5)*3,HEIGHT);
 		this.add(line2);
 		line2.setBounds((WIDTH/5)*3-10,30+HEADER_HEIGHT+TABLE_HEIGHT*4/3,1,HEIGHT);
-			
-		
-		
+					
 		buyPanel=new BuyPanel();
 		this.add(buyPanel);
 		buyPanel.setBounds((WIDTH/5)*3,40+HEADER_HEIGHT+TABLE_HEIGHT*4/3,WIDTH/5*2-20,HEIGHT-230);
+	}
+	
+	private ArrayList<ArbGroup> getData(){
+		DataInterfaceToServer database=new DataInterfaceToServer();
+		return database.getArbGroup();		
+	}
+	
+	private Arb_detail getTableData(String symbol){		
+		ArrayList<Arb_detail> result=LiveData.getInstance().getArb_details();
+		Arb_detail detail=new Arb_detail();
+
+		for(int i=0;i<3;i++){
+			if(result.get(i).getSymbol().equals(symbol)){
+				detail=result.get(i);
+				break;
+			}		
+		}
+
+		return detail;
 	}
 	
 	private void showInfo1(){
@@ -137,18 +206,14 @@ public class ArbitragePortfolio extends JPanel{
 		return this;
 	}
 	
-	private void getData(){
-		
-	}
-	
 	private JTable getHeader(){
-		String[] header={"序号","代码","名称","现价","涨幅","涨跌","叫买","叫卖","买量","卖量"
-				,"现手","总手","持仓","增仓","日增仓","昨收","今开","最高","最低","金额","昨结"
-				,"今结","涨幅","量比","沉淀资金","资金流向","外盘","内盘"};
+		String[] header={"代码","交割月份","现价","涨跌","涨跌幅"
+				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
+				,"前结算价","今开","最高","最低","时间"};
 		String[][] headerInfo={				
-			new String[]{"序号","代码","名称","现价","涨幅","涨跌","叫买","叫卖","买量","卖量"
-					,"现手","总手","持仓","增仓","日增仓","昨收","今开","最高","最低","金额","昨结"
-					,"今结","涨幅","量比","沉淀资金","资金流向","外盘","内盘"}
+			new String[]{"代码","交割月份","现价","涨跌","涨跌幅"
+					,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
+					,"前结算价","今开","最高","最低","时间"}
 		};
 		DefaultTableModel model = new DefaultTableModel(headerInfo,header) {
 			private static final long serialVersionUID = 1L;
@@ -166,16 +231,29 @@ public class ArbitragePortfolio extends JPanel{
 		return table;
 	}
 	
-	private JTable getTable1(){
-		String[] header={"序号","代码","名称","现价","涨幅","涨跌","叫买","叫卖","买量","卖量"
-				,"现手","总手","持仓","增仓","日增仓","昨收","今开","最高","最低","金额","昨结"
-				,"今结","涨幅","量比","沉淀资金","资金流向","外盘","内盘"};
+	private JTable getTable1(String symbol1,String symbol2){
+		String[] header={"代码","交割月份","现价","涨跌","涨跌幅"
+				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
+				,"前结算价","今开","最高","最低","时间"};
+		
+		Arb_detail arb1=this.getTableData(symbol1);
+		Arb_detail arb2=this.getTableData(symbol2);
 		
 		Object[][] arbitrageInfo={				
-				new Object[]{1,"TF1409","国债1409",6979,"+0","134",1,1,1,1,1,1,1,92.984,92.456,92.984,92.456,
-							"16.48亿",92.984,92.456,"0.33%",1.04,"64.97亿","93.35万",527,1274,2,3},
-				new Object[]{1,"TF1409","国债1409",6979,"+0","134",1,1,1,1,1,1,1,92.984,92.456,92.984,92.456,
-						"16.48亿",92.984,92.456,"0.33%",1.04,"64.97亿","93.35万",527,1274,2,3}
+				new Object[]{arb1.getSymbol(),"2014年09月"				
+						,arb1.getPresentPrice(),arb1.getPriceChange()
+						,arb1.getChange(),arb1.getBid(),arb1.getBidPirce()
+						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
+						,arb1.getRepository(),arb1.getDailyWarehouse(),arb1.getPreSettlePrice()
+						,arb1.getOpen(),arb1.getHigh(),arb1.getLow()
+						,"时间"},
+				new Object[]{arb2.getSymbol(),"2014年09月"				
+						,arb2.getPresentPrice(),arb2.getPriceChange()
+						,arb2.getChange(),arb2.getBid(),arb2.getBidPirce()
+						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
+						,arb2.getRepository(),arb2.getDailyWarehouse(),arb2.getPreSettlePrice()
+						,arb2.getOpen(),arb2.getHigh(),arb2.getLow()
+						,"时间"}
 						
 		};
 		
@@ -201,16 +279,29 @@ public class ArbitragePortfolio extends JPanel{
 		return table;
 		
 	}	
-	private JTable getTable2(){
-		String[] header={"序号","代码","名称","现价","涨幅","涨跌","叫买","叫卖","买量","卖量"
-				,"现手","总手","持仓","增仓","日增仓","昨收","今开","最高","最低","金额","昨结"
-				,"今结","涨幅","量比","沉淀资金","资金流向","外盘","内盘"};
+	private JTable getTable2(String symbol1,String symbol2){
+		String[] header={"代码","交割月份","现价","涨跌","涨跌幅"
+				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
+				,"前结算价","今开","最高","最低","时间"};
+		
+		Arb_detail arb1=this.getTableData(symbol1);
+		Arb_detail arb2=this.getTableData(symbol2);
 		
 		Object[][] arbitrageInfo={				
-				new Object[]{1,"TF1409","国债1409",6979,"+0","134",1,2,3,4,3,2,1,92.984,92.456,92.984,92.456,
-							"16.48亿",92.984,92.456,"0.33%",1.04,"64.97亿","93.35万",527,1274,2,3},
-				new Object[]{1,"TF1409","国债1409",6979,"+0","134",1,1,1,1,1,1,1,92.984,92.456,92.984,92.456,
-						"16.48亿",92.984,92.456,"0.33%",1.04,"64.97亿","93.35万",527,1274,2,3}
+				new Object[]{arb1.getSymbol(),"2014年09月"				
+						,arb1.getPresentPrice(),arb1.getPriceChange()
+						,arb1.getChange(),arb1.getBid(),arb1.getBidPirce()
+						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
+						,arb1.getRepository(),arb1.getDailyWarehouse(),arb1.getPreSettlePrice()
+						,arb1.getOpen(),arb1.getHigh(),arb1.getLow()
+						,"时间"},
+				new Object[]{arb2.getSymbol(),"2014年09月"				
+						,arb2.getPresentPrice(),arb2.getPriceChange()
+						,arb2.getChange(),arb2.getBid(),arb2.getBidPirce()
+						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
+						,arb2.getRepository(),arb2.getDailyWarehouse(),arb2.getPreSettlePrice()
+						,arb2.getOpen(),arb2.getHigh(),arb2.getLow()
+						,"时间"}
 						
 		};
 		
@@ -236,16 +327,29 @@ public class ArbitragePortfolio extends JPanel{
 		return table;
 		
 	}	
-	private JTable getTable3(){
-		String[] header={"序号","代码","名称","现价","涨幅","涨跌","叫买","叫卖","买量","卖量"
-				,"现手","总手","持仓","增仓","日增仓","昨收","今开","最高","最低","金额","昨结"
-				,"今结","涨幅","量比","沉淀资金","资金流向","外盘","内盘"};
+	private JTable getTable3(String symbol1,String symbol2){
+		String[] header={"代码","交割月份","现价","涨跌","涨跌幅"
+				,"买量","买价","卖价","卖量","成交量","持仓量","日增仓"
+				,"前结算价","今开","最高","最低","时间"};
+		
+		Arb_detail arb1=this.getTableData(symbol1);
+		Arb_detail arb2=this.getTableData(symbol2);
 		
 		Object[][] arbitrageInfo={				
-				new Object[]{1,"TF1409","国债1409",6979,"+0","134",9,8,7,6,7,8,9,92.984,92.456,92.984,92.456,
-							"16.48亿",92.984,92.456,"0.33%",1.04,"64.97亿","93.35万",527,1274,2,3},
-				new Object[]{1,"TF1409","国债1409",6979,"+0","134",1,1,1,1,1,1,1,92.984,92.456,92.984,92.456,
-						"16.48亿",92.984,92.456,"0.33%",1.04,"64.97亿","93.35万",527,1274,2,3}
+				new Object[]{arb1.getSymbol(),"2014年09月"				
+						,arb1.getPresentPrice(),arb1.getPriceChange()
+						,arb1.getChange(),arb1.getBid(),arb1.getBidPirce()
+						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
+						,arb1.getRepository(),arb1.getDailyWarehouse(),arb1.getPreSettlePrice()
+						,arb1.getOpen(),arb1.getHigh(),arb1.getLow()
+						,"时间"},
+				new Object[]{arb2.getSymbol(),"2014年09月"				
+						,arb2.getPresentPrice(),arb2.getPriceChange()
+						,arb2.getChange(),arb2.getBid(),arb2.getBidPirce()
+						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
+						,arb2.getRepository(),arb2.getDailyWarehouse(),arb2.getPreSettlePrice()
+						,arb2.getOpen(),arb2.getHigh(),arb2.getLow()
+						,"时间"}
 						
 		};
 		
@@ -321,6 +425,11 @@ public class ArbitragePortfolio extends JPanel{
 			arbitrageTable1.setVisible(true);
 			arbitrageTable2.setVisible(false);
 			arbitrageTable3.setVisible(false);
+			chart1.setVisible(true);
+			if(chart2!=null)
+				chart2.setVisible(false);
+			if(chart3!=null)
+				chart3.setVisible(false);
 			
 			showInfo1();
 
@@ -331,6 +440,10 @@ public class ArbitragePortfolio extends JPanel{
 			arbitrageTable1.setVisible(false);
 			arbitrageTable2.setVisible(true);
 			arbitrageTable3.setVisible(false);
+			chart1.setVisible(false);
+			chart2.setVisible(true);
+			if(chart3!=null)
+				chart3.setVisible(false);
 			
 			showInfo2();
 		}
@@ -340,6 +453,9 @@ public class ArbitragePortfolio extends JPanel{
 			arbitrageTable1.setVisible(false);
 			arbitrageTable2.setVisible(false);
 			arbitrageTable3.setVisible(true);
+			chart1.setVisible(false);
+			chart2.setVisible(false);
+			chart3.setVisible(true);
 			
 			showInfo3();
 		}

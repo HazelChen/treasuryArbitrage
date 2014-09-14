@@ -165,8 +165,10 @@ public class DataInterfaceToServer implements DataInterface{
 
 	@Override
 	public ArrayList<ArbGroup> getArbGroup() {
-		// TODO 自动生成的方法存根
-		return null;
+		ArbGroup arbGroup=new ArbGroup("TF1409","1412");
+		ArrayList<ArbGroup> list=new ArrayList<ArbGroup>();
+		list.add(arbGroup);
+		return list;
 	}
 
 	@Override
