@@ -198,7 +198,7 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
-	public boolean Trade(int Repo_ID, int profit) {
+	public boolean Trade(int Repo_ID, double profit) {
 		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return tradebl.trade(user.getUserID(), Repo_ID, profit);
