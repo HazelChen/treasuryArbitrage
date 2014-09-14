@@ -2,12 +2,16 @@ package edu.nju.treasuryArbitrage.PersonalCenter;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
+import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.resources.ColorResources;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
@@ -19,13 +23,45 @@ public class SettingStopParameters extends JDialog{
 	private JTextField maxInvestmentJTextField = new JTextField();
 	
 	private JButton confirmation =new JButton("确认");
+	private JButton cancelButton = new JButton("取消");
 	
 	public SettingStopParameters(){
 		init();
 		assemble();
-//		addListeners();
+		addListeners();
 	}
 	
+	private void addListeners() {
+		confirmation.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+				String proString = stopProfitJTextField.getText();
+				String lossString = stopLossJTextField.getText();
+				String maxString = maxInvestmentJTextField.getText();
+				
+				if (proString.equals("") || lossString.equals("") || maxString.equals("")) {
+					SettingStopParameters.this.setVisible(false);
+				} else {
+					double pro = Double.parseDouble(proString);
+					double loss = Double.parseDouble(lossString);
+					double max = Double.parseDouble(maxString);
+					dataInterface.setPara(pro, loss, max);
+					SettingStopParameters.this.setVisible(false);
+				}
+			}
+		});
+		
+		cancelButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SettingStopParameters.this.setVisible(false);
+			}
+		});
+	}
+
 	private void init() {
 		this.setUndecorated(true);
 		this.setBackground(ColorResources.LOGIN_BORDER_GRAY);
@@ -59,11 +95,11 @@ public class SettingStopParameters extends JDialog{
 		maxInvestmentJLabel.setBounds(100, 200, 150, 40);
 		title.setFont(new  Font("Dialog",1,30));
 		title.setBounds(200, 20, 200, 50);
-		confirmation.setBounds(200,300,200,50);
+		confirmation.setBounds(150,200,200,50);
+		cancelButton.setBounds(400,200,200,50);
 		stopProfitJTextField.setBounds(300,100, 150, 40);
 		stopLossJTextField.setBounds(300, 150, 150, 40);
 		maxInvestmentJTextField.setBounds(300, 200, 150, 40);
-		
 	}
 
 }
