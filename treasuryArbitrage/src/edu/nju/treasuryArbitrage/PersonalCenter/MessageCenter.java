@@ -54,12 +54,6 @@ public class MessageCenter extends JPanel {
 	}
 
 	public MessageCenter(int w, int h) {
-		service.AddArbMess();
-		service.AddUnwindMess();
-		service.AddArbMess();
-		service.AddUnwindMess();
-		service.AddArbMess();
-		service.AddUnwindMess();
 		mainJPanel = new JPanel();
 		init(w, h);
 		setLayout(null);
@@ -160,27 +154,26 @@ public class MessageCenter extends JPanel {
 					if (table.getValueAt(i, 0).equals(icon3)) {
 						service.DeleteMess(i);
 					}
-					setData();
-					mainJPanel.remove(jScrollPane);
-					jScrollPane.remove(table);
-					setTable(w, h);
-					jScrollPane = new JScrollPane(table);
-					jScrollPane.setBackground(Color.BLACK);
-					jScrollPane
-							.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-					jScrollPane
-							.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-					mainJPanel.add(jScrollPane);
-					if (table.getRowCount() * table.getRowHeight() + 35 < 400) {
-						jScrollPane.setBounds(0, 45, w,
-								table.getRowCount() * table.getRowHeight() + 35);
-					} else {
-						jScrollPane.setBounds(0, 45, w, h * 2 / 3);
-					}
-					jScrollPane.repaint();
-					mainJPanel.repaint();
-
 				}
+				setData();
+				mainJPanel.remove(jScrollPane);
+				jScrollPane.remove(table);
+				setTable(w, h);
+				jScrollPane = new JScrollPane(table);
+				jScrollPane.setBackground(Color.BLACK);
+				jScrollPane
+						.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+				jScrollPane
+						.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+				mainJPanel.add(jScrollPane);
+				if (table.getRowCount() * table.getRowHeight() + 35 < 400) {
+					jScrollPane.setBounds(0, 45, w,
+							table.getRowCount() * table.getRowHeight() + 35);
+				} else {
+					jScrollPane.setBounds(0, 45, w, h * 2 / 3);
+				}
+				jScrollPane.repaint();
+				mainJPanel.repaint();
 			}
 		});
 		setReword();
