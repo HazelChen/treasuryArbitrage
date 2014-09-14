@@ -1,6 +1,6 @@
 package edu.nju.treasuryArbitrage.framework;
 
-public interface CommentPanel {
+public interface ComponentPanel {
 
 	public void updatePage();
 }

@@ -23,11 +23,11 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-import edu.nju.treasuryArbitrage.framework.CommentPanel;
+import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 
 
 
-public class ArbitragePortfolio extends JPanel implements CommentPanel{
+public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = -2281757682879991851L;
 	private static final int WIDTH=1200;
 	private static final int HEIGHT=700;

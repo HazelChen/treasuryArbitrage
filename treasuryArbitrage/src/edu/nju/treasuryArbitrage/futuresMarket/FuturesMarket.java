@@ -21,10 +21,10 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 import vo.Arb_detail;
-import edu.nju.treasuryArbitrage.framework.CommentPanel;
+import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
 
-public class FuturesMarket extends JPanel implements CommentPanel{
+public class FuturesMarket extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = 4293989421427626065L;
 	private static final int WIDTH=1200;
 	private static final int HEIGHT=700;

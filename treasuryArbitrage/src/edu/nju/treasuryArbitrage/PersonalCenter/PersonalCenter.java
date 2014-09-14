@@ -8,9 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import edu.nju.treasuryArbitrage.framework.CommentPanel;
+import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 
-public class PersonalCenter extends JPanel implements CommentPanel{
+public class PersonalCenter extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = -7820319557370987327L;
 	
 	private int w;
