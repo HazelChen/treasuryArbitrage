@@ -4,8 +4,16 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
-import vo.*;
+import vo.ArbGroup;
+import vo.Arb_detail;
+import vo.Finance;
+import vo.Message;
+import vo.News;
+import vo.Record;
+import vo.Repository;
 import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfacePile implements DataInterface{
@@ -150,31 +158,63 @@ public class DataInterfacePile implements DataInterface{
 		// TODO 自动生成的方法存根
 		ArrayList<Finance> RES;
 		RES =new ArrayList<Finance>();
-		RES.add(new Finance("2014-7-15",20000,10000,10000));
-		RES.add(new Finance("2014-7-18",30000,10000,20000));
+//		RES.add(new Finance("2014-7-15",20000,10000,10000));
+//		RES.add(new Finance("2014-7-18",30000,10000,20000));
+		RES.add(new Finance(100000000,10000,10000,10000));
+		RES.add(new Finance(100000000,20000,10000,10000));
+		RES.add(new Finance(100000000,30000,10000,20000));
+		RES.add(new Finance(100000000,40000,10000,10000));
+		RES.add(new Finance(100000000,50000,10000,20000));
+		RES.add(new Finance(100000000,60000,10000,10000));
+		RES.add(new Finance(100000000,70000,10000,20000));
+		RES.add(new Finance(100000000,80000,10000,20000));
+		RES.add(new Finance(100000000,90000,10000,20000));
 		return RES;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ArrayList<Repository> getRepoList() {
 		// TODO 自动生成的方法存根
 		ArrayList<Repository> res = new ArrayList<Repository>();
 		
 		Repository e = new Repository();
-		e.setCount(4);
+		Date d = new Date();
+		e.setCount(1);
 		e.setGuarantee(20000);
-		e.setRepo_ID("1");
+		e.setRepo_ID(1);
 		e.setProfit(10000);
-		e.setTime("2014-7-25");
-		e.setToBuy("TF1409");
+//		e.setTime("2014-7-25");
+		e.setTime(100000000);
+		e.setToBuy("TF1401");
 		e.setToSell("TF1412");
+		e.settoSell_price(95.00 + d.getSeconds() * 0.01);
+		e.settoBuy_price(93.00);
 		
 		res.add(e);
+		
+		Repository e2 = new Repository();
+		e2.setCount(2);
+		e2.setGuarantee(20000);
+		e2.setRepo_ID(2);
+		e2.setProfit(20000);
+		e2.setTime(100000000);
+		e2.setToBuy("TF1402");
+		e2.setToSell("TF1412");
+		e2.settoSell_price(95.12);
+		e2.settoBuy_price(93.02);
+		
+		res.add(e2);
+		res.add(e2);
+		res.add(e2);
+		res.add(e2);
+		res.add(e2);
+		res.add(e2);
 		return res;
 	}
 
 	@Override
-	public boolean Trade(String Repo_ID) {
+	public boolean Trade(int Repo_ID) {
 		// TODO 自动生成的方法存根
 		return false;
 	}
@@ -203,7 +243,8 @@ public class DataInterfacePile implements DataInterface{
 		Record r= new Record();
 		
 		r.setCount(3);r.setGuarantee(10000);
-		r.setRepo_ID("1");r.setTime("2014-08-25");
+		r.setRepo_ID(1);//r.setTime("2014-08-25");
+		r.setTime(1000000000);
 		r.setToBuy(r.new Arbitrage("TF1409",100));
 		r.setToSell(r.new Arbitrage("TF1409",100));
 		RES =new ArrayList<Record>();
@@ -238,9 +279,12 @@ public class DataInterfacePile implements DataInterface{
 	}
 
 	@Override
-	public Arb_detail getArbDetail(String id) {
-		// TODO 自动生成的方法存根
-		return null;
+	public ArrayList<Arb_detail> getArbDetail() {
+		ArrayList<Arb_detail> arb_details = new ArrayList<>();
+		arb_details.add(new Arb_detail());
+		arb_details.add(new Arb_detail());
+		arb_details.add(new Arb_detail());
+		return arb_details;
 	}
 
 	@Override
@@ -250,13 +294,13 @@ public class DataInterfacePile implements DataInterface{
 	}
 
 	@Override
-	public boolean cancleOrder(String record_id) {
+	public boolean cancleOrder(int record_id) {
 		// TODO 自动生成的方法存根
 		return false;
 	}
 
 	@Override
-	public boolean Order() {
+	public boolean Order(String More_contract,String Blank_contract,int hand) {
 		// TODO 自动生成的方法存根
 		return false;
 	}
@@ -267,6 +311,21 @@ public class DataInterfacePile implements DataInterface{
 		return null;
 	}
 
-	
+	@Override
+	public HashMap<Long, Double> getDateAndPricePair() {
+		HashMap<Long, Double> dateAndPrice = new LinkedHashMap<>();
+		dateAndPrice.put(1410623682767l, 100.0);
+		dateAndPrice.put(1410624683767l, 120.0);
+		dateAndPrice.put(1410625684767l, 140.0);
+		dateAndPrice.put(1410626685767l, 159.0);
+		dateAndPrice.put(1410627686767l, 120.0);
+		dateAndPrice.put(1410628687767l, 130.0);
+		dateAndPrice.put(1410629688767l, 135.0);
+		dateAndPrice.put(1410630689767l, 125.0);
+		dateAndPrice.put(1410631690767l, 120.0);
+		dateAndPrice.put(1410632691767l, 130.0);
+		dateAndPrice.put(1410633692767l, 140.0);
+		return dateAndPrice;
+	}
 
 }

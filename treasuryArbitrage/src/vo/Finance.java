@@ -1,23 +1,23 @@
 package vo;
 
 public class Finance {
-	String time;	//时间
+	long time;	//时间
 	double total;	//总资金
 	double guarantee;	//已投入保证金
 	double idle; 	//空闲资金
 	
-	public Finance(String time,double total,double guarantee,double idle){
+	public Finance(long time,double total,double guarantee,double idle){
 		this.time = time;
 		this.total = total;
 		this.guarantee = guarantee;
 		this.idle = idle;
 	}
 	
-	public String getTime() {
+	public long getTime() {
 		return time;
 	}
 
-	public void setTime(String time) {
+	public void setTime(long time) {
 		this.time = time;
 	}
 

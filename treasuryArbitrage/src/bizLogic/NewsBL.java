@@ -7,7 +7,9 @@ import vo.News;
 public class NewsBL {
 	private ArrayList<News> newslist;
 	
-	public NewsBL(){}
+	public NewsBL(){
+		newslist = new ArrayList<News>();
+	}
 	
 	public ArrayList<News> getNewsList(){
 		

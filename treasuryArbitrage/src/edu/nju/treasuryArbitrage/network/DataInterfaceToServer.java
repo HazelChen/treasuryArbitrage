@@ -2,9 +2,24 @@ package edu.nju.treasuryArbitrage.network;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
-import bizLogic.*;
-import vo.*;
+import vo.ArbGroup;
+import vo.Arb_detail;
+import vo.Finance;
+import vo.Message;
+import vo.News;
+import vo.Record;
+import vo.Repository;
+import vo.UserVO;
+import bizLogic.ArbitrageBL;
+import bizLogic.FinanceBL;
+import bizLogic.MessContainerBL;
+import bizLogic.NewsBL;
+import bizLogic.RecordBL;
+import bizLogic.RepositoryBL;
+import bizLogic.TradeBL;
+import bizLogic.UserBL;
 import edu.nju.treasuryArbitrage.news.NewsBrief;
 
 public class DataInterfaceToServer implements DataInterface{
@@ -16,6 +31,9 @@ public class DataInterfaceToServer implements DataInterface{
 	RecordBL recordbl;
 	NewsBL newsbl;
 	
+	ArbitrageBL arbtbl;
+	TradeBL tradebl;
+	
 	public DataInterfaceToServer(){
 		
 		userbl = new UserBL();
@@ -23,7 +41,8 @@ public class DataInterfaceToServer implements DataInterface{
 		repobl = new RepositoryBL();
 		recordbl = new RecordBL();
 		messbl = new MessContainerBL();
-		
+		arbtbl = new ArbitrageBL();
+		tradebl = new TradeBL();
 	}
 	
 	@Override
@@ -53,25 +72,21 @@ public class DataInterfaceToServer implements DataInterface{
 	//==================================================================================================
 	@Override
 	public boolean register(String username, String password) {
-		// TODO 自动生成的方法存根
 		return userbl.register(username, password);
 	}
 
 	@Override
 	public boolean loginValidate(String username, String password) {
-		// TODO Auto-generated method stub
 		return userbl.login(username, password);
 	}
 	
 	@Override
-	public boolean changePWD(String username, String oldpwd, String newpwd) {
-		// TODO 自动生成的方法存根
+public boolean changePWD(String username, String oldpwd, String newpwd) {
 		return userbl.changePWD(username, oldpwd, newpwd);
 	}
 	
 	@Override
 	public boolean logout() {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return userbl.logout(user.getUserID());
 	}
@@ -80,21 +95,18 @@ public class DataInterfaceToServer implements DataInterface{
 	
 	@Override
 	public ArrayList<Finance> getFinanceList() {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return finanbl.getFinanceList(user.getUserID());
 	}
 
 	@Override
 	public ArrayList<Repository> getRepoList() {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return repobl.getRepoList(user.getUserID());
 	}
 
 	@Override
 	public ArrayList<Record> getRecordList() {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return recordbl.getRecordList(user.getUserID());
 	}
@@ -109,19 +121,16 @@ public class DataInterfaceToServer implements DataInterface{
 	
 	@Override
 	public ArrayList<Message> getMessList() {
-		// TODO 自动生成的方法存根
 		return messbl.getmessages();
 	}
 
 	@Override
 	public void ReadMess(int index) {
-		// TODO 自动生成的方法存根
 		messbl.ReadMess(index);
 	}
 
 	@Override
 	public void DeleteMess(int index) {
-		// TODO 自动生成的方法存根
 		messbl.DeleteMess(index);
 	}
 
@@ -129,34 +138,31 @@ public class DataInterfaceToServer implements DataInterface{
 	
 	@Override
 	public double getPara_PROF() {
-		// TODO 自动生成的方法存根
 		return userbl.getPara_PROF();
 	}
 
 	@Override
 	public double getPara_LOSS() {
-		// TODO 自动生成的方法存根
 		return userbl.getPara_LOSS();
 	}
 
 	@Override
 	public double getPara_GUAR() {
-		// TODO 自动生成的方法存根
 		return userbl.getPara_GUAR();
 	}
 
 	@Override
 	public boolean setPara(double PROF, double LOSS, double GUAR) {
-		// TODO 自动生成的方法存根
 		return userbl.setParams(PROF, LOSS, GUAR);
 	}
 
 	//==================================================================================================
 	
 	@Override
-	public Arb_detail getArbDetail(String id) {
+	public ArrayList<Arb_detail> getArbDetail() {
 		// TODO 自动生成的方法存根
-		return null;
+		UserVO user = userbl.getUser();
+		return arbtbl.getDetailList(user.getUserID());
 	}
 
 	@Override
@@ -166,21 +172,30 @@ public class DataInterfaceToServer implements DataInterface{
 	}
 
 	@Override
-	public boolean Order() {
+	public boolean Order(String More_contract,String Blank_contract,int hand) {
 		// TODO 自动生成的方法存根
-		return false;
+		UserVO user = userbl.getUser();
+		return tradebl.order(user.getUserID(), More_contract, Blank_contract, hand);
 	}
 
 	@Override
-	public boolean cancleOrder(String record_ID) {
+	public boolean cancleOrder(int record_ID) {
 		// TODO 自动生成的方法存根
-		return false;
+		UserVO user = userbl.getUser();
+		return tradebl.cancleOrder(user.getUserID(), record_ID);
 	}
 
 	@Override
-	public boolean Trade(String Repo_ID) {
+	public boolean Trade(int Repo_ID) {
 		// TODO 自动生成的方法存根
-		return false;
+		UserVO user = userbl.getUser();
+		return tradebl.trade(user.getUserID(), Repo_ID);
+	}
+
+	@Override
+	public HashMap<Long, Double> getDateAndPricePair() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

@@ -24,6 +24,7 @@ public class NetHelper {
 	String urlString ;
 	public NetHelper (String method, HashMap<String, String> params){
 		this.urlString = "http://njuhq.sinaapp.com/"+method;
+//		this.urlString = "192.168.53.56/"+method;
 		this.setPara(params);
 	}
 	
@@ -50,10 +51,10 @@ public class NetHelper {
 	/*
 	 * 设置参数
 	 */
-	public void setPara(HashMap<String, String> param){
+	public void setPara(HashMap<String, String> params){
 		urlString = urlString+"?";
-		for (String key: param.keySet()) {
-			urlString += key+"="+param.get(key)+"&";
+		for (String key: params.keySet()) {
+			urlString += key+"="+params.get(key)+"&";
 		}
 		System.out.println(urlString);
 	}
@@ -87,7 +88,7 @@ public class NetHelper {
 					String line = null;
 					while ((line = bufferedReader.readLine()) != null) {
 						entityStringBuilder.append(line + "/n");
-						System.out.println(line);
+//						System.out.println(line);
 					}
 					// 利用从HttpEntity中得到的String生成JsonObject
 					resultString = entityStringBuilder.toString();

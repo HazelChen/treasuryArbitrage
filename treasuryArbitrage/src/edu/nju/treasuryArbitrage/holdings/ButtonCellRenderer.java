@@ -3,6 +3,9 @@ package edu.nju.treasuryArbitrage.holdings;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -25,7 +28,7 @@ public class ButtonCellRenderer implements TableCellRenderer {
         panel.add(p2);
 
         p2.setBounds(20,20, 
-        		100, 30);
+        		100, 40);
         p2.setBackground(Color.black);
         p2.add(button,"Center");
     }
@@ -33,9 +36,10 @@ public class ButtonCellRenderer implements TableCellRenderer {
     private void initButton() {
         button = new JButton();
         button.setFocusable(false);
+        button.setBackground(Color.white);
+        button.setPreferredSize(new Dimension(60,25));
         button.setHorizontalAlignment(SwingConstants.CENTER);
         button.setVerticalAlignment(SwingConstants.CENTER);
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     private void initPanel() {
@@ -49,7 +53,7 @@ public class ButtonCellRenderer implements TableCellRenderer {
             boolean isSelected, boolean hasFocus, int row, int column) {
         
         button.setText(value == null ? "" : "Æ½²Ö");
-
+       
         return panel;
     }
 }

@@ -5,12 +5,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
@@ -19,17 +19,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 
+import vo.Repository;
+import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.network.DataInterfacePile;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
-
-import vo.Repository;
 
 public class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
 	/**
@@ -42,20 +40,22 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
     private JButton button;
     private Repository repository;
     private SellDg selldialog;
-
-    public ButtonEditor(Repository repo) {
+    private int rowN;
+    private ArrayList<Repository> infom;
+    
+    public ButtonEditor(ArrayList<Repository> info) {
 
         initButton();
 
         initPanel();
+        infom = new ArrayList<Repository>();
+        infom = info;
         repository = new Repository();
-        repository = repo;        
-        
         p2 = new JPanel();
         panel.add(p2);
 
         p2.setBounds(20,20, 
-        		100, 30);
+        		100, 40);
         p2.setBackground(Color.black);
         p2.add(button,"Center");
     }
@@ -63,15 +63,16 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
     private void initButton() {
         button = new JButton();
         button.setFocusable(false);
-
+        button.setBackground(Color.white);
+        button.setPreferredSize(new Dimension(60,25));
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
                 selldialog = new SellDg(repository);
                 selldialog.setVisible(true);
-                //stopped!!!!
-                fireEditingStopped();
-
+                //stop!!!
+				fireEditingStopped();
             }
         });
 
@@ -89,7 +90,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
             boolean isSelected, int row, int column) {
         
         button.setText(value == null ? "" : "平仓");
-
+        rowN = row;
+        repository = infom.get(rowN);
         return panel;
     }
 
@@ -97,6 +99,10 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
     public Object getCellEditorValue() {
         return "平仓";
     }
+  
+    public Object getSellConfirmBtn(){
+		return this.selldialog.dg.getBtn();
+	}
     
     class SellDg extends JDialog{
 		
@@ -109,7 +115,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 		    Object data[][] = {
 		    		{"合约名称:",""},
 		    		{"卖出手数:",""},
-		    		{"交易类型:",""},
+		    		{"交易类型:","平仓"},
 		    		{"套利方向:",""},
 		    		{"合约价格:",""},
 		    		{"投入保证金:",""},
@@ -123,6 +129,17 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 		    
 		    SellDg(Repository repo){
 		    	di = new DataInterfacePile();
+		    	
+		    	data[0][1] = repo.getToBuy() +" " +repo.getToSell();
+		    	data[1][1] = repo.getCount();
+		    	data[2][1] = "平仓";//交易类型
+		    	data[3][1] = "<html><B>" + repo.getToBuy() +  ": 多头<br>" 
+		    				+ repo.getToSell() +": 空头" ; //  套利方向
+		    	data[4][1] = "<html><B>" + repo.getToBuy() +  ": " + 
+		    				repo.gettoBuy_price()+  "<br>" 
+	    				    + repo.getToSell() + ": "  + repo.gettoSell_price();// 合约价格
+		    	data[5][1] = repo.getGuarantee() + " 元";
+		    	data[6][1] = repo.getProfit() + " 元";
 		    	listener = new sellML();
 		    	setUndecorated(true);
 		    	setBackground(Color.white);
@@ -138,6 +155,10 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 				btnC.setSize(100,25);
 				btnY.setFocusable(false);
 				btnC.setFocusable(false);
+		        btnY.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		        btnC.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnY.setBackground(Color.white);
+		        btnC.setBackground(Color.white);
 				btnY.addMouseListener(listener);
 				btnC.addMouseListener(listener);
 				confirmL = new JLabel("请确认信息正确后点击确认");
@@ -168,7 +189,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 		        	public boolean isCellEditable(int row, int column){return false;}//表格不允许被编辑
 		        };
 		        makeface(table);
-		        panel.setLayout(new BorderLayout());
+		        
+	 	 		panel.setLayout(new BorderLayout());
 		        panel.setPreferredSize(new Dimension(280,350));
 		        panel.setBackground(Color.white);
 		        panel.add(table,BorderLayout.NORTH);
@@ -204,6 +226,9 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 						else{
 				              setHorizontalAlignment(SwingConstants.LEFT);
 				              }
+						if(column == 1 && row == 3){
+							setFont(new Font("宋体",Font.BOLD,16));
+						}
 						  setForeground(Color.BLACK);
 		            	  setBackground(Color.white);
 		              return super.getTableCellRendererComponent(table, value,
@@ -216,6 +241,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 				
 			}
 
+			
 			class sellML implements MouseListener{
 
 				@Override
@@ -223,6 +249,12 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 					if(e.getSource() == btnY){
 						curdg.setVisible(false);
 						dg.setVisible(true);
+						//-------------------卖出对应合约-----
+						//repository;  更新数据库
+						//JOptionPane.showMessageDialog(null, "更新");
+						MajorPartsFactory.getInstance().getHoldings().updateFTable();
+						MajorPartsFactory.getInstance().getHoldings().updateRepoList();
+						//--------------------------------
 						curdg.dispose();
 					}
 					else if(e.getSource() == btnC){
@@ -238,10 +270,9 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 
 	}
     
-
     class SellSecMsgDg extends JDialog{
 		private static final long serialVersionUID = -5441568635168086793L;
-		private SellSecMsgDg curdg = this;
+		private SellSecMsgDg curdg2 = this;
 		JLabel information;
 		JPanel panel,con;
 		SellSecMsgDgML listener;
@@ -257,6 +288,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 			setModal(true);//
 			btnY = new JButton("确认");
 			btnY.setFocusable(false);
+			btnY.setBackground(Color.white);
+	        btnY.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 			information = new JLabel("下单成功！");
 			Font titlef=new Font("宋体",Font.BOLD,24);
 			information.setFont(titlef);
@@ -281,17 +314,16 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 			add(con);
 			this.pack();
 		}
-		
+		public Object getBtn(){
+			return this.btnY;
+		}
     	class SellSecMsgDgML implements MouseListener{
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getSource() == btnY){
-					//-------------------卖出对应合约-----
-					//repository;
-					//--------------------------------
-					curdg.setVisible(false);
-					curdg.dispose();
+					curdg2.setVisible(false);
+					curdg2.dispose();
 				}
 				else {
 				}

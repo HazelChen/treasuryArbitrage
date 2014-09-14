@@ -1,31 +1,31 @@
 package vo;
 
 public class Repository {
-	String repo_ID;	//持仓标记……………………我感觉蛮有必要
-	String time;	//交易结束时间
+	int repo_ID;	//持仓标记……………………我感觉蛮有必要
+	long time;	//交易结束时间
 	int count;		//交易手数
 	double guarantee;	//投入保证金
 	double profit;	//收益金额……方法计算得出
 
 	String toSell;	//空头
 	String toBuy;	//多头
-	int toSell_price;
-	int toBuy_price;
+	double toSell_price;
+	double toBuy_price;
 	
 	public Repository(){
 		
 	}
 	
-	public String getRepo_ID() {
+	public int getRepo_ID() {
 		return repo_ID;
 	}
-	public void setRepo_ID(String repo_ID) {
+	public void setRepo_ID(int repo_ID) {
 		this.repo_ID = repo_ID;
 	}
-	public String getTime() {
+	public long getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(long time) {
 		this.time = time;
 	}
 	public int getCount() {
@@ -58,5 +58,16 @@ public class Repository {
 	public void setToBuy(String toBuy) {
 		this.toBuy = toBuy;
 	}
-
+	public double gettoBuy_price() {
+		return toBuy_price;
+	}
+	public void settoBuy_price(double toBuy_price) {
+		this.toBuy_price = toBuy_price;
+	}
+	public double gettoSell_price() {
+		return toSell_price;
+	}
+	public void settoSell_price(double d) {
+		this.toSell_price = d;
+	}
 }
