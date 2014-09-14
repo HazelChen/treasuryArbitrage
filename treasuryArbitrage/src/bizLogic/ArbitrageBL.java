@@ -1,6 +1,8 @@
 package bizLogic;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -36,12 +38,25 @@ public class ArbitrageBL {
 			
 			detail.setSymbol(symbol);
 			detail.setMonth(End);
-			
+			//================================================
 			int date = temp.getInt("RT_DATE");
 			int day = temp.getInt("RT_TIME");
 			
 			detail.setDate(date);
 			detail.setDay(day);
+			
+			int yeartemp = date/10000;
+			int monthtemp = (date-yeartemp*10000)/100;
+			int daytemp = (date-yeartemp*10000-monthtemp*100);
+			int hourtemp = day/10000;
+			int mintemp = (day-hourtemp*10000)/100;
+			int secondtemp = (day-hourtemp*10000-mintemp*100);
+			
+			Calendar cal=Calendar.getInstance();
+			cal.set(yeartemp, monthtemp-1, daytemp, hourtemp, mintemp, secondtemp);
+			Date datetemp=cal.getTime();
+			detail.setTime(datetemp.getTime());
+			//================================================
 			
 			detail.setPresentPrice(temp.getDouble("RT_LAST"));
 			detail.setChange(temp.getDouble("RT_PCT_CHG"));

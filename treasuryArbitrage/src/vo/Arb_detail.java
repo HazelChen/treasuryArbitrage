@@ -6,7 +6,7 @@ public class Arb_detail {
 	
 	int date;				//***日期
 	int day;				//***时间
-	long time;				//时间
+	long time;				//***时间
 	
 	double presentPrice;	//***现价（“现价”等于“成交”等于“合约价格”，统一成现价）
 	double change;			//***涨跌幅（涨幅等于涨跌幅，统一成涨跌幅）
