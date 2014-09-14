@@ -45,6 +45,7 @@ public class FuturesMarket extends JPanel{
 	private static TableCellTextPaneRenderer tctpTable1;
 	private static TableCellTextPaneRenderer tctpTable2;
 	private static TableCellTextPaneRenderer tctpTable3;
+	private static BlueTableCellTextPaneRenderer btctpTable1,btctpTable2,btctpTable3;
 	private static Arb_detail arb1,arb2,arb3;
 	private static Object[][] tableInfo1,tableInfo2,tableInfo3;
 	private static DefaultTableModel model1,model2,model3;
@@ -127,6 +128,16 @@ public class FuturesMarket extends JPanel{
 		futuresTable1.setModel(model1);		
 		futuresTable2.setModel(model2);	
 		futuresTable3.setModel(model3);
+		for(int i=0;i<3;i++){
+        	futuresTable1.getColumn(columnTitle[i]).setCellRenderer(tctpTable1);
+        	futuresTable2.getColumn(columnTitle[i]).setCellRenderer(tctpTable2);
+        	futuresTable3.getColumn(columnTitle[i]).setCellRenderer(tctpTable3);
+		}
+        for(int i=3;i<19;i++){
+        	futuresTable1.getColumn(columnTitle[i]).setCellRenderer(btctpTable1);
+        	futuresTable2.getColumn(columnTitle[i]).setCellRenderer(btctpTable2);
+        	futuresTable3.getColumn(columnTitle[i]).setCellRenderer(btctpTable3);
+        }
 		futuresTable1.repaint();
 		futuresTable2.repaint();
 		futuresTable3.repaint();
@@ -246,15 +257,21 @@ public class FuturesMarket extends JPanel{
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
+			
         };
 
         
         JTable table = new JTable(model1);
         tctpTable1=new TableCellTextPaneRenderer();
         tctpTable1.setBackground(Color.BLACK);
+        btctpTable1=new BlueTableCellTextPaneRenderer();
+        btctpTable1.setBackground(Color.BLACK);
+        for(int i=0;i<3;i++)
+        	table.getColumn(columnTitle[i]).setCellRenderer(tctpTable1);
+        for(int i=3;i<19;i++)
+        	table.getColumn(columnTitle[i]).setCellRenderer(btctpTable1);
         
-        table.setDefaultRenderer(Object.class,tctpTable1);
-        //table.setGridColor(Color.BLACK);
+        //table.setDefaultRenderer(Object.class,tctpTable1);
         table.setShowGrid(false);
         table.setShowHorizontalLines(false);
         table.setShowVerticalLines(false);
@@ -309,8 +326,14 @@ public class FuturesMarket extends JPanel{
         JTable table = new JTable(model2);
         tctpTable2=new TableCellTextPaneRenderer();
         tctpTable2.setBackground(Color.BLACK);
+        btctpTable2=new BlueTableCellTextPaneRenderer();
+        btctpTable2.setBackground(Color.BLACK);
+        for(int i=0;i<3;i++)
+        	table.getColumn(columnTitle[i]).setCellRenderer(tctpTable2);
+        for(int i=3;i<19;i++)
+        	table.getColumn(columnTitle[i]).setCellRenderer(btctpTable2);
         
-        table.setDefaultRenderer(Object.class,tctpTable2);
+        //table.setDefaultRenderer(Object.class,tctpTable2);
         //table.setGridColor(Color.BLACK);
         table.setShowGrid(false);
         table.setShowHorizontalLines(false);
@@ -366,6 +389,12 @@ public class FuturesMarket extends JPanel{
         JTable table = new JTable(model3);
         tctpTable3=new TableCellTextPaneRenderer();
         tctpTable3.setBackground(Color.BLACK);
+        btctpTable3=new BlueTableCellTextPaneRenderer();
+        btctpTable3.setBackground(Color.BLACK);
+        for(int i=0;i<3;i++)
+        	table.getColumn(columnTitle[i]).setCellRenderer(tctpTable3);
+        for(int i=3;i<19;i++)
+        	table.getColumn(columnTitle[i]).setCellRenderer(btctpTable3);
         
         table.setDefaultRenderer(Object.class,tctpTable3);
         //table.setGridColor(Color.BLACK);
@@ -440,7 +469,7 @@ public class FuturesMarket extends JPanel{
 		arb_list.add(arb11);
 		arb_list.add(arb11);
 		
-		fm.update(arb_list);
+		//fm.update(arb_list);
 		
 		try {
 			Thread.sleep(2000);
@@ -451,17 +480,20 @@ public class FuturesMarket extends JPanel{
 		
 		
 		
-		fm.update(arb_list);
+		//fm.update(arb_list);
 	}
 	
 	class TableSelectionListener1 implements ListSelectionListener{
 
 		public void valueChanged(ListSelectionEvent arg0) {
 			tctpTable1.setBackground(Color.DARK_GRAY);
+			btctpTable1.setBackground(Color.DARK_GRAY);
 			futuresTable1.setBackground(Color.DARK_GRAY);
 			tctpTable2.setBackground(Color.BLACK);
+			btctpTable2.setBackground(Color.BLACK);
 			futuresTable2.setBackground(Color.BLACK);
 			tctpTable3.setBackground(Color.BLACK);
+			btctpTable3.setBackground(Color.BLACK);
 			futuresTable3.setBackground(Color.BLACK);
 			
 			futuresTable1.clearSelection();
@@ -473,10 +505,13 @@ public class FuturesMarket extends JPanel{
 
 		public void valueChanged(ListSelectionEvent arg0) {	
 			tctpTable1.setBackground(Color.BLACK);
+			btctpTable1.setBackground(Color.BLACK);
 			futuresTable1.setBackground(Color.BLACK);
 			tctpTable2.setBackground(Color.DARK_GRAY);
+			btctpTable2.setBackground(Color.DARK_GRAY);
 			futuresTable2.setBackground(Color.DARK_GRAY);
 			tctpTable3.setBackground(Color.BLACK);
+			btctpTable3.setBackground(Color.BLACK);
 			futuresTable3.setBackground(Color.BLACK);
 			
 			futuresTable2.clearSelection();
@@ -488,10 +523,13 @@ public class FuturesMarket extends JPanel{
 
 		public void valueChanged(ListSelectionEvent arg0) {
 			tctpTable1.setBackground(Color.BLACK);
+			btctpTable1.setBackground(Color.BLACK);
 			futuresTable1.setBackground(Color.BLACK);
 			tctpTable2.setBackground(Color.BLACK);
+			btctpTable2.setBackground(Color.BLACK);
 			futuresTable2.setBackground(Color.BLACK);
 			tctpTable3.setBackground(Color.DARK_GRAY);
+			btctpTable3.setBackground(Color.DARK_GRAY);
 			futuresTable3.setBackground(Color.DARK_GRAY);
 			
 			futuresTable3.clearSelection();
@@ -508,19 +546,48 @@ public class FuturesMarket extends JPanel{
 		MutableAttributeSet attr;
 		SimpleAttributeSet sas;
 		public TableCellTextPaneRenderer(){
-			  doc = new DefaultStyledDocument();
-			  this.setStyledDocument(doc);
-			  sas = new SimpleAttributeSet();
-			  StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
-			  doc.setParagraphAttributes(0, 0, sas, true);		  
-			  attr = new SimpleAttributeSet();	 
-			  StyleConstants.setForeground(attr,Color.WHITE);
-			  setCharacterAttributes(attr, false);
+			doc = new DefaultStyledDocument();
+			this.setStyledDocument(doc);
+			sas = new SimpleAttributeSet();
+			StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
+			doc.setParagraphAttributes(0, 0, sas, true);		  
+			attr = new SimpleAttributeSet();	 
+			  
+			StyleConstants.setForeground(attr,Color.WHITE);
+			setCharacterAttributes(attr, false);
 		}
 
 		public Component getTableCellRendererComponent(JTable table, Object value,
 	            boolean isSelected, boolean hasFocus, int row, int column) {		
-	        setText(value == null ? "" : value.toString());	        	        
+	        setText(value == null ? "" : value.toString());	
+	        
+            return this;
+	    }
+		
+	}
+	
+	class BlueTableCellTextPaneRenderer extends JTextPane implements TableCellRenderer{
+
+		private static final long serialVersionUID = 1L;
+		DefaultStyledDocument doc;
+		MutableAttributeSet attr;
+		SimpleAttributeSet sas;
+		public BlueTableCellTextPaneRenderer(){
+			doc = new DefaultStyledDocument();
+			this.setStyledDocument(doc);
+			sas = new SimpleAttributeSet();
+			StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
+			doc.setParagraphAttributes(0, 0, sas, true);		  
+			attr = new SimpleAttributeSet();	 
+			  
+			StyleConstants.setForeground(attr,new Color(10,156,211));
+			setCharacterAttributes(attr, false);
+		}
+
+		public Component getTableCellRendererComponent(JTable table, Object value,
+	            boolean isSelected, boolean hasFocus, int row, int column) {		
+	        setText(value == null ? "" : value.toString());	
+	        
             return this;
 	    }
 		
