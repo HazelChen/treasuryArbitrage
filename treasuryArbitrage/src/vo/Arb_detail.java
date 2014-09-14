@@ -2,7 +2,7 @@ package vo;
 
 public class Arb_detail {
 	String symbol;			//***国债期货代码
-	String month;			//交割月份
+	String month;			//***交割月份
 	
 	int date;				//***日期
 	int day;				//***时间
@@ -48,12 +48,16 @@ public class Arb_detail {
 		return symbol;
 	}
 
-
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
-		int year = Integer.valueOf(symbol.substring(2, 4));
-		int month = Integer.valueOf(symbol.substring(4, 6));
-		this.month = 20+""+year+"年"+month+"月";
+	}
+	
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
 	}
 
 	public int getDate() {
