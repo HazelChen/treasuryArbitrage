@@ -184,7 +184,7 @@ public class DataInterfaceToServer implements DataInterface {
 	}
 
 	@Override
-	public boolean Order(String username, String More_contract,
+	public boolean Order(String More_contract,
 			String Blank_contract, double more_price, double blank_price,
 			int hand, int guarantee) {
 		// TODO 自动生成的方法存根
