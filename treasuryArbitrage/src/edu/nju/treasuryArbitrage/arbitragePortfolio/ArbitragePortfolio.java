@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,12 +36,17 @@ import javax.swing.text.StyleConstants;
 
 
 
+
+
+
 import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 import vo.ArbGroup;
 import vo.Arb_detail;
 
 
+import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 
 
@@ -70,15 +76,18 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 	private static PortfolioLineChart chart1,chart2,chart3;
 	private static DefaultTableModel model1,model2,model3;
 	private static Object[][] tableInfo1,tableInfo2,tableInfo3;
+	private static DataInterface database;
 	
 	public ArbitragePortfolio() {
 		this.setBackground(Color.BLACK);
 		this.setSize(WIDTH,HEIGHT);
 		this.setLayout(null);
 		
+		database= DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+		
 		confirmPanel=new ConfirmPanel();
 		this.add(confirmPanel);
-		confirmPanel.setBounds(WIDTH/4,HEIGHT/5,WIDTH/5*2-20,HEIGHT-250);
+		confirmPanel.setBounds(WIDTH/5*3,HEIGHT/5-50,WIDTH/5*2-20,HEIGHT-250);
 		confirmPanel.setVisible(false);
 		
 		group1=new JButton("组合一");
@@ -189,7 +198,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 	}
 	
 	private ArrayList<ArbGroup> getData(){
-		DataInterfaceToServer database=new DataInterfaceToServer();
+		
 		return database.getArbGroup();		
 	}
 	
@@ -251,6 +260,12 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		
 		Arb_detail arb1=this.getTableData(symbol1);
 		Arb_detail arb2=this.getTableData(symbol2);
+		Date date1 = new Date(arb1.getTime());
+		int hour1=date1.getHours();
+		int min1=date1.getMinutes();
+		Date date2 = new Date(arb2.getTime());
+		int hour2=date2.getHours();
+		int min2=date2.getMinutes();
 		System.out.println("--------------------------"+symbol1);
 		System.out.println("--------------------------"+symbol2);
 		Object[][] arbitrageInfo={				
@@ -260,14 +275,14 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
 						,arb1.getRepository(),arb1.getDailyWarehouse(),arb1.getPreSettlePrice()
 						,arb1.getOpen(),arb1.getHigh(),arb1.getLow()
-						,"时间"},
+						,hour1+":"+min1},
 				new Object[]{arb2.getSymbol(),"2015年03月"				
 						,arb2.getPresentPrice(),arb2.getPriceChange()
 						,arb2.getChange(),arb2.getBid(),arb2.getBidPirce()
 						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
 						,arb2.getRepository(),arb2.getDailyWarehouse(),arb2.getPreSettlePrice()
 						,arb2.getOpen(),arb2.getHigh(),arb2.getLow()
-						,"时间"}
+						,hour1+":"+min1}
 						
 		};
 		tableInfo1=arbitrageInfo;
@@ -334,6 +349,13 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		Arb_detail arb1=this.getTableData(symbol1);
 		Arb_detail arb2=this.getTableData(symbol2);
 		
+		Date date1 = new Date(arb1.getTime());
+		int hour1=date1.getHours();
+		int min1=date1.getMinutes();
+		Date date2 = new Date(arb2.getTime());
+		int hour2=date2.getHours();
+		int min2=date2.getMinutes();
+		
 		Object[][] arbitrageInfo={				
 				new Object[]{arb1.getSymbol(),"2014年09月"				
 						,arb1.getPresentPrice(),arb1.getPriceChange()
@@ -341,14 +363,14 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
 						,arb1.getRepository(),arb1.getDailyWarehouse(),arb1.getPreSettlePrice()
 						,arb1.getOpen(),arb1.getHigh(),arb1.getLow()
-						,"时间"},
+						,hour1+":"+min1},
 				new Object[]{arb2.getSymbol(),"2014年09月"				
 						,arb2.getPresentPrice(),arb2.getPriceChange()
 						,arb2.getChange(),arb2.getBid(),arb2.getBidPirce()
 						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
 						,arb2.getRepository(),arb2.getDailyWarehouse(),arb2.getPreSettlePrice()
 						,arb2.getOpen(),arb2.getHigh(),arb2.getLow()
-						,"时间"}
+						,hour2+":"+min2}
 						
 		};
 		tableInfo2=arbitrageInfo;
@@ -412,7 +434,12 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		
 		Arb_detail arb1=this.getTableData(symbol1);
 		Arb_detail arb2=this.getTableData(symbol2);
-		
+		Date date1 = new Date(arb1.getTime());
+		int hour1=date1.getHours();
+		int min1=date1.getMinutes();
+		Date date2 = new Date(arb2.getTime());
+		int hour2=date2.getHours();
+		int min2=date2.getMinutes();
 		Object[][] arbitrageInfo={				
 				new Object[]{arb1.getSymbol(),"2014年09月"				
 						,arb1.getPresentPrice(),arb1.getPriceChange()
@@ -420,14 +447,14 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 						,arb1.getAskPrice(),arb1.getAsk(),arb1.getVol()
 						,arb1.getRepository(),arb1.getDailyWarehouse(),arb1.getPreSettlePrice()
 						,arb1.getOpen(),arb1.getHigh(),arb1.getLow()
-						,"时间"},
+						,hour1+":"+min1},
 				new Object[]{arb2.getSymbol(),"2014年09月"				
 						,arb2.getPresentPrice(),arb2.getPriceChange()
 						,arb2.getChange(),arb2.getBid(),arb2.getBidPirce()
 						,arb2.getAskPrice(),arb2.getAsk(),arb2.getVol()
 						,arb2.getRepository(),arb2.getDailyWarehouse(),arb2.getPreSettlePrice()
 						,arb2.getOpen(),arb2.getHigh(),arb2.getLow()
-						,"时间"}
+						,hour2+":"+min2}
 						
 		};
 		tableInfo3=arbitrageInfo;
@@ -587,6 +614,9 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		private JLabel money,mny;
 		private JButton confirm;
 		public JTextField tfdHoldings;
+		private double prePrice1,prePrice2,guar;
+		private int holds;
+		private String tobuy,tosell;
 		public BuyPanel(){
 			title=new JLabel("下单信息");
 			name=new JLabel("合约名称",JLabel.CENTER);
@@ -669,7 +699,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			money.setBounds(50,320,80,30);
 			money.setFont(font);
 			money.setForeground(Color.WHITE);
-			mny.setBounds(140,320,80,30);
+			mny.setBounds(140,320,240,30);
 			mny.setFont(font);
 			mny.setForeground(Color.WHITE);
 			
@@ -685,15 +715,19 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			
 		}
 		
-		public void showDetail(String tobuy,String tosell){
-			Arb_detail arb1=getTableData(tobuy);
-			Arb_detail arb2=getTableData(tosell);
-			name1.setText(tobuy);
-			name2.setText(tosell);
+		public void showDetail(String tb,String ts){
+			tobuy=tb;
+			tosell=ts;
+			Arb_detail arb1=getTableData(tb);
+			Arb_detail arb2=getTableData(ts);
+			name1.setText(tb);
+			name2.setText(ts);
 			dir1.setText("多头");
 			dir2.setText("空头");
 			price1.setText(String.valueOf(arb1.getPresentPrice()));
 			price2.setText(String.valueOf(arb2.getPresentPrice()));
+			prePrice1=arb1.getPresentPrice();
+			prePrice2=arb2.getPresentPrice();
 		}
 		
 		public class HoldingsListener implements KeyListener{
@@ -701,8 +735,9 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			}
 
 			public void keyReleased(KeyEvent e) {
-				
-				
+				holds=Integer.parseInt(tfdHoldings.getText());
+				guar=database.getGuar(prePrice1, prePrice2, holds);
+				mny.setText(String.valueOf(guar));
 			}
 
 			public void keyTyped(KeyEvent e) {
@@ -716,10 +751,14 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 					JOptionPane.showMessageDialog(null,"手数输入错误","错误提示",JOptionPane.WARNING_MESSAGE);
 				}else {
 					if(Integer.parseInt(text)>0){
-						confirmPanel.setVisible(true);
+						
+						
+						confirmPanel.setData(tobuy, tosell, prePrice1, prePrice2, holds, guar);
+						
+						
 					}else{
-					JOptionPane.showMessageDialog(null,"手数输入错误","错误提示",JOptionPane.WARNING_MESSAGE);
-				}
+						JOptionPane.showMessageDialog(null,"手数输入错误","错误提示",JOptionPane.WARNING_MESSAGE);
+					}
 				}
 			}
 		}
@@ -736,11 +775,15 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		private JLabel money,mny;
 		private JButton confirm,cancel;
 		
+		private double prePrice1,prePrice2,guar;
+		private int holds;
+		private String tobuy,tosell;
+		
 		public ConfirmPanel(){
 			title=new JLabel("下单信息确认");
 			name=new JLabel("合约名称",JLabel.CENTER);
 			type=new JLabel("交易类型",JLabel.CENTER);
-			typeData=new JLabel();
+			typeData=new JLabel("建仓");
 			direction=new JLabel("套利方向",JLabel.CENTER);
 			price=new JLabel("合约价格",JLabel.CENTER);
 			holdings=new JLabel("手数",JLabel.CENTER);
@@ -826,9 +869,9 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			price.setBounds(50,230,80,30);
 			price.setFont(font);
 			price.setForeground(Color.BLACK);
-			price_name1.setBounds(160,230,80,30);
+			price_name1.setBounds(160,260,80,30);
 			price1.setBounds(280,230,80,30);
-			price_name2.setBounds(160,230,80,30);
+			price_name2.setBounds(160,260,80,30);
 			price2.setBounds(280,230,80,30);
 			price_name1.setFont(font);
 			price_name1.setForeground(Color.BLACK);
@@ -870,6 +913,35 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 			cancel.addActionListener(new CancelListener());
 			
 		}
+		
+		public void setData(String tb,String ts,double p1,double p2,int h,double g){
+			tobuy=tb;
+			tosell=ts;
+			prePrice1=p1;
+			prePrice2=p2;
+			holds=h;
+			guar=g;
+			
+			name1.setText(tobuy);
+			name2.setText(tosell);
+			dir_name1.setText(tobuy);
+			dir1.setText("多头");
+			dir_name2.setText(tosell);
+			dir2.setText("空头");
+			
+			price_name1.setText(tobuy);
+			price_name2.setText(tosell);
+			price1.setText(String.valueOf(p1));
+			price2.setText(String.valueOf(p2));
+			
+			hld.setText(String.valueOf(holds));
+			
+			mny.setText(String.valueOf(guar));
+			
+			this.setVisible(true);
+		}
+		
+		
 		
 		public class ConfirmDetailListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
