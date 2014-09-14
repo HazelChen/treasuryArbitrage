@@ -160,9 +160,7 @@ public boolean changePWD(String username, String oldpwd, String newpwd) {
 	
 	@Override
 	public ArrayList<Arb_detail> getArbDetail() {
-		// TODO 自动生成的方法存根
-		UserVO user = userbl.getUser();
-		return arbtbl.getDetailList(user.getUserID());
+		return arbtbl.getDetailList();
 	}
 
 	@Override
