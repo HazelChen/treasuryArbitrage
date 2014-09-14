@@ -6,11 +6,13 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import vo.ArbGroup;
 import vo.Arb_detail;
 
 public class ArbitrageBL {
 
 	private ArrayList<Arb_detail> detail_list;
+	private ArrayList<ArbGroup> group_list;
 	
 	public ArbitrageBL(){}
 	
@@ -43,7 +45,10 @@ public class ArbitrageBL {
 			
 			detail.setNvol(temp.getInt("RT_LAST_VOL"));
 			detail.setVol(temp.getInt("RT_VOL"));
+			detail.setPreRepository(temp.getInt("RT_PRE_OI"));
+			detail.setRepository(temp.getInt("RT_OI"));
 			
+			detail.setDailyWarehouse(temp.getInt("RT_OI_CHG"));
 			detail.setPreClose(temp.getDouble("RT_PRE_CLOSE"));
 			detail.setOpen(temp.getDouble("RT_OPEN"));
 			detail.setHigh(temp.getDouble("RT_HIGH"));
@@ -73,4 +78,12 @@ public class ArbitrageBL {
 //		
 //		return arb;
 //	}
+	
+	public ArrayList<ArbGroup> getArbGroups(){
+		group_list = new ArrayList<ArbGroup>();
+		
+		
+		
+		return group_list;
+	}
 }

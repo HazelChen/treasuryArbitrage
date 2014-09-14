@@ -24,14 +24,23 @@ public class UserBL {
 			boolean loginState = recorder.isAutoLogin();
 			
 			user = new UserVO(username, loginState);
+			double Max_prof;
+			double Max_loss;
+			double Max_guar;
 			
 			//从文件读取用户设置的参数
 			FileOperater fileOperater = new FileOperater();
 			String content = fileOperater.read(PARAM_FILE_NAME);
 			String[] params = content.split("\n");
-			double Max_prof = Double.valueOf(params[0]);
-			double Max_loss = Double.valueOf(params[1]);
-			double Max_guar = Double.valueOf(params[2]);
+			if(content.equals("")||content==null){
+				Max_prof = 0;
+				Max_loss = 0;
+				Max_guar = 0;
+			}else{
+				Max_prof = Double.valueOf(params[0]);
+				Max_loss = Double.valueOf(params[1]);
+				Max_guar = Double.valueOf(params[2]);
+			}
 			user.setMax_prof(Max_prof);
 			user.setMax_loss(Max_loss);
 			user.setMax_guar(Max_guar);
