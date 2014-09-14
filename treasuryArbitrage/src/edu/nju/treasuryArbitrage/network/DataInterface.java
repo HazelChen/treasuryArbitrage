@@ -58,6 +58,8 @@ public interface DataInterface {
 	public ArrayList<News> getNewsList();
 	
 	public ArrayList<Message> getMessList();
+	public void AddUnwindMess();
+	public void AddArbMess();
 	public void ReadMess(int index);
 	public void DeleteMess(int index);
 	

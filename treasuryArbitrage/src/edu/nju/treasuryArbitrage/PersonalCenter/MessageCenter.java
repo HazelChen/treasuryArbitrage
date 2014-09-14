@@ -60,7 +60,7 @@ public class MessageCenter extends JPanel {
 		mainJPanel.setBounds(0, 0, w, h);
 	}
 
-	private void init(int w, int h) {
+	private void init(final int w, final int h) {
 		mainJPanel.setBackground(Color.BLACK);
 		mainJPanel.setLayout(null);
 		icon = new ImageIcon("image/icon.jpg");
@@ -152,9 +152,9 @@ public class MessageCenter extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				for (int i = 0; i < table.getRowCount(); i++) {
 					if (table.getValueAt(i, 0).equals(icon3)) {
-						table.removeRowSelectionInterval(i, i);
 						service.DeleteMess(i);
 						setData();
+						setTable(w, h);
 						repaint();
 						break;
 					}
@@ -195,7 +195,7 @@ public class MessageCenter extends JPanel {
 				cellData[i][1]="否";
 			}
 			cellData[i][2]=i;
-			cellData[i][3]=messageList.get(i).getKind();
+			cellData[i][3]=messageList.get(i).getInfo();
 			cellData[i][4]=messageList.get(i).getTime();
 			messages[i] = messageList.get(i).getInfo();
 		}
@@ -280,16 +280,15 @@ public class MessageCenter extends JPanel {
 		table.setBounds(0, 45, w, h / 2);
 		table.getTableHeader().setResizingAllowed(true);
 		table.getTableHeader().setPreferredSize(new Dimension(5, 35));
+		table.getTableHeader().setReorderingAllowed(false);
 	}
 
 	private void showMessage(final int row) {
 		remove(mainJPanel);
 		final JPanel jPanel = new JPanel();
-		JLabel jLabel = new JLabel(messages[row], JLabel.CENTER);
-		JButton confirm = new JButton("前往");
+		JLabel jLabel = new JLabel(messages[row]+"前往查看", JLabel.CENTER);
 		JButton cancel = new JButton("取消");
 		jPanel.setLayout(null);
-		jPanel.add(confirm);
 		jPanel.add(cancel);
 		jPanel.setBounds(5, 5, getWidth() - 10, getHeight() - 10);
 		jPanel.add(jLabel, BorderLayout.CENTER);
@@ -298,13 +297,9 @@ public class MessageCenter extends JPanel {
 				jPanel.getWidth() - 60, 30);
 		cancel.setBounds(jPanel.getWidth() - 65, jPanel.getHeight() - 50, 60,
 				30);
-		confirm.setBounds(jPanel.getWidth() - 130, jPanel.getHeight() - 50, 60,
-				30);
 		jPanel.repaint();
 		add(jPanel);
 		repaint();
-		confirm.addMouseListener(new MouseAdapter() {
-		});
 		cancel.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				remove(jPanel);

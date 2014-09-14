@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
+import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.framework.TreasuryFrame;
 import edu.nju.treasuryArbitrage.resources.ColorResources;
 
@@ -20,10 +21,10 @@ public class NavigaterItem extends JPanel{
 	private boolean isImportant;
 	private boolean isSelected;
 	private JLabel naviLabel = new JLabel();
-	private JPanel changedPage;
+	private ComponentPanel changedPage;
 	
 	
-	/*protected*/ NavigaterItem(Navigater navigater, JPanel panel, String name, boolean isImportant) {
+	/*protected*/ NavigaterItem(Navigater navigater, ComponentPanel panel, String name, boolean isImportant) {
 		this.parent = navigater;
 		this.isImportant = isImportant;
 		this.changedPage = panel;
@@ -70,7 +71,8 @@ public class NavigaterItem extends JPanel{
 				parent.initAllItem();
 				
 				TreasuryFrame frame = MajorPartsFactory.getInstance().getFrame();
-				frame.setPage(changedPage);
+				frame.setPage((JPanel)changedPage);
+				changedPage.updatePage();
 			}
 		});
 	}

@@ -8,8 +8,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PersonalCenter extends JPanel{
+import edu.nju.treasuryArbitrage.framework.ComponentPanel;
+
+public class PersonalCenter extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = -7820319557370987327L;
+	
+	private int w;
+	private int h;
 	
 	public PersonalCenter() {
 		this.setBackground(Color.BLACK);
@@ -42,10 +47,6 @@ public class PersonalCenter extends JPanel{
 		hJLabel.setForeground(Color.WHITE);
 		hJLabel.setBackground(Color.RED);
 		hJLabel.setOpaque(true);
-		
-		/*messageCenter.setBounds(0, 0, (int) (getWidth()*0.6), (int) (getHeight()*0.5));
-		personalInfo.setBounds((int) (getWidth()*0.6), 0, (int) (getWidth()*0.4), (int) (getHeight()*0.5));
-		historyRecord.setBounds(0, (int) (getHeight()*0.5), getWidth(), (int) (getHeight()*0.5));*/
 	}
 	
 	public void assemble(){
@@ -60,6 +61,10 @@ public class PersonalCenter extends JPanel{
 		historyRecord.setBounds(0, (int) (getHeight()*0.5), getWidth(), (int) (getHeight()*0.5));
 	}
 	public void assemble(int width,int height){
+		
+		w = width;
+		h = height;
+		
 		messageCenter = new MessageCenter((int)(width*0.6), (int)(height*0.5));
 		personalInfo=new PersonalInfo((int) (width*0.4), (int) (height*0.5));
 		historyRecord=new HistoryRecord( width, (int) (height*0.5));
@@ -86,6 +91,19 @@ public class PersonalCenter extends JPanel{
 		jFrame.setVisible(true);
 		jFrame.repaint();
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public void updateRecord(){
+		remove(historyRecord);
+		historyRecord=new HistoryRecord( w, (int) (h*0.5));
+		add(historyRecord);
+		historyRecord.setBounds(0, (int) (h*0.5)+25, w, (int) (h*0.5)-25);
+	}
+
+	@Override
+	public void updatePage() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

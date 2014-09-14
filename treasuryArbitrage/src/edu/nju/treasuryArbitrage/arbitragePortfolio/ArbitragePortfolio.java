@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.text.DefaultStyledDocument;
@@ -26,14 +24,18 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
+
 import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
 import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
 import vo.ArbGroup;
 import vo.Arb_detail;
 
 
+import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 
-public class ArbitragePortfolio extends JPanel{
+
+
+public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = -2281757682879991851L;
 	private static final int WIDTH=1200;
 	private static final int HEIGHT=700;
@@ -767,5 +769,12 @@ public class ArbitragePortfolio extends JPanel{
 			}	
 		}
 
+	}
+
+
+	@Override
+	public void updatePage() {
+		// TODO Auto-generated method stub
+		
 	}
 }

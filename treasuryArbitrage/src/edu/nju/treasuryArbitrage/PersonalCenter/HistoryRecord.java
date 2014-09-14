@@ -29,38 +29,33 @@ public class HistoryRecord extends JPanel {
 	JScrollPane jScrollPane;
 	private DataInterface service = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 	
-	public Object[][] getData(){
-		 ArrayList<Record> records = service.getRecordList();
+	public void getData(){
+		ArrayList<Record> records = service.getRecordList();
 		data = new Object[records.size()][columns.length];
 		for(int i = 0 ; i < records.size() ; i++){
 			String[] strings = {records.get(i).getToBuy().getId(),"多头",Double.toString(records.get(i).getToBuy().getValue()),
-					records.get(i).getToSell().getId(),"多头",Double.toString(records.get(i).getToSell().getValue()),};
+					records.get(i).getToSell().getId(),"空头",Double.toString(records.get(i).getToSell().getValue())};
 			data[i][0]=strings;
 			Date date = new Date(records.get(i).getTime());
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");   
 			data[i][1]=sdf.format(date);
-			data[i][2]=records.get(i).getCount();
-			data[i][3]=records.get(i).getGuarantee();
+			data[i][2]=String.valueOf(records.get(i).getCount());
+			data[i][3]=String.valueOf(records.get(i).getGuarantee());
 			data[i][4]=records.get(i).getState();
 		}
-		return data;
 	}
 
 	public HistoryRecord() {
-		init();
+		this(980, 400);
 	}
 	public HistoryRecord(int w,int h) {
-		init();
-		if(jTableData.getRowCount()*60+38<h){
-			jScrollPane.setBounds(0, 0, w, jTableData.getRowCount()*60+38);
-		}else{
-			jScrollPane.setBounds(0, 0, w, h);
-		}
+		init(w,h);
+		
 	}
 	
-	private void init(){
+	private void init(int w,int h){
 		jTableData = new JTable();
-		data = getData();
+		getData();
 		AbstractTableModel modelo = new AbstractTableModel(){
 			private static final long serialVersionUID = 6795312350333403806L;
 			public String getColumnName(int col){
@@ -140,18 +135,6 @@ public class HistoryRecord extends JPanel {
 					
 					jTable.setDefaultRenderer(Object.class, render);
 					jTable.setRowHeight(30);
-					/*TableColumn column1 = jTable.getColumnModel().getColumn(0);
-					column1.setPreferredWidth(140);
-					column1.setMaxWidth(140);
-					column1.setMinWidth(140);
-					TableColumn column2 = jTable.getColumnModel().getColumn(1);
-					column2.setPreferredWidth(140);
-					column2.setMaxWidth(140);
-					column2.setMinWidth(140);
-					TableColumn column3 = jTable.getColumnModel().getColumn(2);
-					column3.setPreferredWidth(140);
-					column3.setMaxWidth(140);
-					column3.setMinWidth(140);*/
 					return jTable;
 				}
 			}
@@ -160,39 +143,19 @@ public class HistoryRecord extends JPanel {
 		jTableData.getTableHeader().setBackground(Color.BLACK);
 		jTableData.getTableHeader().setFont(new Font("",Font.PLAIN,24));
 		jTableData.getTableHeader().setForeground(Color.ORANGE);
-		/*TableColumn column1 = jTableData.getColumnModel().getColumn(0);
-		column1.setPreferredWidth(420);
-		column1.setMaxWidth(420);
-		column1.setMinWidth(420);
-		TableColumn column2 = jTableData.getColumnModel().getColumn(0);
-		column2.setPreferredWidth(140);
-		column2.setMaxWidth(140);
-		column2.setMinWidth(140);
-		TableColumn column3 = jTableData.getColumnModel().getColumn(0);
-		column3.setPreferredWidth(140);
-		column3.setMaxWidth(140);
-		column3.setMinWidth(140);
-		TableColumn column4 = jTableData.getColumnModel().getColumn(0);
-		column4.setPreferredWidth(140);
-		column4.setMaxWidth(140);
-		column4.setMinWidth(140);
-		TableColumn column5 = jTableData.getColumnModel().getColumn(0);
-		column5.setPreferredWidth(140);
-		column5.setMaxWidth(140);
-		column5.setMinWidth(140);*/
 		setLayout(null);
 		jTableData.setBackground(Color.BLACK);
+		jTableData.getTableHeader().setReorderingAllowed(false);
 		jScrollPane=new JScrollPane(jTableData);
 		jScrollPane.setBackground(Color.BLACK);
 		jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		add(jScrollPane);
-		if(jTableData.getRowCount()*60+38<400){
-			jScrollPane.setBounds(0, 0, 980, jTableData.getRowCount()*60+38);
+		if(jTableData.getRowCount()*60+38<h){
+			jScrollPane.setBounds(0, 0, w, jTableData.getRowCount()*60+38);
 		}else{
-			jScrollPane.setBounds(0, 0, 980, 400);
+			jScrollPane.setBounds(0, 0, w, h);
 		}
-		setPreferredSize(new Dimension(980, 400));
 		setBackground(Color.BLACK);
 	}
 	public static void main(String[] args) {

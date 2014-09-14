@@ -20,10 +20,13 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
+
+import vo.Arb_detail;
+import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
 import vo.Arb_detail;
 
-public class FuturesMarket extends JPanel{
+public class FuturesMarket extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = 4293989421427626065L;
 	private static final int WIDTH=1200;
 	private static final int HEIGHT=700;
@@ -874,5 +877,11 @@ public class FuturesMarket extends JPanel{
 			detail[23].setText(String.valueOf(arb.getInvol()));
 			
 		}
+	}
+
+	@Override
+	public void updatePage() {
+		// TODO Auto-generated method stub
+		
 	}
 }

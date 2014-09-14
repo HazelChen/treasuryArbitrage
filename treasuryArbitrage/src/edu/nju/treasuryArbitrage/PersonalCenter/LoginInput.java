@@ -133,6 +133,12 @@ public class LoginInput extends JPanel{
 					
 					TreasuryFrame frame = MajorPartsFactory.getInstance().getFrame();
 					frame.enterMainPage();
+
+					double para = dataInterface.getPara_PROF(); 
+					if (para == 0) {
+						SettingStopParameters settingStopParameters = MajorPartsFactory.getInstance().getSettingStopParameters();
+						settingStopParameters.setVisible(true);
+					}
 				} else {
 					JOptionPane.showMessageDialog(null, "用户名和密码错误！！");
 				}
