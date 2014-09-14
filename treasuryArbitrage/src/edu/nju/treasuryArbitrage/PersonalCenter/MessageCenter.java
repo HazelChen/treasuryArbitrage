@@ -54,8 +54,6 @@ public class MessageCenter extends JPanel {
 	}
 
 	public MessageCenter(int w, int h) {
-		service.AddArbMess();
-		service.AddUnwindMess();
 		mainJPanel = new JPanel();
 		init(w, h);
 		setLayout(null);
