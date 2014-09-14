@@ -6,9 +6,9 @@ public class CalculateBL {
 
 	public CalculateBL(){}
 
-	public double getProfit(){
+	public double getProfit(double buyprice1,double saleprice1,double buyprice2,double saleprice2,int count){
 		double profit = 0;
-		
+		profit = ((saleprice1+saleprice2)-(buyprice1+buyprice2))*10000*count;
 		return profit;
 	}
 	
