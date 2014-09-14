@@ -30,8 +30,8 @@ import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
 
+import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.network.DataInterfacePile;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
 public class News extends JPanel{
@@ -73,7 +73,7 @@ public class News extends JPanel{
 		MyMML listener3mm = new MyMML();
 		
 		public News(){	      
-			di = new DataInterfacePile();
+			di = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 			NewsNum = 0;
 			MaxNumPerpage=0;
 			pageNum=0;curPageNo=0;
@@ -363,7 +363,7 @@ class NewsDetailDg extends JDialog{
 		    		snewsDetail; 
 		    detailML dml;
 		    NewsDetailDg(int Rsel){
-		    	di = new DataInterfacePile();
+		    	di = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		    	RowSel = Rsel;
 		    	newsID = News.getNewsID(RowSel);
 		    	sNewsTitle = di.GetNewsTitle(newsID)/* test  String
@@ -490,7 +490,7 @@ class MyMSL implements MouseListener {
 		    	}
 		    }
 		    public void mouseClicked(MouseEvent e){
-		    	di = new DataInterfacePile();
+		    	di = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		    	if(e.getSource() == News.table){
 		    		if(e.getClickCount() == 2 || e.getClickCount() == 1){
 		    	

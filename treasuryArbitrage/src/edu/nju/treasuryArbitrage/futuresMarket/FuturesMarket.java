@@ -20,8 +20,8 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-import edu.nju.treasuryArbitrage.network.DataInterfacePile;
 import vo.Arb_detail;
+import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
 
 public class FuturesMarket extends JPanel{
 	private static final long serialVersionUID = 4293989421427626065L;
@@ -362,8 +362,7 @@ public class FuturesMarket extends JPanel{
 	}
 	
 	private Arb_detail getTableData(int id){
-		DataInterfacePile database=new DataInterfacePile();
-		ArrayList<Arb_detail> result=database.getArbDetail();
+		ArrayList<Arb_detail> result = LiveData.getInstance().getArb_details();
 		return result.get(id);
 	}
 	
