@@ -54,6 +54,12 @@ public class MessageCenter extends JPanel {
 	}
 
 	public MessageCenter(int w, int h) {
+		service.AddArbMess();
+		service.AddUnwindMess();
+		service.AddArbMess();
+		service.AddUnwindMess();
+		service.AddArbMess();
+		service.AddUnwindMess();
 		mainJPanel = new JPanel();
 		init(w, h);
 		setLayout(null);
@@ -153,7 +159,6 @@ public class MessageCenter extends JPanel {
 				for (int i = 0; i < table.getRowCount(); i++) {
 					if (table.getValueAt(i, 0).equals(icon3)) {
 						service.DeleteMess(i);
-						
 					}
 					setData();
 					mainJPanel.remove(jScrollPane);
