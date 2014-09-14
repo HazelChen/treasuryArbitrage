@@ -187,6 +187,8 @@ public class HistoryRecord extends JPanel {
 		jTableData.setBackground(Color.BLACK);
 		jScrollPane=new JScrollPane(jTableData);
 		jScrollPane.setBackground(Color.BLACK);
+		jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
 		add(jScrollPane);
 		if(jTableData.getRowCount()*60+38<400){
 			jScrollPane.setBounds(0, 0, 980, jTableData.getRowCount()*60+38);

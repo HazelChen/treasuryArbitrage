@@ -1,5 +1,6 @@
 package edu.nju.treasuryArbitrage.PersonalCenter;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -15,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -25,6 +27,8 @@ public class MessageCenter extends JPanel{
 
 	private static final long serialVersionUID = 5622073443448011691L;
 	
+	private JPanel mainJPanel;
+	
 	private JLabel bxJLabel; 
 	private JLabel reward ;
 	private ImageIcon icon;
@@ -33,23 +37,29 @@ public class MessageCenter extends JPanel{
 	private ImageIcon icon3;
 	private JTable table;
 	private JComboBox<Object> dbtype;
+	private JScrollPane jScrollPane;
+	private Object[][] cellData;
+	private String[] messages;
+	private JButton deleteButton;
 	
 	public MessageCenter(){
 		this(600, 400);
 	}
 	public MessageCenter(int w,int h){
+		mainJPanel = new JPanel();
 		init(w,h);
-		table.setBounds( 0 , 45 , w , h/2);
+		setLayout(null);
+		add(mainJPanel);
+		mainJPanel.setBounds(0,0,w,h);
 	}
 	private void init(int w,int h){
-		setBackground(Color.BLACK);
-		setLayout(null);
+		mainJPanel.setBackground(Color.BLACK);
+		mainJPanel.setLayout(null);
 		icon = new ImageIcon("image/icon.jpg");
 		icon1 = new ImageIcon("image/icon2.jpg");
 		icon2 = new ImageIcon("image/icon3.jpg");
 		icon3 = new ImageIcon("image/icon4.jpg");
 		bxJLabel = new JLabel(icon);
-		
 		dbtype = new JComboBox<>();
 		dbtype.addItem("全选");
 		dbtype.addItem("不选");
@@ -58,40 +68,70 @@ public class MessageCenter extends JPanel{
 		dbtype.addItemListener(new ItemListener(){
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				
+				/*String string = (String) e.getItem();
+				System.out.println(string);
+				System.out.println(e.getID());
+				System.out.println(e.getItemSelectable());*/
+				  int index = dbtype.getSelectedIndex();
+			        if (index != 0) { // ==0表示选中的事第一个
+			          String content =dbtype.getSelectedItem().toString();
+			          System.out.println("index222="
+			              + index + ", content=" + content);
+			        }
 			}
 		});
-		
-		add(dbtype);
+		mainJPanel.add(dbtype);
 		dbtype.setBounds(30, 20, 28, 25);
-		add(bxJLabel);
+		mainJPanel.add(bxJLabel);
 		bxJLabel.setBounds(0, 20, 30, 25);
-		setComponentZOrder(dbtype, 1);
-		setComponentZOrder(bxJLabel, 0);
-		
+		mainJPanel.setComponentZOrder(dbtype, 1);
+		mainJPanel.setComponentZOrder(bxJLabel, 0);
 		table = setTable(w,h);
-		
-		add(table);
-		table.setBounds(0,45, 600,200);
-		
-		JButton deleteButton = new JButton(new ImageIcon("image/删除.jpg"));
-		add(deleteButton);
-		
+		mainJPanel.add(table);
+		deleteButton = new JButton(new ImageIcon("image/删除.jpg"));
+		mainJPanel.add(deleteButton);
 		deleteButton.setBounds(80, 20, 40, 25);
-		setPreferredSize(new Dimension(600, 400));
-		
+		mainJPanel.setPreferredSize(new Dimension(600, 400));
+		jScrollPane=new JScrollPane(table);
+		jScrollPane.setBackground(Color.BLACK);
+		jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+		mainJPanel.add(jScrollPane);
+		if(table.getRowCount()*table.getRowHeight()+35<400){
+			jScrollPane.setBounds( 0 , 45 , w , table.getRowCount()*table.getRowHeight()+35);
+		}else{
+			jScrollPane.setBounds( 0 , 45 , w , h*2/3);
+		}
 		bxJLabel.addMouseListener( new MouseAdapter() {
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(bxJLabel.getIcon().equals(icon)){
 					bxJLabel.setIcon(icon1);
+					for(int i = 0 ;i<table.getRowCount();i++){
+						table.setValueAt(icon3, i, 0);
+					}
 				}else {
 					bxJLabel.setIcon(icon);
+					for(int i = 0 ;i<table.getRowCount();i++){
+						table.setValueAt(icon2, i, 0);
+					}
 				}
 			}
 		});
-		setReword(3);
+		deleteButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				for(int i = 0 ;i<table.getRowCount();i++){
+					if(table.getValueAt(i, 0).equals(icon3)){
+						table.removeRowSelectionInterval(i, i);
+						repaint();
+						break;
+					}
+					
+				}
+			}
+		});
+		setReword(getNoRead());
 	}
 	
 	
@@ -99,21 +139,36 @@ public class MessageCenter extends JPanel{
 	private void setReword(int i){
 		reward =  new JLabel("有"+i+"条未读信息");
 		reward.setForeground(Color.WHITE);
-		add(reward);
+		mainJPanel.add(reward);
 		reward.setBounds(150, 20, 100, 25);
 	}
 	
-	private Object[][] setCellObjects(){
-		Object[][] cellData = {{new ImageIcon(), "未读","编号","标题","时间"},{icon2,"否","1","有重大套利机会","2014-1-1 12:00:12"},{icon2,"否","2","有重大套利机会","2014-1-1 12:00:12"}
-		,{icon2,"否","3","有重大套利机会","2014-1-1 12:00:12"}};
-		return cellData;
+	private void setData(){
+		Object[][] cellData2 = {{icon2,"否","1","有重大套利机会","2014-1-1 12:00:12"},
+				{icon2,"否","2","有重大套利机会","2014-1-1 12:00:12"}	,
+				{icon2,"否","3","有重大套利机会","2014-1-1 12:00:12"},
+				{icon2,"否","4","有重大套利机会","2014-1-1 12:00:12"},
+				{icon2,"是","5","有重大套利机会","2014-1-1 12:00:12"}};
+		cellData = cellData2;
+		
+		String[] messages2={"123","12323","234","1231231","213213"};
+		messages = messages2;
 	}
 	
-	
+	private int getNoRead(){
+		int result=0;
+		for(int i = 0 ;i<cellData.length;i++){
+			if(cellData[i][1].equals("否")){
+				result++;
+			}
+		}
+		return result;
+	}
 	
 	private JTable setTable(int w,int h){
-		Object[][] cellData = setCellObjects();
-		String[] columnNames =  {"a", "未读","编号","标题","时间"};
+		setData();
+		
+		String[] columnNames =  {"", "未读","编号","标题","时间"};
 	
 		DefaultTableModel myTableModel = new MYModel(cellData, columnNames){
 			private static final long serialVersionUID = 4811840115068048761L;
@@ -122,10 +177,8 @@ public class MessageCenter extends JPanel{
 			}
 		};
 		final JTable table = new JTable(myTableModel);
-		
 		DefaultTableCellRenderer render = new DefaultTableCellRenderer(){
 			private static final long serialVersionUID = -2049950775340871250L;
-
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
 				      boolean hasFocus, int row, int column) {
@@ -163,18 +216,17 @@ public class MessageCenter extends JPanel{
 		column4.setMaxWidth(250*w/600);
 		column4.setMinWidth(250*w/600);
 		TableColumn column5 = table.getColumnModel().getColumn(4);
-		column5.setPreferredWidth(200*w/600);
-		column5.setMaxWidth(200*w/600);
-		column5.setMinWidth(200*w/600);
+		column5.setPreferredWidth(220*w/600);
+		column5.setMaxWidth(220*w/600);
+		column5.setMinWidth(220*w/600);
 		table.addMouseListener(new MouseAdapter() {
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row;
 				int column;
 				row= table.getSelectedRow();
 				column = table.getSelectedColumn();
-				if(row>0){
+				if(row>=0){
 					if(column==0){
 						if(table.getValueAt(row, column).equals(icon2)){
 							table.setValueAt(icon3, row, column);
@@ -182,14 +234,50 @@ public class MessageCenter extends JPanel{
 							table.setValueAt(icon2, row, column);
 						}
 					}else{
+						showMessage(row);
 						
 					}
 				}
-				
 			}
 		});
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setBounds( 0 , 45 , w , h/2);
+		table.getTableHeader().setResizingAllowed(true);
+		table.getTableHeader().setPreferredSize(new Dimension(5, 35));
 		return table;
+	}
+	
+	private void showMessage(final int row){
+		remove(mainJPanel);
+		final JPanel jPanel = new JPanel();
+		JLabel jLabel = new JLabel(messages[row],JLabel.CENTER);
+		JButton confirm = new JButton("前往");
+		JButton cancel = new JButton("取消");
+		jPanel.setLayout(null);
+		jPanel.add(confirm);
+		jPanel.add(cancel);
+		jPanel.setBounds(5,5,getWidth()-10,getHeight()-10);
+		jPanel.add(jLabel,BorderLayout.CENTER);
+		jPanel.setBackground(Color.GRAY);
+		jLabel.setBounds(30,35*jPanel.getHeight()/100,jPanel.getWidth()-60,30);
+		cancel.setBounds(jPanel.getWidth()-65,jPanel.getHeight()-50,60,30);
+		confirm.setBounds(jPanel.getWidth()-130,jPanel.getHeight()-50,60,30);
+		jPanel.repaint();
+		add(jPanel);
+		repaint();
+		confirm.addMouseListener(new MouseAdapter() {
+		});
+		cancel.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				remove(jPanel);
+				add(mainJPanel);
+				mainJPanel.setBounds(0, 0, getWidth(),getHeight());
+				table.setValueAt("是", row, 1);
+				cellData[row][1]="是";
+				mainJPanel.remove(reward);setReword(getNoRead());
+				repaint();
+			}
+		});
 	}
 	
 	public static void main (String[] args) {
