@@ -250,6 +250,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 						dg.setVisible(true);
 						//-------------------卖出对应合约-----
 						//repository;  更新数据库
+						di.Order(repository.getToSell(), repository.getToBuy(), repository.gettoSell_price(), 
+								repository.gettoBuy_price(), repository.getCount(), repository.getGuarantee());
 						//JOptionPane.showMessageDialog(null, "更新");
 						MajorPartsFactory.getInstance().getHoldings().updateFTable();
 						MajorPartsFactory.getInstance().getHoldings().updateRepoList();

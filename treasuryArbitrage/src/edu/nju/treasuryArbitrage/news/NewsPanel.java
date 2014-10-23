@@ -13,12 +13,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -28,6 +32,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import vo.News;
+
 import com.toedter.calendar.JDateChooser;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
@@ -35,12 +41,12 @@ import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
-public class News extends JPanel implements ComponentPanel{
+public class NewsPanel extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = -3044620398021541690L;
 	
 	private DataInterface di;
 	static int NewsNum,MaxNumPerpage,pageNum,curPageNo;
-	static NewsBrief[] newsTable;
+	static ArrayList<News> newsTable;
 	 JLabel jL1,jL2,jL3,hlabel,inv,inv2;
 	 static JButton b1;
 	 static JButton b2,btnAllnews;
@@ -73,7 +79,7 @@ public class News extends JPanel implements ComponentPanel{
 		MyAcL listener2ac = new MyAcL();
 		MyMML listener3mm = new MyMML();
 		
-		public News(){	      
+		public NewsPanel(){	      
 			di = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 			NewsNum = 0;
 			MaxNumPerpage=0;
@@ -137,7 +143,7 @@ public class News extends JPanel implements ComponentPanel{
 	 	   //获取所有新闻标题等内容显示
 	 	   /*
 	 	   */
-	 	    newsTable = di.GetALLNewsBrief();//接收已将按照时间排好顺序的结果
+	 	    newsTable = di.getNewsList();//接收已将按照时间排好顺序的结果
 	 	   updateTable(newsTable);
 	 	   //tableModel.addRow(new Object[]{"2014/08/16", "长江期货", "移仓进行时","李明宇"});
 	 	   
@@ -269,12 +275,12 @@ public class News extends JPanel implements ComponentPanel{
 			return toDateIn.getDate();
 		} 
 		
-		public static void updateTable(NewsBrief[] newsTable){
-			if(newsTable == null){
+		public static void updateTable(ArrayList<News> newsTable2){
+			if(newsTable2 == null){
 		 		   NewsNum = 0;
 		 	   }
 		 	   else {
-		 	    	NewsNum = newsTable.length;
+		 	    	NewsNum = newsTable2.size();
 		 	   }
 			 DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 	 	    	for(int i = 1;i < table.getRowCount();){
@@ -289,12 +295,15 @@ public class News extends JPanel implements ComponentPanel{
 		 	    	pageNum = NewsNum / (MaxNumPerpage) + 1;
 		 	    	if(pageNum > 1) curPageNo = 1;
 		 	    	for(int j = 0;j < NewsNum && j < MaxNumPerpage;j ++){
+		 	    		Date dt = new Date(newsTable2.get(j).getTime());
+			 	    	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			 	    	String time = df.format(dt);
 			 	    	tableModel.addRow(new Object[]{
-			 	    			newsTable[j].newsID,
-			 	    			newsTable[j].getSdate(),
-			 	    			newsTable[j].getSrc(),
-			 	    			newsTable[j].getTitle(),
-			 	    			newsTable[j].getAuthor()});
+			 	    			newsTable2.get(j).getSource(),
+			 	    			time,
+			 	    			newsTable2.get(j).getSource(),
+			 	    			newsTable2.get(j).getTitle(),
+			 	    			newsTable2.get(j).getSource()});
 		 	    	} 
 		 	    	if(pageNum > 1) bottomnavi.setVisible(true);
 			 		else bottomnavi.setVisible(false);
@@ -305,53 +314,18 @@ public class News extends JPanel implements ComponentPanel{
 			return (String) table.getValueAt(Rsel, 0);
 		}
 		
-		public static void nextpage(int curPage){
-			DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-
-			if(curPage < News.pageNum && NewsNum > 0){
-				for(int i = 1;i < table.getRowCount();){
-	 	    		tableModel.removeRow(i);
-	 	    	} 
-	 	    	for(int j = (curPage)*MaxNumPerpage;j < NewsNum && j < MaxNumPerpage*(curPage + 1);j ++){
-		 	    	tableModel.addRow(new Object[]{
-		 	    			newsTable[j].newsID,
-		 	    			newsTable[j].getSdate(),
-		 	    			newsTable[j].getSrc(),
-		 	    			newsTable[j].getTitle(),
-		 	    			newsTable[j].getAuthor()});
-	 	    	} 
-	 	    	News.curPageNo ++;
-			}
-		}
 		
-		public static void prepage(int curPage){
-			DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-
-			if(curPage > 1 && NewsNum > 0){
-				for(int i = 1;i < table.getRowCount();){
-	 	    		tableModel.removeRow(i);
-	 	    	} 
-				curPage --;
-	 	    	News.curPageNo --;
-	 	    	for(int j = (curPage - 1)*MaxNumPerpage;j < NewsNum && j < MaxNumPerpage*curPage;j ++){
-		 	    	tableModel.addRow(new Object[]{
-		 	    			newsTable[j].newsID,
-		 	    			newsTable[j].getSdate(),
-		 	    			newsTable[j].getSrc(),
-		 	    			newsTable[j].getTitle(),
-		 	    			newsTable[j].getAuthor()});
-	 	    	} 
-			}
-		}
-
 
 		@Override
 		public void updatePage() {
 			// TODO Auto-generated method stub
+			newsTable = di.getNewsList();//接收已将按照时间排好顺序的结果
+		 	   updateTable(newsTable);
 		}
-
 		
-}
+}//end of News
+
+
 
 class NewsDetailDg extends JDialog{
 	/**
@@ -372,11 +346,10 @@ class NewsDetailDg extends JDialog{
 		    NewsDetailDg(int Rsel){
 		    	di = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		    	RowSel = Rsel;
-		    	newsID = News.getNewsID(RowSel);
-		    	sNewsTitle = di.GetNewsTitle(newsID)/* test  String
-		    			+ " ID=" + String.valueOf(newsID)
-		    			+ "  "+ News.table.getValueAt(Rsel, 1).toString() */;
-		    	snewsDetail = di.GetNewsContent(newsID);
+		    	sNewsTitle = di.getNewsList().get(Rsel-1).getTitle()/* test  String
+		    			+ " ID=" + String.valueOf(Rsel)
+		    			+ "  "+ NewsPanel.table.getValueAt(Rsel, 1).toString() */;
+		    	snewsDetail = di.getNewsList().get(Rsel-1).getContent();
 		    	//this.setModalityType(DEFAULT_MODALITY_TYPE);
 		    	setUndecorated(true);
 		    	setBackground(Color.WHITE);
@@ -414,8 +387,13 @@ class NewsDetailDg extends JDialog{
 		        newsDetail.setBorder(new LineBorder(Color.gray, 1));
 		        newsDetail.setBackground(Color.BLACK);
 		        newsDetail.setForeground(Color.WHITE);
+
+		        JScrollPane jsp = new JScrollPane();
+		        jsp.setViewportView(newsDetail);
+		        jsp.getVerticalScrollBar().setPreferredSize(new Dimension(13,13));
+		        jsp.setBorder(new LineBorder(Color.black, 0));
 		        
-		        panel2.add(newsDetail);
+		        panel2.add(jsp);
 		        closebtn = new JButton("关闭窗口");
 		        closebtn.setFocusPainted(false);
 		        closebtn.addMouseListener(dml);
@@ -424,6 +402,7 @@ class NewsDetailDg extends JDialog{
 		        panelbottom.add(closebtn);
 		        panelbottom.setBackground(Color.DARK_GRAY);
 
+		        
 		        conp.setSize(720, 510);
 		        conp.setBorder(new LineBorder(Color.GRAY, 1));
 		        conp.add(panel,"North");
@@ -463,14 +442,14 @@ class MyMSL implements MouseListener {
 	  private DataInterface di;
 		
 	  public void mousePressed(MouseEvent e){
-				if(News.table.isRowSelected(0))
+				if(NewsPanel.table.isRowSelected(0))
 			{
-					News.table.clearSelection();// 让第一行不可选
+					NewsPanel.table.clearSelection();// 让第一行不可选
 			}
 		    }
 		    public void mouseReleased(MouseEvent e){
-		    	if(e.getSource() == News.table){
-		 	    	if(News.table.isRowSelected(0))News.table.clearSelection();// 让第一行不可选
+		    	if(e.getSource() == NewsPanel.table){
+		 	    	if(NewsPanel.table.isRowSelected(0))NewsPanel.table.clearSelection();// 让第一行不可选
 		 	    	/*for(int j = 1; j < News.table.getRowCount(); j++)
 						{
 							if(News.table.isRowSelected(j))
@@ -492,58 +471,53 @@ class MyMSL implements MouseListener {
 		    
 		    }
 		    public void mouseExited(MouseEvent e){
-		    	if(e.getSource() == News.table){
-		    		News.table.clearSelection();
+		    	if(e.getSource() == NewsPanel.table){
+		    		NewsPanel.table.clearSelection();
 		    	}
 		    }
 		    public void mouseClicked(MouseEvent e){
 		    	di = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
-		    	if(e.getSource() == News.table){
+		    	if(e.getSource() == NewsPanel.table){
 		    		if(e.getClickCount() == 2 || e.getClickCount() == 1){
 		    	
-		 	        	for(int j = 0; j < News.table.getRowCount(); j++)
+		 	        	for(int j = 0; j < NewsPanel.table.getRowCount(); j++)
 		 				{
-		 					if(News.table.isRowSelected(j))
+		 					if(NewsPanel.table.isRowSelected(j))
 		 						{
-		 						News.table.removeRowSelectionInterval( j, j );
+		 						NewsPanel.table.removeRowSelectionInterval( j, j );
 		 							if(j > 0){
-		 								News.myWnd = new NewsDetailDg(j);
-										News.myWnd.setVisible(true);
+		 								NewsPanel.myWnd = new NewsDetailDg(j);
+										NewsPanel.myWnd.setVisible(true);
 
 		 							}
-		 							News.table.clearSelection();// 
+		 							NewsPanel.table.clearSelection();// 
 		 						}
 		 	            	 
 		 				}
 		    		}	
-		    		else{News.table.clearSelection();// 
+		    		else{NewsPanel.table.clearSelection();// 
 		    		}
 		    	}
-		    	else if(e.getSource() == News.b1){
-		    		News.preKeyword = News.keyword;
-		    		News.keyword = News.text1.getText();
+		    	else if(e.getSource() == NewsPanel.b1){
+		    		NewsPanel.preKeyword = NewsPanel.keyword;
+		    		NewsPanel.keyword = NewsPanel.text1.getText();
 		    		
-		    		News.fD1 = News.setFromDate();
-		    		News.tD2 = News.setToDate();
-		    		NewsBrief[] newsTable = di.searchNews( News.keyword, News.fD1, News.tD2);
-		 	 	   News.updateTable(newsTable);
-		    		News.newsTable = newsTable;
+		    		NewsPanel.fD1 = NewsPanel.setFromDate();
+		    		NewsPanel.tD2 = NewsPanel.setToDate();
+		    		ArrayList<News> NewsPanelTable = di.searchNews( NewsPanel.keyword, NewsPanel.fD1, NewsPanel.tD2);
+		 	 	   NewsPanel.updateTable(NewsPanelTable);
+		    		NewsPanel.newsTable = NewsPanelTable;
 		    	}
-		    	else if(e.getSource() == News.b2){
-			    		NewsBrief[] newsTable = di.GetALLNewsBrief();
-			    		News.updateTable(newsTable);
-			    		News.newsTable = newsTable;
-		    	}else if(e.getSource() == News.btnAllnews){
-		    		NewsBrief[] newsTable = di.GetALLNewsBrief();
-		    		News.updateTable(newsTable);
-		    		//News.newsTable = newsTable;
+		    	else if(e.getSource() == NewsPanel.b2){
+			    		ArrayList<News> NewsPanelTable = di.getNewsList();
+			    		NewsPanel.updateTable(NewsPanelTable);
+			    		NewsPanel.newsTable = NewsPanelTable;
+		    	}else if(e.getSource() == NewsPanel.btnAllnews){
+		    		ArrayList<News> NewsPanelTable = di.getNewsList();
+		    		NewsPanel.updateTable(NewsPanelTable);
+		    		//NewsPanel.NewsPanelTable = NewsPanelTable;
 		    	}
-		    	else if(e.getSource() == News.bnp){
-		    		News.nextpage(News.curPageNo);
-		    	}
-		    	else if(e.getSource() == News.bpp){		    		
-		    		News.prepage(News.curPageNo);
-		    	}
+		    	
 		    		
 		    }
 }
@@ -551,23 +525,23 @@ class MyMSL implements MouseListener {
 class MyMML implements MouseMotionListener {
 	 	private	int index0,index1,mousey;
 		    public void mouseMoved(MouseEvent e){
-		    		if((mousey = e.getY()) >= 30 && News.NewsNum > 0){
-		    			News.table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		    		if((mousey = e.getY()) >= 30 && NewsPanel.NewsNum > 0){
+		    			NewsPanel.table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		    		}
 		    		else{
-		    			News.table.clearSelection();
-		    			News.table.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		    			NewsPanel.table.clearSelection();
+		    			NewsPanel.table.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		    		}
 		    			
 		    		index0 = mousey / 30 - 1;
 		    		index1 = index0 + 1;
-		    		if(index0 >= 0 && News.NewsNum > 0){
-		    			News.table.setRowSelectionInterval(index0, index1);
+		    		if(index0 >= 0 && NewsPanel.NewsNum > 0){
+		    			NewsPanel.table.setRowSelectionInterval(index0, index1);
 		    		}
 		    		
 		    }
 		    public void mouseDragged(MouseEvent e){
-		    	if(News.table.isRowSelected(0)) News.table.clearSelection();
+		    	if(NewsPanel.table.isRowSelected(0)) NewsPanel.table.clearSelection();
 		    }
 }
 		 
@@ -575,8 +549,8 @@ class MyAcL implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			 if(e.getSource()==News.text1){
-				 News.keyword=(News.text1.getText());
+			 if(e.getSource()==NewsPanel.text1){
+				 NewsPanel.keyword=(NewsPanel.text1.getText());
 		           
 		        }
 		        else{}

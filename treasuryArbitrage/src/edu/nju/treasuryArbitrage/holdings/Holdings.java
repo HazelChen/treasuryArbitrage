@@ -3,6 +3,7 @@ package edu.nju.treasuryArbitrage.holdings;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -73,6 +75,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 		
 		refreshBtn = new JButton("Ë¢ÐÂ");    refreshBtn.setFocusPainted(false);
 		refreshBtn.setBackground(rbtnbg);
+		refreshBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
  		doBtn = new JButton("Æ½²Ö");    doBtn.setFocusPainted(false);
  		
  		fTableHeader = new JTable(0,5){
@@ -254,7 +257,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 	 	 		hTable.getColumnModel().getColumn(5).setCellRenderer(new ButtonCellRenderer());
 	 	 		hTable.getColumnModel().getColumn(0).setCellEditor(new MyTableEditor(info));
 	 	 		hTable.getColumnModel().getColumn(0).setCellRenderer(new MyTableCellRenderer(info));//
-	 	 		if(info.size() > 4){
+	 	 		if(info.size() > 8){
 	 	  	 		hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMinWidth(13);
 	 	  	 		hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMaxWidth(13);
 	 	 		}
@@ -314,7 +317,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 		 	    			fTableRec.get(j).getGuarantee(),
 		 	    			fTableRec.get(j).getIdle()});
 	 	    	} 
-	    		if(fTableRec.size() > 8){
+	    		if(fTableRec.size() > 3) {
 	 	  	 		fTableHeader.getColumn(fTableHeader.getColumnName(4)).setMinWidth(13);
 	 	  	 		fTableHeader.getColumn(fTableHeader.getColumnName(4)).setMaxWidth(13);
 	 	 		}
@@ -361,4 +364,12 @@ public class Holdings extends JPanel implements ComponentPanel{
 		
 	}
 
-}
+	public static void main(String[] args) {
+		JFrame mw = new JFrame("test");
+        mw.setSize(NumericalResources.SCREEN_WIDTH,NumericalResources.SCREEN_HEIGHT);
+        JPanel Holdings = new Holdings();
+        mw.getContentPane().add(Holdings);
+        mw.setVisible(true);
+	}
+	
+}//end of Holdings

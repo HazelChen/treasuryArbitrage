@@ -1,5 +1,6 @@
 package edu.nju.treasuryArbitrage.factory;
 
+import vo.News;
 import edu.nju.treasuryArbitrage.PersonalCenter.PersonalCenter;
 import edu.nju.treasuryArbitrage.PersonalCenter.SettingStopParameters;
 import edu.nju.treasuryArbitrage.arbitragePortfolio.ArbitragePortfolio;
@@ -7,7 +8,7 @@ import edu.nju.treasuryArbitrage.framework.TreasuryFrame;
 import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.holdings.Holdings;
 import edu.nju.treasuryArbitrage.navigater.Navigater;
-import edu.nju.treasuryArbitrage.news.News;
+import edu.nju.treasuryArbitrage.news.NewsPanel;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 
 public class MajorPartsFactory {
@@ -18,7 +19,7 @@ public class MajorPartsFactory {
 	private FuturesMarket futuresMarket;
 	private ArbitragePortfolio arbitragePortfolio;
 	private Holdings holdings;
-	private News news;
+	private NewsPanel news;
 	private PersonalCenter personalCenter;
 	private SettingStopParameters settingStopParameters;
 	
@@ -67,9 +68,9 @@ public class MajorPartsFactory {
 		return holdings;
 	}
 
-	public News getNews() {
+	public NewsPanel getNews() {
 		if (news == null) {
-			news = new News();
+			news = new NewsPanel();
 		}
 		return news;
 	}

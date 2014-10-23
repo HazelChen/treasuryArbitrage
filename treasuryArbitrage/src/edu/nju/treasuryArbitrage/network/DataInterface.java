@@ -45,7 +45,7 @@ public interface DataInterface {
 	 * 按给定条件搜索新闻，返回结果条数
 	 * 
 	 */
-	public NewsBrief[] searchNews(String keyword, Date fD, Date tD);
+	public ArrayList<News> searchNews(String keyword, Date fD, Date tD);
 	
 	public boolean register(String username,String password);
 	public boolean loginValidate(String username, String password);

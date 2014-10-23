@@ -62,7 +62,7 @@ public class DataInterfaceToServer implements DataInterface {
 	}
 
 	@Override
-	public NewsBrief[] searchNews(String keyword, Date fD, Date tD) {
+	public ArrayList<News> searchNews(String keyword, Date fD, Date tD) {
 		// TODO Auto-generated method stub
 		return null;
 	}
