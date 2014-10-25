@@ -31,12 +31,12 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import vo.News;
 
 import com.toedter.calendar.JDateChooser;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.model.News;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 

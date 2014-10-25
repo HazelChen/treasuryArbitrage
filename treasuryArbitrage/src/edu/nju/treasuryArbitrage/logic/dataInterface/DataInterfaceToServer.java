@@ -1,18 +1,18 @@
-package edu.nju.treasuryArbitrage.network;
+package edu.nju.treasuryArbitrage.logic.dataInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import vo.ArbGroup;
-import vo.Arb_detail;
-import vo.Finance;
-import vo.Message;
-import vo.News;
-import vo.Record;
-import vo.Repository;
-import vo.UserVO;
-import bizLogic.*;
+import edu.nju.treasuryArbitrage.logic.biz.*;
+import edu.nju.treasuryArbitrage.model.ArbGroup;
+import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.Finance;
+import edu.nju.treasuryArbitrage.model.Message;
+import edu.nju.treasuryArbitrage.model.News;
+import edu.nju.treasuryArbitrage.model.Record;
+import edu.nju.treasuryArbitrage.model.Repository;
+import edu.nju.treasuryArbitrage.model.UserVO;
 import edu.nju.treasuryArbitrage.ui.news.NewsBrief;
 
 public class DataInterfaceToServer implements DataInterface {

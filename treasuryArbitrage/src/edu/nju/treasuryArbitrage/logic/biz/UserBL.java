@@ -1,12 +1,12 @@
-package bizLogic;
+package edu.nju.treasuryArbitrage.logic.biz;
 
 import java.util.HashMap;
 
 import org.json.JSONObject;
 
-import edu.nju.treasuryArbitrage.fileIO.FileOperater;
+import edu.nju.treasuryArbitrage.logic.fileIO.FileOperater;
+import edu.nju.treasuryArbitrage.model.UserVO;
 import edu.nju.treasuryArbitrage.ui.personalCenter.LoginStateRecorder;
-import vo.UserVO;
 
 /*
  * 处理用户相关的业务逻辑

@@ -1,4 +1,4 @@
-package bizLogic;
+package edu.nju.treasuryArbitrage.logic.biz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,8 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import vo.Record;
+import edu.nju.treasuryArbitrage.model.Record;
+
 
 public class RecordBL {
 	private ArrayList<Record> record_list;

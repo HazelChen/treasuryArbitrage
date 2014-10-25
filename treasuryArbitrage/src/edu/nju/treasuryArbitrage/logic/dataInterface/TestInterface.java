@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.network;
+package edu.nju.treasuryArbitrage.logic.dataInterface;
 
 public class TestInterface {
 

@@ -16,9 +16,9 @@ import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import vo.Record;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.model.Record;
 
 
 public class HistoryRecord extends JPanel {

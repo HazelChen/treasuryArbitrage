@@ -1,4 +1,4 @@
-package bizLogic;
+package edu.nju.treasuryArbitrage.logic.biz;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,8 +8,9 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import vo.ArbGroup;
-import vo.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbGroup;
+import edu.nju.treasuryArbitrage.model.Arb_detail;
+
 
 public class ArbitrageBL {
 

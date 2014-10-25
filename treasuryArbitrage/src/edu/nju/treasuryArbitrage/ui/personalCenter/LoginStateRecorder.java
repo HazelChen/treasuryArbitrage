@@ -1,6 +1,6 @@
 package edu.nju.treasuryArbitrage.ui.personalCenter;
 
-import edu.nju.treasuryArbitrage.fileIO.FileOperater;
+import edu.nju.treasuryArbitrage.logic.fileIO.FileOperater;
 
 public class LoginStateRecorder {
 	private static final String AUTO_LOGIN_FILE_NAME = "isAutoLogin";

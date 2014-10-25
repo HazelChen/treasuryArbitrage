@@ -1,4 +1,4 @@
-package vo;
+package edu.nju.treasuryArbitrage.model;
 
 public class UserVO {
 	String userID;	//ÓÃ»§Ãû

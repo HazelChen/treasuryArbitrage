@@ -17,7 +17,7 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 
-import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
 
 public class PortfolioLineChart extends JPanel {
 	private static final long serialVersionUID = 1323688315244501166L;

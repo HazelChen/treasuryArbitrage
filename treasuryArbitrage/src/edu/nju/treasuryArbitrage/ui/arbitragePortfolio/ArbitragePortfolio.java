@@ -26,11 +26,11 @@ import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
-import vo.ArbGroup;
-import vo.Arb_detail;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
-import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.model.ArbGroup;
+import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 
 

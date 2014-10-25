@@ -1,4 +1,4 @@
-package vo;
+package edu.nju.treasuryArbitrage.model;
 
 public class Repository {
 	int repo_ID;	//持仓标记……………………我感觉蛮有必要

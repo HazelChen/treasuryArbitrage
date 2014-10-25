@@ -22,10 +22,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 
-import vo.Repository;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.model.Repository;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class ButtonEditor extends AbstractCellEditor implements TableCellEditor {

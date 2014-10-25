@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import edu.nju.treasuryArbitrage.liveUpdate.UpdateThread;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.UpdateThread;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 
 public class NewsBrief{

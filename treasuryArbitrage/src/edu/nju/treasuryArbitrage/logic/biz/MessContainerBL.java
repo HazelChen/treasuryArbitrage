@@ -1,10 +1,11 @@
-package bizLogic;
+package edu.nju.treasuryArbitrage.logic.biz;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import vo.Message;
+import edu.nju.treasuryArbitrage.model.Message;
+
 
 public class MessContainerBL {
 	private ArrayList<Message> messages;

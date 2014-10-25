@@ -1,11 +1,11 @@
-package edu.nju.treasuryArbitrage.liveUpdate;
+package edu.nju.treasuryArbitrage.logic.liveUpdate;
 
 import java.util.ArrayList;
 
-import vo.Arb_detail;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.model.Arb_detail;
 
 public class UpdateThread implements Runnable{
 

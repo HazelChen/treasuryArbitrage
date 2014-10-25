@@ -1,4 +1,4 @@
-package bizLogic;
+package edu.nju.treasuryArbitrage.logic.biz;
 
 import java.util.HashMap;
 

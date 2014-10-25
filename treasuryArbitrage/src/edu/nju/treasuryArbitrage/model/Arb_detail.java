@@ -1,4 +1,4 @@
-package vo;
+package edu.nju.treasuryArbitrage.model;
 
 public class Arb_detail {
 	String symbol;			//***国债期货代码

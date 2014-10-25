@@ -1,8 +1,9 @@
-package edu.nju.treasuryArbitrage.liveUpdate;
+package edu.nju.treasuryArbitrage.logic.liveUpdate;
 
 import java.util.ArrayList;
 
-import vo.Arb_detail;
+import edu.nju.treasuryArbitrage.model.Arb_detail;
+
 
 public class LiveData {
 	private static LiveData self = new LiveData();

@@ -15,8 +15,9 @@ import javax.swing.JTable;
 import javax.swing.event.CellEditorListener;
 import javax.swing.table.TableCellEditor;
 
-import vo.Record;
-import vo.Repository;
+import edu.nju.treasuryArbitrage.model.Record;
+import edu.nju.treasuryArbitrage.model.Repository;
+
 
 public class MyTableEditor implements TableCellEditor {
 	private JPanel panel;

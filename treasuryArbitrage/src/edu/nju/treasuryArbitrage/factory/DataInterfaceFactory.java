@@ -1,7 +1,7 @@
 package edu.nju.treasuryArbitrage.factory;
 
-import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.network.DataInterfaceToServer;
+import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterfaceToServer;
 
 public class DataInterfaceFactory {
 	private static DataInterfaceFactory self = new DataInterfaceFactory();

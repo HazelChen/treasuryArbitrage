@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import vo.Repository;
+import edu.nju.treasuryArbitrage.model.Repository;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class MyTableCellRenderer implements TableCellRenderer {

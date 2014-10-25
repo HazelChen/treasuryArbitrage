@@ -1,4 +1,4 @@
-package vo;
+package edu.nju.treasuryArbitrage.model;
 
 public class Record {
 	int reco_ID;	//记录标记……………………我感觉蛮有必要

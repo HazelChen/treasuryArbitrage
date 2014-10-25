@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import edu.nju.treasuryArbitrage.fileIO.FileOperater;
+import edu.nju.treasuryArbitrage.logic.fileIO.FileOperater;
 import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 

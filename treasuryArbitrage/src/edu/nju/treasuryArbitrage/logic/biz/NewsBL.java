@@ -1,4 +1,4 @@
-package bizLogic;
+package edu.nju.treasuryArbitrage.logic.biz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,8 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import vo.News;
+import edu.nju.treasuryArbitrage.model.News;
+
 
 public class NewsBL {
 	private ArrayList<News> newslist;

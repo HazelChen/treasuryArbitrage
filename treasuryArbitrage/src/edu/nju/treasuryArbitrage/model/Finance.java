@@ -1,4 +1,4 @@
-package vo;
+package edu.nju.treasuryArbitrage.model;
 
 public class Finance {
 	long time;	//Ê±¼ä

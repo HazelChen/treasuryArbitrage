@@ -18,8 +18,8 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 
-import vo.Arb_detail;
-import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.model.Arb_detail;
 
 public class LineChart extends JPanel {
 	private static final long serialVersionUID = 1323688315244501166L;
