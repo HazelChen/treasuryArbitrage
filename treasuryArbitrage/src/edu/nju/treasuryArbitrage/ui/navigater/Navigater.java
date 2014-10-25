@@ -31,12 +31,11 @@ public class Navigater extends JPanel{
 	
 	public void naviPanelInit() {
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
-		items[0] = new NavigaterItem(this, factory.getFuturesMarket(), "期货行情", true);
-		items[1] = new NavigaterItem(this, factory.getArbitragePortfolio(), "套利组合", true);
-		items[2] = new NavigaterItem(this, factory.getHoldings(), "持仓情况", true);
-		items[3] = new NavigaterItem(this, factory.getNews(), "财经要闻", false);
-		items[4] = new NavigaterItem(this, factory.getPersonalCenter(), "个人中心", false);
-//		items[4] = new NavigaterItem(this, new JPanel(), "个人中心", false);
+		items[0] = new NavigaterItem(this, factory.getFuturesMarket(), "期货行情", true, true);
+		items[1] = new NavigaterItem(this, factory.getArbitragePortfolio(), "套利组合", true, false);
+		items[2] = new NavigaterItem(this, factory.getHoldings(), "持仓情况", true, false);
+		items[3] = new NavigaterItem(this, factory.getNews(), "财经要闻", false, false);
+		items[4] = new NavigaterItem(this, factory.getPersonalCenter(), "个人中心", false, false);
 	}
 	
 	public void assemble() {

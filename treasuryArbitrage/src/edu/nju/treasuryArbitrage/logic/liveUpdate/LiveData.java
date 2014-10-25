@@ -19,6 +19,8 @@ public class LiveData {
 		return arb_details;
 	}
 	
+	
+	
 	public double getPresentPrice(String id) {
 		for (Arb_detail arb_detail : arb_details) {
 			if (arb_detail.getSymbol().equals(id)) {
@@ -29,6 +31,9 @@ public class LiveData {
 	}
 	
 	public void setArb_details(ArrayList<Arb_detail> arb_details) {
+		
+		
+		
 		this.arb_details = arb_details;
 	}
 }

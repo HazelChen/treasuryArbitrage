@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,7 +26,7 @@ import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 
 public class FuturesMarket extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = 4293989421427626065L;
-	private static final int WIDTH=1200;
+	private static final int WIDTH = 1200;
 	private static final int HEIGHT=700;
 	private static final int TABLE_HEIGHT=40;
 	private static final int ROW_HEIGHT=40;
@@ -58,11 +57,11 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 		this.setLayout(null);
 		
 		
-		arb1=new Arb_detail();
+//		arb1=new Arb_detail();
 		arb1=this.getTableData("TF1412");
-		arb2=new Arb_detail();
+//		arb2=new Arb_detail();
 		arb2=this.getTableData("TF1503");
-		arb3=new Arb_detail();
+//		arb3=new Arb_detail();
 		arb3=this.getTableData("TF1506");
 		futuresHeader=getHeader();
 		futuresTable1=getTable1();
@@ -112,9 +111,9 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 	
 	public void update(ArrayList<Arb_detail> arb_list){
 
-		arb1=arb_list.get(0);
-		arb2=arb_list.get(1);
-		arb3=arb_list.get(2);
+		arb1=arb_list.get(0).getFormattedArb_detail();
+		arb2=arb_list.get(1).getFormattedArb_detail();
+		arb3=arb_list.get(2).getFormattedArb_detail();
 		
 		
 		String[] columnTitle={"代码","交割月份","现价","涨跌","涨跌幅"
@@ -515,7 +514,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 
 			for(int i=0;i<3;i++){
 				if(result.get(i).getSymbol().equals(symbol)){
-					detail=result.get(i);
+					detail=result.get(i).getFormattedArb_detail();
 					break;
 				}		
 			}
@@ -882,9 +881,9 @@ public class FuturesMarket extends JPanel implements ComponentPanel{
 
 		ArrayList<Arb_detail> arb_lists = LiveData.getInstance().getArb_details();
 		update(arb_lists);
-		chart1.addNewPrice(arb_lists.get(0).getPresentPrice());
-		chart2.addNewPrice(arb_lists.get(1).getPresentPrice());
-		chart3.addNewPrice(arb_lists.get(2).getPresentPrice());
+		chart1.addNewPrice(arb_lists.get(0).getFormattedArb_detail().getPresentPrice());
+		chart2.addNewPrice(arb_lists.get(1).getFormattedArb_detail().getPresentPrice());
+		chart3.addNewPrice(arb_lists.get(2).getFormattedArb_detail().getPresentPrice());
 
 	}
 }

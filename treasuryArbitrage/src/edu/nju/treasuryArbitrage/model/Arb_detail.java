@@ -1,5 +1,6 @@
 package edu.nju.treasuryArbitrage.model;
 
+
 public class Arb_detail {
 	String symbol;			//***国债期货代码
 	String month;			//***交割月份
@@ -44,6 +45,58 @@ public class Arb_detail {
 	
 	public Arb_detail(){}
 	
+	
+	private Arb_detail cloneArb() {
+		Arb_detail arb_detail = new Arb_detail();
+		arb_detail.symbol = this.symbol;
+		arb_detail.month = this.month;
+		arb_detail.date = this.date;
+		arb_detail.day = this.day;
+		arb_detail.time = this.time;
+		arb_detail.presentPrice = this.presentPrice;
+		arb_detail.change = this.change;
+		arb_detail.priceChange = this.priceChange;
+		arb_detail.bidPirce = this.bidPirce;
+		arb_detail.askPrice = this.askPrice;
+		arb_detail.bid = this.bid;
+		arb_detail.nvol = this.nvol;
+		arb_detail.vol = this.vol;
+		arb_detail.preRepository = this.preRepository;
+		arb_detail.repository = this.repository;
+		arb_detail.dailyWarehouse = this.dailyWarehouse;
+		arb_detail.preClose = this.preClose;
+		arb_detail.open = this.open;
+		arb_detail.high = this.high;
+		arb_detail.low = this.low;
+		arb_detail.fullAmount = this.fullAmount;
+		arb_detail.preSettlePrice = this.preSettlePrice;
+		arb_detail.settlePrice = this.settlePrice;
+		arb_detail.swing = this.swing;
+		arb_detail.ratio = this.ratio;
+		arb_detail.hardenPrice = this.hardenPrice;
+		arb_detail.limitPrice = this.limitPrice;
+		arb_detail.outvol = this.outvol;
+		arb_detail.invol = this.invol;
+		arb_detail.averPrice = this.averPrice;
+		return arb_detail;
+	}
+	
+	public Arb_detail getFormattedArb_detail() {
+		Arb_detail arb_detail = cloneArb();
+		
+		arb_detail.presentPrice = format(presentPrice);
+		arb_detail.change = format(change);
+		arb_detail.bidPirce = format(bidPirce);
+		arb_detail.preSettlePrice = format(preSettlePrice);
+		arb_detail.high = format(high);
+		arb_detail.low = format(low);
+		
+		return arb_detail;
+	}
+	
+	private double format(double num) {
+		return (int)(num * 1000) / 1000.0;
+	}
 	public String getSymbol() {
 		return symbol;
 	}

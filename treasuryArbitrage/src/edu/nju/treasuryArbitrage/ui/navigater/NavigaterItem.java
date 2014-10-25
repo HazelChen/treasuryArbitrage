@@ -24,10 +24,11 @@ public class NavigaterItem extends JPanel{
 	private ComponentPanel changedPage;
 	
 	
-	/*protected*/ NavigaterItem(Navigater navigater, ComponentPanel panel, String name, boolean isImportant) {
+	/*protected*/ NavigaterItem(Navigater navigater, ComponentPanel panel, String name, boolean isImportant, boolean isSelected) {
 		this.parent = navigater;
 		this.isImportant = isImportant;
 		this.changedPage = panel;
+		this.isSelected = isSelected;
 		init(name);
 		addListeners();
 	}

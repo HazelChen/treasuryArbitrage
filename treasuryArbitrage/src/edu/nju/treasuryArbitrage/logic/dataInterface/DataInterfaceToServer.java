@@ -4,7 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import edu.nju.treasuryArbitrage.logic.biz.*;
+import edu.nju.treasuryArbitrage.logic.biz.ArbitrageBL;
+import edu.nju.treasuryArbitrage.logic.biz.CalculateBL;
+import edu.nju.treasuryArbitrage.logic.biz.FinanceBL;
+import edu.nju.treasuryArbitrage.logic.biz.MessContainerBL;
+import edu.nju.treasuryArbitrage.logic.biz.NewsBL;
+import edu.nju.treasuryArbitrage.logic.biz.RecordBL;
+import edu.nju.treasuryArbitrage.logic.biz.RepositoryBL;
+import edu.nju.treasuryArbitrage.logic.biz.TradeBL;
+import edu.nju.treasuryArbitrage.logic.biz.UserBL;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.Finance;
@@ -111,7 +119,6 @@ public class DataInterfaceToServer implements DataInterface {
 
 	@Override
 	public ArrayList<News> getNewsList() {
-		// TODO 自动生成的方法存根
 		return newsbl.getNewsList();
 	}
 

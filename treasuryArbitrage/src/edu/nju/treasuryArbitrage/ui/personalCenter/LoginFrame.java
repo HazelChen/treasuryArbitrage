@@ -21,7 +21,7 @@ public class LoginFrame extends JFrame{
 	}
 	
 	private void assemble() {
-		LoginPanel loginPanel = new LoginPanel();
+		LoginPanel loginPanel = new LoginPanel(this);
 		this.add(loginPanel);
 	}
 }

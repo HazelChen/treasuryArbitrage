@@ -23,7 +23,7 @@ public class TreasuryArbitrage {
 	}
 	
 	public void launch() {
-		useLookAndFeel();
+		useLookAndFeel();	
 		startDataFetch();
 		
 		LoginStateRecorder stateRecorder = new LoginStateRecorder();

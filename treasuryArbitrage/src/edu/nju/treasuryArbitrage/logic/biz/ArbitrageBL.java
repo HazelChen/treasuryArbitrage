@@ -24,10 +24,8 @@ public class ArbitrageBL {
 		detail_list = new ArrayList<Arb_detail>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
-//		params.put("username", username);
 		NetHelper helper = new NetHelper("detail",params);
 		JSONArray ret = helper.getJSONArrayByGet();
-		
 		for(int i=0;i<ret.length();i++){
 			JSONObject temp = ret.getJSONObject(i);
 			Arb_detail detail = new Arb_detail();

@@ -36,7 +36,7 @@ public class LineChart extends JPanel {
 	private XYDataset createDataset() { 
 		ArrayList<Arb_detail> arb_details = LiveData.getInstance().getArb_details();
 		
-		timeseries.addOrUpdate(new Second(new Date()), arb_details.get(index).getPresentPrice());
+		timeseries.addOrUpdate(new Second(new Date()), arb_details.get(index).getFormattedArb_detail().getPresentPrice());
 		
 		TimeSeriesCollection timeseriescollection = new TimeSeriesCollection();
 		timeseriescollection.addSeries(timeseries);

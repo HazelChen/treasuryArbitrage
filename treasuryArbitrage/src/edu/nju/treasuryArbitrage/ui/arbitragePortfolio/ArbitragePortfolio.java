@@ -189,7 +189,7 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 
 		for(int i=0;i<3;i++){
 			if(result.get(i).getSymbol().equals(symbol)){
-				detail=result.get(i);
+				detail=result.get(i).getFormattedArb_detail();
 				break;
 			}		
 		}

@@ -37,11 +37,11 @@ public class LoginInput extends JPanel{
 	private JButton okButton = new JButton("µÇÂ¼");
 	private Label forgetPasswordLabel = new Label("Íü¼ÇÃÜÂë£¿");
 	
-	public LoginInput() {
+	public LoginInput(LoginFrame loginFrame) {
 		init();
 		initComponents();
 		assemble();
-		addListeners();
+		addListeners(loginFrame);
 	}
 	
 	private void init() {
@@ -107,7 +107,7 @@ public class LoginInput extends JPanel{
 		this.add(okButton);
 	}
 	
-	private void addListeners() {
+	private void addListeners(final LoginFrame loginFrame) {
 		okButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -136,8 +136,10 @@ public class LoginInput extends JPanel{
 					LoginedUser.setLoginedUser(username);
 					
 					TreasuryFrame frame = new TreasuryFrame();
+					loginFrame.setVisible(false);
 					frame.setVisible(true);
-
+					loginFrame.dispose();
+					
 					double para = dataInterface.getPara_PROF(); 
 					if (para == 0) {
 						SettingStopParameters settingStopParameters = MajorPartsFactory.getInstance().getSettingStopParameters();
