@@ -9,9 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.framework.ComponentPanel;
-import edu.nju.treasuryArbitrage.framework.TreasuryFrame;
 import edu.nju.treasuryArbitrage.resources.ColorResources;
+import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
+import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 
 public class NavigaterItem extends JPanel{
 	private static final long serialVersionUID = -4002005037897737972L;

@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="lib/linktoservice/httpmime-4.3.5.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="lib" path="lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="lib/JTattoo-1.6.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,15 +1,15 @@
 package edu.nju.treasuryArbitrage.factory;
 
 import vo.News;
-import edu.nju.treasuryArbitrage.PersonalCenter.PersonalCenter;
-import edu.nju.treasuryArbitrage.PersonalCenter.SettingStopParameters;
 import edu.nju.treasuryArbitrage.arbitragePortfolio.ArbitragePortfolio;
-import edu.nju.treasuryArbitrage.framework.TreasuryFrame;
 import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.holdings.Holdings;
 import edu.nju.treasuryArbitrage.navigater.Navigater;
 import edu.nju.treasuryArbitrage.news.NewsPanel;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
+import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
+import edu.nju.treasuryArbitrage.ui.personalCenter.PersonalCenter;
+import edu.nju.treasuryArbitrage.ui.personalCenter.SettingStopParameters;
 
 public class MajorPartsFactory {
 	private static MajorPartsFactory self;

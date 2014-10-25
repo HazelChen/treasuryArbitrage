@@ -9,9 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.framework.LoginedUser;
-import edu.nju.treasuryArbitrage.framework.TreasuryFrame;
 import edu.nju.treasuryArbitrage.resources.ColorResources;
+import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
+import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
+import edu.nju.treasuryArbitrage.ui.personalCenter.LoginFrame;
 
 public class NaviUserItem extends JPanel{
 	private static final long serialVersionUID = -1940967418792821751L;
@@ -36,7 +37,11 @@ public class NaviUserItem extends JPanel{
 			public void mouseClicked(MouseEvent e) {
 				LoginedUser.setLoginedUser(null);
 				TreasuryFrame frame = MajorPartsFactory.getInstance().getFrame();
-				frame.enterLogin();
+				LoginFrame loginFrame = new LoginFrame();
+				frame.setVisible(false);
+				loginFrame.setVisible(true);
+				frame.dispose();
+				MajorPartsFactory.getInstance().setFrame(null);
 			}
 		});
 	}

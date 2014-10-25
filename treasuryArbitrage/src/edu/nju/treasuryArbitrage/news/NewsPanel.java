@@ -37,9 +37,9 @@ import vo.News;
 import com.toedter.calendar.JDateChooser;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
+import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 
 public class NewsPanel extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = -3044620398021541690L;

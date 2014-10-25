@@ -1,14 +1,14 @@
-package edu.nju.treasuryArbitrage.PersonalCenter;
+package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -18,13 +18,15 @@ import javax.swing.JTextField;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.framework.LoginedUser;
-import edu.nju.treasuryArbitrage.framework.TreasuryFrame;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.resources.ColorResources;
+import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
+import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 
 public class LoginInput extends JPanel{
 	private static final long serialVersionUID = -4223830916730143876L;
+	private static final Font YAHEI_FONT = new Font("Œ¢»Ì—≈∫⁄", Font.PLAIN, 15);
+	private static final Font TINY_YAHEI_FONT = new Font("Œ¢»Ì—≈∫⁄", Font.PLAIN, 13);
 	
 	private RiskTipDialog dialog = new RiskTipDialog();
 	private JTextField userTextField = new JTextField();
@@ -43,8 +45,6 @@ public class LoginInput extends JPanel{
 	}
 	
 	private void init() {
-		this.setBackground(ColorResources.LOGIN_GRAY);
-		this.setBorder(BorderFactory.createLineBorder(ColorResources.LOGIN_BORDER_GRAY));
 		this.setLayout(null);
 	}
 	
@@ -64,42 +64,46 @@ public class LoginInput extends JPanel{
 	}
 	
 	private void assemble() {
-		Label userLabel = new Label("”√ªß√˚:");
+		Label userLabel = new Label("’À∫≈:");
+		userLabel.setFont(YAHEI_FONT);
 		userLabel.setForeground(Color.WHITE);
-		userLabel.setBounds(50, 50, 80, 20);
-		userTextField.setBounds(150, 50, 200, 20);
+		userLabel.setBounds(90, 20, 45, 25);
+		userTextField.setBounds(140, 20, 250, 25);
+		userTextField.setFont(YAHEI_FONT);
 		this.add(userLabel);
 		this.add(userTextField);
 		
-		Label passwordLabel = new Label("√‹  ¬Î:");
+		Label passwordLabel = new Label("√‹¬Î:");
+		passwordLabel.setFont(YAHEI_FONT);
 		passwordLabel.setForeground(Color.WHITE);
-		passwordLabel.setBounds(50, 100, 80, 20);
-		passwordField.setBounds(150, 100, 200, 20);
+		passwordLabel.setBounds(90, 60, 45, 20);
+		passwordField.setBounds(140, 57, 250, 25);
+		passwordField.setFont(YAHEI_FONT);
 		this.add(passwordLabel);
 		this.add(passwordField);
 		
-		
 		forgetPasswordLabel.setForeground(ColorResources.LINK_BLUE);
-		forgetPasswordLabel.setBounds(380, 100, 100, 20);
+		forgetPasswordLabel.setBounds(400, 60, 100, 20);
+		forgetPasswordLabel.setFont(TINY_YAHEI_FONT);
 		this.add(forgetPasswordLabel);
 		
-		rememberpwdCheckBox.setBounds(70, 150, 80, 20);
-		rememberpwdCheckBox.setBackground(ColorResources.LOGIN_GRAY);
+		rememberpwdCheckBox.setBounds(140, 100, 100, 20);
 		rememberpwdCheckBox.setForeground(Color.WHITE);
 		rememberpwdCheckBox.setSelected(true);
+		rememberpwdCheckBox.setFont(TINY_YAHEI_FONT);
 		this.add(rememberpwdCheckBox);
 		
-		autoLoginCheckBox.setBackground(ColorResources.LOGIN_GRAY);
 		autoLoginCheckBox.setForeground(Color.WHITE);
-		autoLoginCheckBox.setBounds(200, 150, 80, 20);
+		autoLoginCheckBox.setBounds(310, 100, 100, 20);
+		autoLoginCheckBox.setFont(TINY_YAHEI_FONT);
 		this.add(autoLoginCheckBox);
 		
-		readRiskWarning.setBackground(ColorResources.LOGIN_GRAY);
 		readRiskWarning.setForeground(Color.WHITE);
-		readRiskWarning.setBounds(70, 200, 150, 20);
+		readRiskWarning.setBounds(140, 140, 150, 20);
+		readRiskWarning.setFont(TINY_YAHEI_FONT);
 		this.add(readRiskWarning);
 		
-		okButton.setBounds(50, 250, 400, 25);
+		okButton.setBounds(140, 180, 250, 25);
 		this.add(okButton);
 	}
 	
@@ -131,8 +135,8 @@ public class LoginInput extends JPanel{
 					
 					LoginedUser.setLoginedUser(username);
 					
-					TreasuryFrame frame = MajorPartsFactory.getInstance().getFrame();
-					frame.enterMainPage();
+					TreasuryFrame frame = new TreasuryFrame();
+					frame.setVisible(true);
 
 					double para = dataInterface.getPara_PROF(); 
 					if (para == 0) {

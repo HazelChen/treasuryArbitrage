@@ -1,18 +1,13 @@
-package edu.nju.treasuryArbitrage.framework;
+package edu.nju.treasuryArbitrage.ui.common;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import edu.nju.treasuryArbitrage.PersonalCenter.Login;
-import edu.nju.treasuryArbitrage.PersonalCenter.LoginStateRecorder;
-import edu.nju.treasuryArbitrage.PersonalCenter.UserInfo;
-import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.navigater.Navigater;
-import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
 import edu.nju.treasuryArbitrage.resources.TextResources;
 
@@ -44,32 +39,7 @@ public class TreasuryFrame extends JFrame{
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 		factory.setFrame(this);
 		
-		LoginStateRecorder stateRecorder = new LoginStateRecorder();
-		boolean isAutoLogin = stateRecorder.isAutoLogin();
-		if (isAutoLogin) {
-			UserInfo userInfo = stateRecorder.getRememberedUser();
-			DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
-			boolean isRememberedRight = dataInterface.loginValidate(userInfo.getUsername(), userInfo.getPassword());
-			if (isRememberedRight) {
-				enterMainPage();
-				LoginedUser.setLoginedUser(userInfo.getUsername());
-			} else {
-				LoginStateRecorder recorder = new LoginStateRecorder();
-				recorder.cancelAutoLogin();
-				enterLogin();
-			}
-		} else {
-			enterLogin();
-		}
-	}
-	
-	public void enterLogin() {
-		this.getContentPane().removeAll();
-		Login login = new Login();
-		this.add(login);
-		login.assemble(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
-		this.getContentPane().repaint();
-		this.validate();
+		enterMainPage();
 	}
 	
 	public void enterMainPage() {

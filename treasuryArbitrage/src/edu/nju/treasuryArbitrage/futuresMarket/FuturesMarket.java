@@ -22,8 +22,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 
 import vo.Arb_detail;
-import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 
 public class FuturesMarket extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = 4293989421427626065L;

@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.PersonalCenter;
+package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 public class UserInfo {
 	String username;

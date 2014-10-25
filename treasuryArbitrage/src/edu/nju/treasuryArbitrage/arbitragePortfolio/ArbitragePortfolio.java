@@ -29,9 +29,9 @@ import javax.swing.text.StyleConstants;
 import vo.ArbGroup;
 import vo.Arb_detail;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.liveUpdate.LiveData;
 import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 
 
 public class ArbitragePortfolio extends JPanel implements ComponentPanel{

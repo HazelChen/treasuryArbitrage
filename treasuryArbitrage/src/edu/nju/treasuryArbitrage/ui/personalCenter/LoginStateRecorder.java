@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.PersonalCenter;
+package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 import edu.nju.treasuryArbitrage.fileIO.FileOperater;
 

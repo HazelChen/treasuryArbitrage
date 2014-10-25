@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.framework;
+package edu.nju.treasuryArbitrage.ui.common;
 
 public interface ComponentPanel {
 

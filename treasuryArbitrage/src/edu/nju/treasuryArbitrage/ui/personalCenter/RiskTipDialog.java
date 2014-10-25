@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.PersonalCenter;
+package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -62,7 +62,7 @@ public class RiskTipDialog extends JDialog {
 		JPanel contentPanel = new JPanel();
 		contentPanel.setLayout(new BorderLayout());
 		
-		JLabel titleLabel = new JLabel("风险提示");
+		JLabel titleLabel = new JLabel("    风险提示");
 		titleLabel.setFont(new Font("微软雅黑", Font.PLAIN, 24));
 		JPanel titlePanel = new JPanel(new BorderLayout());
 		titlePanel.add(titleLabel, BorderLayout.WEST);

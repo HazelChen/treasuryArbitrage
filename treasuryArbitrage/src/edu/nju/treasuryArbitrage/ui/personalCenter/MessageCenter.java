@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.PersonalCenter;
+package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

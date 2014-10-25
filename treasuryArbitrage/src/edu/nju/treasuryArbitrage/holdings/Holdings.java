@@ -27,9 +27,9 @@ import javax.swing.table.TableCellRenderer;
 import vo.Finance;
 import vo.Repository;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.framework.ComponentPanel;
 import edu.nju.treasuryArbitrage.network.DataInterface;
 import edu.nju.treasuryArbitrage.resources.NumericalResources;
+import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 
 /*
  * 

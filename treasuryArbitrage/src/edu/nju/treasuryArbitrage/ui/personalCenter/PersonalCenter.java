@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.PersonalCenter;
+package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import edu.nju.treasuryArbitrage.framework.ComponentPanel;
+import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 
 public class PersonalCenter extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = -7820319557370987327L;

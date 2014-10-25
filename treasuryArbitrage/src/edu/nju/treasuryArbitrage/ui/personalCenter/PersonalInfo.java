@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.PersonalCenter;
+package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.framework.LoginedUser;
 import edu.nju.treasuryArbitrage.network.DataInterface;
+import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 
 public class PersonalInfo extends JPanel{
