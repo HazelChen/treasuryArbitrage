@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class ColorConstants {
 	/**grey*/
-	public static final Color NAVIGATER_GRAY = new Color(64, 69, 76);
+	public static final Color NAVIGATER_GRAY = new Color(44, 44, 44);
 	public static final Color NAVIGATER_MOUSE_ENTER_GRAY = new Color(83, 88, 95);
 	public static final Color NAVIGATER_SELECTED_GRAY = new Color(48, 52, 57);
 	public static final Color LOGIN_GRAY = new Color(26, 26, 26);

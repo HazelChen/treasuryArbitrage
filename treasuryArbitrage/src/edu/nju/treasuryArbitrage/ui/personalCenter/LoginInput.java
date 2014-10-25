@@ -46,6 +46,7 @@ public class LoginInput extends JPanel{
 	
 	private void init() {
 		this.setLayout(null);
+		this.setBackground(Color.black);
 	}
 	
 	private void initComponents() {
@@ -91,16 +92,19 @@ public class LoginInput extends JPanel{
 		rememberpwdCheckBox.setForeground(Color.WHITE);
 		rememberpwdCheckBox.setSelected(true);
 		rememberpwdCheckBox.setFont(TINY_YAHEI_FONT);
+		rememberpwdCheckBox.setBackground(Color.BLACK);
 		this.add(rememberpwdCheckBox);
 		
 		autoLoginCheckBox.setForeground(Color.WHITE);
 		autoLoginCheckBox.setBounds(310, 100, 100, 20);
 		autoLoginCheckBox.setFont(TINY_YAHEI_FONT);
+		autoLoginCheckBox.setBackground(Color.BLACK);
 		this.add(autoLoginCheckBox);
 		
 		readRiskWarning.setForeground(Color.WHITE);
 		readRiskWarning.setBounds(140, 140, 150, 20);
 		readRiskWarning.setFont(TINY_YAHEI_FONT);
+		readRiskWarning.setBackground(Color.BLACK);
 		this.add(readRiskWarning);
 		
 		okButton.setBounds(140, 180, 250, 25);

@@ -35,6 +35,7 @@ public class TreasuryArbitrage {
 			if (isRememberedRight) {
 				launchMainSoftware();
 				LoginedUser.setLoginedUser(userInfo.getUsername());
+				dataInterface.loginValidate(userInfo.getUsername(), userInfo.getPassword());
 			} else {
 				LoginStateRecorder recorder = new LoginStateRecorder();
 				recorder.cancelAutoLogin();
@@ -79,7 +80,7 @@ public class TreasuryArbitrage {
 		JDialog.setDefaultLookAndFeelDecorated(true);
 
 		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
