@@ -12,8 +12,8 @@ import javax.swing.JTextField;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.resources.ColorResources;
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
+import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
+import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class SettingStopParameters extends JDialog{
 	private static final long serialVersionUID = -7449799153447097837L;
@@ -75,14 +75,14 @@ public class SettingStopParameters extends JDialog{
 
 	private void init() {
 		this.setUndecorated(true);
-		this.setBackground(ColorResources.LOGIN_BORDER_GRAY);
+		this.setBackground(ColorConstants.LOGIN_BORDER_GRAY);
 		this.setMaximumSize(new Dimension(500, 400));
 		this.setMinimumSize(new Dimension(500, 400));
 		this.setResizable(false);
 		this.setModal(true);
 		this.setLocation(
-				(NumericalResources.SCREEN_WIDTH - this.getWidth()) / 2,
-				(NumericalResources.SCREEN_HEIGHT - this.getHeight()) / 2);
+				(ScreenSize.WIDTH - this.getWidth()) / 2,
+				(ScreenSize.HEIGHT - this.getHeight()) / 2);
 		this.setLayout(null);
 	}
 	

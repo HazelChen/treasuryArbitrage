@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.navigater;
+package edu.nju.treasuryArbitrage.ui.navigater;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -7,8 +7,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.resources.ColorResources;
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
+import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
+import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class Navigater extends JPanel{
 	private static final long serialVersionUID = -3260728762055118620L;
@@ -22,10 +22,10 @@ public class Navigater extends JPanel{
 	}
 	
 	public void init() {
-		int width = NumericalResources.SCREEN_WIDTH;
-		int height = (int) (NumericalResources.SCREEN_HEIGHT / 25.0);
+		int width = ScreenSize.WIDTH;
+		int height = (int) (ScreenSize.HEIGHT / 25.0);
 		this.setPreferredSize(new Dimension(width, height));
-		this.setBackground(ColorResources.NAVIGATER_GRAY);
+		this.setBackground(ColorConstants.NAVIGATER_GRAY);
 		this.setLayout(new BorderLayout());
 	}
 	

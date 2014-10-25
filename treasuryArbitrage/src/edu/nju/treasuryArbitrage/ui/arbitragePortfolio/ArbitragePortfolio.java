@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.arbitragePortfolio;
+package edu.nju.treasuryArbitrage.ui.arbitragePortfolio;
 
 import java.awt.Color;
 import java.awt.Component;

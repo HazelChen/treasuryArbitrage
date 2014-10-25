@@ -13,7 +13,7 @@ import vo.Record;
 import vo.Repository;
 import vo.UserVO;
 import bizLogic.*;
-import edu.nju.treasuryArbitrage.news.NewsBrief;
+import edu.nju.treasuryArbitrage.ui.news.NewsBrief;
 
 public class DataInterfaceToServer implements DataInterface {
 

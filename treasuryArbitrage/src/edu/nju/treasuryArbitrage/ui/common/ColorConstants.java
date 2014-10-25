@@ -1,8 +1,8 @@
-package edu.nju.treasuryArbitrage.resources;
+package edu.nju.treasuryArbitrage.ui.common;
 
 import java.awt.Color;
 
-public class ColorResources {
+public class ColorConstants {
 	/**grey*/
 	public static final Color NAVIGATER_GRAY = new Color(64, 69, 76);
 	public static final Color NAVIGATER_MOUSE_ENTER_GRAY = new Color(83, 88, 95);

@@ -2,7 +2,7 @@ package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 import javax.swing.JFrame;
 
-import edu.nju.treasuryArbitrage.resources.TextResources;
+import edu.nju.treasuryArbitrage.ui.common.TextConstants;
 
 public class LoginFrame extends JFrame{
 	private static final long serialVersionUID = -5896658657398444166L;
@@ -13,7 +13,7 @@ public class LoginFrame extends JFrame{
 	}
 	
 	private void init() {
-		this.setTitle("µÇÂ¼µ½" + TextResources.TITLE_CHS);
+		this.setTitle("µÇÂ¼µ½" + TextConstants.TITLE_CHS);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(550, 400);
 		this.setLocationRelativeTo(null);

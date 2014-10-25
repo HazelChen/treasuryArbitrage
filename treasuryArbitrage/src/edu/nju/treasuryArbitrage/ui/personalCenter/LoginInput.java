@@ -19,7 +19,7 @@ import javax.swing.JTextField;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.resources.ColorResources;
+import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 
@@ -82,7 +82,7 @@ public class LoginInput extends JPanel{
 		this.add(passwordLabel);
 		this.add(passwordField);
 		
-		forgetPasswordLabel.setForeground(ColorResources.LINK_BLUE);
+		forgetPasswordLabel.setForeground(ColorConstants.LINK_BLUE);
 		forgetPasswordLabel.setBounds(400, 60, 100, 20);
 		forgetPasswordLabel.setFont(TINY_YAHEI_FONT);
 		this.add(forgetPasswordLabel);

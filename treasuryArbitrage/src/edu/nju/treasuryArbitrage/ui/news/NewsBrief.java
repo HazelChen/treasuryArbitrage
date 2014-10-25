@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.news;
+package edu.nju.treasuryArbitrage.ui.news;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

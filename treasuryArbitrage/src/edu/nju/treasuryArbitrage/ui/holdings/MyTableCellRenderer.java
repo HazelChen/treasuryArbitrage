@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.holdings;
+package edu.nju.treasuryArbitrage.ui.holdings;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,7 +6,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -14,10 +13,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
-
-import vo.Record;
 import vo.Repository;
+import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class MyTableCellRenderer implements TableCellRenderer {
 	private JPanel panel,p2;
@@ -52,8 +49,8 @@ public class MyTableCellRenderer implements TableCellRenderer {
     	intable.setBackground(Color.black);
 
  		for(int i = 0;i<intable.getColumnCount();i++){
- 			intable.getColumn(intable.getColumnName(i)).setMinWidth((NumericalResources.SCREEN_WIDTH - 685)/3);
- 	 		intable.getColumn(intable.getColumnName(i)).setMaxWidth((NumericalResources.SCREEN_WIDTH - 685)/3);
+ 			intable.getColumn(intable.getColumnName(i)).setMinWidth((ScreenSize.WIDTH - 685)/3);
+ 	 		intable.getColumn(intable.getColumnName(i)).setMaxWidth((ScreenSize.WIDTH - 685)/3);
  		}
     	DefaultTableCellRenderer render = new DefaultTableCellRenderer();
         render.setHorizontalAlignment(SwingConstants.CENTER);

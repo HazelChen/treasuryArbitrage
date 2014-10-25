@@ -1,5 +1,5 @@
 
-package edu.nju.treasuryArbitrage.news;
+package edu.nju.treasuryArbitrage.ui.news;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,7 +19,6 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -38,8 +37,8 @@ import com.toedter.calendar.JDateChooser;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
+import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class NewsPanel extends JPanel implements ComponentPanel{
 	private static final long serialVersionUID = -3044620398021541690L;
@@ -74,7 +73,6 @@ public class NewsPanel extends JPanel implements ComponentPanel{
 	 static Object colummnames[]={"ID","时间","来源","标题","作者"};//ID列被隐藏
 	 static NewsDetailDg myWnd;
 
-	 static NumericalResources Numbers;
 		MyMSL listener1ms = new MyMSL();
 		MyAcL listener2ac = new MyAcL();
 		MyMML listener3mm = new MyMML();
@@ -85,7 +83,7 @@ public class NewsPanel extends JPanel implements ComponentPanel{
 			MaxNumPerpage=0;
 			pageNum=0;curPageNo=0;
 			
-			MaxNumPerpage = (int) (NumericalResources.SCREEN_HEIGHT - 180)/31;
+			MaxNumPerpage = (int) (ScreenSize.HEIGHT - 180)/31;
 	    	jL1 = new JLabel("关键字",JLabel.CENTER);jL1.setForeground(Color.WHITE);
 	 		jL2 = new JLabel("        起始日期",JLabel.CENTER);jL2.setForeground(Color.WHITE);
 	 		jL3 = new JLabel("        截止日期",JLabel.CENTER);jL3.setForeground(Color.WHITE);
@@ -166,7 +164,7 @@ public class NewsPanel extends JPanel implements ComponentPanel{
 		    setLayout(new BorderLayout());
 	 	    //setSize(960,580); 
 	 	    panel1.setBackground(Color.DARK_GRAY);
-	 		panel1.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 40));
+	 		panel1.setPreferredSize(new Dimension(ScreenSize.WIDTH, 40));
 	 		panel1.add(jL1);panel1.add(text1);
 	 		panel1.add(jL2);panel1.add(fromDateIn);
 	 		panel1.add(jL3);panel1.add(toDateIn);
@@ -179,7 +177,7 @@ public class NewsPanel extends JPanel implements ComponentPanel{
 	        //panel1.add(btnAllnews);
 	 		
 	 		hL.add(hlabel);
-	 		hL.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 1));
+	 		hL.setPreferredSize(new Dimension(ScreenSize.WIDTH, 1));
 	 		hL.setBackground(Color.darkGray);
 	 		hL.setBorder(new LineBorder(Color.darkGray,1));
 	 		hL.setVisible(false);
@@ -360,8 +358,8 @@ class NewsDetailDg extends JDialog{
 		    	dml = new detailML();
 		        conp = new JPanel();
 		        conp.setLayout(new BorderLayout());
-		        this.setLocation((NumericalResources.SCREEN_WIDTH - this.getWidth())/2,
-		        		(NumericalResources.SCREEN_HEIGHT - this.getHeight())/2);
+		        this.setLocation((ScreenSize.WIDTH - this.getWidth())/2,
+		        		(ScreenSize.HEIGHT - this.getHeight())/2);
 		        panel = new JPanel();
 		        panelbottom = new JPanel();
 		        newsTitle = new JLabel(sNewsTitle);

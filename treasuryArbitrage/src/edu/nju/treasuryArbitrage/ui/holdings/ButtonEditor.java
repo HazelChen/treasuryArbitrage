@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.holdings;
+package edu.nju.treasuryArbitrage.ui.holdings;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -26,7 +26,7 @@ import vo.Repository;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
+import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class ButtonEditor extends AbstractCellEditor implements TableCellEditor {
 	/**
@@ -162,8 +162,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 				btnC.addMouseListener(listener);
 				confirmL = new JLabel("请确认信息正确后点击确认");
 				confirmL.setForeground(Color.red);
-		        this.setLocation((NumericalResources.SCREEN_WIDTH - this.getWidth())/2,
-		        		(NumericalResources.SCREEN_HEIGHT - this.getHeight())/2);
+		        this.setLocation((ScreenSize.WIDTH - this.getWidth())/2,
+		        		(ScreenSize.HEIGHT - this.getHeight())/2);
 		        panel = new JPanel();
 		        btnpanel = new JPanel();
 		        btnpanel.setLayout(new BorderLayout());
@@ -283,8 +283,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 	    	setBackground(Color.WHITE);
 	    	setMaximumSize(new Dimension(383,150));
 	    	setMinimumSize(new Dimension(383,150));
-	        this.setLocation((NumericalResources.SCREEN_WIDTH - this.getWidth())/2,
-	        		(NumericalResources.SCREEN_HEIGHT - this.getHeight())/2);
+	        this.setLocation((ScreenSize.WIDTH - this.getWidth())/2,
+	        		(ScreenSize.HEIGHT - this.getHeight())/2);
 			setResizable(false);
 			setModal(true);//
 			btnY = new JButton("确认");

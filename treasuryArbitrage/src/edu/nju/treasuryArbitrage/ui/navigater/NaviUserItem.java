@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.navigater;
+package edu.nju.treasuryArbitrage.ui.navigater;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.resources.ColorResources;
+import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.ui.personalCenter.LoginFrame;
@@ -20,7 +20,7 @@ public class NaviUserItem extends JPanel{
 	private JLabel loggoutLabel = new JLabel("°²È«ÍË³ö");
 	
 	/*package*/ NaviUserItem() {
-		this.setBackground(ColorResources.NAVIGATER_GRAY);
+		this.setBackground(ColorConstants.NAVIGATER_GRAY);
 		assemble();
 		addListeners();
 	}
@@ -52,7 +52,7 @@ public class NaviUserItem extends JPanel{
 		label.setForeground(Color.WHITE);
 		this.add(label);
 		
-		loggoutLabel.setForeground(ColorResources.LINK_BLUE);
+		loggoutLabel.setForeground(ColorConstants.LINK_BLUE);
 		this.add(loggoutLabel);
 	}
 

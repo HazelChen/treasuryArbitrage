@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.futuresMarket;
+package edu.nju.treasuryArbitrage.ui.futuresMarket;
 
 import java.awt.Color;
 import java.awt.Component;

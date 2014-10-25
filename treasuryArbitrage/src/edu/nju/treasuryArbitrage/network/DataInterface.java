@@ -11,7 +11,7 @@ import vo.Message;
 import vo.News;
 import vo.Record;
 import vo.Repository;
-import edu.nju.treasuryArbitrage.news.NewsBrief;
+import edu.nju.treasuryArbitrage.ui.news.NewsBrief;
 
 
 /**

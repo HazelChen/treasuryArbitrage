@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.holdings;
+package edu.nju.treasuryArbitrage.ui.holdings;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -28,8 +28,8 @@ import vo.Finance;
 import vo.Repository;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.network.DataInterface;
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
+import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 /*
  * 
@@ -116,13 +116,13 @@ public class Holdings extends JPanel implements ComponentPanel{
  		p11 = new JPanel();
  		p11.setLayout(new BorderLayout());
  		p11.setBackground(Color.DARK_GRAY);
- 		p11.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 50));
+ 		p11.setPreferredSize(new Dimension(ScreenSize.WIDTH, 50));
  		p11.add(l1,"West");
  		p11.add(fTableHeader,"South");
  		panel1 = new JPanel();
  		panel1.setBackground(Color.black);
  		panel1.setLayout(new BorderLayout());
- 		panel1.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 310));
+ 		panel1.setPreferredSize(new Dimension(ScreenSize.WIDTH, 310));
  		panel1.add(p11,"North");
  		panel1.add(jsp1,"Center");
  		
@@ -201,11 +201,11 @@ public class Holdings extends JPanel implements ComponentPanel{
  		jsp2.getVerticalScrollBar().setMaximumSize(new Dimension(13,13));
  		jsp2.getVerticalScrollBar().setMinimumSize(new Dimension(13,13));
  	    jsp2.getViewport().setBackground(Color.black);
- 		jsp2.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 350));
+ 		jsp2.setPreferredSize(new Dimension(ScreenSize.WIDTH, 350));
  		p21 = new JPanel();
  		p21.setLayout(new BorderLayout());
  		p21.setBackground(Color.DARK_GRAY);
- 		p21.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 50));
+ 		p21.setPreferredSize(new Dimension(ScreenSize.WIDTH, 50));
  		p21.add(l2,"West");
  		p21.add(refreshBtn,"East");
  		p21.add(hTableHeader,"South");
@@ -213,12 +213,12 @@ public class Holdings extends JPanel implements ComponentPanel{
  		panel2 = new JPanel();
  		panel2.setBackground(Color.black);
  		panel2.setLayout(new BorderLayout());
- 		panel2.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, 410));
+ 		panel2.setPreferredSize(new Dimension(ScreenSize.WIDTH, 410));
  		panel2.add(p21,"North");
  		panel2.add(jsp2,"Center");
 		con = new JPanel();
  		con.setLayout(new BorderLayout());
- 		con.setPreferredSize(new Dimension(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT-61));
+ 		con.setPreferredSize(new Dimension(ScreenSize.WIDTH, ScreenSize.HEIGHT-61));
 		con.add(panel1,"North");
 		con.add(panel2,"Center");
 		
@@ -366,7 +366,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 
 	public static void main(String[] args) {
 		JFrame mw = new JFrame("test");
-        mw.setSize(NumericalResources.SCREEN_WIDTH,NumericalResources.SCREEN_HEIGHT);
+        mw.setSize(ScreenSize.WIDTH,ScreenSize.HEIGHT);
         JPanel Holdings = new Holdings();
         mw.getContentPane().add(Holdings);
         mw.setVisible(true);

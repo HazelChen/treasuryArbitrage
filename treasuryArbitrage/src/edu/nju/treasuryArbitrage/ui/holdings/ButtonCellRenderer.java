@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.holdings;
+package edu.nju.treasuryArbitrage.ui.holdings;
 
 import java.awt.Color;
 import java.awt.Component;

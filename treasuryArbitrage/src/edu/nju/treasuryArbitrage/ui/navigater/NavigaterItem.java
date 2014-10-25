@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.navigater;
+package edu.nju.treasuryArbitrage.ui.navigater;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.resources.ColorResources;
+import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 
@@ -34,12 +34,12 @@ public class NavigaterItem extends JPanel{
 	
 	public void initialState() {
 		if (isSelected) {
-			NavigaterItem.this.setBackground(ColorResources.NAVIGATER_SELECTED_GRAY);
-			naviLabel.setForeground(ColorResources.NAVI_MOUSE_ENTER_YELLOW);
+			NavigaterItem.this.setBackground(ColorConstants.NAVIGATER_SELECTED_GRAY);
+			naviLabel.setForeground(ColorConstants.NAVI_MOUSE_ENTER_YELLOW);
 		} else {
-			this.setBackground(ColorResources.NAVIGATER_GRAY);
+			this.setBackground(ColorConstants.NAVIGATER_GRAY);
 			if (isImportant) {
-				naviLabel.setForeground(ColorResources.NAVI_IMPORTANT_NORMAL);
+				naviLabel.setForeground(ColorConstants.NAVI_IMPORTANT_NORMAL);
 			} else {
 				naviLabel.setForeground(Color.WHITE);
 			}
@@ -60,8 +60,8 @@ public class NavigaterItem extends JPanel{
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				NavigaterItem.this.setBackground(ColorResources.NAVIGATER_MOUSE_ENTER_GRAY);
-				naviLabel.setForeground(ColorResources.NAVI_MOUSE_ENTER_YELLOW);
+				NavigaterItem.this.setBackground(ColorConstants.NAVIGATER_MOUSE_ENTER_GRAY);
+				naviLabel.setForeground(ColorConstants.NAVI_MOUSE_ENTER_YELLOW);
 			}
 			
 			@Override
@@ -79,7 +79,7 @@ public class NavigaterItem extends JPanel{
 
 	private void init(String name) {
 		this.setPreferredSize(new Dimension(70, 30));
-		this.setBackground(ColorResources.NAVIGATER_GRAY);
+		this.setBackground(ColorConstants.NAVIGATER_GRAY);
 		
 		naviLabel.setText(name);
 		initialState();

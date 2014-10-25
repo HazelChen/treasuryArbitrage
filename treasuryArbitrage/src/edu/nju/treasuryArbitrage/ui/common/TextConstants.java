@@ -1,6 +1,6 @@
-package edu.nju.treasuryArbitrage.resources;
+package edu.nju.treasuryArbitrage.ui.common;
 
-public class TextResources {
+public class TextConstants {
 
 	public static final String TITLE_CHS = "国债期货跨期交易系统";
 	public static final String TITLE_ENG = "The Arbitrage System For Treasury Future";

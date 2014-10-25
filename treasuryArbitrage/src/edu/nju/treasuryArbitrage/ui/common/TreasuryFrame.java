@@ -6,10 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
-import edu.nju.treasuryArbitrage.navigater.Navigater;
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
-import edu.nju.treasuryArbitrage.resources.TextResources;
+import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarket;
+import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 
 public class TreasuryFrame extends JFrame{
 	private static final long serialVersionUID = 3299539057280891303L;
@@ -30,9 +28,9 @@ public class TreasuryFrame extends JFrame{
 	
 	private void init() {
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.setTitle(TextResources.TITLE_CHS);
+		this.setTitle(TextConstants.TITLE_CHS);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
+		this.setSize(ScreenSize.WIDTH, ScreenSize.HEIGHT);
 		this.setLocation(0, 0);
 		this.setResizable(false);
 		
