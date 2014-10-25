@@ -23,14 +23,16 @@ public class PortfolioLineChart extends JPanel {
 	private static final long serialVersionUID = 1323688315244501166L;
 
 	private ChartPanel frame1;
-	private TimeSeries timeseries1 = new TimeSeries("价格", Second.class);
-	private TimeSeries timeseries2 = new TimeSeries("价格", Second.class);
+	private TimeSeries timeseries1;
+	private TimeSeries timeseries2;
 	private String index1;
 	private String index2;
 	
 	public PortfolioLineChart(String index1, String index2) {
 		this.index1 = index1;
 		this.index2 = index2;
+		timeseries1 = new TimeSeries(index1, Second.class);
+		timeseries2 = new TimeSeries(index2, Second.class);
 		
 		XYDataset xydataset = createDataset();
 		JFreeChart jfreechart = ChartFactory.createTimeSeriesChart(
