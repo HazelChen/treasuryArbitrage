@@ -102,18 +102,27 @@ public class DataInterfaceToServer implements DataInterface {
 	@Override
 	public ArrayList<Finance> getFinanceList() {
 		UserVO user = userbl.getUser();
+		if (user == null) {
+			return new ArrayList<>();
+		}
 		return finanbl.getFinanceList(user.getUserID());
 	}
 
 	@Override
 	public ArrayList<Repository> getRepoList() {
 		UserVO user = userbl.getUser();
+		if (user == null) {
+			return new ArrayList<>();
+		}
 		return repobl.getRepoList(user.getUserID());
 	}
 
 	@Override
 	public ArrayList<Record> getRecordList() {
 		UserVO user = userbl.getUser();
+		if (user == null) {
+			return new ArrayList<>();
+		}
 		return recordbl.getRecordList(user.getUserID());
 	}
 

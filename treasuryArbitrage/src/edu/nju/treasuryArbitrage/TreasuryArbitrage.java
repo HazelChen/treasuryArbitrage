@@ -23,7 +23,7 @@ public class TreasuryArbitrage {
 	}
 	
 	public void launch() {
-		useLookAndFeel();	
+//		useLookAndFeel();	
 		startDataFetch();
 		
 		LoginStateRecorder stateRecorder = new LoginStateRecorder();
@@ -33,9 +33,13 @@ public class TreasuryArbitrage {
 			DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 			boolean isRememberedRight = dataInterface.loginValidate(userInfo.getUsername(), userInfo.getPassword());
 			if (isRememberedRight) {
-				launchMainSoftware();
 				LoginedUser.setLoginedUser(userInfo.getUsername());
-				dataInterface.loginValidate(userInfo.getUsername(), userInfo.getPassword());
+				try {
+					Thread.sleep(3000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				launchMainSoftware();
 			} else {
 				LoginStateRecorder recorder = new LoginStateRecorder();
 				recorder.cancelAutoLogin();
@@ -47,11 +51,6 @@ public class TreasuryArbitrage {
 	}
 	
 	private void startDataFetch() {
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		Thread thread = new Thread(new UpdateThread());
 		thread.start();
 	}
