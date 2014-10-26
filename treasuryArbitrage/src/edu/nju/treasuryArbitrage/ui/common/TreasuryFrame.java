@@ -2,6 +2,7 @@ package edu.nju.treasuryArbitrage.ui.common;
 
 import java.awt.BorderLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -11,6 +12,8 @@ import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 
 public class TreasuryFrame extends JFrame{
 	private static final long serialVersionUID = 3299539057280891303L;
+	
+	private static final String LOGO_ICON_PATH = "image/logo_icon.png";
 	
 	private JPanel mainPage;
 	
@@ -33,6 +36,7 @@ public class TreasuryFrame extends JFrame{
 		this.setSize(ScreenSize.WIDTH, ScreenSize.HEIGHT);
 		this.setLocation(0, 0);
 		this.setResizable(false);
+		this.setIconImage(new ImageIcon(LOGO_ICON_PATH).getImage());
 		
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 		factory.setFrame(this);

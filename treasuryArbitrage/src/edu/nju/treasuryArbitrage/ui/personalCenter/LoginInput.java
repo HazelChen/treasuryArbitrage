@@ -27,6 +27,8 @@ public class LoginInput extends JPanel{
 	private static final long serialVersionUID = -4223830916730143876L;
 	private static final Font YAHEI_FONT = new Font("Œ¢»Ì—≈∫⁄", Font.PLAIN, 15);
 	private static final Font TINY_YAHEI_FONT = new Font("Œ¢»Ì—≈∫⁄", Font.PLAIN, 13);
+	private static final Color BACKGROUND_COLOR = new Color(243,243,242);
+	private static final Color FOREGROUND_COLOR = Color.BLACK;
 	
 	private RiskTipDialog dialog = new RiskTipDialog();
 	private JTextField userTextField = new JTextField();
@@ -46,7 +48,7 @@ public class LoginInput extends JPanel{
 	
 	private void init() {
 		this.setLayout(null);
-		this.setBackground(Color.black);
+		this.setBackground(BACKGROUND_COLOR);
 	}
 	
 	private void initComponents() {
@@ -67,7 +69,7 @@ public class LoginInput extends JPanel{
 	private void assemble() {
 		Label userLabel = new Label("’À∫≈:");
 		userLabel.setFont(YAHEI_FONT);
-		userLabel.setForeground(Color.WHITE);
+		userLabel.setForeground(FOREGROUND_COLOR);
 		userLabel.setBounds(90, 20, 45, 25);
 		userTextField.setBounds(140, 20, 250, 25);
 		userTextField.setFont(YAHEI_FONT);
@@ -76,7 +78,7 @@ public class LoginInput extends JPanel{
 		
 		Label passwordLabel = new Label("√‹¬Î:");
 		passwordLabel.setFont(YAHEI_FONT);
-		passwordLabel.setForeground(Color.WHITE);
+		passwordLabel.setForeground(FOREGROUND_COLOR);
 		passwordLabel.setBounds(90, 60, 45, 20);
 		passwordField.setBounds(140, 57, 250, 25);
 		passwordField.setFont(YAHEI_FONT);
@@ -89,22 +91,22 @@ public class LoginInput extends JPanel{
 		this.add(forgetPasswordLabel);
 		
 		rememberpwdCheckBox.setBounds(140, 100, 100, 20);
-		rememberpwdCheckBox.setForeground(Color.WHITE);
+		rememberpwdCheckBox.setForeground(FOREGROUND_COLOR);
 		rememberpwdCheckBox.setSelected(true);
 		rememberpwdCheckBox.setFont(TINY_YAHEI_FONT);
-		rememberpwdCheckBox.setBackground(Color.BLACK);
+		rememberpwdCheckBox.setBackground(BACKGROUND_COLOR);
 		this.add(rememberpwdCheckBox);
 		
-		autoLoginCheckBox.setForeground(Color.WHITE);
+		autoLoginCheckBox.setForeground(FOREGROUND_COLOR);
 		autoLoginCheckBox.setBounds(310, 100, 100, 20);
 		autoLoginCheckBox.setFont(TINY_YAHEI_FONT);
-		autoLoginCheckBox.setBackground(Color.BLACK);
+		autoLoginCheckBox.setBackground(BACKGROUND_COLOR);
 		this.add(autoLoginCheckBox);
 		
-		readRiskWarning.setForeground(Color.WHITE);
+		readRiskWarning.setForeground(FOREGROUND_COLOR);
 		readRiskWarning.setBounds(140, 140, 150, 20);
 		readRiskWarning.setFont(TINY_YAHEI_FONT);
-		readRiskWarning.setBackground(Color.BLACK);
+		readRiskWarning.setBackground(BACKGROUND_COLOR);
 		this.add(readRiskWarning);
 		
 		okButton.setBounds(140, 180, 250, 25);

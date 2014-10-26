@@ -20,5 +20,7 @@ public class ColorConstants {
 	/**blue*/
 	public static final Color LINK_BLUE = new Color(0, 153, 204);
 	public static final Color BRIGHT_BLUE = new Color(82, 255, 255);
+	public static final Color DARK_FOCUS_BLUE = new Color(0, 0, 128);
+	
 	
 }

@@ -1,5 +1,6 @@
 package edu.nju.treasuryArbitrage.ui.personalCenter;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import edu.nju.treasuryArbitrage.ui.common.TextConstants;
@@ -7,6 +8,8 @@ import edu.nju.treasuryArbitrage.ui.common.TextConstants;
 public class LoginFrame extends JFrame{
 	private static final long serialVersionUID = -5896658657398444166L;
 
+	private static final String LOGO_ICON_PATH = "image/logo_icon.png";
+	
 	public LoginFrame() {
 		init();
 		assemble();
@@ -18,6 +21,7 @@ public class LoginFrame extends JFrame{
 		this.setSize(550, 400);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false); 
+		this.setIconImage(new ImageIcon(LOGO_ICON_PATH).getImage());
 	}
 	
 	private void assemble() {

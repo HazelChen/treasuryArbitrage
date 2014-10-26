@@ -1,27 +1,18 @@
 package edu.nju.treasuryArbitrage.ui.futuresMarket;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.MutableAttributeSet;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
+import javax.swing.table.TableColumn;
 
 import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
@@ -32,28 +23,37 @@ import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 	private static final long serialVersionUID = 4293989421427626065L;
 	private static final int TABLE_HEIGHT = 40;
-	private static final int HEADER_HEIGHT = 40;
 	private static final int LABEL_WIDTH = 60;
 	private static final int LABEL_HEIGHT = 20;
 	private JTable futuersTable;
 	private FuturesPanel detailPanel;
+	private String[] headerData = { "代码", "交割月份", "现价", "涨跌", "涨跌幅", "买量", "买价", "卖价",
+			"卖量", "成交量", "持仓量", "日增仓", "前结算价", "今开", "最高", "最低", "时间" };
 	private Arb_detail[] arb_details = new Arb_detail[3];
 	private DefaultTableModel model;
-	private LineChart chart1, chart2, chart3;
+	private LineChart[] charts = new LineChart[3];
 
+	public FuturesMarketChen() {
+		init();
+		initComponents();
+		assemble();
+	}
+	
 	private void init() {
 		this.setLayout(null);
 		this.setBackground(Color.BLACK);
+		
+		ArrayList<Arb_detail> result = LiveData.getInstance().getArb_details();
+		for (int i = 0; i < result.size(); i++) {
+			arb_details[i] = result.get(i);
+		}
 	}
 	
-	public void update() {
-		String[] headerData = { "代码", "交割月份", "现价", "涨跌", "涨跌幅", "买量", "买价", "卖价",
-				"卖量", "成交量", "持仓量", "日增仓", "前结算价", "今开", "最高", "最低", "时间" };
-		ArrayList<Arb_detail> result = LiveData.getInstance().getArb_details();
-		Object[][] futuresInfo = new Object[result.size()][headerData.length];
-		for (int i = 0; i < result.size(); i++) {
-			Arb_detail arb = result.get(i).getFormattedArb_detail();
-			arb_details[i] = arb;
+	private void updateTable() {
+		
+		Object[][] futuresInfo = new Object[arb_details.length][headerData.length];
+		for (int i = 0; i < arb_details.length; i++) {
+			Arb_detail arb = arb_details[i].getFormattedArb_detail();
 			
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(arb.getTime());
@@ -77,12 +77,24 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 			}
 		};
 		futuersTable.setModel(model);
+		
+		setColomnWidthAndColor();
+		
 		futuersTable.repaint();
 	}
 	
 	private void initComponents() {
+		initTable();
+		
+		detailPanel = new FuturesPanel();
+		detailPanel.setDetail(arb_details[0], 1);
+		
+		initCharts();
+	}
+	
+	private void initTable() {
 		futuersTable = new JTable();
-		update();
+		updateTable();
 		futuersTable.setShowGrid(false);
 		futuersTable.setShowHorizontalLines(false);
 		futuersTable.setShowVerticalLines(false);
@@ -98,94 +110,61 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 		header.setFont(new Font("黑体", Font.PLAIN, 18));
 	}
 	
+	private void setColomnWidthAndColor() {
+		TableColumn column1 = futuersTable.getColumn(headerData[1]);
+		column1.setPreferredWidth(100);
+		
+		setColomnColor(0, ColorConstants.BRIGHT_BLUE);
+		setColomnColor(2, Color.RED);
+		setColomnColor(3, Color.RED);
+		DefaultTableCellRenderer renderer4 = setColomnColor(4, Color.RED);
+		renderer4.setBackground(ColorConstants.DARK_FOCUS_BLUE);
+		setColomnColor(5, Color.YELLOW);
+		setColomnColor(6, Color.RED);
+		setColomnColor(7, Color.RED);
+		setColomnColor(8, Color.YELLOW);
+		setColomnColor(9, Color.YELLOW);
+		setColomnColor(10, Color.YELLOW);
+		setColomnColor(11, Color.YELLOW);
+		setColomnColor(12, Color.RED);
+		setColomnColor(13, Color.RED);
+		setColomnColor(14, Color.RED);
+		setColomnColor(15, Color.RED);
+	}
+	
+	private DefaultTableCellRenderer setColomnColor(int index, Color color) {
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+		renderer.setForeground(color);
+		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);
+		return renderer;
+	}
+	
 	private void assemble() {
 		JScrollPane scrollPane = new JScrollPane(futuersTable);
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 10, ScreenSize.WIDTH, 150);
-		
 		this.add(scrollPane);
+		
+		detailPanel.setBounds(0, 170, ScreenSize.WIDTH / 10 * 3, ScreenSize.HEIGHT - 170);
+		this.add(detailPanel);
+		
+		for (int i = 0; i < charts.length; i++) {
+			charts[i].setBounds(ScreenSize.WIDTH / 10 * 3, 160, ScreenSize.WIDTH / 10 * 7, ScreenSize.HEIGHT - 220);
+			this.add(charts[i]);
+		}
+		
+		charts[0].setVisible(true);
+		charts[1].setVisible(false);
+		charts[2].setVisible(false);
 	}
 	
-	public FuturesMarketChen() {
-		init();
-		initComponents();
-		assemble();
-		
-		JButton button = new JButton("啊啊啊");
-		button.setBounds(0, 160, 100, 100);
-		this.add(button);
-		
-		LinePanel line1 = new LinePanel(0, 10 + HEADER_HEIGHT + 2
-				* TABLE_HEIGHT + TABLE_HEIGHT, WIDTH, 10 + HEADER_HEIGHT + 2
-				* TABLE_HEIGHT + TABLE_HEIGHT);
-		line1.setBounds(0, 10 + HEADER_HEIGHT + 3 * TABLE_HEIGHT + 20, WIDTH, 1);
-		this.add(line1);
-
-		detailPanel = new FuturesPanel();
-		detailPanel.setBounds(0, 10 + HEADER_HEIGHT + 3 * TABLE_HEIGHT + 20,
-				WIDTH / 5 * 2, HEIGHT - 190);
-		this.add(detailPanel);
-
-		LinePanel line2 = new LinePanel((WIDTH / 5) * 2, 10 + HEADER_HEIGHT + 2
-				* TABLE_HEIGHT + TABLE_HEIGHT, (WIDTH / 5) * 2, HEIGHT);
-		this.add(line2);
-		line2.setBounds((WIDTH / 5) * 2, 10 + HEADER_HEIGHT + 3 * TABLE_HEIGHT
-				+ 20, 1, HEIGHT - 190);
-
-		chart1 = new LineChart(0);
-		chart2 = new LineChart(1);
-		chart3 = new LineChart(2);
-		this.add(chart1);
-		this.add(chart2);
-		this.add(chart3);
-		chart1.setBounds((WIDTH / 5) * 2, 10 + HEADER_HEIGHT + 3 * TABLE_HEIGHT
-				+ 20, (WIDTH / 5) * 3, HEIGHT - 190);
-		chart2.setBounds((WIDTH / 5) * 2, 10 + HEADER_HEIGHT + 3 * TABLE_HEIGHT
-				+ 20, (WIDTH / 5) * 3, HEIGHT - 190);
-		chart3.setBounds((WIDTH / 5) * 2, 10 + HEADER_HEIGHT + 3 * TABLE_HEIGHT
-				+ 20, (WIDTH / 5) * 3, HEIGHT - 190);
-		chart1.setVisible(true);
-		chart2.setVisible(false);
-		chart3.setVisible(false);
-
-		detailPanel.setDetail(arb_details[0], 1);
+	private void initCharts() {
+		charts[0] = new LineChart(0, Color.YELLOW);
+		charts[1] = new LineChart(1, ColorConstants.BRIGHT_BLUE);
+		charts[2] = new LineChart(0, Color.WHITE);
 	}
-
-	public Object[][] getFuturesInfo(Arb_detail arb, int id) {
-
-		Date date = new Date(arb.getTime());
-		int hour = date.getHours();
-		int min = date.getMinutes();
-		if (id == 1) {
-			Object[][] futuresInfo = { new Object[] { "TF1412", "2014年12月",
-					arb.getPresentPrice(), arb.getPriceChange(),
-					arb.getChange(), arb.getBid(), arb.getBidPirce(),
-					arb.getAskPrice(), arb.getAsk(), arb.getVol(),
-					arb.getRepository(), arb.getDailyWarehouse(),
-					arb.getPreSettlePrice(), arb.getOpen(), arb.getHigh(),
-					arb.getLow(), hour + ":" + min } };
-			return futuresInfo;
-		} else if (id == 2) {
-			Object[][] futuresInfo = { new Object[] { "TF1503", "2015年03月",
-					arb.getPresentPrice(), arb.getPriceChange(),
-					arb.getChange(), arb.getBid(), arb.getBidPirce(),
-					arb.getAskPrice(), arb.getAsk(), arb.getVol(),
-					arb.getRepository(), arb.getDailyWarehouse(),
-					arb.getPreSettlePrice(), arb.getOpen(), arb.getHigh(),
-					arb.getLow(), hour + ":" + min } };
-			return futuresInfo;
-		} else if (id == 3) {
-			Object[][] futuresInfo = { new Object[] { "TF1506", "2015年06月",
-					arb.getPresentPrice(), arb.getPriceChange(),
-					arb.getChange(), arb.getBid(), arb.getBidPirce(),
-					arb.getAskPrice(), arb.getAsk(), arb.getVol(),
-					arb.getRepository(), arb.getDailyWarehouse(),
-					arb.getPreSettlePrice(), arb.getOpen(), arb.getHigh(),
-					arb.getLow(), hour + ":" + min } };
-			return futuresInfo;
-		}
-		return null;
-	}
+	
+	
 
 	/*class TableSelectionListener1 implements ListSelectionListener {
 
@@ -277,145 +256,6 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 
 		}
 	}*/
-
-	class TableCellTextPaneRenderer extends JTextPane implements
-			TableCellRenderer {
-
-		private static final long serialVersionUID = 1L;
-		DefaultStyledDocument doc;
-		MutableAttributeSet attr;
-		SimpleAttributeSet sas;
-
-		public TableCellTextPaneRenderer() {
-			doc = new DefaultStyledDocument();
-			this.setStyledDocument(doc);
-			sas = new SimpleAttributeSet();
-			StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
-			doc.setParagraphAttributes(0, 0, sas, true);
-			attr = new SimpleAttributeSet();
-
-			StyleConstants.setForeground(attr, Color.WHITE);
-			setCharacterAttributes(attr, false);
-			this.setFont(new Font("黑体", Font.PLAIN, 20));
-		}
-
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			setText(value == null ? "" : value.toString());
-
-			return this;
-		}
-
-	}
-
-	class BlueTableCellTextPaneRenderer extends JTextPane implements
-			TableCellRenderer {
-
-		private static final long serialVersionUID = 1L;
-		DefaultStyledDocument doc;
-		MutableAttributeSet attr;
-		SimpleAttributeSet sas;
-
-		public BlueTableCellTextPaneRenderer() {
-			doc = new DefaultStyledDocument();
-			this.setStyledDocument(doc);
-			sas = new SimpleAttributeSet();
-			StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
-			doc.setParagraphAttributes(0, 0, sas, true);
-			attr = new SimpleAttributeSet();
-
-			StyleConstants.setForeground(attr, new Color(10, 156, 211));
-			setCharacterAttributes(attr, false);
-		}
-
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			setText(value == null ? "" : value.toString());
-
-			return this;
-		}
-
-	}
-
-	class RedTableCellTextPaneRenderer extends JTextPane implements
-			TableCellRenderer {
-
-		private static final long serialVersionUID = 1L;
-		DefaultStyledDocument doc;
-		MutableAttributeSet attr;
-		SimpleAttributeSet sas;
-
-		public RedTableCellTextPaneRenderer() {
-			doc = new DefaultStyledDocument();
-			this.setStyledDocument(doc);
-			sas = new SimpleAttributeSet();
-			StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
-			doc.setParagraphAttributes(0, 0, sas, true);
-			attr = new SimpleAttributeSet();
-
-			StyleConstants.setForeground(attr, Color.RED);
-			setCharacterAttributes(attr, false);
-		}
-
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			setText(value == null ? "" : value.toString());
-
-			return this;
-		}
-
-	}
-
-	class GreenTableCellTextPaneRenderer extends JTextPane implements
-			TableCellRenderer {
-
-		private static final long serialVersionUID = 1L;
-		DefaultStyledDocument doc;
-		MutableAttributeSet attr;
-		SimpleAttributeSet sas;
-
-		public GreenTableCellTextPaneRenderer() {
-			doc = new DefaultStyledDocument();
-			this.setStyledDocument(doc);
-			sas = new SimpleAttributeSet();
-			StyleConstants.setAlignment(sas, StyleConstants.ALIGN_CENTER);
-			doc.setParagraphAttributes(0, 0, sas, true);
-			attr = new SimpleAttributeSet();
-
-			StyleConstants.setForeground(attr, Color.GREEN);
-			setCharacterAttributes(attr, false);
-		}
-
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			setText(value == null ? "" : value.toString());
-
-			return this;
-		}
-
-	}
-
-	class LinePanel extends JPanel {
-		private int x1, x2, y1, y2;
-
-		public LinePanel(int xx1, int yy1, int xx2, int yy2) {
-			x1 = xx1;
-			x2 = xx2;
-			y1 = yy1;
-			y2 = yy2;
-		}
-
-		public void paintComponets(Graphics g) {
-			Graphics2D g2 = (Graphics2D) g;
-			g2.setColor(Color.WHITE);
-			g2.drawLine(x1, y1, x2, y2);
-
-		}
-	}
 
 	class FuturesPanel extends JPanel {
 		private JLabel[] data = new JLabel[24];
@@ -560,16 +400,12 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 
 	@Override
 	public void updatePage() {
-
-		ArrayList<Arb_detail> arb_lists = LiveData.getInstance()
-				.getArb_details();
-		update();
-		chart1.addNewPrice(arb_lists.get(0).getFormattedArb_detail()
-				.getPresentPrice());
-		chart2.addNewPrice(arb_lists.get(1).getFormattedArb_detail()
-				.getPresentPrice());
-		chart3.addNewPrice(arb_lists.get(2).getFormattedArb_detail()
-				.getPresentPrice());
-
+		ArrayList<Arb_detail> arb_lists = LiveData.getInstance().getArb_details();
+		for (int i = 0; i < arb_lists.size(); i++) {
+			Arb_detail arb_detail = arb_lists.get(i);
+			arb_details[i] = arb_detail;
+			charts[i].addNewPrice(arb_detail.getPresentPrice());
+		}
+		updateTable();
 	}
 }

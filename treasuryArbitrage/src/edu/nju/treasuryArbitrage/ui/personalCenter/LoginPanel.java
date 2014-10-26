@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 public class LoginPanel extends JPanel{
 	private static final long serialVersionUID = 6944414090977934692L;
-	private static final String LOGO_NAI_IMAGE = "image/logo_nav_image.jpg";
+	private static final String LOGO_NAI_IMAGE = "image/logo_nav_image.png";
 	
 	public LoginPanel(LoginFrame loginFrame) {
 		init();
