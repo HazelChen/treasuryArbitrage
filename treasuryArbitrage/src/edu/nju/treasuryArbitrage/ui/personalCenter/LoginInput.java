@@ -27,7 +27,7 @@ public class LoginInput extends JPanel{
 	private static final long serialVersionUID = -4223830916730143876L;
 	private static final Font YAHEI_FONT = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 15);
 	private static final Font TINY_YAHEI_FONT = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 13);
-	private static final Color BACKGROUND_COLOR = new Color(243,243,242);
+	private static final Color BACKGROUND_COLOR = new Color(235,242,250);
 	private static final Color FOREGROUND_COLOR = Color.BLACK;
 	
 	private RiskTipDialog dialog = new RiskTipDialog();

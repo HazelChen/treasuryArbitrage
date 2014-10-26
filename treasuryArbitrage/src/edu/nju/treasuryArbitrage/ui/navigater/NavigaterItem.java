@@ -2,6 +2,7 @@ package edu.nju.treasuryArbitrage.ui.navigater;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -82,6 +83,7 @@ public class NavigaterItem extends JPanel{
 		this.setPreferredSize(new Dimension(70, 30));
 		this.setBackground(ColorConstants.NAVIGATER_GRAY);
 		
+		naviLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 14));
 		naviLabel.setText(name);
 		initialState();
 		this.add(naviLabel);

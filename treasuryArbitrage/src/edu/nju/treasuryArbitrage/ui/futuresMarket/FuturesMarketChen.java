@@ -5,10 +5,12 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -27,8 +29,9 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 	private static final int LABEL_HEIGHT = 20;
 	private JTable futuersTable;
 	private FuturesPanel detailPanel;
-	private String[] headerData = { "代码", "交割月份", "现价", "涨跌", "涨跌幅", "买量", "买价", "卖价",
-			"卖量", "成交量", "持仓量", "日增仓", "前结算价", "今开", "最高", "最低", "时间" };
+	private String[] headerData = { "代码", "交割月份", "现价", "涨跌", "涨跌幅", "买量",
+			"买价", "卖价", "卖量", "成交量", "持仓量", "日增仓", "前结算价", "今开", "最高", "最低",
+			"时间" };
 	private Arb_detail[] arb_details = new Arb_detail[3];
 	private DefaultTableModel model;
 	private LineChart[] charts = new LineChart[3];
@@ -37,29 +40,47 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 		init();
 		initComponents();
 		assemble();
+		addListeners();
 	}
-	
+
+	private void addListeners() {
+//		futuersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//			
+//			@Override
+//			public void valueChanged(ListSelectionEvent e) {
+//				  if (e.getSource() == table.getColumnModel().getSelectionModel()
+//		                   && table.getColumnSelectionAllowed() ){
+//		                int firstRow = e.getFirstIndex();
+//		                int lastRow = e.getLastIndex();
+//		                // 事件处理...
+//		            }
+//				
+//			}
+//		});
+		
+	}
+
 	private void init() {
 		this.setLayout(null);
 		this.setBackground(Color.BLACK);
-		
+
 		ArrayList<Arb_detail> result = LiveData.getInstance().getArb_details();
 		for (int i = 0; i < result.size(); i++) {
 			arb_details[i] = result.get(i);
 		}
 	}
-	
+
 	private void updateTable() {
-		
+
 		Object[][] futuresInfo = new Object[arb_details.length][headerData.length];
 		for (int i = 0; i < arb_details.length; i++) {
 			Arb_detail arb = arb_details[i].getFormattedArb_detail();
-			
+
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTimeInMillis(arb.getTime());
 			int hour = calendar.get(Calendar.HOUR);
 			int min = calendar.get(Calendar.MINUTE);
-			
+
 			futuresInfo[i] = new Object[] { arb.getSymbol(), arb.getMonth(),
 					arb.getPresentPrice(), arb.getPriceChange(),
 					arb.getChange(), arb.getBid(), arb.getBidPirce(),
@@ -68,8 +89,21 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 					arb.getPreSettlePrice(), arb.getOpen(), arb.getHigh(),
 					arb.getLow(), hour + ":" + min };
 		}
-		
-		model = new DefaultTableModel(futuresInfo, headerData) {
+
+		model.setDataVector(futuresInfo, headerData);
+
+		setColomnWidthAndColor();
+	}
+
+	private void initComponents() {
+		initTable();
+
+		initCharts();
+	}
+
+	private void initTable() {
+		futuersTable = new JTable();
+		model = new DefaultTableModel() {
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) {
@@ -77,24 +111,9 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 			}
 		};
 		futuersTable.setModel(model);
-		
-		setColomnWidthAndColor();
-		
-		futuersTable.repaint();
-	}
-	
-	private void initComponents() {
-		initTable();
-		
-		detailPanel = new FuturesPanel();
-		detailPanel.setDetail(arb_details[0], 1);
-		
-		initCharts();
-	}
-	
-	private void initTable() {
-		futuersTable = new JTable();
+
 		updateTable();
+
 		futuersTable.setShowGrid(false);
 		futuersTable.setShowHorizontalLines(false);
 		futuersTable.setShowVerticalLines(false);
@@ -103,17 +122,17 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 		futuersTable.setBackground(Color.BLACK);
 		futuersTable.setBorder(null);
 		futuersTable.setForeground(Color.WHITE);
-		
+
 		JTableHeader header = futuersTable.getTableHeader();
 		header.setBackground(Color.BLACK);
 		header.setForeground(ColorConstants.BRIGHT_BLUE);
 		header.setFont(new Font("黑体", Font.PLAIN, 18));
 	}
-	
+
 	private void setColomnWidthAndColor() {
 		TableColumn column1 = futuersTable.getColumn(headerData[1]);
 		column1.setPreferredWidth(100);
-		
+
 		setColomnColor(0, ColorConstants.BRIGHT_BLUE);
 		setColomnColor(2, Color.RED);
 		setColomnColor(3, Color.RED);
@@ -131,140 +150,139 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 		setColomnColor(14, Color.RED);
 		setColomnColor(15, Color.RED);
 	}
-	
+
 	private DefaultTableCellRenderer setColomnColor(int index, Color color) {
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setForeground(color);
 		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);
 		return renderer;
 	}
-	
+
 	private void assemble() {
 		JScrollPane scrollPane = new JScrollPane(futuersTable);
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 10, ScreenSize.WIDTH, 150);
 		this.add(scrollPane);
-		
-		detailPanel.setBounds(0, 170, ScreenSize.WIDTH / 10 * 3, ScreenSize.HEIGHT - 170);
+
+		int detailPanelWidth = 200;
+		int detailPanelHeight = ScreenSize.HEIGHT - 170;
+		detailPanel = new FuturesPanel(detailPanelWidth, detailPanelHeight);
+		detailPanel.setDetail(arb_details[0].getFormattedArb_detail());
+		detailPanel.setBounds(ScreenSize.WIDTH - 200, 160, detailPanelWidth,
+				detailPanelHeight);
 		this.add(detailPanel);
-		
+
 		for (int i = 0; i < charts.length; i++) {
-			charts[i].setBounds(ScreenSize.WIDTH / 10 * 3, 160, ScreenSize.WIDTH / 10 * 7, ScreenSize.HEIGHT - 220);
+			charts[i].setBounds(0, 160, ScreenSize.WIDTH - 200,
+					ScreenSize.HEIGHT - 220);
 			this.add(charts[i]);
 		}
-		
+
 		charts[0].setVisible(true);
 		charts[1].setVisible(false);
 		charts[2].setVisible(false);
 	}
-	
+
 	private void initCharts() {
 		charts[0] = new LineChart(0, Color.YELLOW);
 		charts[1] = new LineChart(1, ColorConstants.BRIGHT_BLUE);
 		charts[2] = new LineChart(0, Color.WHITE);
 	}
-	
-	
 
-	/*class TableSelectionListener1 implements ListSelectionListener {
-
-		public void valueChanged(ListSelectionEvent arg0) {
-			tctpTable1.setBackground(Color.DARK_GRAY);
-			btctpTable1.setBackground(Color.DARK_GRAY);
-			futuresTable1.setBackground(Color.DARK_GRAY);
-			rtctpTable1.setBackground(Color.DARK_GRAY);
-			gtctpTable1.setBackground(Color.DARK_GRAY);
-
-			tctpTable2.setBackground(Color.BLACK);
-			btctpTable2.setBackground(Color.BLACK);
-			futuresTable2.setBackground(Color.BLACK);
-			rtctpTable2.setBackground(Color.BLACK);
-			gtctpTable2.setBackground(Color.BLACK);
-
-			tctpTable3.setBackground(Color.BLACK);
-			btctpTable3.setBackground(Color.BLACK);
-			futuresTable3.setBackground(Color.BLACK);
-			rtctpTable3.setBackground(Color.BLACK);
-			gtctpTable3.setBackground(Color.BLACK);
-
-			futuresTable1.clearSelection();
-
-			detailPanel.setDetail(arb1, 1);
-			chart1.setVisible(true);
-			chart2.setVisible(false);
-			chart3.setVisible(false);
-		}
-	}
-
-	class TableSelectionListener2 implements ListSelectionListener {
-
-		public void valueChanged(ListSelectionEvent arg0) {
-			tctpTable1.setBackground(Color.BLACK);
-			btctpTable1.setBackground(Color.BLACK);
-			futuresTable1.setBackground(Color.BLACK);
-			rtctpTable1.setBackground(Color.BLACK);
-			gtctpTable1.setBackground(Color.BLACK);
-
-			tctpTable2.setBackground(Color.DARK_GRAY);
-			btctpTable2.setBackground(Color.DARK_GRAY);
-			futuresTable2.setBackground(Color.DARK_GRAY);
-			rtctpTable2.setBackground(Color.DARK_GRAY);
-			gtctpTable2.setBackground(Color.DARK_GRAY);
-
-			tctpTable3.setBackground(Color.BLACK);
-			btctpTable3.setBackground(Color.BLACK);
-			futuresTable3.setBackground(Color.BLACK);
-			rtctpTable3.setBackground(Color.BLACK);
-			gtctpTable3.setBackground(Color.BLACK);
-
-			futuresTable2.clearSelection();
-
-			detailPanel.setDetail(arb2, 2);
-			chart1.setVisible(false);
-			chart2.setVisible(true);
-			chart3.setVisible(false);
-		}
-	}
-
-	class TableSelectionListener3 implements ListSelectionListener {
-
-		public void valueChanged(ListSelectionEvent arg0) {
-			tctpTable1.setBackground(Color.BLACK);
-			btctpTable1.setBackground(Color.BLACK);
-			futuresTable1.setBackground(Color.BLACK);
-			rtctpTable1.setBackground(Color.BLACK);
-			gtctpTable1.setBackground(Color.BLACK);
-
-			tctpTable2.setBackground(Color.BLACK);
-			btctpTable2.setBackground(Color.BLACK);
-			futuresTable2.setBackground(Color.BLACK);
-			rtctpTable2.setBackground(Color.BLACK);
-			gtctpTable2.setBackground(Color.BLACK);
-
-			tctpTable3.setBackground(Color.DARK_GRAY);
-			btctpTable3.setBackground(Color.DARK_GRAY);
-			futuresTable3.setBackground(Color.DARK_GRAY);
-			rtctpTable3.setBackground(Color.DARK_GRAY);
-			gtctpTable3.setBackground(Color.DARK_GRAY);
-
-			futuresTable3.clearSelection();
-
-			detailPanel.setDetail(arb3, 3);
-			chart1.setVisible(false);
-			chart2.setVisible(false);
-			chart3.setVisible(true);
-
-		}
-	}*/
+	/*
+	 * class TableSelectionListener1 implements ListSelectionListener {
+	 * 
+	 * public void valueChanged(ListSelectionEvent arg0) {
+	 * tctpTable1.setBackground(Color.DARK_GRAY);
+	 * btctpTable1.setBackground(Color.DARK_GRAY);
+	 * futuresTable1.setBackground(Color.DARK_GRAY);
+	 * rtctpTable1.setBackground(Color.DARK_GRAY);
+	 * gtctpTable1.setBackground(Color.DARK_GRAY);
+	 * 
+	 * tctpTable2.setBackground(Color.BLACK);
+	 * btctpTable2.setBackground(Color.BLACK);
+	 * futuresTable2.setBackground(Color.BLACK);
+	 * rtctpTable2.setBackground(Color.BLACK);
+	 * gtctpTable2.setBackground(Color.BLACK);
+	 * 
+	 * tctpTable3.setBackground(Color.BLACK);
+	 * btctpTable3.setBackground(Color.BLACK);
+	 * futuresTable3.setBackground(Color.BLACK);
+	 * rtctpTable3.setBackground(Color.BLACK);
+	 * gtctpTable3.setBackground(Color.BLACK);
+	 * 
+	 * futuresTable1.clearSelection();
+	 * 
+	 * detailPanel.setDetail(arb1, 1); chart1.setVisible(true);
+	 * chart2.setVisible(false); chart3.setVisible(false); } }
+	 * 
+	 * class TableSelectionListener2 implements ListSelectionListener {
+	 * 
+	 * public void valueChanged(ListSelectionEvent arg0) {
+	 * tctpTable1.setBackground(Color.BLACK);
+	 * btctpTable1.setBackground(Color.BLACK);
+	 * futuresTable1.setBackground(Color.BLACK);
+	 * rtctpTable1.setBackground(Color.BLACK);
+	 * gtctpTable1.setBackground(Color.BLACK);
+	 * 
+	 * tctpTable2.setBackground(Color.DARK_GRAY);
+	 * btctpTable2.setBackground(Color.DARK_GRAY);
+	 * futuresTable2.setBackground(Color.DARK_GRAY);
+	 * rtctpTable2.setBackground(Color.DARK_GRAY);
+	 * gtctpTable2.setBackground(Color.DARK_GRAY);
+	 * 
+	 * tctpTable3.setBackground(Color.BLACK);
+	 * btctpTable3.setBackground(Color.BLACK);
+	 * futuresTable3.setBackground(Color.BLACK);
+	 * rtctpTable3.setBackground(Color.BLACK);
+	 * gtctpTable3.setBackground(Color.BLACK);
+	 * 
+	 * futuresTable2.clearSelection();
+	 * 
+	 * detailPanel.setDetail(arb2, 2); chart1.setVisible(false);
+	 * chart2.setVisible(true); chart3.setVisible(false); } }
+	 * 
+	 * class TableSelectionListener3 implements ListSelectionListener {
+	 * 
+	 * public void valueChanged(ListSelectionEvent arg0) {
+	 * tctpTable1.setBackground(Color.BLACK);
+	 * btctpTable1.setBackground(Color.BLACK);
+	 * futuresTable1.setBackground(Color.BLACK);
+	 * rtctpTable1.setBackground(Color.BLACK);
+	 * gtctpTable1.setBackground(Color.BLACK);
+	 * 
+	 * tctpTable2.setBackground(Color.BLACK);
+	 * btctpTable2.setBackground(Color.BLACK);
+	 * futuresTable2.setBackground(Color.BLACK);
+	 * rtctpTable2.setBackground(Color.BLACK);
+	 * gtctpTable2.setBackground(Color.BLACK);
+	 * 
+	 * tctpTable3.setBackground(Color.DARK_GRAY);
+	 * btctpTable3.setBackground(Color.DARK_GRAY);
+	 * futuresTable3.setBackground(Color.DARK_GRAY);
+	 * rtctpTable3.setBackground(Color.DARK_GRAY);
+	 * gtctpTable3.setBackground(Color.DARK_GRAY);
+	 * 
+	 * futuresTable3.clearSelection();
+	 * 
+	 * detailPanel.setDetail(arb3, 3); chart1.setVisible(false);
+	 * chart2.setVisible(false); chart3.setVisible(true);
+	 * 
+	 * } }
+	 */
 
 	class FuturesPanel extends JPanel {
+		private static final long serialVersionUID = -4185005520541760560L;
+
 		private JLabel[] data = new JLabel[24];
 		public JLabel[] detail = new JLabel[24];
 		private JLabel title = new JLabel();
-		private int width = (WIDTH / 5) * 2;
-		private int height = HEIGHT - 190;
+		private int width;
+		private int height;
 
-		public FuturesPanel() {
+		public FuturesPanel(int width, int height) {
+			this.width = width;
+			this.height = height;
 
 			data[0] = new JLabel("卖价");
 			data[1] = new JLabel("买价");
@@ -291,49 +309,38 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 			data[22] = new JLabel("跌停");
 			data[23] = new JLabel("内盘");
 
-			this.setSize(width, height);
 			this.setLayout(null);
 
 			for (int i = 0; i < 24; i++) {
 				this.add(data[i]);
+				data[i].setFont(new Font("微软雅黑", Font.PLAIN, 18));
 				detail[i] = new JLabel();
+				detail[i].setFont(new Font("微软雅黑", Font.PLAIN, 18));
+				detail[i].setHorizontalAlignment(SwingConstants.RIGHT);
 				this.add(detail[i]);
-				data[i].setForeground(Color.WHITE);
+				data[i].setForeground(new Color(192, 192, 192));
 			}
 
 			this.setBackground(Color.BLACK);
 
-			title.setBounds(190, 10, 200, 30);
-			title.setText("点击期货查看详细数据");
+			title.setBounds(0, 0, width, 30);
 			this.add(title);
-			title.setVisible(false);
-			title.setForeground(Color.WHITE);
+			title.setHorizontalAlignment(SwingConstants.CENTER);
+			title.setForeground(ColorConstants.BRIGHT_BLUE);
+			title.setFont(new Font("微软雅黑", Font.PLAIN, 22));
+			title.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0,
+					new Color(128, 0, 0)));
 
-			for (int i = 0; i < 13; i++) {
-				data[i].setBounds(30, 80 + (LABEL_HEIGHT + 10) * i,
-						LABEL_WIDTH, LABEL_HEIGHT);
-				detail[i].setBounds(140, 80 + (LABEL_HEIGHT + 10) * i,
-						LABEL_WIDTH, LABEL_HEIGHT);
-
-			}
-
-			for (int i = 13; i < 24; i++) {
-				data[i].setBounds(250, 140 + (LABEL_HEIGHT + 10) * (i - 13),
-						LABEL_WIDTH, LABEL_HEIGHT);
-				detail[i].setBounds(360, 140 + (LABEL_HEIGHT + 10) * (i - 13),
-						LABEL_WIDTH, LABEL_HEIGHT);
+			for (int i = 0; i < 24; i++) {
+				data[i].setBounds(5, 30 + (LABEL_HEIGHT) * i, LABEL_WIDTH,
+						LABEL_HEIGHT);
+				detail[i].setBounds(70, 30 + (LABEL_HEIGHT) * i, 120,
+						LABEL_HEIGHT);
 			}
 		}
 
-		public void setDetail(Arb_detail arb, int i) {
-			if (i == 1) {
-				title.setText("国债1412");
-			} else if (i == 2) {
-				title.setText("国债1503");
-			} else if (i == 3) {
-				title.setText("国债1506");
-			}
-			title.setVisible(true);
+		public void setDetail(Arb_detail arb) {
+			title.setText("国债" + arb.getSymbol().substring(2));
 
 			String zhangdie;
 			if (arb.getPriceChange() >= 0) {
@@ -400,7 +407,8 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 
 	@Override
 	public void updatePage() {
-		ArrayList<Arb_detail> arb_lists = LiveData.getInstance().getArb_details();
+		ArrayList<Arb_detail> arb_lists = LiveData.getInstance()
+				.getArb_details();
 		for (int i = 0; i < arb_lists.size(); i++) {
 			Arb_detail arb_detail = arb_lists.get(i);
 			arb_details[i] = arb_detail;

@@ -42,7 +42,7 @@ public class LineChart extends JPanel {
 		ChartPanel chartPanel = init();
 		this.add(chartPanel);
 		
-		this.setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, new Color(193,193,193)));
+		this.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4, new Color(193,193,193)));
 	}
 	
 	/**

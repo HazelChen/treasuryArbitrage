@@ -90,6 +90,8 @@ public class Arb_detail {
 		arb_detail.preSettlePrice = format(preSettlePrice);
 		arb_detail.high = format(high);
 		arb_detail.low = format(low);
+		arb_detail.swing = format(swing);
+		arb_detail.fullAmount = format(fullAmount);
 		
 		return arb_detail;
 	}
