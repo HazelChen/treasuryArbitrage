@@ -1,15 +1,15 @@
 package edu.nju.treasuryArbitrage.factory;
 
-import vo.News;
-import edu.nju.treasuryArbitrage.PersonalCenter.PersonalCenter;
-import edu.nju.treasuryArbitrage.PersonalCenter.SettingStopParameters;
-import edu.nju.treasuryArbitrage.arbitragePortfolio.ArbitragePortfolio;
-import edu.nju.treasuryArbitrage.framework.TreasuryFrame;
-import edu.nju.treasuryArbitrage.futuresMarket.FuturesMarket;
-import edu.nju.treasuryArbitrage.holdings.Holdings;
-import edu.nju.treasuryArbitrage.navigater.Navigater;
-import edu.nju.treasuryArbitrage.news.NewsPanel;
-import edu.nju.treasuryArbitrage.resources.NumericalResources;
+import edu.nju.treasuryArbitrage.ui.arbitragePortfolio.ArbitragePortfolio;
+import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
+import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
+import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarket;
+import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarketChen;
+import edu.nju.treasuryArbitrage.ui.holdings.Holdings;
+import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
+import edu.nju.treasuryArbitrage.ui.news.NewsPanel;
+import edu.nju.treasuryArbitrage.ui.personalCenter.PersonalCenter;
+import edu.nju.treasuryArbitrage.ui.personalCenter.SettingStopParameters;
 
 public class MajorPartsFactory {
 	private static MajorPartsFactory self;
@@ -49,7 +49,7 @@ public class MajorPartsFactory {
 
 	public FuturesMarket getFuturesMarket() {
 		if (futuresMarket == null) {
-			futuresMarket = new FuturesMarket();
+			futuresMarket = new FuturesMarketChen();
 		}
 		return futuresMarket;
 	}
@@ -78,7 +78,7 @@ public class MajorPartsFactory {
 	public PersonalCenter getPersonalCenter() {
 		if (personalCenter == null) {
 			personalCenter = new PersonalCenter();
-			personalCenter.assemble(NumericalResources.SCREEN_WIDTH, NumericalResources.SCREEN_HEIGHT);
+			personalCenter.assemble(ScreenSize.WIDTH, ScreenSize.HEIGHT);
 		}
 		return personalCenter;
 	}
