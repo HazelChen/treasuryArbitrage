@@ -6,11 +6,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -25,10 +22,8 @@ import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 	private static final long serialVersionUID = 4293989421427626065L;
 	private static final int TABLE_HEIGHT = 40;
-	private static final int LABEL_WIDTH = 60;
-	private static final int LABEL_HEIGHT = 20;
 	private JTable futuersTable;
-	private FuturesPanel detailPanel;
+	private FuturesDetailPanel detailPanel;
 	private String[] headerData = { "代码", "交割月份", "现价", "涨跌", "涨跌幅", "买量",
 			"买价", "卖价", "卖量", "成交量", "持仓量", "日增仓", "前结算价", "今开", "最高", "最低",
 			"时间" };
@@ -164,17 +159,18 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 		scrollPane.setBounds(0, 10, ScreenSize.WIDTH, 150);
 		this.add(scrollPane);
 
-		int detailPanelWidth = 200;
+		int detailPanelWidth = 400;
 		int detailPanelHeight = ScreenSize.HEIGHT - 170;
-		detailPanel = new FuturesPanel(detailPanelWidth, detailPanelHeight);
-		detailPanel.setDetail(arb_details[0].getFormattedArb_detail());
-		detailPanel.setBounds(ScreenSize.WIDTH - 200, 160, detailPanelWidth,
-				detailPanelHeight);
+		detailPanel = new FuturesDetailPanel(detailPanelWidth, detailPanelHeight);
+		detailPanel.setDetail(0);
+		detailPanel.update(arb_details[0].getFormattedArb_detail());
+		detailPanel.setBounds(0, 160, detailPanelWidth,detailPanelHeight);
 		this.add(detailPanel);
 
 		for (int i = 0; i < charts.length; i++) {
-			charts[i].setBounds(0, 160, ScreenSize.WIDTH - 200,
+			charts[i].setBounds(detailPanelWidth, 160, ScreenSize.WIDTH - detailPanelWidth,
 					ScreenSize.HEIGHT - 220);
+			charts[i].setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, new Color(193,193,193)));
 			this.add(charts[i]);
 		}
 
@@ -184,9 +180,9 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 	}
 
 	private void initCharts() {
-		charts[0] = new LineChart(0, Color.YELLOW);
-		charts[1] = new LineChart(1, ColorConstants.BRIGHT_BLUE);
-		charts[2] = new LineChart(0, Color.WHITE);
+		charts[0] = new LineChart(Color.YELLOW);
+		charts[1] = new LineChart(ColorConstants.BRIGHT_BLUE);
+		charts[2] = new LineChart(Color.WHITE);
 	}
 
 	/*
@@ -271,140 +267,6 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 	 * } }
 	 */
 
-	class FuturesPanel extends JPanel {
-		private static final long serialVersionUID = -4185005520541760560L;
-
-		private JLabel[] data = new JLabel[24];
-		public JLabel[] detail = new JLabel[24];
-		private JLabel title = new JLabel();
-		private int width;
-		private int height;
-
-		public FuturesPanel(int width, int height) {
-			this.width = width;
-			this.height = height;
-
-			data[0] = new JLabel("卖价");
-			data[1] = new JLabel("买价");
-			data[2] = new JLabel("成交");
-			data[3] = new JLabel("涨跌");
-			data[4] = new JLabel("涨幅");
-			data[5] = new JLabel("振幅");
-			data[6] = new JLabel("现手");
-			data[7] = new JLabel("总手");
-			data[8] = new JLabel("持仓");
-			data[9] = new JLabel("昨持仓");
-			data[10] = new JLabel("涨停");
-			data[11] = new JLabel("外盘");
-			data[12] = new JLabel("开盘");
-			data[13] = new JLabel("昨收");
-			data[14] = new JLabel("最高");
-			data[15] = new JLabel("最低");
-			data[16] = new JLabel("金额");
-			data[17] = new JLabel("均价");
-			data[18] = new JLabel("今结");
-			data[19] = new JLabel("昨结");
-			data[20] = new JLabel("日增仓");
-			data[21] = new JLabel("量比");
-			data[22] = new JLabel("跌停");
-			data[23] = new JLabel("内盘");
-
-			this.setLayout(null);
-
-			for (int i = 0; i < 24; i++) {
-				this.add(data[i]);
-				data[i].setFont(new Font("微软雅黑", Font.PLAIN, 18));
-				detail[i] = new JLabel();
-				detail[i].setFont(new Font("微软雅黑", Font.PLAIN, 18));
-				detail[i].setHorizontalAlignment(SwingConstants.RIGHT);
-				this.add(detail[i]);
-				data[i].setForeground(new Color(192, 192, 192));
-			}
-
-			this.setBackground(Color.BLACK);
-
-			title.setBounds(0, 0, width, 30);
-			this.add(title);
-			title.setHorizontalAlignment(SwingConstants.CENTER);
-			title.setForeground(ColorConstants.BRIGHT_BLUE);
-			title.setFont(new Font("微软雅黑", Font.PLAIN, 22));
-			title.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0,
-					new Color(128, 0, 0)));
-
-			for (int i = 0; i < 24; i++) {
-				data[i].setBounds(5, 30 + (LABEL_HEIGHT) * i, LABEL_WIDTH,
-						LABEL_HEIGHT);
-				detail[i].setBounds(70, 30 + (LABEL_HEIGHT) * i, 120,
-						LABEL_HEIGHT);
-			}
-		}
-
-		public void setDetail(Arb_detail arb) {
-			title.setText("国债" + arb.getSymbol().substring(2));
-
-			String zhangdie;
-			if (arb.getPriceChange() >= 0) {
-				zhangdie = "+" + arb.getPriceChange() + "%";
-			} else {
-				zhangdie = arb.getPriceChange() + "%";
-			}
-			String zhangfu;
-			if (arb.getChange() >= 0) {
-				zhangfu = "+" + arb.getChange() + "%";
-			} else {
-				zhangfu = arb.getChange() + "%";
-			}
-
-			if (arb.getPresentPrice() > arb.getSettlePrice()) {
-				detail[2].setForeground(Color.RED);
-			} else if (arb.getPresentPrice() < arb.getSettlePrice()) {
-				detail[2].setForeground(Color.GREEN);
-			} else {
-				detail[2].setForeground(new Color(10, 156, 211));
-			}
-
-			if (arb.getChange() > 0) {
-				detail[3].setForeground(Color.RED);
-			} else if (arb.getChange() < 0) {
-				detail[3].setForeground(Color.GREEN);
-			} else {
-				detail[3].setForeground(new Color(10, 156, 211));
-			}
-
-			detail[0].setForeground(new Color(10, 156, 211));
-			detail[1].setForeground(new Color(10, 156, 211));
-			for (int j = 4; j < 24; j++) {
-				detail[j].setForeground(new Color(10, 156, 211));
-			}
-
-			detail[0].setText(String.valueOf(arb.getAskPrice()));
-			detail[1].setText(String.valueOf(arb.getBidPirce()));
-			detail[2].setText(String.valueOf(arb.getPresentPrice()));
-			detail[3].setText(zhangdie);
-			detail[4].setText(zhangfu);
-			detail[5].setText(String.valueOf(arb.getSwing()) + "%");
-			detail[6].setText(String.valueOf(arb.getNvol()));
-			detail[7].setText(String.valueOf(arb.getVol()));
-			detail[8].setText(String.valueOf(arb.getRepository()));
-			detail[9].setText(String.valueOf(arb.getPreRepository()));
-			detail[10].setText(String.valueOf(arb.getHardenPrice()));
-			detail[11].setText(String.valueOf(arb.getOutvol()));
-			detail[12].setText(String.valueOf(arb.getOpen()));
-			detail[13].setText(String.valueOf(arb.getPreClose()));
-			detail[14].setText(String.valueOf(arb.getHigh()));
-			detail[15].setText(String.valueOf(arb.getLow()));
-			detail[16].setText(String.valueOf(arb.getFullAmount()) + "亿");
-			detail[17].setText(String.valueOf(arb.getAverPrice()));
-			detail[18].setText(String.valueOf(arb.getSettlePrice()));
-			detail[19].setText(String.valueOf(arb.getPreSettlePrice()));
-			detail[20].setText(String.valueOf(arb.getDailyWarehouse()));
-			detail[21].setText(String.valueOf(arb.getRatio()));
-			detail[22].setText(String.valueOf(arb.getLimitPrice()));
-			detail[23].setText(String.valueOf(arb.getInvol()));
-
-		}
-	}
-
 	@Override
 	public void updatePage() {
 		ArrayList<Arb_detail> arb_lists = LiveData.getInstance()
@@ -414,6 +276,7 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 			arb_details[i] = arb_detail;
 			charts[i].addNewPrice(arb_detail.getPresentPrice());
 		}
+		detailPanel.update(arb_lists);
 		updateTable();
 	}
 }

@@ -96,9 +96,9 @@ public class FuturesMarketWu extends JPanel implements ComponentPanel {
 		line2.setBounds((WIDTH / 5) * 2, 10 + HEADER_HEIGHT + 3 * TABLE_HEIGHT
 				+ 20, 1, HEIGHT - 190);
 
-		chart1 = new LineChart(0);
-		chart2 = new LineChart(1);
-		chart3 = new LineChart(2);
+		chart1 = new LineChart();
+		chart2 = new LineChart();
+		chart3 = new LineChart();
 		this.add(chart1);
 		this.add(chart2);
 		this.add(chart3);
