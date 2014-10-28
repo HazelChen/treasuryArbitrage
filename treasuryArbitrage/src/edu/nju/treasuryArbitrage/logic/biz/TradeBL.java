@@ -13,7 +13,7 @@ public class TradeBL {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
 		params.put("more_contract", More_contract);
-		params.put("mlank_contract", Blank_contract);
+		params.put("blank_contract", Blank_contract);
 		params.put("more_price", more_price+"");
 		params.put("blank_price", blank_price+"");
 		params.put("hand", hand+"");
@@ -22,7 +22,7 @@ public class TradeBL {
 		NetHelper helper = new NetHelper("order",params);
 		JSONObject ret = helper.getJSONObjectByGet();
 		
-		if(ret.getInt("result ")==1){
+		if(ret.getInt("result")==1){
 			return true;
 		}
 		
