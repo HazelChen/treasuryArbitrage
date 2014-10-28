@@ -250,7 +250,7 @@ public class NewsPanel extends JPanel implements ComponentPanel{
 	                */    
 	            	  setBackground(Color.black);
 		              if(column == 1){setForeground(Color.blue);}
-		              else{      	  setForeground(Color.gray);}
+		              else{      	  setForeground(Color.white);}
 			          if(row == 0){setForeground(Color.white);}
 	              setHorizontalAlignment(SwingConstants.CENTER);
 
