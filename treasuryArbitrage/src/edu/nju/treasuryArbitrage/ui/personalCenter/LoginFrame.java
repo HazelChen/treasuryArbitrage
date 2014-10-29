@@ -16,7 +16,7 @@ public class LoginFrame extends JFrame{
 	}
 	
 	private void init() {
-		this.setTitle("µÇÂ¼µ½" + TextConstants.TITLE_CHS);
+		this.setTitle(TextConstants.TITLE_CHS);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(550, 380);
 		this.setLocationRelativeTo(null);

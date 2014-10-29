@@ -45,7 +45,7 @@ public class LoginInputFlat extends LoginInput{
 	
 	private void initComponents() {
 		LoginStateRecorder stateRecorder = new LoginStateRecorder();
-		String userInfo = stateRecorder.getRememberedUser();
+		String userInfo = stateRecorder.getRememberedUser().trim();
 		userTextField.setText(userInfo);
 		
 		if (userInfo.equals("")) {
