@@ -259,7 +259,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 	 	 		hTable.getColumnModel().getColumn(0).setCellRenderer(new MyTableCellRenderer(info));//
 	 	 		
 	    	}
-	    	if(info.size() > 8){
+	    	if(info.size() > 3){
  	  	 		hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMinWidth(13);
  	  	 		hTableHeader.getColumn(hTableHeader.getColumnName(6)).setMaxWidth(13);
  	 		}
@@ -322,7 +322,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 	    	}
 	    	else{
 	    	}
-	    	if(fTableRec.size() > 3) {
+	    	if(fTableRec.size() > 8) {
  	  	 		fTableHeader.getColumn(fTableHeader.getColumnName(4)).setMinWidth(13);
  	  	 		fTableHeader.getColumn(fTableHeader.getColumnName(4)).setMaxWidth(13);
  	 		}
