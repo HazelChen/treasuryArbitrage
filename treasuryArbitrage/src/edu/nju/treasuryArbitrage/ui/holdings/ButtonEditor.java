@@ -16,6 +16,7 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -247,12 +248,12 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 				public void mouseClicked(MouseEvent e) {
 					if(e.getSource() == btnY){
 						curdg.setVisible(false);
-						dg.setVisible(true);
+						
 						//-------------------卖出对应合约-----
 						//repository;  更新数据库
-						di.Order(repository.getToBuy(), repository.getToSell(), 
-								repository.gettoBuy_price(),repository.gettoSell_price(),
-								repository.getCount(), repository.getGuarantee());
+						if(di.Trade(repository.getRepo_ID(), repository.getProfit()))
+						{dg.setVisible(true);}
+						else {JOptionPane.showMessageDialog(null, "平仓失败！");}
 						//JOptionPane.showMessageDialog(null, "更新");
 						MajorPartsFactory.getInstance().getHoldings().updateFTable();
 						MajorPartsFactory.getInstance().getHoldings().updateRepoList();
