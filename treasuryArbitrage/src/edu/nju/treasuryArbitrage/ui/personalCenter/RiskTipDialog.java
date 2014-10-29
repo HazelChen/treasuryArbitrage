@@ -13,13 +13,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import edu.nju.treasuryArbitrage.logic.fileIO.FileOperater;
-import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class RiskTipDialog extends JDialog {
 	private static final long serialVersionUID = 5893692668956428617L;
 
-	private JTextArea riskDetail = new JTextArea();
+	private JTextArea riskDetail = new JTextArea(25, 62);
 	private JButton closebtn = new JButton("关闭窗口");
 
 	/*package*/ RiskTipDialog () {
@@ -47,8 +46,9 @@ public class RiskTipDialog extends JDialog {
 	}
 
 	private void init() {
-		this.setUndecorated(true);
-		this.setBackground(ColorConstants.LOGIN_BORDER_GRAY);
+//		this.setUndecorated(true);
+		this.setTitle("风险提示");
+		this.setBackground(LoginInputFlat.BACKGROUND_COLOR);
 		this.setMaximumSize(new Dimension(720, 510));
 		this.setMinimumSize(new Dimension(750, 510));
 		this.setResizable(false);
@@ -66,18 +66,20 @@ public class RiskTipDialog extends JDialog {
 		titleLabel.setFont(new Font("微软雅黑", Font.PLAIN, 24));
 		JPanel titlePanel = new JPanel(new BorderLayout());
 		titlePanel.add(titleLabel, BorderLayout.WEST);
+		titlePanel.setBackground(LoginInputFlat.BACKGROUND_COLOR);
 		contentPanel.add(titlePanel, BorderLayout.NORTH);
-
-		riskDetail.setRows(25);
-		riskDetail.setColumns(62);
+		contentPanel.setBackground(LoginInputFlat.BACKGROUND_COLOR);
+		
 		riskDetail.setEditable(false);
 		riskDetail.setLineWrap(true);
 		JPanel centerPanel = new JPanel();
 		centerPanel.add(riskDetail);
+		centerPanel.setBackground(LoginInputFlat.BACKGROUND_COLOR);
 		contentPanel.add(centerPanel, BorderLayout.CENTER);
 		
 		JPanel bottomPanel = new JPanel();
 		bottomPanel.add(closebtn);
+		bottomPanel.setBackground(LoginInputFlat.BACKGROUND_COLOR);
 		contentPanel.add(bottomPanel, BorderLayout.SOUTH);
 		
 		this.add(contentPanel);

@@ -159,18 +159,19 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 		scrollPane.setBounds(0, 10, ScreenSize.WIDTH, 150);
 		this.add(scrollPane);
 
-		int detailPanelWidth = 400;
+		int detailPanelWidth = 350;
 		int detailPanelHeight = ScreenSize.HEIGHT - 170;
 		detailPanel = new FuturesDetailPanel(detailPanelWidth, detailPanelHeight);
 		detailPanel.setDetail(0);
 		detailPanel.update(arb_details[0].getFormattedArb_detail());
 		detailPanel.setBounds(0, 160, detailPanelWidth,detailPanelHeight);
+		detailPanel.setBounds(ScreenSize.WIDTH - detailPanelWidth, 160, detailPanelWidth,detailPanelHeight);
 		this.add(detailPanel);
 
 		for (int i = 0; i < charts.length; i++) {
-			charts[i].setBounds(detailPanelWidth, 160, ScreenSize.WIDTH - detailPanelWidth,
+			charts[i].setBounds(0, 160, ScreenSize.WIDTH - detailPanelWidth,
 					ScreenSize.HEIGHT - 220);
-			charts[i].setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, new Color(193,193,193)));
+			charts[i].setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4, new Color(193,193,193)));
 			this.add(charts[i]);
 		}
 

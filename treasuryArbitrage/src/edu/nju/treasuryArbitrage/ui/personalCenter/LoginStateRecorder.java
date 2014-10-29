@@ -3,33 +3,33 @@ package edu.nju.treasuryArbitrage.ui.personalCenter;
 import edu.nju.treasuryArbitrage.logic.fileIO.FileOperater;
 
 public class LoginStateRecorder {
-	private static final String AUTO_LOGIN_FILE_NAME = "isAutoLogin";
-	private static final String REMEMBER_PWD_FILE_NAME = "rememberPwd";
+//	private static final String AUTO_LOGIN_FILE_NAME = "isAutoLogin";
+	private static final String REMEMBER_PWD_FILE_NAME = "rememberUser";
 
-	public void rememberPwd(String username, String password) {
-		String content = username + " " + password;
+	public void rememberUsername(String username) {
+		String content = username;
 		
 		FileOperater fileOperater = new FileOperater();
 		fileOperater.write(REMEMBER_PWD_FILE_NAME, content);
 	}
 	
 	
-	public UserInfo getRememberedUser() {
+	public String getRememberedUser() {
 		FileOperater fileOperater = new FileOperater();
 		String content = fileOperater.read(REMEMBER_PWD_FILE_NAME);
 		
-		if (content.equals("")) {
+		/*if (content.equals("")) {
 			return new UserInfo();
 		}
 		
 		String[] userAndPwd = content.split(" ");
 		String username = userAndPwd[0];
 		String pwd = userAndPwd[1].trim();
-		UserInfo userInfo = new UserInfo(username, pwd);
-		return userInfo;
+		UserInfo userInfo = new UserInfo(username, pwd);*/
+		return content;
 	}
 	
-	public void cancelRemember() {
+	/*	public void cancelRemember() {
 		FileOperater fileOperater = new FileOperater();
 		fileOperater.write(REMEMBER_PWD_FILE_NAME, "");
 	}
@@ -53,6 +53,6 @@ public class LoginStateRecorder {
 		} else {
 			return true;
 		}
-	}
+	}*/
 	
 }

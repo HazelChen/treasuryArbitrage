@@ -6,14 +6,9 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
 import edu.nju.treasuryArbitrage.logic.liveUpdate.UpdateThread;
-import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.ui.personalCenter.LoginFrame;
-import edu.nju.treasuryArbitrage.ui.personalCenter.LoginStateRecorder;
-import edu.nju.treasuryArbitrage.ui.personalCenter.UserInfo;
 
 public class TreasuryArbitrage {
 	
@@ -26,7 +21,7 @@ public class TreasuryArbitrage {
 //		useLookAndFeel();	
 		startDataFetch();
 		
-		LoginStateRecorder stateRecorder = new LoginStateRecorder();
+		/*LoginStateRecorder stateRecorder = new LoginStateRecorder();
 		boolean isAutoLogin = stateRecorder.isAutoLogin();
 		if (isAutoLogin) {
 			UserInfo userInfo = stateRecorder.getRememberedUser();
@@ -45,9 +40,9 @@ public class TreasuryArbitrage {
 				recorder.cancelAutoLogin();
 				launchLoginPage();
 			}
-		} else {
+		} else {*/
 			launchLoginPage();
-		}
+	//	}
 	}
 	
 	private void startDataFetch() {

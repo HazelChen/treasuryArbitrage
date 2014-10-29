@@ -13,7 +13,7 @@ import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 public class Navigater extends JPanel{
 	private static final long serialVersionUID = -3260728762055118620L;
 	
-	private NavigaterItem[] items = new NavigaterItem[5];
+	private NavigaterItem[] items = new NavigaterItem[4];
 	
 	public Navigater() {
 		init();
@@ -35,7 +35,7 @@ public class Navigater extends JPanel{
 		items[1] = new NavigaterItem(this, factory.getArbitragePortfolio(), "套利组合", true, false);
 		items[2] = new NavigaterItem(this, factory.getHoldings(), "持仓情况", true, false);
 		items[3] = new NavigaterItem(this, factory.getNews(), "财经要闻", false, false);
-		items[4] = new NavigaterItem(this, factory.getPersonalCenter(), "个人中心", false, false);
+		//items[4] = new NavigaterItem(this, factory.getPersonalCenter(), "个人中心", false, false);
 	}
 	
 	public void assemble() {

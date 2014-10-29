@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.ui.personalCenter;
+/*package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -106,4 +106,4 @@ public class PersonalCenter extends JPanel implements ComponentPanel{
 		
 	}
 
-}
+}*/
