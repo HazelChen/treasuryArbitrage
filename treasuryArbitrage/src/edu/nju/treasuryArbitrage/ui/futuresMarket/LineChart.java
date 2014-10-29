@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JPanel;
 
@@ -56,14 +57,14 @@ public class LineChart extends JPanel {
 	}
 	
 	public void addNewPrice(double newPrice) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) - 8);
-		timeseries.addOrUpdate(new Second(calendar.getTime()), newPrice);
-//		timeseries.addOrUpdate(new Second(new Date()), newPrice);
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) - 8);
+//		timeseries.addOrUpdate(new Second(calendar.getTime()), newPrice);
+		timeseries.addOrUpdate(new Second(new Date()), newPrice);
 	}
 	
 	private ChartPanel init() {
-		XYDataset xydataset = createDataset();
+		XYDataset xydataset = createDataset(); 
 		jfreechart = ChartFactory.createTimeSeriesChart(
 				"分时走势", "", "", xydataset, true, true,true);
 		ChartPanel chartPanel = new ChartPanel(jfreechart, true);

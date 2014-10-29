@@ -10,12 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 
 public class NavigaterItem extends JPanel{
 	private static final long serialVersionUID = -4002005037897737972L;
+	
+	private Color selectedBackground;
+	private Color selectedForeground;
 	
 	private Navigater parent;
 	
@@ -25,25 +27,29 @@ public class NavigaterItem extends JPanel{
 	private ComponentPanel changedPage;
 	
 	
-	/*protected*/ NavigaterItem(Navigater navigater, ComponentPanel panel, String name, boolean isImportant, boolean isSelected) {
+	/*protected*/ NavigaterItem(Navigater navigater, ComponentPanel panel, String name, 
+			boolean isImportant, boolean isSelected,
+			Color selectedBackground, Color selectedForeground) {
 		this.parent = navigater;
 		this.isImportant = isImportant;
 		this.changedPage = panel;
 		this.isSelected = isSelected;
 		init(name);
 		addListeners();
+		this.selectedBackground = selectedBackground;
+		this.selectedForeground = selectedForeground;
 	}
 	
 	public void initialState() {
 		if (isSelected) {
-			NavigaterItem.this.setBackground(ColorConstants.NAVIGATER_SELECTED_GRAY);
-			naviLabel.setForeground(ColorConstants.NAVI_MOUSE_ENTER_YELLOW);
+			NavigaterItem.this.setBackground(selectedBackground);
+			naviLabel.setForeground(selectedForeground);
 		} else {
-			this.setBackground(ColorConstants.NAVIGATER_GRAY);
+			this.setBackground(Navigater.BACKGROUND_COLOR);
 			if (isImportant) {
-				naviLabel.setForeground(ColorConstants.NAVI_IMPORTANT_NORMAL);
+				naviLabel.setForeground(Navigater.FOREGROUND_COLOR);
 			} else {
-				naviLabel.setForeground(Color.WHITE);
+				naviLabel.setForeground(Navigater.FOREGROUND_COLOR);
 			}
 		}
 	}
@@ -62,8 +68,8 @@ public class NavigaterItem extends JPanel{
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				NavigaterItem.this.setBackground(ColorConstants.NAVIGATER_MOUSE_ENTER_GRAY);
-				naviLabel.setForeground(ColorConstants.NAVI_MOUSE_ENTER_YELLOW);
+//				NavigaterItem.this.setBackground(Navigater.MOUSE_ENTER_BACKGROUND_COLOR);
+				naviLabel.setForeground(Navigater.MOUSE_ENTER_FOREGROUND_COLOR);
 			}
 			
 			@Override
@@ -80,10 +86,10 @@ public class NavigaterItem extends JPanel{
 	}
 
 	private void init(String name) {
-		this.setPreferredSize(new Dimension(70, 30));
-		this.setBackground(ColorConstants.NAVIGATER_GRAY);
+		this.setPreferredSize(new Dimension(70, 40));
+		this.setBackground(Navigater.BACKGROUND_COLOR);
 		
-		naviLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 14));
+		naviLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 16));
 		naviLabel.setText(name);
 		initialState();
 		this.add(naviLabel);
