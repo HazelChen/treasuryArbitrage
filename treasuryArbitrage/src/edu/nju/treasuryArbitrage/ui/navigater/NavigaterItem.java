@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -40,7 +41,12 @@ public class NavigaterItem extends JPanel{
 		this.selectedForeground = selectedForeground;
 	}
 	
+	/*protected*/ NavigaterItem(Navigater navigater, ComponentPanel panel, String name) {
+		this(navigater, panel, name, true, false, Navigater.SELECTED_BACKGROUND_COLOR, Navigater.SELECTED_FOREGROUND_COLOR);
+	}
+	
 	public void initialState() {
+		setBorder(null);
 		if (isSelected) {
 			NavigaterItem.this.setBackground(selectedBackground);
 			naviLabel.setForeground(selectedForeground);
@@ -52,6 +58,7 @@ public class NavigaterItem extends JPanel{
 				naviLabel.setForeground(Navigater.FOREGROUND_COLOR);
 			}
 		}
+		this.repaint();
 	}
 	
 	public void setSelected(boolean isSelected) {
@@ -70,6 +77,7 @@ public class NavigaterItem extends JPanel{
 			public void mouseEntered(MouseEvent e) {
 //				NavigaterItem.this.setBackground(Navigater.MOUSE_ENTER_BACKGROUND_COLOR);
 				naviLabel.setForeground(Navigater.MOUSE_ENTER_FOREGROUND_COLOR);
+				NavigaterItem.this.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Navigater.MOUSE_ENTER_FOREGROUND_COLOR));
 			}
 			
 			@Override
@@ -86,10 +94,10 @@ public class NavigaterItem extends JPanel{
 	}
 
 	private void init(String name) {
-		this.setPreferredSize(new Dimension(70, 40));
+		this.setPreferredSize(new Dimension(70, parent.getHeight()));
 		this.setBackground(Navigater.BACKGROUND_COLOR);
 		
-		naviLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 16));
+		naviLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
 		naviLabel.setText(name);
 		initialState();
 		this.add(naviLabel);
