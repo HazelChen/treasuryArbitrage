@@ -251,7 +251,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 						
 						//-------------------卖出对应合约-----
 						//repository;  更新数据库
-						if(di.Trade(repository.getRepo_ID(), repository.getProfit()))
+						boolean result = di.Trade(repository.getRepo_ID(), repository.getProfit());
+						if(result = true)
 						{dg.setVisible(true);}
 						else {JOptionPane.showMessageDialog(null, "平仓失败！");}
 						//JOptionPane.showMessageDialog(null, "更新");
