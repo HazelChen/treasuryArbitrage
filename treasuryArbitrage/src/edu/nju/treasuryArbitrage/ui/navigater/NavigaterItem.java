@@ -97,7 +97,7 @@ public class NavigaterItem extends JPanel{
 		this.setPreferredSize(new Dimension(70, parent.getHeight()));
 		this.setBackground(Navigater.BACKGROUND_COLOR);
 		
-		naviLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
+		naviLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 16));
 		naviLabel.setText(name);
 		initialState();
 		this.add(naviLabel);

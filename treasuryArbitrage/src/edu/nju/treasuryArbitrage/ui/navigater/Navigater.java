@@ -15,11 +15,11 @@ import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 public class Navigater extends JPanel{
 	private static final long serialVersionUID = -3260728762055118620L;
 	
-	/*package*/ static final Color BACKGROUND_COLOR = new Color(235,242,250);
+	/*package*/ static final Color BACKGROUND_COLOR = new Color(223,240,251);
 	/*package*/ static final Color MOUSE_ENTER_BACKGROUND_COLOR = BACKGROUND_COLOR;
 	/*package*/ static final Color MOUSE_ENTER_FOREGROUND_COLOR = new Color(247, 68, 97);
 	/*package*/ static final Color SELECTED_BACKGROUND_COLOR = BACKGROUND_COLOR;
-	/*package*/ static final Color FOREGROUND_COLOR = new Color(92, 167, 186);
+	/*package*/ static final Color FOREGROUND_COLOR = Color.BLACK;
 	/*package*/ static final Color SELECTED_FOREGROUND_COLOR = FOREGROUND_COLOR;
 	
 	private NavigaterItem[] items = new NavigaterItem[3];
@@ -59,7 +59,7 @@ public class Navigater extends JPanel{
 			if (i == items.length - 1) {
 				continue;
 			}
-			JLabel dotLabel = new JLabel("¡¤");
+			JLabel dotLabel = new JLabel(" ¡¤ ");
 			dotLabel.setForeground(FOREGROUND_COLOR);
 			dotLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 15));
 			dotLabel.setBackground(BACKGROUND_COLOR);

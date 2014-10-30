@@ -133,7 +133,7 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 		TableColumn column1 = futuersTable.getColumn(headerData[1]);
 		column1.setPreferredWidth(100);
 
-		setColomnColor(0, ColorConstants.BRIGHT_BLUE);
+		setColomnColor(0, Color.WHITE);
 		setColomnColor(2, Color.RED);
 		setColomnColor(3, Color.RED);
 		DefaultTableCellRenderer renderer4 = setColomnColor(4, Color.RED);
