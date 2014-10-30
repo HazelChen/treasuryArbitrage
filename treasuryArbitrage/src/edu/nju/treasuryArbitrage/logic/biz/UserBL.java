@@ -21,9 +21,9 @@ public class UserBL {
 		//从文件读取用户的登录状态
 		if(user == null){
 			LoginStateRecorder recorder = new LoginStateRecorder();
-			boolean loginState = recorder.isAutoLogin();
+//			boolean loginState = recorder.isAutoLogin();
 			
-			user = new UserVO(username, loginState);
+			user = new UserVO(username, false);
 			double Max_prof;
 			double Max_loss;
 			double Max_guar;

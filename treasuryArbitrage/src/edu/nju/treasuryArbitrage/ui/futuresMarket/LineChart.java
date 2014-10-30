@@ -64,7 +64,7 @@ public class LineChart extends JPanel {
 	}
 	
 	private ChartPanel init() {
-		XYDataset xydataset = createDataset();
+		XYDataset xydataset = createDataset(); 
 		jfreechart = ChartFactory.createTimeSeriesChart(
 				"分时走势", "", "", xydataset, true, true,true);
 		ChartPanel chartPanel = new ChartPanel(jfreechart, true);

@@ -16,16 +16,16 @@ public class LoginFrame extends JFrame{
 	}
 	
 	private void init() {
-		this.setTitle("µÇÂ¼µ½" + TextConstants.TITLE_CHS);
+		this.setTitle(TextConstants.TITLE_CHS);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(550, 400);
+		this.setSize(550, 380);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false); 
 		this.setIconImage(new ImageIcon(LOGO_ICON_PATH).getImage());
 	}
 	
 	private void assemble() {
-		LoginPanel loginPanel = new LoginPanel(this);
+		LoginPanel loginPanel = new LoginPanelFlat(this);
 		this.add(loginPanel);
 	}
 }

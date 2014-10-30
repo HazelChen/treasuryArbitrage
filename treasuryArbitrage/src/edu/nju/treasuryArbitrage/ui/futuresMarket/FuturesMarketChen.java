@@ -8,6 +8,8 @@ import java.util.Calendar;
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -39,19 +41,22 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 	}
 
 	private void addListeners() {
-//		futuersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//			
-//			@Override
-//			public void valueChanged(ListSelectionEvent e) {
-//				  if (e.getSource() == table.getColumnModel().getSelectionModel()
-//		                   && table.getColumnSelectionAllowed() ){
-//		                int firstRow = e.getFirstIndex();
-//		                int lastRow = e.getLastIndex();
-//		                // 事件处理...
-//		            }
-//				
-//			}
-//		});
+		futuersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int r = futuersTable.getSelectedRow();
+				if (r == -1) {
+					return;
+				}
+				detailPanel.setDetail(r);
+				detailPanel.update(arb_details[r].getFormattedArb_detail());
+				for (int i = 0; i < charts.length; i++) {
+					charts[i].setVisible(false);
+				}
+				charts[r].setVisible(true);
+			}
+		});
 		
 	}
 
@@ -159,18 +164,19 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 		scrollPane.setBounds(0, 10, ScreenSize.WIDTH, 150);
 		this.add(scrollPane);
 
-		int detailPanelWidth = 400;
+		int detailPanelWidth = 350;
 		int detailPanelHeight = ScreenSize.HEIGHT - 170;
 		detailPanel = new FuturesDetailPanel(detailPanelWidth, detailPanelHeight);
 		detailPanel.setDetail(0);
 		detailPanel.update(arb_details[0].getFormattedArb_detail());
 		detailPanel.setBounds(0, 160, detailPanelWidth,detailPanelHeight);
+		detailPanel.setBounds(ScreenSize.WIDTH - detailPanelWidth, 160, detailPanelWidth,detailPanelHeight);
 		this.add(detailPanel);
 
 		for (int i = 0; i < charts.length; i++) {
-			charts[i].setBounds(detailPanelWidth, 160, ScreenSize.WIDTH - detailPanelWidth,
+			charts[i].setBounds(0, 160, ScreenSize.WIDTH - detailPanelWidth,
 					ScreenSize.HEIGHT - 220);
-			charts[i].setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, new Color(193,193,193)));
+			charts[i].setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4, new Color(193,193,193)));
 			this.add(charts[i]);
 		}
 

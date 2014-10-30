@@ -1,7 +1,7 @@
 package edu.nju.treasuryArbitrage.ui.navigater;
 
-import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,7 +20,7 @@ public class NaviUserItem extends JPanel{
 	private JLabel loggoutLabel = new JLabel("°²È«ÍË³ö");
 	
 	/*package*/ NaviUserItem() {
-		this.setBackground(ColorConstants.NAVIGATER_GRAY);
+		this.setBackground(Navigater.BACKGROUND_COLOR);
 		assemble();
 		addListeners();
 	}
@@ -49,10 +49,12 @@ public class NaviUserItem extends JPanel{
 	private void assemble() {
 		String userMessage = "ÄãºÃ," + LoginedUser.getLoginedUser();
 		JLabel label = new JLabel(userMessage);
-		label.setForeground(Color.WHITE);
+		label.setForeground(Navigater.FOREGROUND_COLOR);
+		label.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
 		this.add(label);
 		
 		loggoutLabel.setForeground(ColorConstants.LINK_BLUE);
+		loggoutLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
 		this.add(loggoutLabel);
 	}
 

@@ -16,13 +16,13 @@ public class FuturesDetailPanel extends JPanel{
 	private static final Font NORMAL_FONT = new Font("微软雅黑", Font.PLAIN, 18);
 	private static final int LABEL_WIDTH = 60;
 	private static final int LABEL_HEIGHT = 20;
-	private static final int LABEL_GAP = 3;
+	private static final int LABEL_GAP = 5;
 	private static final int LEFT_MARGIN = 3;
 
 	private int index;
 	
-	private JLabel[] data = new JLabel[24];
-	public JLabel[] detail = new JLabel[24];
+	public JLabel[] detail1Datas = new JLabel[10];
+	public JLabel[] detail2Datas = new JLabel[4];
 	
 	private JLabel title = new JLabel();
 	private JLabel currentPriceData = new JLabel();
@@ -30,6 +30,8 @@ public class FuturesDetailPanel extends JPanel{
 	private JLabel changeData = new JLabel();
 	private JLabel askPriceData = new JLabel();
 	private JLabel askData = new JLabel();
+	private JLabel bidPriceData = new JLabel();
+	private JLabel bidData = new JLabel();
 	
 	private int width;
 	private int height;
@@ -38,58 +40,17 @@ public class FuturesDetailPanel extends JPanel{
 		this.width = width;
 		this.height = height;
 		
+		this.setLayout(null);
+		this.setBackground(Color.BLACK);
+		
 		initHeader();
 		initSell();
-		
-		data[0] = new JLabel("卖价");
-		data[1] = new JLabel("买价");
-		data[2] = new JLabel("成交");
-		data[3] = new JLabel("涨跌");
-		data[4] = new JLabel("涨幅");
-		data[5] = new JLabel("振幅");
-		data[6] = new JLabel("现手");
-		data[7] = new JLabel("总手");
-		data[8] = new JLabel("持仓");
-		data[9] = new JLabel("昨持仓");
-		data[10] = new JLabel("涨停");
-		data[11] = new JLabel("外盘");
-		data[12] = new JLabel("开盘");
-		data[13] = new JLabel("昨收");
-		data[14] = new JLabel("最高");
-		data[15] = new JLabel("最低");
-		data[16] = new JLabel("金额");
-		data[17] = new JLabel("均价");
-		data[18] = new JLabel("今结");
-		data[19] = new JLabel("昨结");
-		data[20] = new JLabel("日增仓");
-		data[21] = new JLabel("量比");
-		data[22] = new JLabel("跌停");
-		data[23] = new JLabel("内盘");
-
-		this.setLayout(null);
-
-		for (int i = 0; i < 24; i++) {
-//			this.add(data[i]);
-			data[i].setFont(new Font("微软雅黑", Font.PLAIN, 18));
-			detail[i] = new JLabel();
-			detail[i].setFont(new Font("微软雅黑", Font.PLAIN, 18));
-			detail[i].setHorizontalAlignment(SwingConstants.RIGHT);
-//			this.add(detail[i]);
-			data[i].setForeground(new Color(192, 192, 192));
-		}
-
-		this.setBackground(Color.BLACK);
-
-		
-
-		for (int i = 0; i < 24; i++) {
-			data[i].setBounds(5, 30 + (LABEL_HEIGHT) * i, LABEL_WIDTH,
-					LABEL_HEIGHT);
-			detail[i].setBounds(70, 30 + (LABEL_HEIGHT) * i, 120,
-					LABEL_HEIGHT);
-		}
+		initBuy();
+		initDetail1();
+		initDetail2();
 	}
 
+	
 	public void setDetail(int index) {
 		this.index = index;
 	}
@@ -118,65 +79,40 @@ public class FuturesDetailPanel extends JPanel{
 		askPriceData.setText(String.valueOf(arb.getAskPrice()));
 		askData.setText(String.valueOf(arb.getAsk()));
 		
-		String zhangdie;
-		if (arb.getPriceChange() >= 0) {
-			zhangdie = "+" + arb.getPriceChange() + "%";
+		bidPriceData.setText(String.valueOf(arb.getBidPirce()));
+		bidData.setText(String.valueOf(arb.getBid()));
+		
+		detail1Datas[0].setText(String.valueOf(arb.getVol()));
+		detail1Datas[1].setText(String.valueOf(arb.getPreSettlePrice()));
+		detail1Datas[2].setText(String.valueOf(arb.getHigh()));
+		detail1Datas[3].setText(String.valueOf(arb.getAverPrice()));
+		detail1Datas[4].setText(String.valueOf(arb.getOutvol()));
+		detail1Datas[5].setText(String.valueOf(arb.getNvol()));
+		detail1Datas[6].setText(String.valueOf(arb.getOpen()));
+		detail1Datas[6].setForeground(arb.getOpen() >= arb.getPreSettlePrice() ? Color.RED : Color.GREEN);
+		detail1Datas[7].setText(String.valueOf(arb.getLow()));
+		detail1Datas[8].setText(String.valueOf(arb.getSwing()) + "%");
+		detail1Datas[9].setText(String.valueOf(arb.getInvol()));
+		
+		detail2Datas[0].setText(String.valueOf(arb.getRepository()));
+		detail2Datas[1].setText("");
+		
+		String pre;
+		Color color;
+		if (arb.getDailyWarehouse() == 0) {
+			pre = "";
+			color = Color.WHITE;
+		} else if (arb.getDailyWarehouse() > 0) {
+			pre = "+";
+			color = Color.RED;
 		} else {
-			zhangdie = arb.getPriceChange() + "%";
+			pre = "-";
+			color = Color.GREEN;
 		}
-		String zhangfu;
-		if (arb.getChange() >= 0) {
-			zhangfu = "+" + arb.getChange() + "%";
-		} else {
-			zhangfu = arb.getChange() + "%";
-		}
-
-		if (arb.getPresentPrice() > arb.getSettlePrice()) {
-			detail[2].setForeground(Color.RED);
-		} else if (arb.getPresentPrice() < arb.getSettlePrice()) {
-			detail[2].setForeground(Color.GREEN);
-		} else {
-			detail[2].setForeground(new Color(10, 156, 211));
-		}
-
-		if (arb.getChange() > 0) {
-			detail[3].setForeground(Color.RED);
-		} else if (arb.getChange() < 0) {
-			detail[3].setForeground(Color.GREEN);
-		} else {
-			detail[3].setForeground(new Color(10, 156, 211));
-		}
-
-		detail[0].setForeground(new Color(10, 156, 211));
-		detail[1].setForeground(new Color(10, 156, 211));
-		for (int j = 4; j < 24; j++) {
-			detail[j].setForeground(new Color(10, 156, 211));
-		}
-
-		detail[0].setText(String.valueOf(arb.getAskPrice()));
-		detail[1].setText(String.valueOf(arb.getBidPirce()));
-		detail[2].setText(String.valueOf(arb.getPresentPrice()));
-		detail[3].setText(zhangdie);
-		detail[4].setText(zhangfu);
-		detail[5].setText(String.valueOf(arb.getSwing()) + "%");
-		detail[6].setText(String.valueOf(arb.getNvol()));
-		detail[7].setText(String.valueOf(arb.getVol()));
-		detail[8].setText(String.valueOf(arb.getRepository()));
-		detail[9].setText(String.valueOf(arb.getPreRepository()));
-		detail[10].setText(String.valueOf(arb.getHardenPrice()));
-		detail[11].setText(String.valueOf(arb.getOutvol()));
-		detail[12].setText(String.valueOf(arb.getOpen()));
-		detail[13].setText(String.valueOf(arb.getPreClose()));
-		detail[14].setText(String.valueOf(arb.getHigh()));
-		detail[15].setText(String.valueOf(arb.getLow()));
-		detail[16].setText(String.valueOf(arb.getFullAmount()) + "亿");
-		detail[17].setText(String.valueOf(arb.getAverPrice()));
-		detail[18].setText(String.valueOf(arb.getSettlePrice()));
-		detail[19].setText(String.valueOf(arb.getPreSettlePrice()));
-		detail[20].setText(String.valueOf(arb.getDailyWarehouse()));
-		detail[21].setText(String.valueOf(arb.getRatio()));
-		detail[22].setText(String.valueOf(arb.getLimitPrice()));
-		detail[23].setText(String.valueOf(arb.getInvol()));
+		detail2Datas[2].setText(pre + String.valueOf(arb.getDailyWarehouse()));
+		detail2Datas[2].setForeground(color);
+		
+		detail2Datas[3].setText(String.valueOf(arb.getSettlePrice()));
 	}
 	
 	private void initHeader() {
@@ -203,7 +139,7 @@ public class FuturesDetailPanel extends JPanel{
 		this.add(changeData);
 	}
 	
-	private void initSell() {
+	private void initBuy() {
 		JLabel[] sellLabels = new JLabel[5];
 		sellLabels[0] = new JLabel("卖五"); 
 		sellLabels[1] = new JLabel("卖四"); 
@@ -248,4 +184,138 @@ public class FuturesDetailPanel extends JPanel{
 		askData.setBounds(width - LABEL_WIDTH, 78 + (LABEL_HEIGHT + 3) * 4, LABEL_WIDTH, LABEL_HEIGHT);
 		this.add(askData);
 	}
+	
+	private void initSell() {
+		JLabel[] buyLabels = new JLabel[5];
+		buyLabels[0] = new JLabel("买一"); 
+		buyLabels[1] = new JLabel("买二"); 
+		buyLabels[2] = new JLabel("买三"); 
+		buyLabels[3] = new JLabel("买四"); 
+		buyLabels[4] = new JLabel("买五"); 
+		
+		JLabel[] nullLabel1s = new JLabel[4];
+		JLabel[] nullLabel2s = new JLabel[4];
+		
+		for (int i = 0; i < buyLabels.length; i++) {
+			buyLabels[i].setBounds(LEFT_MARGIN, 193 + (LABEL_HEIGHT + 3)* i, width, LABEL_HEIGHT);
+			buyLabels[i].setFont(new Font("微软雅黑", Font.PLAIN, 18));
+			buyLabels[i].setForeground(Color.WHITE);
+			this.add(buyLabels[i]);
+			
+			if (i == 0) {
+				continue;
+			}
+			i--;
+			nullLabel1s[i] = new JLabel("-");
+			nullLabel1s[i].setForeground(Color.WHITE);
+			nullLabel1s[i].setBounds(width / 3, 216 + (LABEL_HEIGHT + 3)* i, LABEL_WIDTH, LABEL_HEIGHT);
+			nullLabel1s[i].setHorizontalAlignment(SwingConstants.RIGHT);
+			this.add(nullLabel1s[i]);
+			
+			nullLabel2s[i] = new JLabel("-");
+			nullLabel2s[i].setForeground(Color.YELLOW);
+			nullLabel2s[i].setBounds(width - LABEL_WIDTH, 216 + (LABEL_HEIGHT + 3)* i, LABEL_WIDTH, LABEL_HEIGHT);
+			this.add(nullLabel2s[i]);
+			i++;
+		}
+		
+		buyLabels[4].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(193,193,193)));
+		
+		bidPriceData.setFont(NORMAL_FONT);
+		bidPriceData.setForeground(Color.RED);
+		bidPriceData.setHorizontalAlignment(SwingConstants.RIGHT);
+		bidPriceData.setBounds(width / 3, 193, LABEL_WIDTH, LABEL_HEIGHT);
+		this.add(bidPriceData);
+		
+		bidData.setFont(NORMAL_FONT);
+		bidData.setForeground(Color.YELLOW);
+		bidData.setBounds(width - LABEL_WIDTH, 193, LABEL_WIDTH, LABEL_HEIGHT);
+		this.add(bidData);
+	}
+	
+	private void initDetail1() {
+		JLabel[] detail1 = new JLabel[10];
+		detail1[0] = new JLabel("总手");
+		detail1[1] = new JLabel("昨结");
+		detail1[2] = new JLabel("最高");
+		detail1[3] = new JLabel("均价");
+		detail1[4] = new JLabel("外盘");
+		
+		detail1[5] = new JLabel("现手");
+		detail1[6] = new JLabel("开盘");
+		detail1[7] = new JLabel("最低");
+		detail1[8] = new JLabel("振幅");
+		detail1[9] = new JLabel("内盘");
+		
+		for (int i = 0; i < 5; i++) {
+			detail1[i].setFont(NORMAL_FONT);
+			detail1[i].setBounds(LEFT_MARGIN, 311 + (LABEL_HEIGHT + 3)* i, width, LABEL_HEIGHT);
+			detail1[i].setForeground(Color.WHITE);
+			this.add(detail1[i]);
+			
+			detail1Datas[i] = new JLabel();
+			detail1Datas[i].setFont(NORMAL_FONT);
+			detail1Datas[i].setHorizontalAlignment(SwingConstants.RIGHT);
+			detail1Datas[i].setBounds(width / 2 - LABEL_WIDTH - 3, 311 + (LABEL_HEIGHT + 3)* i, LABEL_WIDTH, LABEL_HEIGHT);
+			this.add(detail1Datas[i]);
+			
+			detail1[i + 5].setFont(NORMAL_FONT);
+			detail1[i + 5].setBounds(width / 2 + 3, 311 + (LABEL_HEIGHT + 3)* i, width, LABEL_HEIGHT);
+			detail1[i + 5].setForeground(Color.WHITE);
+			this.add(detail1[i + 5]);
+			
+			detail1Datas[i + 5] = new JLabel();
+			detail1Datas[i + 5].setFont(NORMAL_FONT);
+			detail1Datas[i + 5].setHorizontalAlignment(SwingConstants.RIGHT);
+			detail1Datas[i + 5].setBounds(width - LABEL_WIDTH - 7, 311 + (LABEL_HEIGHT + 3)* i, LABEL_WIDTH, LABEL_HEIGHT);
+			this.add(detail1Datas[i + 5]);
+		}
+		detail1[4].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(193,193,193)));
+		detail1Datas[0].setForeground(Color.YELLOW);
+		detail1Datas[1].setForeground(Color.WHITE);
+		detail1Datas[2].setForeground(Color.RED);
+		detail1Datas[3].setForeground(Color.RED);
+		detail1Datas[4].setForeground(Color.RED);
+		detail1Datas[5].setForeground(Color.YELLOW);
+		detail1Datas[7].setForeground(Color.GREEN);
+		detail1Datas[8].setForeground(Color.WHITE);
+		detail1Datas[9].setForeground(Color.GREEN);
+	}
+	
+	private void initDetail2() {
+		JLabel[] detail2 = new JLabel[4];
+		detail2[0] = new JLabel("持仓");
+		detail2[1] = new JLabel("估结算");
+		detail2[2] = new JLabel("增仓");
+		detail2[3] = new JLabel("结算价");
+		
+		for (int i = 0; i < 2; i++) {
+			detail2[i].setFont(NORMAL_FONT);
+			detail2[i].setBounds(LEFT_MARGIN, 426 + (LABEL_HEIGHT + 3)* i, width, LABEL_HEIGHT);
+			detail2[i].setForeground(Color.WHITE);
+			this.add(detail2[i]);
+			
+			detail2Datas[i] = new JLabel();
+			detail2Datas[i].setFont(NORMAL_FONT);
+			detail2Datas[i].setHorizontalAlignment(SwingConstants.RIGHT);
+			detail2Datas[i].setBounds(width / 2 - LABEL_WIDTH - 3, 426 + (LABEL_HEIGHT + 3)* i, LABEL_WIDTH, LABEL_HEIGHT);
+			this.add(detail2Datas[i]);
+			
+			detail2[i + 2].setFont(NORMAL_FONT);
+			detail2[i + 2].setBounds(width / 2 + 3, 426 + (LABEL_HEIGHT + 3)* i, width, LABEL_HEIGHT);
+			detail2[i + 2].setForeground(Color.WHITE);
+			this.add(detail2[i + 2]);
+			
+			detail2Datas[i + 2] = new JLabel();
+			detail2Datas[i + 2].setFont(NORMAL_FONT);
+			detail2Datas[i + 2].setHorizontalAlignment(SwingConstants.RIGHT);
+			detail2Datas[i + 2].setBounds(width - LABEL_WIDTH - 7, 426 + (LABEL_HEIGHT + 3)* i, LABEL_WIDTH, LABEL_HEIGHT);
+			this.add(detail2Datas[i + 2]);
+		}
+		detail2Datas[0].setForeground(Color.YELLOW);
+		detail2Datas[1].setForeground(Color.WHITE);
+		detail2Datas[2].setForeground(Color.RED);
+		detail2Datas[3].setForeground(Color.WHITE);
+	}
+
 }

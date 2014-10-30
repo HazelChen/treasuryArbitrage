@@ -38,7 +38,7 @@ public class TradeBL {
 		NetHelper helper = new NetHelper("cancelOrder",params);
 		JSONObject ret = helper.getJSONObjectByGet();
 		
-		if(ret.getInt("result ")==1){
+		if(ret.getInt("result")==1){
 			return true;
 		}
 		
@@ -55,7 +55,7 @@ public class TradeBL {
 		NetHelper helper = new NetHelper("trade",params);
 		JSONObject ret = helper.getJSONObjectByGet();
 		
-		if(ret.getInt("result ")==1){
+		if(ret.getInt("result")==1){
 			return true;
 		}
 		

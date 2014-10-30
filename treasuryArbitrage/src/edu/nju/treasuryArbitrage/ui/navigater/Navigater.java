@@ -1,19 +1,27 @@
 package edu.nju.treasuryArbitrage.ui.navigater;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class Navigater extends JPanel{
 	private static final long serialVersionUID = -3260728762055118620L;
 	
-	private NavigaterItem[] items = new NavigaterItem[5];
+	/*package*/ static final Color BACKGROUND_COLOR = new Color(235,242,250);
+	/*package*/ static final Color MOUSE_ENTER_BACKGROUND_COLOR = new Color(247,68,97);
+	/*package*/ static final Color MOUSE_ENTER_FOREGROUND_COLOR = new Color(247,68,97);
+	/*package*/ static final Color SELECTED_BACKGROUND_COLOR = new Color(186,227,217);
+	/*package*/ static final Color FOREGROUND_COLOR = Color.BLACK;
+	/*package*/ static final Color SELECTED_FOREGROUND_COLOR = new Color(247,68,97);
+	
+	private NavigaterItem[] items = new NavigaterItem[3];
+	
 	
 	public Navigater() {
 		init();
@@ -25,17 +33,17 @@ public class Navigater extends JPanel{
 		int width = ScreenSize.WIDTH;
 		int height = (int) (ScreenSize.HEIGHT / 25.0);
 		this.setPreferredSize(new Dimension(width, height));
-		this.setBackground(ColorConstants.NAVIGATER_GRAY);
+		this.setBackground(BACKGROUND_COLOR);
 		this.setLayout(new BorderLayout());
 	}
 	
 	public void naviPanelInit() {
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
-		items[0] = new NavigaterItem(this, factory.getFuturesMarket(), "期货行情", true, true);
-		items[1] = new NavigaterItem(this, factory.getArbitragePortfolio(), "套利组合", true, false);
-		items[2] = new NavigaterItem(this, factory.getHoldings(), "持仓情况", true, false);
-		items[3] = new NavigaterItem(this, factory.getNews(), "财经要闻", false, false);
-		items[4] = new NavigaterItem(this, factory.getPersonalCenter(), "个人中心", false, false);
+		items[0] = new NavigaterItem(this, factory.getFuturesMarket(), "期货行情", true, true, SELECTED_BACKGROUND_COLOR, SELECTED_FOREGROUND_COLOR);
+		items[1] = new NavigaterItem(this, factory.getArbitragePortfolio(), "套利组合", true, false, SELECTED_BACKGROUND_COLOR, SELECTED_FOREGROUND_COLOR);
+		items[2] = new NavigaterItem(this, factory.getHoldings(), "持仓情况", true, false, SELECTED_BACKGROUND_COLOR, SELECTED_FOREGROUND_COLOR);
+		//items[3] = new NavigaterItem(this, factory.getNews(), "财经要闻", false, false);
+		//items[4] = new NavigaterItem(this, factory.getPersonalCenter(), "个人中心", false, false);
 	}
 	
 	public void assemble() {

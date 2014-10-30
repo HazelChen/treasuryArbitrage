@@ -1,14 +1,12 @@
 package edu.nju.treasuryArbitrage.factory;
 
 import edu.nju.treasuryArbitrage.ui.arbitragePortfolio.ArbitragePortfolio;
-import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarketChen;
 import edu.nju.treasuryArbitrage.ui.holdings.Holdings;
 import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 import edu.nju.treasuryArbitrage.ui.news.NewsPanel;
-import edu.nju.treasuryArbitrage.ui.personalCenter.PersonalCenter;
 import edu.nju.treasuryArbitrage.ui.personalCenter.SettingStopParameters;
 
 public class MajorPartsFactory {
@@ -20,7 +18,7 @@ public class MajorPartsFactory {
 	private ArbitragePortfolio arbitragePortfolio;
 	private Holdings holdings;
 	private NewsPanel news;
-	private PersonalCenter personalCenter;
+	//private PersonalCenter personalCenter;
 	private SettingStopParameters settingStopParameters;
 	
 	private MajorPartsFactory(){}
@@ -75,13 +73,13 @@ public class MajorPartsFactory {
 		return news;
 	}
 
-	public PersonalCenter getPersonalCenter() {
+	/*public PersonalCenter getPersonalCenter() {
 		if (personalCenter == null) {
 			personalCenter = new PersonalCenter();
 			personalCenter.assemble(ScreenSize.WIDTH, ScreenSize.HEIGHT);
 		}
 		return personalCenter;
-	}
+	}*/
 	
 	public SettingStopParameters getSettingStopParameters() {
 		if (settingStopParameters == null) {
