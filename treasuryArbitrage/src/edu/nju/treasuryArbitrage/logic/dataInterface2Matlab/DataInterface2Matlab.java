@@ -257,20 +257,25 @@ public class DataInterface2Matlab {
 	 * %% 根据一定的点数，计算收益率
 	 * % 输入：收益点数，市场参数
 	 * */
-	public Object[] Convert2ratio(double return_of_trade,ArrayList<Double> Lmarket_condition,double trade_count){
-		Object[] result = null;
-		Convert2ratio c2ratio = null;
-		MWNumericArray market_condition = null;   
-		int[] dims4 = {4, 1};  
-        market_condition = MWNumericArray.newInstance(dims4,   
-                MWClassID.DOUBLE, MWComplexity.REAL);
-        market_condition.set(1, Double.valueOf(Lmarket_condition.get(0)));
-        market_condition.set(2, Double.valueOf(Lmarket_condition.get(1)));
-        market_condition.set(3, Double.valueOf(Lmarket_condition.get(2)));
-        market_condition.set(4, Double.valueOf(Lmarket_condition.get(3)));
+	public double Convert2ratio(double return_of_trade,ArrayList<Double> Lmarket_condition,double trade_count){
+		double result = 0.0;
+		//Convert2ratio c2ratio = null;
+//		MWNumericArray market_condition = null;   
+//		int[] dims4 = {4, 1};  
+//        market_condition = MWNumericArray.newInstance(dims4,   
+//                MWClassID.DOUBLE, MWComplexity.REAL);
+//        market_condition.set(1, Double.valueOf(Lmarket_condition.get(0)));
+//        market_condition.set(2, Double.valueOf(Lmarket_condition.get(1)));
+//        market_condition.set(3, Double.valueOf(Lmarket_condition.get(2)));
+//        market_condition.set(4, Double.valueOf(Lmarket_condition.get(3)));
 		try {
-			c2ratio = new Convert2ratio();  //!!!!important
-			result = c2ratio.convert2ratio(1, return_of_trade,market_condition,trade_count);
+			//c2ratio = new Convert2ratio();  //!!!!important
+			//result = c2ratio.convert2ratio(1, return_of_trade,market_condition,trade_count);
+			result=(
+					(return_of_trade-2*Double.valueOf(Lmarket_condition.get(2))*trade_count)*10000
+					-2*Double.valueOf(Lmarket_condition.get(0))*trade_count
+					)
+					/2000000/Double.valueOf(Lmarket_condition.get(1));
 			//return_ratio
 		} catch (Exception e) {
 			// TODO: handle exception

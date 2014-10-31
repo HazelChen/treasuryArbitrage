@@ -108,7 +108,6 @@ public class testM2J {
 		System.out.println("buyprice = " + buyprice);
 		System.out.println("saleprice = " + saleprice); 
 		**/
-		//BackTest
         ArrayList<Double> Lmarket_condition = null;
         Lmarket_condition = new ArrayList<Double>();
         Lmarket_condition.add(4.0);
@@ -116,6 +115,8 @@ public class testM2J {
         Lmarket_condition.add(0.002);
         Lmarket_condition.add(0.028);
         //{4, 0.05, 0.002, 0.028};
+        /**
+		//BackTest
         System.out.println(Lmarket_condition.toString());  
         System.out.println("BackTest ...");
 		long start3 = System.currentTimeMillis();
@@ -134,12 +135,18 @@ public class testM2J {
 			System.out.println(result[6]);
 			System.out.println(result[7]);
         }
+        **/
         
-        
-        
+        /**/
         //convert2ratio
-        
-        
+        System.out.println("convert2ratio ...");
+		long start6 = System.currentTimeMillis();
+		double result2;
+        result2 = dm.Convert2ratio(100, Lmarket_condition, 5);
+        System.out.println(result2);  
+        long end6 = System.currentTimeMillis();
+	    System.out.println("BackTest运行时间：" + (end6 - start6) + "毫秒");//应该是end - start
+        /**/
 	}
 
 }
