@@ -198,7 +198,8 @@ public class DataInterface2Matlab {
 	
 	
 	/*
-	 * [all_return,trade_count,opt_lambda,prob_of_win,trade,trade_stddev,trade_maxloss sharpe_ratio]
+	 * [all_return,trade_count,opt_lambda,prob_of_win,
+	 *  trade,trade_stddev,trade_maxloss sharpe_ratio]
 	 * =back_test(f1,f2,spoint,opt_option,market_condition,sigma_method)
 	 * %% 回测函数，根据现有的数据回测最优的策略参数和相关收益情况
 	 * %% 输入：f1历史数据序列1（列向量），f2历史数据序列2（列向量），spoint止损点

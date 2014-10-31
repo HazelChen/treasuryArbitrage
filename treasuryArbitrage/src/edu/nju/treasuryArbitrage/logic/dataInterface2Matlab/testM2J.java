@@ -61,7 +61,7 @@ public class testM2J {
 		double stop_loss = -1,stop_profit = 1,
 				newprice1 = 91,newprice2 = 93;
         System.out.println("End of input!");
-		
+		/**
        //Arbitrage_Main调用示例
         System.out.println("Arbitrage_Main ...");
         long start1 = System.currentTimeMillis();
@@ -107,6 +107,39 @@ public class testM2J {
 		System.out.println("signal = " + signal);   
 		System.out.println("buyprice = " + buyprice);
 		System.out.println("saleprice = " + saleprice); 
+		**/
+		//BackTest
+        ArrayList<Double> Lmarket_condition = null;
+        Lmarket_condition = new ArrayList<Double>();
+        Lmarket_condition.add(4.0);
+        Lmarket_condition.add(0.05);
+        Lmarket_condition.add(0.002);
+        Lmarket_condition.add(0.028);
+        //{4, 0.05, 0.002, 0.028};
+        System.out.println(Lmarket_condition.toString());  
+        System.out.println("BackTest ...");
+		long start3 = System.currentTimeMillis();
+		 result = dm.BackTest(lf1, lf2, -0.02, 3, Lmarket_condition, "others");
+		long end3 = System.currentTimeMillis();
+		System.out.println("数据量:" + lf1.size());   
+	    System.out.println("BackTest运行时间：" + (end3 - start3) + "毫秒");//应该是end - start
+        if(result.length > 0)
+        {
+		    System.out.println(result[0]);  
+			System.out.println(result[1]);
+			System.out.println(result[2]);
+			System.out.println(result[3]);
+			System.out.println(result[4]);
+			System.out.println(result[5]); 
+			System.out.println(result[6]);
+			System.out.println(result[7]);
+        }
+        
+        
+        
+        //convert2ratio
+        
+        
 	}
 
 }
