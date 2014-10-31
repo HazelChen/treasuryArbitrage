@@ -33,13 +33,13 @@ public class SettingStopParameters extends JDialog{
 	}
 	
 	private void commonentInit() {
-		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
-		double pro = dataInterface.getPara_PROF();
-		if (pro != 0) {
-			stopProfitJTextField.setText(pro + "");
-			stopLossJTextField.setText(dataInterface.getPara_LOSS() + "");
-			maxInvestmentJTextField.setText(dataInterface.getPara_GUAR() + "");
-		}
+//		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+//		double pro = dataInterface.getPara_PROF();
+//		if (pro != 0) {
+//			stopProfitJTextField.setText(pro + "");
+//			stopLossJTextField.setText(dataInterface.getPara_LOSS() + "");
+//			maxInvestmentJTextField.setText(dataInterface.getPara_GUAR() + "");
+//		}
 	}
 
 	private void addListeners() {

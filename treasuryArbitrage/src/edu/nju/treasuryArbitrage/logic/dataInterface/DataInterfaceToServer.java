@@ -13,7 +13,6 @@ import edu.nju.treasuryArbitrage.logic.biz.RecordBL;
 import edu.nju.treasuryArbitrage.logic.biz.RepositoryBL;
 import edu.nju.treasuryArbitrage.logic.biz.TradeBL;
 import edu.nju.treasuryArbitrage.logic.biz.UserBL;
-import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.Finance;
 import edu.nju.treasuryArbitrage.model.Message;
@@ -187,16 +186,6 @@ public class DataInterfaceToServer implements DataInterface {
 	@Override
 	public ArrayList<Arb_detail> getArbDetail() {
 		return arbtbl.getDetailList();
-	}
-
-	@Override
-	public ArrayList<ArbGroup> getArbGroup() {
-
-		ArbGroup arbGroup=new ArbGroup("TF1412","TF1503");
-		ArrayList<ArbGroup> list=new ArrayList<ArbGroup>();
-
-		list.add(arbGroup);
-		return list;
 	}
 
 	@Override

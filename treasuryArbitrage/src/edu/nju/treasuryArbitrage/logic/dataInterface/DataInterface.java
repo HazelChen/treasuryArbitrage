@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.Finance;
 import edu.nju.treasuryArbitrage.model.Message;
@@ -69,7 +68,6 @@ public interface DataInterface {
 	public boolean setPara(double PROF,double LOSS,double GUAR);
 	
 	public ArrayList<Arb_detail> getArbDetail();
-	public ArrayList<ArbGroup> getArbGroup();
 	public HashMap<Long, Double> getDateAndPricePair();
 	
 	public boolean Order(String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee);

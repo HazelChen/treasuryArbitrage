@@ -1,6 +1,7 @@
 package edu.nju.treasuryArbitrage.factory;
 
 import edu.nju.treasuryArbitrage.ui.arbitragePortfolio.ArbitragePortfolio;
+import edu.nju.treasuryArbitrage.ui.arbitragePortfolio.ArbitragePortfolioChen;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarketChen;
@@ -54,7 +55,7 @@ public class MajorPartsFactory {
 
 	public ArbitragePortfolio getArbitragePortfolio() {
 		if (arbitragePortfolio == null) {
-			arbitragePortfolio = new ArbitragePortfolio();
+			arbitragePortfolio = new ArbitragePortfolioChen();
 		}
 		return arbitragePortfolio;
 	}
