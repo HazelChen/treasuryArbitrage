@@ -28,4 +28,18 @@ public class ArbGroup {
 	public void setTosell(String tosell) {
 		this.tosell = tosell;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof ArbGroup)) {
+			return false;
+		}
+		
+		ArbGroup other = (ArbGroup)o;
+		if (other.tobuy.equals(this.tobuy) && other.tosell.equals(this.tosell)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

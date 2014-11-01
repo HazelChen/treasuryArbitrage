@@ -1,4 +1,4 @@
-/*package edu.nju.treasuryArbitrage.ui.personalCenter;
+package edu.nju.treasuryArbitrage.ui.personalCenter;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 
 public class PersonalInfo extends JPanel{
 
@@ -155,7 +155,6 @@ public class PersonalInfo extends JPanel{
 		stateButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-					new LoginStateRecorder().cancelAutoLogin();
 					stateJLabel.setText("当前为正常登录状态");
 					stateJLabel.setBounds(w*50/400, h*150/400, w*300/400, h*35/400);
 					mainJPanel.remove(stateButton);
@@ -181,4 +180,4 @@ public class PersonalInfo extends JPanel{
 		});
 	}
 
-}*/
+}
