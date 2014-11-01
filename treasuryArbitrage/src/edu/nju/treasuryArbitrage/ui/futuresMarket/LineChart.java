@@ -63,6 +63,16 @@ public class LineChart extends JPanel {
 		timeseries.addOrUpdate(new Second(new Date()), newPrice);
 	}
 	
+	public void setYRange(double low, double high) {
+		XYPlot xyplot = jfreechart.getXYPlot();
+		NumberAxis yAxis = (NumberAxis) xyplot.getRangeAxis();
+		yAxis.setRange(low, high);
+	}
+	
+	public void setTitle(String title) {
+		jfreechart.setTitle(title);
+	}
+	
 	private ChartPanel init() {
 		XYDataset xydataset = createDataset(); 
 		jfreechart = ChartFactory.createTimeSeriesChart(

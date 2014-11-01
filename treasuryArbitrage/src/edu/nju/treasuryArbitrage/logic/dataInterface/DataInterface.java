@@ -2,7 +2,6 @@ package edu.nju.treasuryArbitrage.logic.dataInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.Finance;
@@ -10,7 +9,6 @@ import edu.nju.treasuryArbitrage.model.Message;
 import edu.nju.treasuryArbitrage.model.News;
 import edu.nju.treasuryArbitrage.model.Record;
 import edu.nju.treasuryArbitrage.model.Repository;
-import edu.nju.treasuryArbitrage.ui.news.NewsBrief;
 
 
 /**
@@ -18,40 +16,14 @@ import edu.nju.treasuryArbitrage.ui.news.NewsBrief;
  * 该接口存放所有与服务器交互的函数，目前我们可以在DataInterfacePile里打桩实现
  */
 public interface DataInterface {
-	/**
-	 * 
-	 * 获取所有新闻概要以用于列表显示在新闻界面，根据时间从新到旧排序
-	 * 
-	 */
-	public NewsBrief[] GetALLNewsBrief();
-	
-	/**
-	 * 
-	 * 根据ID获取新闻标题；；
-	 * 
-	 */
-	public String GetNewsTitle(String newsID);
-	
-	/**
-	 * 
-	 * 根据ID获取新闻详细内容；
-	 * 
-	 */
-	public String GetNewsContent(String NewsID);
-	
-	/**
-	 * 
-	 * 按给定条件搜索新闻，返回结果条数
-	 * 
-	 */
-	public ArrayList<News> searchNews(String keyword, Date fD, Date tD);
-	
 	public boolean register(String username,String password);
 	public boolean loginValidate(String username, String password);
 	public boolean changePWD(String username,String oldpwd,String newpwd);
 	public boolean logout();
 	
 	public ArrayList<Finance> getFinanceList();
+	public double getFreeFund();
+	
 	public ArrayList<Repository> getRepoList();
 	public ArrayList<Record> getRecordList();
 	public ArrayList<News> getNewsList();
@@ -68,7 +40,6 @@ public interface DataInterface {
 	public boolean setPara(double PROF,double LOSS,double GUAR);
 	
 	public ArrayList<Arb_detail> getArbDetail();
-	public HashMap<Long, Double> getDateAndPricePair();
 	
 	public boolean Order(String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee);
 	public boolean cancleOrder(int Record_ID);
@@ -76,4 +47,6 @@ public interface DataInterface {
 	
 	public double getProfit(double buyprice1,double saleprice1,double buyprice2,double saleprice2,int count);
 	public double getGuar(double price1, double price2, int count);
+	public ArrayList<News> searchNews(String keyword, Date fD1, Date tD2);
+	
 }

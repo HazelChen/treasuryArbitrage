@@ -17,7 +17,7 @@ public class ArbitragePortfolioChen extends ArbitragePortfolio{
 	private static final long serialVersionUID = -8995031434902984463L;
 
 	/*package*/ static final Color BACKGROUND_COLOR = Color.BLACK;
-	private static final Color FOREGROUND_COLOR = Color.WHITE;
+	/*package*/ static final Color FOREGROUND_COLOR = Color.WHITE;
 	
 	private JTabbedPane tabbedPane = new JTabbedPane();
 	
