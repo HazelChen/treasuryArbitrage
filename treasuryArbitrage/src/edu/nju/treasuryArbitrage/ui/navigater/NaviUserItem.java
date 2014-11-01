@@ -17,6 +17,7 @@ import edu.nju.treasuryArbitrage.ui.personalCenter.LoginFrame;
 public class NaviUserItem extends JPanel{
 	private static final long serialVersionUID = -1940967418792821751L;
 	
+	private JLabel setModelButton = new JLabel("²ÎÊýÉèÖÃ");
 	private JLabel loggoutLabel = new JLabel("°²È«ÍË³ö");
 	
 	/*package*/ NaviUserItem() {
@@ -26,6 +27,20 @@ public class NaviUserItem extends JPanel{
 	}
 	
 	private void addListeners() {
+		setModelButton.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SettingStopParameters settingStopParameters = new SettingStopParameters();
+				settingStopParameters.setVisible(true);
+			}
+		});
+		
 		loggoutLabel.addMouseListener(new MouseAdapter() {
 			
 			@Override
@@ -52,6 +67,15 @@ public class NaviUserItem extends JPanel{
 		label.setForeground(Navigater.FOREGROUND_COLOR);
 		label.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
 		this.add(label);
+		
+		setModelButton.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
+		setModelButton.setForeground(ColorConstants.LINK_BLUE);
+		this.add(setModelButton);
+		
+		JLabel gapLabel = new JLabel("¡¤");
+		gapLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.BOLD, 16));
+		gapLabel.setForeground(ColorConstants.LINK_BLUE);
+		this.add(gapLabel);
 		
 		loggoutLabel.setForeground(ColorConstants.LINK_BLUE);
 		loggoutLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));

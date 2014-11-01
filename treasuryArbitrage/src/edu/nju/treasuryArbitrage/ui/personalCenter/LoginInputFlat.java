@@ -17,6 +17,7 @@ import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
 import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
+import edu.nju.treasuryArbitrage.ui.navigater.SettingStopParameters;
 
 public class LoginInputFlat extends LoginInput{
 	private static final long serialVersionUID = -4223830916730143876L;

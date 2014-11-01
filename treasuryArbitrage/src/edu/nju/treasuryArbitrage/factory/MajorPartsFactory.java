@@ -7,8 +7,8 @@ import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarketChen;
 import edu.nju.treasuryArbitrage.ui.holdings.Holdings;
 import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
+import edu.nju.treasuryArbitrage.ui.navigater.SettingStopParameters;
 import edu.nju.treasuryArbitrage.ui.news.NewsPanel;
-import edu.nju.treasuryArbitrage.ui.personalCenter.SettingStopParameters;
 
 public class MajorPartsFactory {
 	private static MajorPartsFactory self;
