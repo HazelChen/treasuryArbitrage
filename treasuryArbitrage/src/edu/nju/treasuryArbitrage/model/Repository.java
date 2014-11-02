@@ -6,7 +6,9 @@ public class Repository {
 	int count;		//交易手数
 	double guarantee;	//投入保证金
 	double profit;	//收益金额……方法计算得出
-
+	
+	int signal;     //交易状态       signal=1，正向套利建仓；signal=-1，反向套利建仓；signal=0，不交易。signal=0，不交易；signal=2，止盈平仓；signal=-2,止损平仓,signal=3，正向套利平仓；signal=-3，反向套利平仓；
+	
 	String toSell;	//空头
 	String toBuy;	//多头
 	double toSell_price;
@@ -15,7 +17,9 @@ public class Repository {
 	public Repository(){
 		
 	}
-	
+	public int getSignal() {
+		return signal;
+	}
 	public int getRepo_ID() {
 		return repo_ID;
 	}

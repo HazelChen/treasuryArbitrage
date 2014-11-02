@@ -1,5 +1,11 @@
 package edu.nju.treasuryArbitrage.logic.dataInterface2Matlab;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import Arbitrage_Main.*;
@@ -9,9 +15,40 @@ import com.mathworks.toolbox.javabuilder.*;
 //导入程序员自己用matlab输出的jar包
 
 public class DataInterface2Matlab {
-		
+	
+	public double opt_x,opt_y,opt_k;
+	
 	public DataInterface2Matlab(){
-		
+		opt_x = 0;opt_y = 0;opt_k = 0;
+		File file = new File("para_xyk");
+	 	BufferedReader reader = null;
+	 	String s = "";
+        try {
+            //System.out.println("以行为单位读取文件内容，一次读一整行：");
+            reader = new BufferedReader(new FileReader(file));
+            String tempString = null;
+            // 一次读入一行，直到读入null为文件结束
+            while ((tempString = reader.readLine()) != null) {
+                // 显示行号
+                s = tempString.trim();
+                String t[]=s.split("\t");
+                //System.out.println(t.length);
+            	opt_x = (Double.parseDouble(t[0]));
+            	opt_y = (Double.parseDouble(t[1]));
+            	opt_k = (Double.parseDouble(t[2]));
+            	s = "";
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
 	}
 	
 	
@@ -41,11 +78,33 @@ public class DataInterface2Matlab {
 			m = new Arbitrage_Main();  //!!!!important
 			result =m.Arbitrage_Main(3,f1,f2,stop_loss, stop_profit);
 			//optimization_x,optimization_y,optimization_k
+			double x,y,k;
+			x = Double.valueOf(String.valueOf(result[0]));
+			y = Double.valueOf(String.valueOf(result[1]));
+			k = Double.valueOf(String.valueOf(result[2]));
+			File parafile =new File("para_xyk");
+		    if(!parafile.exists()){
+		    	try {
+					parafile.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	        }
+	        FileWriter fileWritter;
+			try {
+				fileWritter = new FileWriter(parafile.getName());
+	             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+	             bufferWritter.write(x + "\t" + y+ "\t" + k);
+	             bufferWritter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("Arbitrage_MAin Exception catched!");
 			System.out.println(e.toString());
 		}	
+		MWArray.disposeArray(f1);
+		MWArray.disposeArray(f2);
 		return result;
 	}
 	
@@ -76,19 +135,21 @@ public class DataInterface2Matlab {
 			result =open_position.open(3,f1,f2,newprice1,newprice2,x,y,k);
 		    //signal,buyprice1,saleprice1
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("Open Exception catched!");
 		}
+		MWArray.disposeArray(f1);
+		MWArray.disposeArray(f2);
 		return result;
 	}
 	
 	/*
+	 * 输出： result为返回对象数组，各元素分别为signal,buyprice,saleprice
 	 * 输入：%signal当前交易状态（状态，取-3,-2，-1,0,1,2,3）
 	 * Lf1，Lf2是前一交易日开盘到现在前一秒的价格数组
 	 * % 输出：signal按照当前的最新价格，是否应当交易。signal=1，正向套利建仓；
 	 * %signal=-1，反向套利建仓；signal=0，不交易；signal=2，止盈平仓；signal=-2,止
 	 * %损平仓,signal=3，正向套利平仓；signal=-3，反向套利平仓；
-	 * 输出： result为返回对象数组，各元素分别为signal,buyprice,saleprice
+	 * 
 	 */
 	public Object[] Close(ArrayList<Double> Lf1,ArrayList<Double>  Lf2,
 			double newprice1,double newprice2,double buyprice,double saleprice,
@@ -114,9 +175,10 @@ public class DataInterface2Matlab {
 					newprice1,newprice2,buyprice,saleprice,k,signal,stop_loss,stop_profit);
 			//signal,buyprice,saleprice
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("Close Exception catched!");
 		}
+		MWArray.disposeArray(f1);
+		MWArray.disposeArray(f2);
 		return result;
 	}
 
@@ -172,12 +234,13 @@ public class DataInterface2Matlab {
         market_condition.set(2, Double.valueOf(Lmarket_condition.get(1)));
         market_condition.set(3, Double.valueOf(Lmarket_condition.get(2)));
         market_condition.set(4, Double.valueOf(Lmarket_condition.get(3)));
+		//System.out.println("complete convertion ...");
 		try {
 			//Arbitrage_Main方法调用示例
 			//第一个参数数字表示需要获得的结果个数，比如这里的3，表示获得三个结果，x,y,k;如果写2,则只能得到x,y;
 			//下同
 			J = new Judge();  //!!!!important
-			
+			//System.out.println("Judging ...");
 			result = J.judge(8,name1,name2,f1,f2,new_price1,new_price2,lambda,
 					last_time_state,last_trade_return,spoint,market_condition,sigma_method);
 			//[signal long_name short_name long short current_state current_trade_return unit_time_return]
@@ -189,10 +252,13 @@ public class DataInterface2Matlab {
 			 * %  current_trade_return当前持仓在本次交易完成后更新的累计收益点数；unit_time_return，当前交易在单位交易时间的收益点数，若无交易则为0。
 			 *  */
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("Judge Exception catched!");
 			System.out.println(e.toString());
 		}	
+		MWArray.disposeArray(f1);
+		MWArray.disposeArray(f2);
+		MWArray.disposeArray(lambda);
+		MWArray.disposeArray(market_condition);
 		return result;
 	}
 	
@@ -244,10 +310,12 @@ public class DataInterface2Matlab {
 			 * %  trade_stddev trade_maxloss sharpe_ratio分别为标准差、最大回撤和策略夏普比率
 			 * */
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("BackTest Exception catched!");
 			System.out.println(e.toString());
 		}	
+		MWArray.disposeArray(f1);
+		MWArray.disposeArray(f2);
+		MWArray.disposeArray(market_condition);
 		return result;
 	}
 	
@@ -278,7 +346,6 @@ public class DataInterface2Matlab {
 					/2000000/Double.valueOf(Lmarket_condition.get(1));
 			//return_ratio
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("Convert2ratio Exception catched!");
 			System.out.println(e.toString());
 		}	
