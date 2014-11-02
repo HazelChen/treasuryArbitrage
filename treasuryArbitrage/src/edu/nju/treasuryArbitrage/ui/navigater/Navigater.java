@@ -15,7 +15,7 @@ import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 public class Navigater extends JPanel{
 	private static final long serialVersionUID = -3260728762055118620L;
 	
-	/*package*/ static final Color BACKGROUND_COLOR = new Color(223,240,251);
+	public static final Color BACKGROUND_COLOR = new Color(223,240,251);
 	/*package*/ static final Color MOUSE_ENTER_BACKGROUND_COLOR = BACKGROUND_COLOR;
 	/*package*/ static final Color MOUSE_ENTER_FOREGROUND_COLOR = new Color(247, 68, 97);
 	/*package*/ static final Color SELECTED_BACKGROUND_COLOR = BACKGROUND_COLOR;

@@ -2,7 +2,6 @@ package edu.nju.treasuryArbitrage.logic.dataInterface;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 import edu.nju.treasuryArbitrage.logic.biz.ArbitrageBL;
 import edu.nju.treasuryArbitrage.logic.biz.CalculateBL;
@@ -13,7 +12,6 @@ import edu.nju.treasuryArbitrage.logic.biz.RecordBL;
 import edu.nju.treasuryArbitrage.logic.biz.RepositoryBL;
 import edu.nju.treasuryArbitrage.logic.biz.TradeBL;
 import edu.nju.treasuryArbitrage.logic.biz.UserBL;
-import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.Finance;
 import edu.nju.treasuryArbitrage.model.Message;
@@ -21,7 +19,6 @@ import edu.nju.treasuryArbitrage.model.News;
 import edu.nju.treasuryArbitrage.model.Record;
 import edu.nju.treasuryArbitrage.model.Repository;
 import edu.nju.treasuryArbitrage.model.UserVO;
-import edu.nju.treasuryArbitrage.ui.news.NewsBrief;
 
 public class DataInterfaceToServer implements DataInterface {
 
@@ -49,30 +46,6 @@ public class DataInterfaceToServer implements DataInterface {
 		calcbl = new CalculateBL();
 		newsbl = new NewsBL();
 		
-	}
-
-	@Override
-	public NewsBrief[] GetALLNewsBrief() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String GetNewsTitle(String NewsID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String GetNewsContent(String NewsID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<News> searchNews(String keyword, Date fD, Date tD) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	// ==================================================================================================
@@ -140,13 +113,11 @@ public class DataInterfaceToServer implements DataInterface {
 
 	@Override
 	public void AddUnwindMess() {
-		// TODO 自动生成的方法存根
 		messbl.AddUnwind();
 	}
 
 	@Override
 	public void AddArbMess() {
-		// TODO 自动生成的方法存根
 		messbl.AddArb();
 	}
 
@@ -190,20 +161,9 @@ public class DataInterfaceToServer implements DataInterface {
 	}
 
 	@Override
-	public ArrayList<ArbGroup> getArbGroup() {
-
-		ArbGroup arbGroup=new ArbGroup("TF1412","TF1503");
-		ArrayList<ArbGroup> list=new ArrayList<ArbGroup>();
-
-		list.add(arbGroup);
-		return list;
-	}
-
-	@Override
 	public boolean Order(String More_contract,
 			String Blank_contract, double more_price, double blank_price,
 			int hand,double guarantee) {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return tradebl.order(user.getUserID(), More_contract, Blank_contract,
 				more_price, blank_price, hand, guarantee);
@@ -211,36 +171,46 @@ public class DataInterfaceToServer implements DataInterface {
 
 	@Override
 	public boolean cancleOrder(int record_ID) {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return tradebl.cancleOrder(user.getUserID(), record_ID);
 	}
 
 	@Override
 	public boolean Trade(int Repo_ID, double profit) {
-		// TODO 自动生成的方法存根
 		UserVO user = userbl.getUser();
 		return tradebl.trade(user.getUserID(), Repo_ID, profit);
 	}
 
-	@Override
-	public HashMap<Long, Double> getDateAndPricePair() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public double getProfit(double buyprice1, double saleprice1,
 			double buyprice2, double saleprice2, int count) {
-		// TODO 自动生成的方法存根
 		return calcbl.getProfit(buyprice1, saleprice1, buyprice2, saleprice2,
 				count);
 	}
 
 	@Override
 	public double getGuar(double price1, double price2, int count) {
-		// TODO 自动生成的方法存根
 		return calcbl.getGuar(price1, price2, count);
+	}
+
+	@Override
+	public double getFreeFund() {
+		ArrayList<Finance> finances = getFinanceList();
+		Finance latestFinance = null;
+		long latestTime = 0;
+		for (Finance finance : finances) {
+			if (finance.getTime() > latestTime) {
+				latestFinance = finance;
+			}
+		}
+		return latestFinance.getIdle();
+	}
+
+	@Override
+	public ArrayList<News> searchNews(String keyword, Date fD1, Date tD2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

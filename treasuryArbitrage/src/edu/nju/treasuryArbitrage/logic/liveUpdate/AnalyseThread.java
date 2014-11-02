@@ -26,8 +26,7 @@ public class AnalyseThread implements Runnable{
         //System.out.println("x y k:" + dm.opt_x + ","+ dm.opt_y +","+ dm.opt_k);
 		long sleepsec = 100;
 		Object[] result = null;
-		ArrayList<ArbGroup> LarbG12= dataInterface.getArbGroup();
-		//ArbGroup arbG12 = LarbG12.get(0);
+		
 		ArrayList<Double> allLf1,allLf2,//所有的历史价格记录，规模很大
 						  Lf1,Lf2;//前一交易日到现在的价格记录，相对较小,大约240条数据
 		ArrayList<Repository> info = dataInterface.getRepoList();
