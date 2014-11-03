@@ -17,6 +17,7 @@ public class UserBL {
 
 	public UserBL(){}
 	
+	@SuppressWarnings("unused")
 	public UserVO initUser(String username) {
 		//从文件读取用户的登录状态
 		if(user == null){

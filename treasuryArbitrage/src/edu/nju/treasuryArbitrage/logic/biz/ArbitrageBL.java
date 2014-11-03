@@ -1,8 +1,6 @@
 package edu.nju.treasuryArbitrage.logic.biz;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -38,12 +36,14 @@ public class ArbitrageBL {
 			detail.setSymbol(symbol);
 			detail.setMonth(End);
 			//================================================
+			detail.setDate(End);
+			detail.setClock(temp.getString("RT_TIME"));
+			/*
 			int date = temp.getInt("RT_DATE");
 			int day = temp.getInt("RT_TIME");
 			
 			detail.setDate(date);
 			detail.setDay(day);
-			
 			int yeartemp = date/10000;
 			int monthtemp = (date-yeartemp*10000)/100;
 			int daytemp = (date-yeartemp*10000-monthtemp*100);
@@ -55,10 +55,14 @@ public class ArbitrageBL {
 			cal.set(yeartemp, monthtemp-1, daytemp, hourtemp, mintemp, secondtemp);
 			Date datetemp=cal.getTime();
 			detail.setTime(datetemp.getTime());
+			*/
 			//================================================
 			
 			detail.setPresentPrice(temp.getDouble("RT_LAST"));
-			detail.setChange(temp.getDouble("RT_PCT_CHG"));
+			//========================================================
+			double change = format(temp.getString("RT_PCT_CHG"));
+			detail.setChange(change);
+			//========================================================
 			detail.setPriceChange(temp.getDouble("RT_CHG"));
 			
 			detail.setBidPirce(temp.getDouble("RT_BID1"));
@@ -66,7 +70,7 @@ public class ArbitrageBL {
 			detail.setBid(temp.getInt("RT_BSIZE1"));
 			detail.setAsk(temp.getInt("RT_ASIZE1"));
 			
-			detail.setNvol(temp.getInt("RT_LAST_VOL"));
+			//detail.setNvol(temp.getInt("RT_LAST_VOL"));
 			detail.setVol(temp.getInt("RT_VOL"));
 			detail.setPreRepository(temp.getInt("RT_PRE_OI"));
 			detail.setRepository(temp.getInt("RT_OI"));
@@ -78,14 +82,17 @@ public class ArbitrageBL {
 			detail.setLow(temp.getDouble("RT_LOW"));
 			detail.setFullAmount(temp.getDouble("RT_AMT"));
 			detail.setPreSettlePrice(temp.getDouble("RT_PRE_SETTLE"));
-			detail.setSettlePrice(temp.getDouble("RT_SETTLE"));
-			detail.setSwing(temp.getDouble("RT_SWING"));
-			detail.setRatio(temp.getDouble("RT_VOL_RATIO"));
+			//detail.setSettlePrice(temp.getDouble("RT_SETTLE"));
+			//========================================================
+			double swing = format(temp.getString("RT_SWING"));
+			detail.setSwing(swing);
+			//========================================================
+			//detail.setRatio(temp.getDouble("RT_VOL_RATIO"));
 			
 			detail.setHardenPrice(temp.getDouble("RT_HIGH_LIMIT"));
 			detail.setLimitPrice(temp.getDouble("RT_LOW_LIMIT"));
-			detail.setOutvol(temp.getInt("RT_UPWARD_VOL"));
-			detail.setInvol(temp.getInt("RT_DOWNWARD_VOL"));
+			//detail.setOutvol(temp.getInt("RT_UPWARD_VOL"));
+			//detail.setInvol(temp.getInt("RT_DOWNWARD_VOL"));
 			detail.setAverPrice(temp.getDouble("RT_VWAP"));
 			
 			detail_list.add(detail);
@@ -105,8 +112,13 @@ public class ArbitrageBL {
 	public ArrayList<ArbGroup> getArbGroups(){
 		group_list = new ArrayList<ArbGroup>();
 		
-		
-		
 		return group_list;
+	}
+	
+	//转换带百分号的String至double
+	public double format(String precent){
+		String temp = precent.substring(0,precent.length()-1);
+		double result = Double.parseDouble(temp)/100;
+		return result;
 	}
 }

@@ -5,9 +5,13 @@ public class Arb_detail {
 	String symbol;			//***国债期货代码
 	String month;			//***交割月份
 	
-	int date;				//***日期
-	int day;				//***时间
-	long time;				//***时间
+	//==========================================================
+	//说明1：去除time，将原来的day改为clock;date,clock改为String类型
+	//说明2：change和swing取出为带%号的String（已转化为double），使用时需要 ！！*100并添加%表示实际含义
+	//==========================================================
+	String date;			//***日期
+	String clock;				//***时间
+	//long time;				//***时间
 	
 	double presentPrice;	//***现价（“现价”等于“成交”等于“合约价格”，统一成现价）
 	double change;			//***涨跌幅（涨幅等于涨跌幅，统一成涨跌幅）
@@ -18,7 +22,10 @@ public class Arb_detail {
 	int bid;				//***买量
 	int ask;				//***卖量
 
-	int nvol;				//***现手
+	//==========================================================
+	//说明3：去除nvol,settlePrice,ratio,outvol,invol
+	//==========================================================
+	//int nvol;				//***现手
  	int vol;				//***成交量（总手等于成交量，统一成成交量）
 	int preRepository;		//***昨持仓
 	int repository;			//***持仓量
@@ -30,15 +37,15 @@ public class Arb_detail {
 	double low;				//***最低
 	double fullAmount;		//***金额
 	double preSettlePrice;	//***前结算价（昨结等于前结算价，统一成前结算价）
-	double settlePrice;		//***今结
+	//double settlePrice;		//***今结
 	double swing;			//***振幅
-	double ratio;			//***量比
+	//double ratio;			//***量比
 
 
 	double hardenPrice;		//***涨停
 	double limitPrice;		//***跌停	
-	int outvol;				//***外盘
-	int invol;				//***内盘
+	//int outvol;				//***外盘
+	//int invol;				//***内盘
 
 	double averPrice;		//***均价
 	
@@ -51,15 +58,15 @@ public class Arb_detail {
 		arb_detail.symbol = this.symbol;
 		arb_detail.month = this.month;
 		arb_detail.date = this.date;
-		arb_detail.day = this.day;
-		arb_detail.time = this.time;
+		arb_detail.clock = this.clock;
+		//arb_detail.time = this.time;
 		arb_detail.presentPrice = this.presentPrice;
 		arb_detail.change = this.change;
 		arb_detail.priceChange = this.priceChange;
 		arb_detail.bidPirce = this.bidPirce;
 		arb_detail.askPrice = this.askPrice;
 		arb_detail.bid = this.bid;
-		arb_detail.nvol = this.nvol;
+		//arb_detail.nvol = this.nvol;
 		arb_detail.vol = this.vol;
 		arb_detail.preRepository = this.preRepository;
 		arb_detail.repository = this.repository;
@@ -70,13 +77,13 @@ public class Arb_detail {
 		arb_detail.low = this.low;
 		arb_detail.fullAmount = this.fullAmount;
 		arb_detail.preSettlePrice = this.preSettlePrice;
-		arb_detail.settlePrice = this.settlePrice;
+		//arb_detail.settlePrice = this.settlePrice;
 		arb_detail.swing = this.swing;
-		arb_detail.ratio = this.ratio;
+		//arb_detail.ratio = this.ratio;
 		arb_detail.hardenPrice = this.hardenPrice;
 		arb_detail.limitPrice = this.limitPrice;
-		arb_detail.outvol = this.outvol;
-		arb_detail.invol = this.invol;
+		//arb_detail.outvol = this.outvol;
+		//arb_detail.invol = this.invol;
 		arb_detail.averPrice = this.averPrice;
 		return arb_detail;
 	}
@@ -115,20 +122,20 @@ public class Arb_detail {
 		this.month = month;
 	}
 
-	public int getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(int date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public int getDay() {
-		return day;
+	public String getClock() {
+		return clock;
 	}
 
-	public void setDay(int day) {
-		this.day = day;
+	public void setClock(String clock) {
+		this.clock = clock;
 	}
 	
 	public double getPresentPrice() {
@@ -201,14 +208,14 @@ public class Arb_detail {
 	}
 
 
-	public int getNvol() {
-		return nvol;
-	}
-
-
-	public void setNvol(int nvol) {
-		this.nvol = nvol;
-	}
+//	public int getNvol() {
+//		return nvol;
+//	}
+//
+//
+//	public void setNvol(int nvol) {
+//		this.nvol = nvol;
+//	}
 
 
 	public int getVol() {
@@ -311,14 +318,14 @@ public class Arb_detail {
 	}
 
 
-	public double getSettlePrice() {
-		return settlePrice;
-	}
-
-
-	public void setSettlePrice(double settlePrice) {
-		this.settlePrice = settlePrice;
-	}
+//	public double getSettlePrice() {
+//		return settlePrice;
+//	}
+//
+//
+//	public void setSettlePrice(double settlePrice) {
+//		this.settlePrice = settlePrice;
+//	}
 
 
 	public double getSwing() {
@@ -331,14 +338,14 @@ public class Arb_detail {
 	}
 
 
-	public double getRatio() {
-		return ratio;
-	}
-
-
-	public void setRatio(double ratio) {
-		this.ratio = ratio;
-	}
+//	public double getRatio() {
+//		return ratio;
+//	}
+//
+//
+//	public void setRatio(double ratio) {
+//		this.ratio = ratio;
+//	}
 
 
 	public double getHardenPrice() {
@@ -361,24 +368,24 @@ public class Arb_detail {
 	}
 
 
-	public int getOutvol() {
-		return outvol;
-	}
-
-
-	public void setOutvol(int outvol) {
-		this.outvol = outvol;
-	}
-
-
-	public int getInvol() {
-		return invol;
-	}
-
-
-	public void setInvol(int invol) {
-		this.invol = invol;
-	}
+//	public int getOutvol() {
+//		return outvol;
+//	}
+//
+//
+//	public void setOutvol(int outvol) {
+//		this.outvol = outvol;
+//	}
+//
+//
+//	public int getInvol() {
+//		return invol;
+//	}
+//
+//
+//	public void setInvol(int invol) {
+//		this.invol = invol;
+//	}
 
 
 	public double getAverPrice() {
@@ -391,13 +398,13 @@ public class Arb_detail {
 	}
 
 
-	public long getTime() {
-		return time;
-	}
-
-
-	public void setTime(long time) {
-		this.time = time;
-	}
+//	public long getTime() {
+//		return time;
+//	}
+//
+//
+//	public void setTime(long time) {
+//		this.time = time;
+//	}
 
 }
