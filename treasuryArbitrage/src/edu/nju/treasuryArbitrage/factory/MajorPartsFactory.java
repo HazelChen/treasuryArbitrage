@@ -6,6 +6,7 @@ import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarketChen;
 import edu.nju.treasuryArbitrage.ui.holdings.Holdings;
+import edu.nju.treasuryArbitrage.ui.holdings.HoldingsDai;
 import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 import edu.nju.treasuryArbitrage.ui.navigater.SettingStopParameters;
 import edu.nju.treasuryArbitrage.ui.news.NewsPanel;
@@ -62,7 +63,7 @@ public class MajorPartsFactory {
 
 	public Holdings getHoldings() {
 		if (holdings == null) {
-			holdings = new Holdings();
+			holdings = new HoldingsDai();
 		}
 		return holdings;
 	}

@@ -44,14 +44,14 @@ public class TakeAOrder extends JPanel {
 
 	private JLabel money = new BordedLabel("所需保证金", JLabel.CENTER);
 	private JLabel mny = new BordedLabel("", JLabel.CENTER);
-	private JLabel restMoney = new BordedLabel("剩余保证金", JLabel.CENTER);
+	private JLabel restMoneyLabel = new BordedLabel("剩余保证金", JLabel.CENTER);
 	private JLabel restMny = new BordedLabel("", JLabel.CENTER);
 
 	private JButton confirm = new JButton("下单");
 	public JTextField tfdHoldings = new JTextField();
 	
 	private Arb_detail[] arbGroups;
-	private double prePrice1, prePrice2, guar;
+	private double prePrice1, prePrice2, guar, restMoney;
 	private int holds;
 
 	public TakeAOrder() {
@@ -123,13 +123,13 @@ public class TakeAOrder extends JPanel {
 		this.add(money);
 		this.add(mny);
 
-		restMoney.setBounds(30, 250, 200, 40);
-		restMoney.setFont(NORMAL_FONT);
-		restMoney.setForeground(FOREGROUND_COLOR);
+		restMoneyLabel.setBounds(30, 250, 200, 40);
+		restMoneyLabel.setFont(NORMAL_FONT);
+		restMoneyLabel.setForeground(FOREGROUND_COLOR);
 		restMny.setBounds(230, 250, 400, 40);
 		restMny.setFont(NORMAL_FONT);
 		restMny.setForeground(FOREGROUND_COLOR);
-		this.add(restMoney);
+		this.add(restMoneyLabel);
 		this.add(restMny);
 
 		this.add(confirm);
@@ -170,7 +170,8 @@ public class TakeAOrder extends JPanel {
 					.getDataInterfaceToServer();
 			guar = (int) (dataInterface.getGuar(prePrice1, prePrice2, holds) * 1000) / 1000.0;
 			mny.setText(String.valueOf(guar));
-			restMny.setText(String.valueOf(dataInterface.getFreeFund() - guar));
+			restMoney = dataInterface.getFreeFund() - guar;
+			restMny.setText(restMoney >= 0 ? String.valueOf(restMoney) : "0");
 		}
 
 		public void keyTyped(KeyEvent e) {
@@ -184,14 +185,18 @@ public class TakeAOrder extends JPanel {
 				JOptionPane.showMessageDialog(null, "手数输入错误", "错误提示",
 						JOptionPane.WARNING_MESSAGE);
 			} else {
-				if (Integer.parseInt(text) > 0) {
+				if (Integer.parseInt(text) > 0 && restMoney >= 0) {
 					JOptionPane.showMessageDialog(null, "下单成功！");
 					DataInterfaceFactory.getInstance().getDataInterfaceToServer().Order(arbGroups[0].getSymbol(), 
 							arbGroups[1].getSymbol(), arbGroups[0].getPresentPrice(), arbGroups[1].getPresentPrice(), 
 							holds, guar);
+				} else if (restMoney < 0){
+					JOptionPane.showMessageDialog(null, "剩余保证金不足", "错误提示",
+							JOptionPane.WARNING_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null, "手数输入错误", "错误提示",
 							JOptionPane.WARNING_MESSAGE);
+					
 				}
 			}
 		}
