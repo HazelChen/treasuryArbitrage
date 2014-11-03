@@ -1,11 +1,17 @@
 package edu.nju.treasuryArbitrage;
 
+import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.AnalyseThread;
 import edu.nju.treasuryArbitrage.logic.liveUpdate.UpdateThread;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.ui.personalCenter.LoginFrame;
@@ -48,21 +54,26 @@ public class TreasuryArbitrage {
 	private void startDataFetch() {
 		Thread thread = new Thread(new UpdateThread());
 		thread.start();
+
 	}
 
 	private void launchLoginPage() {
 		LoginFrame loginFrame = new LoginFrame();
 		loginFrame.setVisible(true);
+		
 	}
 	
 	private void launchMainSoftware() {
 		Thread thread = new Thread(new UpdateThread());
+		Thread thread2 = new Thread(new AnalyseThread());
 		thread.start();
 		try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		thread2.start();
+		
 		TreasuryFrame frame = new TreasuryFrame();
 		frame.setVisible(true);
 	}
@@ -80,3 +91,5 @@ public class TreasuryArbitrage {
 		}
 	}
 }
+
+

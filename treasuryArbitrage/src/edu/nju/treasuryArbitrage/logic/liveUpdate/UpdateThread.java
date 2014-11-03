@@ -34,9 +34,15 @@ public class UpdateThread implements Runnable{
 
 			Date now = new Date(); 
 			int now_hour = now.getHours(),
-					now_sec = now.getSeconds();
-			 System.out.println(now_hour);  
-			if((now_hour >= 9 && now_hour < 11) || (now_hour >= 13 && now_hour < 15))
+					now_min = now.getMinutes();
+			// System.out.println(now_hour);  
+			 //交易时间  9:15-11:30、13:00-15:15
+			if(   	(now_hour == 9 && now_min >= 15)         //09:15-09:59
+			     || (now_hour > 9 && now_hour <11)	 	 //10:00-10:59	
+			     || (now_hour == 11 && now_min <= 30)	 //11:00-11:30
+				 || (now_hour >= 13 && now_hour <15)	 	 //13:00-14:59
+				 || (now_hour == 15 && now_min <= 15)		 //15:00-15:15
+					)
 			{
 				arb_details = dataInterface.getArbDetail();
 				LiveData.getInstance().setArb_details(arb_details);
