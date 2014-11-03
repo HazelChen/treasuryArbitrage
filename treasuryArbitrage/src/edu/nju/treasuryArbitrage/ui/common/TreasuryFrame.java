@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.AnalyseThread;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.ThreadDiag;
 import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 
@@ -16,6 +18,9 @@ public class TreasuryFrame extends JFrame{
 	private static final String LOGO_ICON_PATH = "image/logo_icon.png";
 	
 	private JPanel mainPage;
+	
+	public Thread analyseThread;//模型计算分析线程
+	
 	
 	public TreasuryFrame() {
 		init();
@@ -38,6 +43,8 @@ public class TreasuryFrame extends JFrame{
 		this.setResizable(false);
 		this.setIconImage(new ImageIcon(LOGO_ICON_PATH).getImage());
 		
+		this.analyseThread = new Thread(new AnalyseThread());
+		
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 		factory.setFrame(this);
 		
@@ -55,4 +62,5 @@ public class TreasuryFrame extends JFrame{
 		this.getContentPane().repaint();
 		this.validate();
 	}
+	
 }

@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.AnalyseThread;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.ThreadDiag;
 import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.ui.navigater.SettingStopParameters;
@@ -109,6 +111,7 @@ public class LoginInputFlat extends LoginInput{
 					loginFrame.setVisible(false);
 					frame.setVisible(true);
 					loginFrame.dispose();
+					frame.analyseThread.start();//开始模型计算分析线程
 					
 					double para = dataInterface.getPara_PROF(); 
 					if (para == 0) {
