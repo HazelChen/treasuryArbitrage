@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,31 +18,25 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.model.Repository;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
-import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 
 public class HoldingsChen extends Holdings {
 	private static final long serialVersionUID = 6470810944009110491L;
 
-	private static final Color BACKGROUND_COLOR = new Color(254, 254, 254);
+	/* package */static final Color BACKGROUND_COLOR = new Color(246, 246, 246);
+	private static final Color HEADER_BACKGROUND_COLOR = new Color(87, 96, 105);
 
-	static ArrayList<Repository> info;
 	private Object holdHeaderData[] = { "套利组合信息", "交易时间", "交易手数", "投入保证金",
-			"即时损失/盈利金额", "操作"}, empOb[][] = { { "", "", "", "", "", "" },
+			"即时损失/盈利金额", "操作" }, empOb[][] = { { "", "", "", "", "", "" },
 			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
 			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
 			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" } };// !!!![Important]!!!!!
-	JScrollPane jsp1, jsp2;
-
 	JButton refreshBtn, doBtn;
 	JTable hTableHeader = new JTable();
 	JTable hTable;
-	Color lbg = new Color(217, 122, 91), rbtnbg = new Color(41, 128, 185);
-	private static TableCellRenderer tcr22;
 	int w;
 
 	public HoldingsChen() {
@@ -68,7 +60,7 @@ public class HoldingsChen extends Holdings {
 		northPanel.setPreferredSize(new Dimension(ScreenSize.WIDTH,
 				(int) (ScreenSize.HEIGHT / 10.0 * 7)));
 
-		JLabel reposityPageLabel = new JLabel("持仓情况", JLabel.LEFT);
+		JLabel reposityPageLabel = new JLabel(" 持仓情况", JLabel.LEFT);
 		reposityPageLabel.setFont(new Font("微软雅黑", Font.BOLD, 16));
 		reposityPageLabel.setForeground(new Color(247, 68, 97));
 		reposityPageLabel.setPreferredSize(new Dimension(ScreenSize.WIDTH,
@@ -77,7 +69,8 @@ public class HoldingsChen extends Holdings {
 		doBtn = new JButton("平仓");
 		doBtn.setFocusPainted(false);
 
-		DefaultTableModel model = new DefaultTableModel(new Object[0][holdHeaderData.length], holdHeaderData) {
+		DefaultTableModel model = new DefaultTableModel(
+				new Object[0][holdHeaderData.length], holdHeaderData) {
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) {
@@ -86,17 +79,19 @@ public class HoldingsChen extends Holdings {
 		};
 		model.addRow(holdHeaderData);
 		hTableHeader.setModel(model);
+		hTableHeader.getColumnModel().getColumn(0).setPreferredWidth(ScreenSize.WIDTH / 2);
 		makeFaceOfHeader(hTableHeader);
 
 		JPanel headerPanel = new JPanel(new BorderLayout());
-		headerPanel.setBackground(Navigater.BACKGROUND_COLOR);
+		headerPanel.setBackground(HEADER_BACKGROUND_COLOR);
 		headerPanel.add(reposityPageLabel, BorderLayout.CENTER);
 		headerPanel.add(hTableHeader, BorderLayout.SOUTH);
 		northPanel.add(headerPanel, BorderLayout.NORTH);
-//==========================================table header end====================
+		// ==========================================table header
+		// end====================
 
-		info = DataInterfaceFactory.getInstance().getDataInterfaceToServer()
-				.getRepoList();// 从服务器获取数据
+		final ArrayList<Repository> info = DataInterfaceFactory.getInstance()
+				.getDataInterfaceToServer().getRepoList();// 从服务器获取数据
 		hTable = new JTable(new DefaultTableModel() {
 			private static final long serialVersionUID = -335420676543481799L;
 
@@ -130,31 +125,14 @@ public class HoldingsChen extends Holdings {
 				}
 			}
 		});
+		makeFaceOfTable(hTable);
 		hTable.getTableHeader().setPreferredSize(new Dimension(0, 0));
 		hTable.getTableHeader().setVisible(false);
-		makeFace2(hTable);
-		hTable.setRowHeight(80);
-		for (int i = 1; i < 5; i++) {
-			hTable.getColumn(hTable.getColumnName(i)).setMinWidth(137);
-			hTable.getColumn(hTable.getColumnName(i)).setMaxWidth(137);
-		}
-		hTable.getColumn(hTable.getColumnName(5)).setMinWidth(135);
-		hTable.getColumn(hTable.getColumnName(5)).setMaxWidth(135);
+		hTable.setRowHeight(60);
 		hTable.setFocusable(false);
-		hTable.setBackground(Color.black);
 		updateRepoList();
-		hTable.addMouseMotionListener(new MouseMotionListener() {
-			public void mouseDragged(MouseEvent e) {
-				hTable.editCellAt(e.getY() / 80, 5);
-			}
 
-			public void mouseMoved(MouseEvent e) {
-				hTable.editCellAt(e.getY() / 80, 5);
-			}
-		});
-
-		jsp1 = new JScrollPane(hTable);
-		jsp1.getViewport().setBackground(Color.black);
+		JScrollPane jsp1 = new JScrollPane(hTable);
 		jsp1.getVerticalScrollBar().setPreferredSize(new Dimension(13, 12));
 		jsp1.getVerticalScrollBar().setMaximumSize(new Dimension(13, 12));
 		jsp1.getVerticalScrollBar().setMinimumSize(new Dimension(13, 12));
@@ -170,8 +148,8 @@ public class HoldingsChen extends Holdings {
 	}
 
 	public void updateRepoList() {
-		info = DataInterfaceFactory.getInstance().getDataInterfaceToServer()
-				.getRepoList();// 从服务器获取数据
+		ArrayList<Repository> info = DataInterfaceFactory.getInstance()
+				.getDataInterfaceToServer().getRepoList();// 从服务器获取数据
 		if (info.size() > 0) {
 			for (int j = 0; j < info.size(); j++) {
 				Date dt = new Date(info.get(j).getTime());
@@ -186,6 +164,7 @@ public class HoldingsChen extends Holdings {
 					.setCellEditor(new ButtonEditor(info));
 			hTable.getColumnModel().getColumn(5)
 					.setCellRenderer(new ButtonCellRenderer());
+			hTable.getColumnModel().getColumn(0).setPreferredWidth(ScreenSize.WIDTH / 2);
 			hTable.getColumnModel().getColumn(0)
 					.setCellEditor(new MyTableEditor(info));
 			hTable.getColumnModel().getColumn(0)
@@ -195,22 +174,18 @@ public class HoldingsChen extends Holdings {
 		hTable.repaint();
 	}
 
-	private void makeFace2(JTable table) {
-		table.setRowHeight(30);
-		table.setSelectionBackground(Color.black);
-		table.setSelectionForeground(Color.white);
-		tcr22 = new DefaultTableCellRenderer() {
-			/**
-			 * 
-			 */
+	private void makeFaceOfTable(JTable table) {
+		table.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+		DefaultTableCellRenderer tcr22 = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 2220633049102091416L;
 
 			public Component getTableCellRendererComponent(JTable table,
 					Object value, boolean isSelected, boolean hasFocus,
 					int row, int column) {
-
-				setForeground(Color.white);
-				setBackground(Color.black);
+				if (row % 2 == 0)
+					setBackground(BACKGROUND_COLOR); // 设置奇数行底色 else
+				if (row % 2 == 1)
+					setBackground(new Color(237, 237, 237));
 				setHorizontalAlignment(SwingConstants.CENTER);
 				return super.getTableCellRendererComponent(table, value,
 						isSelected, hasFocus, row, column);
@@ -227,17 +202,14 @@ public class HoldingsChen extends Holdings {
 
 	private void makeFaceOfHeader(JTable table) {
 		table.setRowHeight(30);
-		table.setFont(new Font("微软雅黑", Font.PLAIN, 18));
+		table.setFont(new Font("微软雅黑", Font.PLAIN, 16));
 		DefaultTableCellRenderer tcr1 = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 2220633049102091416L;
 
 			public Component getTableCellRendererComponent(JTable table,
 					Object value, boolean isSelected, boolean hasFocus,
 					int row, int column) {
-				if (row % 2 == 0)
-					setBackground(BACKGROUND_COLOR); // 设置奇数行底色 else
-				if (row % 2 == 1)
-					setBackground(new Color(196, 196, 196));
+				setBackground(new Color(243, 244, 246));
 				setHorizontalAlignment(SwingConstants.CENTER);
 				return super.getTableCellRendererComponent(table, value,
 						isSelected, hasFocus, row, column);

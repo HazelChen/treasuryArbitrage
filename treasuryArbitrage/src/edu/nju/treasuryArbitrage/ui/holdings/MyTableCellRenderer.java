@@ -1,9 +1,9 @@
 package edu.nju.treasuryArbitrage.ui.holdings;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import edu.nju.treasuryArbitrage.model.Repository;
-import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
 public class MyTableCellRenderer implements TableCellRenderer {
 	private JPanel panel,p2;
@@ -32,36 +31,29 @@ public class MyTableCellRenderer implements TableCellRenderer {
         p2.setLayout(new BorderLayout());
 
         DefaultTableModel tableModel = (DefaultTableModel) intable.getModel();
- 		//Repository coding
         tableModel.addRow(new Object[]{"","∂‡Õ∑",""});
  		tableModel.addRow(new Object[]{"","ø’Õ∑",""});
         panel.add(p2,"North");
         p2.add(intable,"North");
-        //p2.setBackground(Color.blue);
-        //panel.setBackground(Color.red);
     }
 
     private void initTable() {
     	intable = new JTable(0,3);
     	intable.setFocusable(false);
-    	intable.setRowHeight(40);
-    	intable.setForeground(Color.white);
-    	intable.setBackground(Color.black);
+    	intable.setRowHeight(30);
+    	intable.setBackground(HoldingsChen.BACKGROUND_COLOR);
+    	
+    	intable.setFont(new Font("Œ¢»Ì—≈∫⁄", Font.PLAIN, 16));
 
- 		for(int i = 0;i<intable.getColumnCount();i++){
- 			intable.getColumn(intable.getColumnName(i)).setMinWidth((ScreenSize.WIDTH - 685)/3);
- 	 		intable.getColumn(intable.getColumnName(i)).setMaxWidth((ScreenSize.WIDTH - 685)/3);
- 		}
     	DefaultTableCellRenderer render = new DefaultTableCellRenderer();
         render.setHorizontalAlignment(SwingConstants.CENTER);
         for (int i = 0; i < intable.getColumnCount(); i++) {
       	  intable.getColumn(intable.getColumnName(i)).setCellRenderer(render);
-	      }
+	    }
     }
 
     private void initPanel() {
         panel = new JPanel();
-        panel.setBackground(Color.black);
         panel.setLayout(new BorderLayout());
         panel.setPreferredSize(new Dimension(200,80));
         panel.setSize(200,80);

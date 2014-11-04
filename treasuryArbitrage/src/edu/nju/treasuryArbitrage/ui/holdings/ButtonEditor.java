@@ -35,7 +35,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
      */
     private static final long serialVersionUID = -6546334664166791132L;
 
-    private JPanel panel,p2;
+    private JPanel panel;
 
     private JButton button;
     private Repository repository;
@@ -51,21 +51,12 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
         infom = new ArrayList<Repository>();
         infom = info;
         repository = new Repository();
-        p2 = new JPanel();
-        panel.add(p2);
-
-        p2.setBounds(20,20, 
-        		100, 40);
-        p2.setBackground(Color.black);
-        p2.add(button,"Center");
+        panel.add(button);
     }
 
     private void initButton() {
         button = new JButton();
         button.setFocusable(false);
-        button.setBackground(Color.white);
-        button.setPreferredSize(new Dimension(60,25));
-        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -80,9 +71,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 
     private void initPanel() {
         panel = new JPanel();
-
-        panel.setLayout(null);
-        panel.setBackground(Color.black);
+        panel.setBackground(HoldingsChen.BACKGROUND_COLOR);
     }
 
     @Override

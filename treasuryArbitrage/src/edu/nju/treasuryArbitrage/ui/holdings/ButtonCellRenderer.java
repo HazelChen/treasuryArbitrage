@@ -1,8 +1,6 @@
 package edu.nju.treasuryArbitrage.ui.holdings;
 
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -11,46 +9,38 @@ import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
 
 public class ButtonCellRenderer implements TableCellRenderer {
-	private JPanel panel,p2;
+	private JPanel panel;
 
-    private JButton button;
-    
-    
-    public ButtonCellRenderer() {
-        initButton();
+	private JButton button;
 
-        initPanel();
-        
-        p2 = new JPanel();
-        panel.add(p2);
+	public ButtonCellRenderer() {
+		initButton();
 
-        p2.setBounds(20,20, 
-        		100, 40);
-        p2.setBackground(Color.black);
-        p2.add(button,"Center");
-    }
+		initPanel();
 
-    private void initButton() {
-        button = new JButton();
-        button.setFocusable(false);
-        button.setBackground(Color.white);
-        button.setPreferredSize(new Dimension(60,25));
-        button.setHorizontalAlignment(SwingConstants.CENTER);
-        button.setVerticalAlignment(SwingConstants.CENTER);
-    }
+		panel.add(button);
+	}
 
-    private void initPanel() {
-        panel = new JPanel();
+	private void initButton() {
+		button = new JButton();
+		button.setFocusable(false);
+//		button.setBackground(Color.white);
+//		button.setPreferredSize(new Dimension(60, 25));
+		button.setHorizontalAlignment(SwingConstants.CENTER);
+		button.setVerticalAlignment(SwingConstants.CENTER);
+	}
 
-        panel.setLayout(null);
-        panel.setBackground(Color.black);
-    }
+	private void initPanel() {
+		panel = new JPanel();
 
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int column) {
-        
-        button.setText(value == null ? "" : "Æ½²Ö");
-       
-        return panel;
-    }
+		panel.setBackground(HoldingsChen.BACKGROUND_COLOR);
+	}
+
+	public Component getTableCellRendererComponent(JTable table, Object value,
+			boolean isSelected, boolean hasFocus, int row, int column) {
+
+		button.setText(value == null ? "" : "Æ½²Ö");
+
+		return panel;
+	}
 }
