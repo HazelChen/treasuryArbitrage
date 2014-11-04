@@ -3,7 +3,6 @@ package edu.nju.treasuryArbitrage.ui.futuresMarket;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JScrollPane;
@@ -76,18 +75,13 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 		for (int i = 0; i < arb_details.length; i++) {
 			Arb_detail arb = arb_details[i].getFormattedArb_detail();
 
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTimeInMillis(arb.getTime());
-			int hour = calendar.get(Calendar.HOUR);
-			int min = calendar.get(Calendar.MINUTE);
-
 			futuresInfo[i] = new Object[] { arb.getSymbol(), arb.getMonth(),
 					arb.getPresentPrice(), arb.getPriceChange(),
 					arb.getChange(), arb.getBid(), arb.getBidPirce(),
 					arb.getAskPrice(), arb.getAsk(), arb.getVol(),
 					arb.getRepository(), arb.getDailyWarehouse(),
 					arb.getPreSettlePrice(), arb.getOpen(), arb.getHigh(),
-					arb.getLow(), hour + ":" + min };
+					arb.getLow(), arb.getClock()};
 		}
 
 		model.setDataVector(futuresInfo, headerData);

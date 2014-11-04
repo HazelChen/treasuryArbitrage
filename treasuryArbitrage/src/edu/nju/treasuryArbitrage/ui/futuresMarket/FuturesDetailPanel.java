@@ -68,11 +68,11 @@ public class FuturesDetailPanel extends JPanel{
 		currentPriceData.setText(String.valueOf(arb.getPresentPrice()));
 		
 		double priceChange = arb.getPriceChange();
-		String priceChangePre = priceChange >= 0 ? "+" : "-";
+		String priceChangePre = priceChange >= 0 ? "+" : "";
 		priceChangeData.setText(priceChangePre + String.valueOf(priceChange));
 		priceChangeData.setForeground(priceChange >= 0 ? Color.RED : Color.GREEN);
 		double change = arb.getChange();
-		String changePre = change >= 0 ? "+" : "-";
+		String changePre = change >= 0 ? "+" : "";
 		changeData.setText(changePre + String.valueOf(change) + "%");
 		changeData.setForeground(change >= 0 ? Color.RED : Color.GREEN);
 		
@@ -86,16 +86,16 @@ public class FuturesDetailPanel extends JPanel{
 		detail1Datas[1].setText(String.valueOf(arb.getPreSettlePrice()));
 		detail1Datas[2].setText(String.valueOf(arb.getHigh()));
 		detail1Datas[3].setText(String.valueOf(arb.getAverPrice()));
-		detail1Datas[4].setText(String.valueOf(arb.getOutvol()));
-		detail1Datas[5].setText(String.valueOf(arb.getNvol()));
+		detail1Datas[4].setText(String.valueOf(arb.getHardenPrice()));
+		detail1Datas[5].setText(String.valueOf(arb.getPreClose()));
 		detail1Datas[6].setText(String.valueOf(arb.getOpen()));
 		detail1Datas[6].setForeground(arb.getOpen() >= arb.getPreSettlePrice() ? Color.RED : Color.GREEN);
 		detail1Datas[7].setText(String.valueOf(arb.getLow()));
 		detail1Datas[8].setText(String.valueOf(arb.getSwing()) + "%");
-		detail1Datas[9].setText(String.valueOf(arb.getInvol()));
+		detail1Datas[9].setText(String.valueOf(arb.getLimitPrice()));
 		
 		detail2Datas[0].setText(String.valueOf(arb.getRepository()));
-		detail2Datas[1].setText("");
+		detail2Datas[1].setText(String.valueOf(arb.getFullAmount()));
 		
 		String pre;
 		Color color;
@@ -112,7 +112,7 @@ public class FuturesDetailPanel extends JPanel{
 		detail2Datas[2].setText(pre + String.valueOf(arb.getDailyWarehouse()));
 		detail2Datas[2].setForeground(color);
 		
-		detail2Datas[3].setText(String.valueOf(arb.getSettlePrice()));
+		detail2Datas[3].setText(String.valueOf(arb.getAverPrice()));
 	}
 	
 	private void initHeader() {
@@ -239,13 +239,13 @@ public class FuturesDetailPanel extends JPanel{
 		detail1[1] = new JLabel("昨结");
 		detail1[2] = new JLabel("最高");
 		detail1[3] = new JLabel("均价");
-		detail1[4] = new JLabel("外盘");
+		detail1[4] = new JLabel("涨停");
 		
-		detail1[5] = new JLabel("现手");
+		detail1[5] = new JLabel("昨收");
 		detail1[6] = new JLabel("开盘");
 		detail1[7] = new JLabel("最低");
 		detail1[8] = new JLabel("振幅");
-		detail1[9] = new JLabel("内盘");
+		detail1[9] = new JLabel("跌停");
 		
 		for (int i = 0; i < 5; i++) {
 			detail1[i].setFont(NORMAL_FONT);
@@ -276,7 +276,7 @@ public class FuturesDetailPanel extends JPanel{
 		detail1Datas[2].setForeground(Color.RED);
 		detail1Datas[3].setForeground(Color.RED);
 		detail1Datas[4].setForeground(Color.RED);
-		detail1Datas[5].setForeground(Color.YELLOW);
+		detail1Datas[5].setForeground(Color.WHITE);
 		detail1Datas[7].setForeground(Color.GREEN);
 		detail1Datas[8].setForeground(Color.WHITE);
 		detail1Datas[9].setForeground(Color.GREEN);
@@ -285,9 +285,9 @@ public class FuturesDetailPanel extends JPanel{
 	private void initDetail2() {
 		JLabel[] detail2 = new JLabel[4];
 		detail2[0] = new JLabel("持仓");
-		detail2[1] = new JLabel("估结算");
+		detail2[1] = new JLabel("金额");
 		detail2[2] = new JLabel("增仓");
-		detail2[3] = new JLabel("结算价");
+		detail2[3] = new JLabel("均价");
 		
 		for (int i = 0; i < 2; i++) {
 			detail2[i].setFont(NORMAL_FONT);
