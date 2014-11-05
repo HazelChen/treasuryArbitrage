@@ -245,8 +245,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 						{dg.setVisible(true);}
 						else {JOptionPane.showMessageDialog(null, "Æ½²ÖÊ§°Ü£¡");}
 						//JOptionPane.showMessageDialog(null, "¸üÐÂ");
-						MajorPartsFactory.getInstance().getHoldings().updateFTable();
-						MajorPartsFactory.getInstance().getHoldings().updateRepoList();
+						MajorPartsFactory.getInstance().getHoldings().updatePage();
 						//--------------------------------
 						curdg.dispose();
 					}

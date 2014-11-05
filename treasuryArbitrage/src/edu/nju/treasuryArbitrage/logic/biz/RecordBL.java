@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import edu.nju.treasuryArbitrage.model.Arbitrage;
 import edu.nju.treasuryArbitrage.model.Record;
 
 
@@ -44,8 +45,8 @@ public class RecordBL {
 			record.setTime(time);
 			record.setCount(count);
 			record.setGuarantee(guarantee);
-			record.setToBuy(record.new Arbitrage(tobuy,tobuyprice));
-			record.setToSell(record.new Arbitrage(tosell,tosellprice));
+			record.setToBuy(new Arbitrage(tobuy,tobuyprice));
+			record.setToSell(new Arbitrage(tosell,tosellprice));
 			
 			String[] stateStr = {"done","unknown","cancle","over"};
 			record.setState(stateStr[state]);

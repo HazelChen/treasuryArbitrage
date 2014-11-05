@@ -33,7 +33,7 @@ public class ButtonCellRenderer implements TableCellRenderer {
 	private void initPanel() {
 		panel = new JPanel();
 
-		panel.setBackground(HoldingsChen.BACKGROUND_COLOR);
+//		panel.setBackground(HoldingsChen.BACKGROUND_COLOR);
 	}
 
 	public Component getTableCellRendererComponent(JTable table, Object value,
@@ -41,6 +41,11 @@ public class ButtonCellRenderer implements TableCellRenderer {
 
 		button.setText(value == null ? "" : "平仓");
 
+		if (row % 2 == 0)
+			panel.setBackground(HoldingsChen.BACKGROUND_COLOR); // 设置奇数行底色 else
+		if (row % 2 == 1)
+			panel.setBackground(HoldingsChen.TABLE_DARKER_BACKGROUND_COLOR);
+		
 		return panel;
 	}
 }

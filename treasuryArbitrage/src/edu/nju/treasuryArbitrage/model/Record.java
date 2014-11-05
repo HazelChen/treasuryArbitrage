@@ -56,26 +56,5 @@ public class Record {
 	}
 	
 	//持有静态信息即可,内部类
-	public class Arbitrage {
-		String id;
-		double value;
-		
-		public Arbitrage(String id,double value){
-			this.id = id;
-			this.value = value;
-		}
-		
-		public String getId() {
-			return id;
-		}
-		public void setId(String id) {
-			this.id = id;
-		}
-		public double getValue() {
-			return value;
-		}
-		public void setValue(double value) {
-			this.value = value;
-		}
-	}
+	
 }
