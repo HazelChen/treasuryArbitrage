@@ -15,16 +15,23 @@ import com.mathworks.toolbox.javabuilder.*;
 //导入程序员自己用matlab输出的jar包
 
 public class DataInterface2Matlab {
-	
+	 ArrayList<Double> Lmarket_condition = null;	
 	public double opt_x,opt_y,opt_k;
+	 ArrayList<Double> Llambda = null;
 	
 	public DataInterface2Matlab(){
+	    Lmarket_condition = new ArrayList<Double>();
+	    Llambda = new ArrayList<Double>();
+	    Lmarket_condition.add(4.0);
+	    Lmarket_condition.add(0.05);
+	    Lmarket_condition.add(0.002);
+	    Lmarket_condition.add(0.028);
+	    //{4, 0.05, 0.002, 0.028};
 		opt_x = 0;opt_y = 0;opt_k = 0;
 		File file = new File("para_xyk");
 	 	BufferedReader reader = null;
 	 	String s = "";
         try {
-            //System.out.println("以行为单位读取文件内容，一次读一整行：");
             reader = new BufferedReader(new FileReader(file));
             String tempString = null;
             // 一次读入一行，直到读入null为文件结束
@@ -32,7 +39,6 @@ public class DataInterface2Matlab {
                 // 显示行号
                 s = tempString.trim();
                 String t[]=s.split("\t");
-                //System.out.println(t.length);
             	opt_x = (Double.parseDouble(t[0]));
             	opt_y = (Double.parseDouble(t[1]));
             	opt_k = (Double.parseDouble(t[2]));
@@ -46,6 +52,33 @@ public class DataInterface2Matlab {
                 try {
                     reader.close();
                 } catch (IOException e1) {
+                }
+            }
+        }
+        File file2 = new File("para_lambda");
+	 	BufferedReader reader2 = null;
+	 	String s2 = "";
+        try {
+            //System.out.println("以行为单位读取文件内容，一次读一整行：");
+            reader2 = new BufferedReader(new FileReader(file2));
+            String tempString2 = null;
+            // 一次读入一行，直到读入null为文件结束
+            while ((tempString2 = reader2.readLine()) != null) {
+                // 显示行号
+                s2 = tempString2.trim();
+                String t2[]=s2.split("\t");
+                Llambda.add(Double.parseDouble(t2[0]));
+                Llambda.add(Double.parseDouble(t2[1]));
+            	s2 = "";
+            }
+            reader2.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader2 != null) {
+                try {
+                    reader2.close();
+                } catch (IOException e2) {
                 }
             }
         }
@@ -206,7 +239,7 @@ public class DataInterface2Matlab {
 	public Object[] Judge(String name1,String name2,ArrayList<Double> Lf1,ArrayList<Double> Lf2,
 			double new_price1,double new_price2,
 			ArrayList<Double> Llambda,int last_time_state, double last_trade_return,double spoint,
-			ArrayList<Double> Lmarket_condition,String sigma_method){
+			ArrayList<Double> Lmarket_condition){
 		Object[] result = null;
 		Judge J = null;
 		MWNumericArray f1 = null,f2 = null,lambda = null,market_condition = null;   
@@ -242,7 +275,7 @@ public class DataInterface2Matlab {
 			J = new Judge();  //!!!!important
 			//System.out.println("Judging ...");
 			result = J.judge(8,name1,name2,f1,f2,new_price1,new_price2,lambda,
-					last_time_state,last_trade_return,spoint,market_condition,sigma_method);
+					last_time_state,last_trade_return,spoint,market_condition);
 			//[signal long_name short_name long short current_state current_trade_return unit_time_return]
 			/*   8个数据
 			 * %% 输出：signal按照当前的最新价格，是否应当交易。
@@ -277,7 +310,7 @@ public class DataInterface2Matlab {
 	 * %  trade_stddev trade_maxloss sharpe_ratio分别为标准差、最大回撤和策略夏普比率
 	 * */
 	public Object[] BackTest(ArrayList<Double> Lf1, ArrayList<Double> Lf2,double spoint,
-			int opt_option,ArrayList<Double> Lmarket_condition,String sigma_method){
+			int opt_option,ArrayList<Double> Lmarket_condition){
 		Object[] result = null;
 		BackTest back_test = null;
 		MWNumericArray f1 = null,f2 = null,market_condition = null;   
@@ -302,7 +335,7 @@ public class DataInterface2Matlab {
         market_condition.set(4, Double.valueOf(Lmarket_condition.get(3)));
 		try {
 			back_test = new BackTest();  //!!!!important
-			result = back_test.back_test(8,f1,f2,spoint,opt_option,market_condition,sigma_method);
+			result = back_test.back_test(8,f1,f2,spoint,opt_option,market_condition);
 			//[all_return,trade_count,opt_lambda,prob_of_win,
 			//trade,trade_stddev,trade_maxloss,sharpe_ratio]
 			/* %% 输出：all_return为回测得到的最大收益，opt_lambda为最优的策略参数
@@ -350,5 +383,12 @@ public class DataInterface2Matlab {
 			System.out.println(e.toString());
 		}	
 		return result;
+	}
+	
+	public ArrayList<Double> getMarket_condition(){
+		return Lmarket_condition;
+	}
+	public ArrayList<Double> getLambda(){
+		return Llambda;
 	}
 }

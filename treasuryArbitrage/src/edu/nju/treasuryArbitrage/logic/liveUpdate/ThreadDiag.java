@@ -27,13 +27,16 @@ public class ThreadDiag extends JDialog{
 	 */
 	private static final long serialVersionUID = -5251697653622360445L;
 	private ThreadDiag curdg2 = this;
+	String Message[] = {"",""};
 	JLabel information;
 	JPanel panel,con;
 	MsgDgML listener;
 	private JButton btnY,btnN;
 	MyButtonUI btnUI = new MyButtonUI();
 	
-	public ThreadDiag(){
+	public ThreadDiag(String message){
+		Message[1] = message.substring(0,1);//to do  (O for open or C for close)
+		Message[0] = message.substring(1,message.length());//title
 		setUndecorated(true);
     	setBackground(Color.WHITE);
     	setMaximumSize(new Dimension(383,150));
@@ -58,7 +61,7 @@ public class ThreadDiag extends JDialog{
 		btnN.setBackground(Color.white);
         btnN.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnN.setUI(btnUI);
-        information = new JLabel("有重大套利机会！\r\n马上前往套利组合页面查看？");
+        information = new JLabel(Message[0]);
 		Font titlef=new Font("宋体",Font.BOLD,15);
 		information.setFont(titlef);
 		con = new JPanel();
@@ -79,12 +82,16 @@ public class ThreadDiag extends JDialog{
 		con.add(panel,BorderLayout.CENTER);
 		
 		listener = new MsgDgML();
-		btnY.addMouseListener(listener);
-		btnN.addMouseListener(listener);
+		//btnY.addMouseListener(listener);
+		//btnN.addMouseListener(listener);
 		btnY.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				curdg2.setVisible(false);
-				go2ArbitragePortfolio();//跳转到套利组合
+				if(ThreadDiag.this.Message[1].equals("Open"))
+					go2ArbitragePortfolio();//跳转到套利组合
+				else if(ThreadDiag.this.Message[1].equals("Close"))
+					go2Holdings();
+				curdg2.dispose();
 			}
 			
 		});
@@ -94,7 +101,10 @@ public class ThreadDiag extends JDialog{
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) { 
 					if(btnY.isFocusOwner()){
 						curdg2.setVisible(false);
-						go2ArbitragePortfolio();//跳转到套利组合
+						if(ThreadDiag.this.Message[1].equals("O"))
+							go2ArbitragePortfolio();//跳转到套利组合
+						else if(ThreadDiag.this.Message[1].equals("C"))
+							go2Holdings();
 					}
 				} 
 			}
@@ -126,6 +136,13 @@ public class ThreadDiag extends JDialog{
 	{
 		//--------------------------------------------
 		//----------------添加代码跳转到套利组合页面-----------
+		//--------------------------------------------
+	}
+	
+	public void go2Holdings()
+	{
+		//--------------------------------------------
+		//----------------添加代码跳转到持仓情况页面-----------
 		//--------------------------------------------
 	}
 	
@@ -167,21 +184,10 @@ public class ThreadDiag extends JDialog{
 		b.setPreferredSize(new Dimension(100,100));
 
 		frame.getContentPane().add(b);
-		b.addMouseListener(new MouseListener(){
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				ThreadDiag d = new ThreadDiag(); 
-				d.show();
-			}
-			public void mousePressed(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseExited(MouseEvent e) {}
-		
-		});
+
 		b.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				ThreadDiag d = new ThreadDiag(); 
+				ThreadDiag d = new ThreadDiag("O有重大套利机会！\r\n马上前往套利组合页面查看？"); 
 				d.show();
 			}
 		});

@@ -99,11 +99,11 @@ public class testM2J {
 			e.printStackTrace();
 		}
         // System.out.println("Done");
-		
+		*/
 		//Open调用示例   OK!
         System.out.println("Open ...");
 		long start2 = System.currentTimeMillis();
-		result = dm.Open(lf1, lf2, newprice1, newprice2, x, y, k);
+		result = dm.Open(lf1, lf2, newprice1, newprice2, 0.39,-0.37,93.0);
 		long end2 = System.currentTimeMillis();
 		System.out.println("数据量:" + lf1.size());   
 	    System.out.println("Open运行时间：" + (end2 - start2) + "毫秒");//应该是end - start
@@ -120,7 +120,7 @@ public class testM2J {
         System.out.println("Close ...");
 		long start3 = System.currentTimeMillis();
 		result = dm.Close(lf1, lf2, newprice1, newprice2,
-				buyprice, saleprice, k, signal, stop_loss, stop_profit);
+				buyprice, saleprice, 93, signal, stop_loss, stop_profit);
 		long end3 = System.currentTimeMillis();
 		System.out.println("数据量:" + lf1.size());   
 	    System.out.println("Close运行时间：" + (end3 - start3) + "毫秒");//应该是end - start
@@ -130,7 +130,9 @@ public class testM2J {
 		System.out.println("signal = " + signal);   
 		System.out.println("buyprice = " + buyprice);
 		System.out.println("saleprice = " + saleprice); 
-		****/
+		/****/
+        
+        
         ArrayList<Double> Llambda = null;
         Llambda = new ArrayList<Double>();
         Llambda.add(0.6);Llambda.add(0.2);
@@ -148,7 +150,7 @@ public class testM2J {
         System.out.println(Lmarket_condition.toString());  
         System.out.println("Judge ...");
 		long start4 = System.currentTimeMillis();
-		 result = dm.Judge("TF1409", "TF1503", lf1, lf2, 91.0, 93.0, Llambda, 0, 0.0, -0.02, Lmarket_condition, "garch");
+		 result = dm.Judge("TF1409", "TF1503", lf1, lf2, 91.0, 93.0, Llambda, 0, 0.0, -0.02, Lmarket_condition);
 		long end4 = System.currentTimeMillis();  
 	    System.out.println("Judge运行时间：" + (end4 - start4) + "毫秒");//应该是end - start
         if(result != null && result.length > 0)
@@ -169,11 +171,11 @@ public class testM2J {
         System.out.println(Lmarket_condition.toString());  
         System.out.println("BackTest ...");
 		long start5 = System.currentTimeMillis();
-		 result = dm.BackTest(lf1, lf2, -0.02, 3, Lmarket_condition, "others");
+		 result = dm.BackTest(lf1, lf2, -0.02, 3, Lmarket_condition);
 		long end5 = System.currentTimeMillis();
 		System.out.println("数据量:" + lf1.size());   
 	    System.out.println("BackTest运行时间：" + (end5 - start5) + "毫秒");//应该是end - start
-        if(result.length > 0)
+        if(result != null && result.length > 0)
         {
 		    System.out.println(result[0]);  
 			System.out.println(result[1]);
@@ -184,7 +186,7 @@ public class testM2J {
 			System.out.println(result[6]);
 			System.out.println(result[7]);
         }
-        ****/
+        ***/
         
         /****
         //convert2ratio    OK!

@@ -17,6 +17,7 @@ public class UpdateThread implements Runnable{
 		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		ArrayList<Arb_detail> arb_details = dataInterface.getArbDetail();
 		LiveData.getInstance().setArb_details(arb_details);
+		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 		
 		ArbGroup arbGroup1 = new ArbGroup("TF1412", "TF1503");
 		ArbGroup arbGroup2 = new ArbGroup("TF1412", "TF1506");
@@ -24,37 +25,59 @@ public class UpdateThread implements Runnable{
 		arbGroups.add(arbGroup1);
 		arbGroups.add(arbGroup2);
 		LiveData.getInstance().setArbGroups(arbGroups);
+		Date now = new Date(); 
+		int now_hour,now_min;
+		boolean runtime = true;
 		
 		while (true) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-			Date now = new Date(); 
-			int now_hour = now.getHours(),
-					now_min = now.getMinutes();
+			now = new Date();
+			now_hour = now.getHours();
+			now_min = now.getMinutes();
 			// System.out.println(now_hour);  
 			 //交易时间  9:15-11:30、13:00-15:15
-			if(   	(now_hour == 9 && now_min >= 15)         //09:15-09:59
+			if(  true/* 	(now_hour == 9 && now_min >= 15)         //09:15-09:59
 			     || (now_hour > 9 && now_hour <11)	 	 //10:00-10:59	
 			     || (now_hour == 11 && now_min <= 30)	 //11:00-11:30
 				 || (now_hour >= 13 && now_hour <15)	 	 //13:00-14:59
 				 || (now_hour == 15 && now_min <= 15)		 //15:00-15:15
-					)
+					*/)
 			{
+				runtime = true;
 				arb_details = dataInterface.getArbDetail();
 				LiveData.getInstance().setArb_details(arb_details);
 				
-				MajorPartsFactory factory = MajorPartsFactory.getInstance();
 				factory.getFuturesMarket().updatePage();
 				factory.getArbitragePortfolio().updatePage();
-				
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
-			else {
+			else 
+			{
+				runtime = false;
 			}
-		}
+			//休市时间，线程休眠
+			while(!runtime){
+				now = new Date();
+				now_hour = now.getHours();
+				now_min = now.getMinutes();
+				//稍微提前一段时间启动
+				if((now_hour == 8 && now_min >= 58)
+				 || now_hour == 9
+				 || now_hour == 14 && now_min >= 43){
+					runtime = true;
+				}
+				else{
+					try {
+						Thread.sleep(15*60*1000);//15分钟检查一次
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}//end of while(!runtime)	
+		}//end of while(true) 
 		
 		
 	}
