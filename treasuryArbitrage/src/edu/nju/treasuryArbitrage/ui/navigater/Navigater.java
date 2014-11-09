@@ -43,7 +43,7 @@ public class Navigater extends JPanel{
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 		items[0] = new NavigaterItem(this, factory.getFuturesMarket(), "期货行情");
 		items[1] = new NavigaterItem(this, factory.getArbitragePortfolio(), "套利组合");
-		items[2] = new NavigaterItem(this, factory.getHoldings(), "持仓情况");
+		items[2] = new NavigaterItem(this, factory.getHoldings(), "持仓情况"); 
 		//items[3] = new NavigaterItem(this, factory.getNews(), "财经要闻", false, false);
 //		items[3] = new NavigaterItem(this, factory.getPersonalCenter(), "个人中心");
 	}

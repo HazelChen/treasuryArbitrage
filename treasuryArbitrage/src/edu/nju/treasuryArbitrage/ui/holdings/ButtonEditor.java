@@ -71,7 +71,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 
     private void initPanel() {
         panel = new JPanel();
-        panel.setBackground(HoldingsChen.BACKGROUND_COLOR);
+        panel.setBackground(Holdings.BACKGROUND_COLOR);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 	}
     
     class SellDg extends JDialog{
-		
+		private static final long serialVersionUID = 1997741175987123971L;
 			private DataInterface di;
 			private SellDg curdg = this;
 			sellML listener;
@@ -175,7 +175,9 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 		        btnpanel.setPreferredSize(new Dimension(280,76));
 		        btnpanel.setBackground(Color.white);
 		        table = new JTable(data,cnames){
-		        	public boolean isCellEditable(int row, int column){return false;}//表格不允许被编辑
+					private static final long serialVersionUID = -3991690351227862819L;
+
+					public boolean isCellEditable(int row, int column){return false;}//表格不允许被编辑
 		        };
 		        makeface(table);
 		        
@@ -204,6 +206,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 			        table.setFocusable(false);
 			        table.setBackground(Color.white);
 				tcr = new DefaultTableCellRenderer(){
+					private static final long serialVersionUID = -5470081118201957800L;
 
 					public Component getTableCellRendererComponent(JTable table,
 		                Object value, boolean isSelected, boolean hasFocus,
@@ -241,7 +244,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 						//-------------------卖出对应合约-----
 						//repository;  更新数据库
 						boolean result = di.Trade(repository.getRepo_ID(), repository.getProfit());
-						if(result = true)
+						if(result == true)
 						{dg.setVisible(true);}
 						else {JOptionPane.showMessageDialog(null, "平仓失败！");}
 						//JOptionPane.showMessageDialog(null, "更新");
