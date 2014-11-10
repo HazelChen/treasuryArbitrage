@@ -18,8 +18,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
-import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
+import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 
 public class ThreadDiag extends JDialog{
 	/**
@@ -134,16 +135,14 @@ public class ThreadDiag extends JDialog{
 	}
 	public void go2ArbitragePortfolio()
 	{
-		//--------------------------------------------
-		//----------------添加代码跳转到套利组合页面-----------
-		//--------------------------------------------
+		Navigater navigater = MajorPartsFactory.getInstance().getNavigater();
+		navigater.setArbitragePortfolioSelected();
 	}
 	
 	public void go2Holdings()
 	{
-		//--------------------------------------------
-		//----------------添加代码跳转到持仓情况页面-----------
-		//--------------------------------------------
+		Navigater navigater = MajorPartsFactory.getInstance().getNavigater();
+		navigater.setHoldingsSelected();
 	}
 	
 	public Object getBtnY(){

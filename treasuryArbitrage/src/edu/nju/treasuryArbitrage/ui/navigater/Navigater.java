@@ -10,7 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
+import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
+import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 
 public class Navigater extends JPanel{
 	private static final long serialVersionUID = -3260728762055118620L;
@@ -81,6 +83,26 @@ public class Navigater extends JPanel{
 		for (int i = 0; i < items.length; i++) {
 			items[i].setSelected(false);
 		}
+	}
+	
+	public void setArbitragePortfolioSelected() {
+		setSelected(1);
+		
+	}
+	
+	private void setSelected(int i) {
+		clearSelected();
+		items[i].setSelected(true);
+		initAllItem();
+		
+		TreasuryFrame frame = MajorPartsFactory.getInstance().getFrame();
+		ComponentPanel changedPage = items[i].getPage();
+		frame.setPage((JPanel)changedPage);
+		changedPage.updatePage();
+	}
+
+	public void setHoldingsSelected() {
+		setSelected(2);
 	}
 
 }
