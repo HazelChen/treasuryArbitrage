@@ -19,6 +19,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.model.Record;
@@ -69,7 +70,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 				(int) (ScreenSize.HEIGHT / 25.0)));
 
 		DefaultTableModel model = new DefaultTableModel(
-				new Object[0][holdHeaderData.length], holdHeaderData) {
+				new Object[0][historyHeaderData.length], historyHeaderData) {
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int row, int column) {
@@ -121,7 +122,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 			}
 		});
 		makeFaceOfTable(historyTable);
-		
+		historyTable.setEnabled(false);
 		updateHistory();
 
 		JScrollPane jsp = new JScrollPane(historyTable);
@@ -258,7 +259,8 @@ public class Holdings extends JPanel implements ComponentPanel{
 				historyTable.setValueAt(time, j, 1);
 				historyTable.setValueAt(info.get(j).getCount(), j, 2);
 				historyTable.setValueAt(info.get(j).getGuarantee(), j, 3);
-				historyTable.setValueAt(info.get(j).getState(), j, 4);
+				String state = stateResolve(info.get(j).getState());
+				historyTable.setValueAt(state, j, 4);
 			}
 			historyTable.getColumnModel().getColumn(0).setPreferredWidth(ScreenSize.WIDTH / 2);
 			Record[] records = new Record[info.size()];
@@ -269,6 +271,14 @@ public class Holdings extends JPanel implements ComponentPanel{
 		}
 		historyTable.repaint();
 		
+	}
+
+	private String stateResolve(String state) {
+		if (state.equals("done")) {
+			return "ÒÑ³É½»";
+		} else {
+			return "";
+		}
 	}
 
 	private void makeFaceOfHeader(JTable table) {
@@ -299,7 +309,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 		table.getTableHeader().setPreferredSize(new Dimension(0, 0));
 		table.getTableHeader().setVisible(false);
 		table.setRowHeight(60);
-		table.setEnabled(false);
+		table.setSelectionBackground(BACKGROUND_COLOR);
 		DefaultTableCellRenderer tcr22 = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 2220633049102091416L;
 
@@ -316,7 +326,8 @@ public class Holdings extends JPanel implements ComponentPanel{
 			}
 		};
 		for (int i = 0; i < table.getColumnCount(); i++) {
-			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr22);
+			TableColumn column = table.getColumn(table.getColumnName(i));
+			column.setCellRenderer(tcr22);
 		}
 
 	}
