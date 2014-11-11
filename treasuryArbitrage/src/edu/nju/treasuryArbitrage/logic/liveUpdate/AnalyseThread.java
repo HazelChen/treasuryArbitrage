@@ -73,7 +73,10 @@ public class AnalyseThread implements Runnable{
         Date now = new Date(); 
 		int now_hour,now_min;
 		boolean runtime = true;
-        
+		ArbGroup arb_group = new ArbGroup(name1, name2);
+		//arb_groups.add(arb_group);
+		//LiveData.getInstance().setArbGroups(arb_groups);
+		
 		while (true) {
 			long start = System.currentTimeMillis();
 			now = new Date();
@@ -106,7 +109,7 @@ public class AnalyseThread implements Runnable{
 					}
 					//System.out.println(strholdings);
 					//对合约1,2进行判断,是否建仓
-					if(checkHoldings(strholdings,name1,name2) >= 0)// ">=" for test, should be "<" 
+					if(checkHoldings(strholdings,name1,name2) < 0)//
 					{
 						//运用模型一计算，分析
 						//获取现价
@@ -119,7 +122,7 @@ public class AnalyseThread implements Runnable{
 						if(result.length >=3 &&Integer.valueOf(String.valueOf(result[0])) != 0){
 							buyprice = Double.valueOf(String.valueOf(result[1]));
 							saleprice = Double.valueOf(String.valueOf(result[2]));
-							ArbGroup arb_group = new ArbGroup(name1, name2);
+							arb_group = new ArbGroup(name1, name2);
 							arb_groups.add(arb_group);
 							LiveData.getInstance().setArbGroups(arb_groups);
 							//弹出提示框
@@ -193,28 +196,44 @@ public class AnalyseThread implements Runnable{
 										//弹出提示框
 										message = "C组合" + name1 + name2 + " 到达止盈平仓点,已自动平仓！\r\n前往持仓情况？";
 										this.sendMsg(message);
-										(new Thread(new showDiagThread())).start();
+										if(dataInterface.Trade(info.get(i).getRepo_ID(), info.get(i).getProfit()))
+										{
+											arb_groups.remove(i);
+											(new Thread(new showDiagThread())).start();
+										}
 									}
 									if(Integer.valueOf(String.valueOf(result[0])) == -2){
 									    //平仓操作 trade  止损平仓
 										//弹出提示框
 										message = "C组合" + name1 + name2 + " 到达止损平仓点！\r\n前往持仓情况？";
 										this.sendMsg(message);
-										(new Thread(new showDiagThread())).start();
+										if(dataInterface.Trade(info.get(i).getRepo_ID(), info.get(i).getProfit()))
+										{
+											arb_groups.remove(i);
+											(new Thread(new showDiagThread())).start();
+										}
 									}
 									if(Integer.valueOf(String.valueOf(result[0])) == 3){
 									    //平仓操作 trade  正向套利平仓
 										//弹出提示框
 										message = "C组合" + name1 + name2 + " 到达正向套利平仓点！\r\n前往持仓情况？";
 										this.sendMsg(message);
-										(new Thread(new showDiagThread())).start();
+										if(dataInterface.Trade(info.get(i).getRepo_ID(), info.get(i).getProfit()))
+										{
+											arb_groups.remove(i);
+											(new Thread(new showDiagThread())).start();
+										}
 									}
 									if(Integer.valueOf(String.valueOf(result[0])) == -3){
 									    //平仓操作 trade  反向套利平仓
 										//弹出提示框
 										message = "C组合" + name1 + name2 + " 到达反向套利平仓点！\r\n前往持仓情况？";
 										this.sendMsg(message);
-										(new Thread(new showDiagThread())).start();
+										if(dataInterface.Trade(info.get(i).getRepo_ID(), info.get(i).getProfit()))
+										{
+											arb_groups.remove(i);
+											(new Thread(new showDiagThread())).start();
+										}
 									}
 									//运用模型二计算，分析
 									
