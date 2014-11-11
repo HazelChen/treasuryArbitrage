@@ -189,7 +189,7 @@ public class FuturesMarketChen extends FuturesMarket implements ComponentPanel {
 	public void updatePage() {
 		ArrayList<Arb_detail> arb_lists = LiveData.getInstance()
 				.getArb_details();
-		for (int i = 0; i < arb_lists.size(); i++) {
+		for (int i = 0; i < ((arb_lists.size() <=3 )? arb_lists.size() : 3); i++) {
 			Arb_detail arb_detail = arb_lists.get(i);
 			arb_details[i] = arb_detail;
 			charts[i].addNewPrice(arb_detail.getPresentPrice());

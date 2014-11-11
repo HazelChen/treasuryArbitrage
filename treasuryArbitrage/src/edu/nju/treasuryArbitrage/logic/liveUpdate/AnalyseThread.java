@@ -106,7 +106,7 @@ public class AnalyseThread implements Runnable{
 					}
 					//System.out.println(strholdings);
 					//对合约1,2进行判断,是否建仓
-					if(checkHoldings(strholdings,name1,name2) >= 0)
+					if(checkHoldings(strholdings,name1,name2) >= 0)// ">=" for test, should be "<" 
 					{
 						//运用模型一计算，分析
 						//获取现价
@@ -114,7 +114,7 @@ public class AnalyseThread implements Runnable{
 						newprice2 = LiveData.getInstance().getPresentPrice(name2);
 						newprice3 = LiveData.getInstance().getPresentPrice(name3);
 						System.out.println("try open group " + name1 +":" + newprice1 + name2 +":" + newprice2);
-						result = dm.Open(Lf1, Lf2,newprice1,97, dm.opt_x,dm.opt_y,dm.opt_k);// newprice1, newprice2, dm.opt_x, dm.opt_y, dm.opt_k);
+						result = dm.Open(Lf1, Lf2,Double.valueOf(newprice1),Double.valueOf(newprice2), dm.opt_x,dm.opt_y,dm.opt_k);// newprice1, newprice2, dm.opt_x, dm.opt_y, dm.opt_k);
 						//建仓操作，即弹出提示框
 						if(result.length >=3 &&Integer.valueOf(String.valueOf(result[0])) != 0){
 							buyprice = Double.valueOf(String.valueOf(result[1]));
@@ -191,28 +191,28 @@ public class AnalyseThread implements Runnable{
 									if(Integer.valueOf(String.valueOf(result[0])) == 2){
 									    //平仓操作 trade  止盈平仓
 										//弹出提示框
-										message = "C发现止盈平仓点！前往持仓情况？";
+										message = "C组合" + name1 + name2 + " 到达止盈平仓点,已自动平仓！\r\n前往持仓情况？";
 										this.sendMsg(message);
 										(new Thread(new showDiagThread())).start();
 									}
 									if(Integer.valueOf(String.valueOf(result[0])) == -2){
 									    //平仓操作 trade  止损平仓
 										//弹出提示框
-										message = "C发现止损平仓点！前往持仓情况？";
+										message = "C组合" + name1 + name2 + " 到达止损平仓点！\r\n前往持仓情况？";
 										this.sendMsg(message);
 										(new Thread(new showDiagThread())).start();
 									}
 									if(Integer.valueOf(String.valueOf(result[0])) == 3){
 									    //平仓操作 trade  正向套利平仓
 										//弹出提示框
-										message = "C发现正向套利平仓点！前往持仓情况？";
+										message = "C组合" + name1 + name2 + " 到达正向套利平仓点！\r\n前往持仓情况？";
 										this.sendMsg(message);
 										(new Thread(new showDiagThread())).start();
 									}
 									if(Integer.valueOf(String.valueOf(result[0])) == -3){
 									    //平仓操作 trade  反向套利平仓
 										//弹出提示框
-										message = "C发现反向套利平仓点！前往持仓情况？";
+										message = "C组合" + name1 + name2 + " 到达反向套利平仓点！\r\n前往持仓情况？";
 										this.sendMsg(message);
 										(new Thread(new showDiagThread())).start();
 									}
