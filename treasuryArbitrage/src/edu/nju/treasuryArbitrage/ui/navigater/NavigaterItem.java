@@ -92,6 +92,10 @@ public class NavigaterItem extends JPanel{
 			}
 		});
 	}
+	
+	public ComponentPanel getPage() {
+		return changedPage;
+	}
 
 	private void init(String name) {
 		this.setPreferredSize(new Dimension(70, parent.getHeight()));

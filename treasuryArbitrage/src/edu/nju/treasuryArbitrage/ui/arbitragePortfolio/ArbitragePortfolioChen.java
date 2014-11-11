@@ -82,7 +82,7 @@ public class ArbitragePortfolioChen extends ArbitragePortfolio{
 		
 		JLabel label = new JLabel("目前还没有套利组合可推荐");
 		label.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		label.setForeground(FOREGROUND_COLOR);
+		label.setForeground(Color.BLACK);
 		label.setBounds(ScreenSize.WIDTH / 2 - 150, 10, 300, 30);
 		this.add(label);
 	}

@@ -10,7 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
+import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
+import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 
 public class Navigater extends JPanel{
 	private static final long serialVersionUID = -3260728762055118620L;
@@ -43,7 +45,7 @@ public class Navigater extends JPanel{
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 		items[0] = new NavigaterItem(this, factory.getFuturesMarket(), "期货行情");
 		items[1] = new NavigaterItem(this, factory.getArbitragePortfolio(), "套利组合");
-		items[2] = new NavigaterItem(this, factory.getHoldings(), "持仓情况");
+		items[2] = new NavigaterItem(this, factory.getHoldings(), "持仓情况"); 
 		//items[3] = new NavigaterItem(this, factory.getNews(), "财经要闻", false, false);
 //		items[3] = new NavigaterItem(this, factory.getPersonalCenter(), "个人中心");
 	}
@@ -81,6 +83,26 @@ public class Navigater extends JPanel{
 		for (int i = 0; i < items.length; i++) {
 			items[i].setSelected(false);
 		}
+	}
+	
+	public void setArbitragePortfolioSelected() {
+		setSelected(1);
+		
+	}
+	
+	private void setSelected(int i) {
+		clearSelected();
+		items[i].setSelected(true);
+		initAllItem();
+		
+		TreasuryFrame frame = MajorPartsFactory.getInstance().getFrame();
+		ComponentPanel changedPage = items[i].getPage();
+		frame.setPage((JPanel)changedPage);
+		changedPage.updatePage();
+	}
+
+	public void setHoldingsSelected() {
+		setSelected(2);
 	}
 
 }

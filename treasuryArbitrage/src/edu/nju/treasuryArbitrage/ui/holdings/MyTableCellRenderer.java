@@ -93,9 +93,9 @@ public class MyTableCellRenderer implements TableCellRenderer {
 		intable.setValueAt(infom[rowN].getToSell().getValue(), 1, 2);
 		
 		if (row % 2 == 0)
-			intable.setBackground(HoldingsChen.BACKGROUND_COLOR); // 设置奇数行底色 else
+			intable.setBackground(Holdings.BACKGROUND_COLOR); // 设置奇数行底色 else
 		if (row % 2 == 1)
-			intable.setBackground(HoldingsChen.TABLE_DARKER_BACKGROUND_COLOR);
+			intable.setBackground(Holdings.TABLE_DARKER_BACKGROUND_COLOR);
 		
 		return panel;
 	}
