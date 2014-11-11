@@ -149,7 +149,9 @@ public class DataInterface2Matlab {
 			double newprice1,double newprice2,double x,double y,double k){
 		Open open_position = null;
 		Object[] result = null;
-		MWNumericArray f1 = null,f2 = null;   
+		MWNumericArray f1 = null,f2 = null,
+				mwnewprice1 = null,mwnewprice2 = null,
+				mwx = null,mwy = null,mwk = null;   
 		int[] dims1 = {Lf1.size(), 1};  
         f1 = MWNumericArray.newInstance(dims1,   
            MWClassID.DOUBLE, MWComplexity.REAL);  
@@ -162,10 +164,15 @@ public class DataInterface2Matlab {
         for(int i = 1;i <= Lf2.size();i++){
         	f2.set(i, Double.valueOf(Lf2.get(i - 1)));
         }
+        mwnewprice1 = new MWNumericArray(newprice1,MWClassID.DOUBLE);
+        mwnewprice2 = new MWNumericArray(newprice2,MWClassID.DOUBLE);
+		mwx =  new MWNumericArray(x,MWClassID.DOUBLE);
+		mwy =  new MWNumericArray(y,MWClassID.DOUBLE);
+		mwk =  new MWNumericArray(k,MWClassID.DOUBLE);  
 		try {
 			//Open方法调用示例
 			open_position = new Open(); //!!!!important
-			result =open_position.open(3,f1,f2,newprice1,newprice2,x,y,k);
+			result =open_position.open(3,f1,f2,mwnewprice1,mwnewprice2,mwx,mwy,mwk);
 		    //signal,buyprice1,saleprice1
 		} catch (Exception e) {
 			System.out.println("Open Exception catched!");
@@ -189,7 +196,9 @@ public class DataInterface2Matlab {
 			double k,double signal,double stop_loss,double stop_profit){
 		Close close_position = null;
 		Object[] result = null;
-		MWNumericArray f1 = null,f2 = null;   
+		MWNumericArray f1 = null,f2 = null,mwsignal = null,mwstop_loss = null,mwstop_profit = null,
+				mwnewprice1 = null,mwnewprice2 = null,
+				mwbuyprice = null,mwsaleprice = null,mwk = null;  
 		int[] dims1 = {Lf1.size(), 1};  
         f1 = MWNumericArray.newInstance(dims1,   
            MWClassID.DOUBLE, MWComplexity.REAL);  
@@ -202,10 +211,18 @@ public class DataInterface2Matlab {
         for(int i = 1;i <= Lf2.size();i++){
         	f2.set(i, Double.valueOf(Lf2.get(i - 1)));
         }
+        mwnewprice1 = new MWNumericArray(newprice1,MWClassID.DOUBLE);
+        mwnewprice2 = new MWNumericArray(newprice2,MWClassID.DOUBLE);
+        mwbuyprice =  new MWNumericArray(buyprice,MWClassID.DOUBLE);
+        mwsaleprice =  new MWNumericArray(saleprice,MWClassID.DOUBLE);
+		mwk =  new MWNumericArray(k,MWClassID.DOUBLE);  
+		mwsignal =  new MWNumericArray(signal,MWClassID.DOUBLE);  
+		mwstop_loss =  new MWNumericArray(stop_loss,MWClassID.DOUBLE);  
+		mwstop_profit =  new MWNumericArray(stop_profit,MWClassID.DOUBLE);  
 		try{
 			close_position = new Close(); //!!!!important
 			result =close_position.close(3,f1,f2,
-					newprice1,newprice2,buyprice,saleprice,k,signal,stop_loss,stop_profit);
+					mwnewprice1,mwnewprice2,mwbuyprice,mwsaleprice,mwk,mwsignal,mwstop_loss,mwstop_profit);
 			//signal,buyprice,saleprice
 		} catch (Exception e) {
 			System.out.println("Close Exception catched!");
