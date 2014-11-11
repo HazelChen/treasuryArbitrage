@@ -34,6 +34,8 @@ public class RepositoryBL {
 			rep.setGuarantee(temp.getDouble("bond"));
 			rep.setToBuy(temp.getString("more_contract"));
 			rep.setToSell(temp.getString("blank_contract"));
+			rep.settoBuy_price(temp.getDouble("More_price"));
+			rep.settoSell_price(temp.getDouble("Blank_price"));
 			
 			repo_list.add(rep);
 		}
