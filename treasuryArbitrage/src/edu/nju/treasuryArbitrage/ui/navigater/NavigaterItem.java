@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.UpdateThread;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 
@@ -63,6 +64,7 @@ public class NavigaterItem extends JPanel{
 	
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
+		UpdateThread.getInstance().startUpdateHoldings();
 	}
 
 	private void addListeners() {

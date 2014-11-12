@@ -11,7 +11,18 @@ import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 
 public class UpdateThread implements Runnable {
-
+	private static UpdateThread self;
+	private boolean canUpdateHoldings;
+	
+	private UpdateThread(){}
+	
+	public static UpdateThread getInstance() {
+		if (self == null) {
+			self = new UpdateThread();
+		}
+		return self;
+	}
+	
 	public void run() {
 		DataInterface dataInterface = DataInterfaceFactory.getInstance()
 				.getDataInterfaceToServer();
@@ -49,6 +60,9 @@ public class UpdateThread implements Runnable {
 
 				factory.getFuturesMarket().updatePage();
 				factory.getArbitragePortfolio().updatePage();
+				if (canUpdateHoldings) {
+					factory.getHoldings().liveUpdate();
+				}
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -77,5 +91,9 @@ public class UpdateThread implements Runnable {
 			}// end of while(!runtime)
 		}// end of while(true)
 
+	}
+
+	public void startUpdateHoldings() {
+		canUpdateHoldings = true;
 	}
 }

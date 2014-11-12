@@ -47,7 +47,7 @@ public class TreasuryArbitrage {
 	}
 	
 	private void startDataFetch() {
-		Thread thread = new Thread(new UpdateThread());
+		Thread thread = new Thread(UpdateThread.getInstance());
 		thread.start();
 
 	}
@@ -59,7 +59,7 @@ public class TreasuryArbitrage {
 	}
 	
 	private void launchMainSoftware() {
-		Thread thread = new Thread(new UpdateThread());
+		Thread thread = new Thread(UpdateThread.getInstance());
 		Thread thread2 = new Thread(new AnalyseThread());
 		thread.start();
 		try {

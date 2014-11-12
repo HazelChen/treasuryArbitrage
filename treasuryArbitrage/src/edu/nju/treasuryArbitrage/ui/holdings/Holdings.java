@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.Record;
 import edu.nju.treasuryArbitrage.model.Repository;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
@@ -66,6 +69,8 @@ public class Holdings extends JPanel implements ComponentPanel{
 			};
 	private JTable hTable;
 	private JTable historyTable;
+	private ArrayList<Repository> info;
+	private MyTableCellRenderer repoFirstColumnRenderers;
 
 	public Holdings() {
 		this.setBackground(BACKGROUND_COLOR);
@@ -230,6 +235,28 @@ public class Holdings extends JPanel implements ComponentPanel{
 		northPanel.add(jsp);
 		return northPanel;
 	}
+	
+	public void liveUpdate() {
+		for (int i = 0; i < info.size(); i++) {
+			Repository repository = info.get(i);
+			Arb_detail buyArb = getLiveArb_detail(repository.getToBuy());
+			Arb_detail sellArb = getLiveArb_detail(repository.getToSell());
+			double profit = (sellArb.getPresentPrice() - repository.gettoBuy_price() +
+					repository.gettoSell_price() - buyArb.getPresentPrice()) * repository.getCount() * 10000;
+			double formatProfit = (int)(profit * 1000) / 1000.0;
+			hTable.setValueAt(formatProfit, i, 4);
+		}
+	}
+	
+	private Arb_detail getLiveArb_detail(String symble) {
+		ArrayList<Arb_detail> arb_details = LiveData.getInstance().getArb_details();
+		for (Arb_detail arb_detail : arb_details) {
+			if (arb_detail.getSymbol().equals(symble)) {
+				return arb_detail;
+			}
+		}
+		return null;
+	}
 
 	public void updatePage() {
 		// 更新持仓情况页面显示
@@ -238,7 +265,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 	}
 
 	public void updateRepoList() {
-		ArrayList<Repository> info = DataInterfaceFactory.getInstance()
+		info = DataInterfaceFactory.getInstance()
 				.getDataInterfaceToServer().getRepoList();// 从服务器获取数据
 		if (info.size() > 0) {
 			for (int j = 0; j < info.size(); j++) {
@@ -248,7 +275,6 @@ public class Holdings extends JPanel implements ComponentPanel{
 				hTable.setValueAt(time, j, 1);
 				hTable.setValueAt(info.get(j).getCount(), j, 2);
 				hTable.setValueAt(info.get(j).getGuarantee(), j, 3);
-				hTable.setValueAt(info.get(j).getProfit(), j, 4);
 			}
 			hTable.getColumnModel().getColumn(5)
 					.setCellEditor(new ButtonEditor(info));
@@ -259,8 +285,9 @@ public class Holdings extends JPanel implements ComponentPanel{
 					.setCellEditor(new MyTableEditor(info));
 			Repository[] repositories = new Repository[info.size()];
 			repositories = info.toArray(repositories);
+			repoFirstColumnRenderers = new MyTableCellRenderer(repositories);
 			hTable.getColumnModel().getColumn(0)
-					.setCellRenderer(new MyTableCellRenderer(repositories));//
+					.setCellRenderer(repoFirstColumnRenderers);//
 
 		}
 		hTable.repaint();
