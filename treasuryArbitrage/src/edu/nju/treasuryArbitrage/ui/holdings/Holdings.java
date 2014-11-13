@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,6 +69,8 @@ public class Holdings extends JPanel implements ComponentPanel{
 	private JTable hTable;
 	private JTable historyTable;
 	private ArrayList<Repository> info;
+	private double[] buyPrices;
+	private double[] sellPrices;
 	private MyTableCellRenderer repoFirstColumnRenderers;
 
 	public Holdings() {
@@ -244,6 +245,9 @@ public class Holdings extends JPanel implements ComponentPanel{
 			double profit = (sellArb.getPresentPrice() - repository.gettoBuy_price() +
 					repository.gettoSell_price() - buyArb.getPresentPrice()) * repository.getCount() * 10000;
 			double formatProfit = (int)(profit * 1000) / 1000.0;
+			repository.setProfit(formatProfit);
+			sellPrices[i] = sellArb.getPresentPrice();
+			buyPrices[i] = buyArb.getPresentPrice();
 			hTable.setValueAt(formatProfit, i, 4);
 		}
 	}
@@ -267,6 +271,8 @@ public class Holdings extends JPanel implements ComponentPanel{
 	public void updateRepoList() {
 		info = DataInterfaceFactory.getInstance()
 				.getDataInterfaceToServer().getRepoList();// 从服务器获取数据
+		sellPrices = new double[info.size()];
+		buyPrices = new double[info.size()];
 		if (info.size() > 0) {
 			for (int j = 0; j < info.size(); j++) {
 				Date dt = new Date(info.get(j).getTime());
@@ -277,7 +283,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 				hTable.setValueAt(info.get(j).getGuarantee(), j, 3);
 			}
 			hTable.getColumnModel().getColumn(5)
-					.setCellEditor(new ButtonEditor(info));
+					.setCellEditor(new ButtonEditor(info, sellPrices, buyPrices));
 			hTable.getColumnModel().getColumn(5)
 					.setCellRenderer(new ButtonCellRenderer());
 			hTable.getColumnModel().getColumn(0).setPreferredWidth(ScreenSize.WIDTH / 2);

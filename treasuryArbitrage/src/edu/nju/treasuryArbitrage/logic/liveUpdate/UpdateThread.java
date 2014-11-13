@@ -33,8 +33,8 @@ public class UpdateThread implements Runnable {
 		ArbGroup arbGroup1 = new ArbGroup("TF1412", "TF1503");
 		ArbGroup arbGroup2 = new ArbGroup("TF1412", "TF1506");
 		ArrayList<ArbGroup> arbGroups = new ArrayList<>();
-		//arbGroups.add(arbGroup1);
-		//arbGroups.add(arbGroup2);
+		arbGroups.add(arbGroup1);
+		arbGroups.add(arbGroup2);
 		LiveData.getInstance().setArbGroups(arbGroups);
 		Date now = new Date();
 		int now_hour, now_min;

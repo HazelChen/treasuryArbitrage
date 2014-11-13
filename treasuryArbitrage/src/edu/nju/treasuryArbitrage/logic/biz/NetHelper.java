@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -16,7 +18,7 @@ import org.json.JSONObject;
  * 
  * @author luck-mac
  * 使用方法
- * 构�?函数 参数1:方法�? 参数2:�?��参数
+ * 构�?函数 参数1:方法�? 参数2:�?��参数
  * 调用JSONObjectByGet获取JSON进行处理
  *
  */
@@ -67,19 +69,19 @@ public class NetHelper {
         CloseableHttpClient httpclient = HttpClients.createDefault();  
 		StringBuilder urlStringBuilder = new StringBuilder(urlString);
 		StringBuilder entityStringBuilder = new StringBuilder();
-		// 利用URL生成�?��HttpGet请求
+		// 利用URL生成�?��HttpGet请求
 		HttpGet httpGet = new HttpGet(urlStringBuilder.toString());
 		BufferedReader bufferedReader = null;
 		HttpResponse httpResponse = null;
 		try {
 			httpResponse = httpclient.execute(httpGet);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "你的网络状况不大好哦");
 		}
 		// 得到httpResponse的状态响应码
 		int statusCode = httpResponse.getStatusLine().getStatusCode();
 		if (statusCode == HttpStatus.SC_OK) {
-			// 得到httpResponse的实体数�?	
+			// 得到httpResponse的实体数�?	
 			HttpEntity httpEntity = httpResponse.getEntity();
 			if (httpEntity != null) {
 				try {
@@ -109,7 +111,7 @@ public class NetHelper {
 //        CloseableHttpClient httpclient = HttpClients.createDefault();  
 //		StringBuilder urlStringBuilder = new StringBuilder(urlString);
 //		StringBuilder entityStringBuilder = new StringBuilder();
-//		// 利用URL生成�?��HttpGet请求
+//		// 利用URL生成�?��HttpGet请求
 //		HttpGet httpGet = new HttpGet(urlStringBuilder.toString());
 //		BufferedReader bufferedReader = null;
 //		HttpResponse httpResponse = null;
@@ -121,7 +123,7 @@ public class NetHelper {
 //		// 得到httpResponse的状态响应码
 //		int statusCode = httpResponse.getStatusLine().getStatusCode();
 //		if (statusCode == HttpStatus.SC_OK) {
-//			// 得到httpResponse的实体数�?	
+//			// 得到httpResponse的实体数�?	
 //			HttpEntity httpEntity = httpResponse.getEntity();
 //			if (httpEntity != null) {
 //				try {

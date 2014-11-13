@@ -65,7 +65,10 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		this.setBackground(Color.BLACK);
 
 		ArrayList<Arb_detail> result = LiveData.getInstance().getArb_details();
-		for (int i = 0; i < result.size(); i++) {
+		if (result == null) {
+			return;
+		}
+		for (int i = 0; i < Math.min(result.size(), arb_details.length); i++) {
 			arb_details[i] = result.get(i);
 		}
 	}
@@ -130,8 +133,8 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 
 		setColomnColor(0, Color.WHITE);
 		setColomnColor(2, Color.RED);
-		setColomnColor(3, Color.RED);
-		DefaultTableCellRenderer renderer4 = setColomnColor(4, Color.RED);
+		setColomnColorWithPositiveAndNegative(3);
+		DefaultTableCellRenderer renderer4 = setColomnColorWithPositiveAndNegative(4);
 		renderer4.setBackground(ColorConstants.DARK_FOCUS_BLUE);
 		setColomnColor(5, Color.YELLOW);
 		setColomnColor(6, Color.RED);
@@ -149,6 +152,27 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	private DefaultTableCellRenderer setColomnColor(int index, Color color) {
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 		renderer.setForeground(color);
+		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);
+		return renderer;
+	}
+	
+	private DefaultTableCellRenderer setColomnColorWithPositiveAndNegative(int index) {
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {   
+			private static final long serialVersionUID = 1L;
+			public void setValue(Object value) {
+				double valueDouble = 0.0;
+				if (value instanceof String) {
+					String valueString = (String)value;
+					String formattedValueString = valueString.substring(0, valueString.length() - 1);
+					valueDouble = Double.parseDouble(formattedValueString);
+					setText((value == null) ? "" : value.toString() + "%");   
+				} else if (value instanceof Double) {
+					valueDouble = ((Double) value).doubleValue();   
+					setText((value == null) ? "" : value.toString());   
+				}
+                setForeground((valueDouble  > 0) ? Color.RED : Color.GREEN); //如果月薪大于3099元，就将字体设置为红色   
+            }   
+        };   
 		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);
 		return renderer;
 	}
@@ -190,7 +214,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	public void updatePage() {
 		ArrayList<Arb_detail> arb_lists = LiveData.getInstance()
 				.getArb_details();
-		for (int i = 0; i < arb_lists.size(); i++) {
+		for (int i = 0; i < Math.min(arb_lists.size(), arb_details.length); i++) {
 			Arb_detail arb_detail = arb_lists.get(i);
 			arb_details[i] = arb_detail;
 			charts[i].addNewPrice(arb_detail.getPresentPrice());

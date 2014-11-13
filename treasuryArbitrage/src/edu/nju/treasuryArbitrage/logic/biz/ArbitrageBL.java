@@ -118,7 +118,7 @@ public class ArbitrageBL {
 	//转换带百分号的String至double
 	public double format(String precent){
 		String temp = precent.substring(0,precent.length()-1);
-		double result = Double.parseDouble(temp)/100;
+		double result = Double.parseDouble(temp);
 		return result;
 	}
 }

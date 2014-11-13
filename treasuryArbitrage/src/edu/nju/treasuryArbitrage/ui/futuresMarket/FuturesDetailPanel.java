@@ -92,10 +92,12 @@ public class FuturesDetailPanel extends JPanel{
 		detail1Datas[6].setForeground(arb.getOpen() >= arb.getPreSettlePrice() ? Color.RED : Color.GREEN);
 		detail1Datas[7].setText(String.valueOf(arb.getLow()));
 		detail1Datas[8].setText(String.valueOf(arb.getSwing()) + "%");
+		detail1Datas[8].setToolTipText(String.valueOf(arb.getSwing()) + "%");
 		detail1Datas[9].setText(String.valueOf(arb.getLimitPrice()));
 		
 		detail2Datas[0].setText(String.valueOf(arb.getRepository()));
 		detail2Datas[1].setText(String.valueOf(arb.getFullAmount()));
+		detail2Datas[1].setToolTipText(String.valueOf(arb.getFullAmount()));
 		
 		String pre;
 		Color color;
@@ -106,7 +108,7 @@ public class FuturesDetailPanel extends JPanel{
 			pre = "+";
 			color = Color.RED;
 		} else {
-			pre = "-";
+			pre = "";
 			color = Color.GREEN;
 		}
 		detail2Datas[2].setText(pre + String.valueOf(arb.getDailyWarehouse()));
