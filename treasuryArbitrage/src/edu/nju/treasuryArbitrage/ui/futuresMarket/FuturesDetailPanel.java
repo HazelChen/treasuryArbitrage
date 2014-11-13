@@ -75,6 +75,7 @@ public class FuturesDetailPanel extends JPanel{
 		String changePre = change >= 0 ? "+" : "";
 		changeData.setText(changePre + String.valueOf(change) + "%");
 		changeData.setForeground(change >= 0 ? Color.RED : Color.GREEN);
+		currentPriceData.setForeground(change >= 0 ? Color.RED : Color.GREEN);
 		
 		askPriceData.setText(String.valueOf(arb.getAskPrice()));
 		askData.setText(String.valueOf(arb.getAsk()));
@@ -126,7 +127,6 @@ public class FuturesDetailPanel extends JPanel{
 		
 		currentPriceData.setBounds(LEFT_MARGIN, 30, width, 45);
 		currentPriceData.setHorizontalAlignment(SwingConstants.LEFT);
-		currentPriceData.setForeground(Color.RED);
 		currentPriceData.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 40));
 		currentPriceData.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(193,193,193)));
 		this.add(currentPriceData);

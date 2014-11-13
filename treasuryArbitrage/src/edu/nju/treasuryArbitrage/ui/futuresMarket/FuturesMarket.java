@@ -132,7 +132,6 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		column1.setPreferredWidth(100);
 
 		setColomnColor(0, Color.WHITE);
-		setColomnColor(2, Color.RED);
 		setColomnColorWithPositiveAndNegative(3);
 		DefaultTableCellRenderer renderer4 = setColomnColorWithPositiveAndNegative(4);
 		renderer4.setBackground(ColorConstants.DARK_FOCUS_BLUE);
@@ -171,6 +170,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 					setText((value == null) ? "" : value.toString());   
 				}
                 setForeground((valueDouble  > 0) ? Color.RED : Color.GREEN); //如果月薪大于3099元，就将字体设置为红色   
+                setColomnColor(2, (valueDouble  > 0) ? Color.RED : Color.GREEN);
             }   
         };   
 		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);

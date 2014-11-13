@@ -1,6 +1,8 @@
 package edu.nju.treasuryArbitrage.logic.biz;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.json.JSONArray;
@@ -37,7 +39,12 @@ public class ArbitrageBL {
 			detail.setMonth(End);
 			//================================================
 			detail.setDate(End);
-			detail.setClock(temp.getString("RT_TIME"));
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(new Date());
+			String clockString = calendar.get(Calendar.HOUR_OF_DAY) + ":" + 
+					calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND);
+//			detail.setClock(temp.getString("RT_TIME"));
+			detail.setClock(clockString);
 			/*
 			int date = temp.getInt("RT_DATE");
 			int day = temp.getInt("RT_TIME");
