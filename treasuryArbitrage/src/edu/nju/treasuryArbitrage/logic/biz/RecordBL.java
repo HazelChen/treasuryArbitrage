@@ -11,9 +11,12 @@ import edu.nju.treasuryArbitrage.model.Record;
 
 
 public class RecordBL {
+	private NetHelper helper;
 	private ArrayList<Record> record_list;
 	
-	public RecordBL(){}
+	public RecordBL(NetHelper helper){
+		this.helper = helper;
+	}
 	
 	public ArrayList<Record> getRecordList(String username){
 		
@@ -21,8 +24,11 @@ public class RecordBL {
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
-		NetHelper helper = new NetHelper("history",params);
+		helper.setInitPara("history", params);
 		JSONArray ret = helper.getJSONArrayByGet();
+		if (ret == null) {
+			return new ArrayList<Record>();
+		}
 		
 //		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		for(int i=0;i<ret.length();i++){

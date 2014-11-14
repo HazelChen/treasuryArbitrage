@@ -1,5 +1,6 @@
 package edu.nju.treasuryArbitrage.logic.biz;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,19 +14,26 @@ import edu.nju.treasuryArbitrage.model.Arb_detail;
 
 
 public class ArbitrageBL {
-
+	
 	private ArrayList<Arb_detail> detail_list;
 	private ArrayList<ArbGroup> group_list;
 	
-	public ArbitrageBL(){}
+	private NetHelper helper;
+	
+	public ArbitrageBL(NetHelper netHelper){
+		this.helper = netHelper;
+	}
 	
 	public ArrayList<Arb_detail> getDetailList(){
 		
 		detail_list = new ArrayList<Arb_detail>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
-		NetHelper helper = new NetHelper("detail",params);
+		helper.setInitPara("detail", params);
 		JSONArray ret = helper.getJSONArrayByGet();
+		if (ret == null) {
+			return null;
+		}
 		for(int i=0;i<ret.length();i++){
 			JSONObject temp = ret.getJSONObject(i);
 			Arb_detail detail = new Arb_detail();
@@ -41,8 +49,8 @@ public class ArbitrageBL {
 			detail.setDate(End);
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
-			String clockString = calendar.get(Calendar.HOUR_OF_DAY) + ":" + 
-					calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND);
+			String clockString = twoNumberFormat(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + 
+					twoNumberFormat(calendar.get(Calendar.MINUTE)) + ":" + twoNumberFormat(calendar.get(Calendar.SECOND));
 //			detail.setClock(temp.getString("RT_TIME"));
 			detail.setClock(clockString);
 			/*
@@ -116,6 +124,11 @@ public class ArbitrageBL {
 //		return arb;
 //	}
 	
+	private String twoNumberFormat(int i) {
+		DecimalFormat df = new DecimalFormat("00");
+		return df.format(i);
+	}
+
 	public ArrayList<ArbGroup> getArbGroups(){
 		group_list = new ArrayList<ArbGroup>();
 		

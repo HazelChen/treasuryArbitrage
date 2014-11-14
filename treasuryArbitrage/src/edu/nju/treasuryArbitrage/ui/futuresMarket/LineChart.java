@@ -66,7 +66,7 @@ public class LineChart extends JPanel {
 	public void setYRange(double low, double high) {
 		XYPlot xyplot = jfreechart.getXYPlot();
 		NumberAxis yAxis = (NumberAxis) xyplot.getRangeAxis();
-		yAxis.setRange(low, high);
+//		yAxis.setRange(low, high);
 	}
 	
 	public void setTitle(String title) {
@@ -111,7 +111,7 @@ public class LineChart extends JPanel {
 		yAxis.setAxisLinePaint(Color.RED);
 		yAxis.setTickLabelPaint(new Color(255,43,28));
 		//TODO
-		yAxis.setRange(90.0, 100.0);
+//		yAxis.setRange(90.0, 100.0);
 		
 		//Í¼Àý
 		jfreechart.getLegend().setVisible(false);

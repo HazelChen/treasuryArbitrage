@@ -27,6 +27,9 @@ public class UpdateThread implements Runnable {
 		DataInterface dataInterface = DataInterfaceFactory.getInstance()
 				.getDataInterfaceToServer();
 		ArrayList<Arb_detail> arb_details = dataInterface.getArbDetail();
+		if (arb_details == null) {
+			arb_details = new ArrayList<Arb_detail>();
+		}
 		LiveData.getInstance().setArb_details(arb_details);
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 
@@ -56,6 +59,9 @@ public class UpdateThread implements Runnable {
 					 */) {
 				runtime = true;
 				arb_details = dataInterface.getArbDetail();
+				if (arb_details == null) {
+					continue;
+				}
 				LiveData.getInstance().setArb_details(arb_details);
 
 				factory.getFuturesMarket().updatePage();

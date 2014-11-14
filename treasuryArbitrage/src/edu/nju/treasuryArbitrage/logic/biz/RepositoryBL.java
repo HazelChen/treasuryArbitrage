@@ -11,9 +11,12 @@ import edu.nju.treasuryArbitrage.model.Repository;
 
 
 public class RepositoryBL {
+	private NetHelper helper;
 	private ArrayList<Repository> repo_list;
 	
-	public RepositoryBL(){}
+	public RepositoryBL(NetHelper helper){
+		this.helper = helper;
+	}
 	
 	public ArrayList<Repository> getRepoList(String username){
 		
@@ -21,8 +24,11 @@ public class RepositoryBL {
 
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
-		NetHelper helper = new NetHelper("repository",params);
+		helper.setInitPara("repository", params);
 		JSONArray ret = helper.getJSONArrayByGet();
+		if (ret == null) {
+			return new ArrayList<Repository>();
+		}
 		
 		for(int i=0;i<ret.length();i++){
 			JSONObject temp = ret.getJSONObject(i);

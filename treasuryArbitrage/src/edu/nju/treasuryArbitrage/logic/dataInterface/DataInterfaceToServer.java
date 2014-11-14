@@ -7,6 +7,7 @@ import edu.nju.treasuryArbitrage.logic.biz.ArbitrageBL;
 import edu.nju.treasuryArbitrage.logic.biz.CalculateBL;
 import edu.nju.treasuryArbitrage.logic.biz.FinanceBL;
 import edu.nju.treasuryArbitrage.logic.biz.MessContainerBL;
+import edu.nju.treasuryArbitrage.logic.biz.NetHelper;
 import edu.nju.treasuryArbitrage.logic.biz.NewsBL;
 import edu.nju.treasuryArbitrage.logic.biz.RecordBL;
 import edu.nju.treasuryArbitrage.logic.biz.RepositoryBL;
@@ -35,16 +36,16 @@ public class DataInterfaceToServer implements DataInterface {
 	CalculateBL calcbl;
 
 	public DataInterfaceToServer() {
-
-		userbl = new UserBL();
-		finanbl = new FinanceBL();
-		repobl = new RepositoryBL();
-		recordbl = new RecordBL();
+		NetHelper netHelper = new NetHelper();
+		userbl = new UserBL(netHelper);
+		finanbl = new FinanceBL(netHelper);
+		repobl = new RepositoryBL(netHelper);
+		recordbl = new RecordBL(netHelper);
 		messbl = new MessContainerBL();
-		arbtbl = new ArbitrageBL();
-		tradebl = new TradeBL();
+		arbtbl = new ArbitrageBL(netHelper);
+		tradebl = new TradeBL(netHelper);
 		calcbl = new CalculateBL();
-		newsbl = new NewsBL();
+		newsbl = new NewsBL(netHelper);
 		
 	}
 

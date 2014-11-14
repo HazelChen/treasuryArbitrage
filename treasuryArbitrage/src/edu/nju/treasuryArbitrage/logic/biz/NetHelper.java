@@ -23,10 +23,11 @@ import org.json.JSONObject;
  *
  */
 public class NetHelper {
+	private boolean isThrough = true;//网络是否畅通
 	String urlString ;
-	public NetHelper (String method, HashMap<String, String> params){
+	
+	public void setInitPara(String method, HashMap<String, String> params) {
 		this.urlString = "http://njuhq.sinaapp.com/"+method;
-//		this.urlString = "192.168.53.56/"+method;
 		this.setPara(params);
 	}
 	
@@ -76,8 +77,13 @@ public class NetHelper {
 		try {
 			httpResponse = httpclient.execute(httpGet);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "你的网络状况不大好哦");
+			if (isThrough) {
+				JOptionPane.showMessageDialog(null, "你的网络状态不太好哦");
+			}
+			isThrough = false;
+			return resultString;
 		}
+		isThrough = true;
 		// 得到httpResponse的状态响应码
 		int statusCode = httpResponse.getStatusLine().getStatusCode();
 		if (statusCode == HttpStatus.SC_OK) {
@@ -147,14 +153,22 @@ public class NetHelper {
 	
 	// 得到JSONObject(Get方式)
 	public JSONObject getJSONObjectByGet() {
-		JSONObject result = new JSONObject(getStringByGet());
+		String stringByGet = getStringByGet();
+		if (stringByGet == null) {
+			return null;
+		}
+		JSONObject result = new JSONObject(stringByGet);
 		return result;
 	}
 	
 	
 	// 得到JSONObject(Get方式)
 	public JSONArray getJSONArrayByGet() {
-		JSONArray result = new JSONArray(getStringByGet());
+		String stringByGet = getStringByGet();
+		if (stringByGet == null) {
+			return null;
+		}
+		JSONArray result = new JSONArray(stringByGet);
 		return result;
 	}
 

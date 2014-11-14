@@ -22,7 +22,7 @@ public class TakeAOrder extends JPanel {
 	private static final long serialVersionUID = 3595675326727853779L;
 
 	private static final Color BACKGROUND_COLOR = new Color(13,13,13);
-	private static final Color FOREGROUND_COLOR = ArbitragePortfolioChen.FOREGROUND_COLOR;
+	private static final Color FOREGROUND_COLOR = ArbitragePortfolio.FOREGROUND_COLOR;
 
 	private static final Font NORMAL_FONT = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 18);
 

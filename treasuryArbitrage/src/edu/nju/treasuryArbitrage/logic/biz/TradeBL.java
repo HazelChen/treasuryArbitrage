@@ -1,13 +1,16 @@
 package edu.nju.treasuryArbitrage.logic.biz;
 
-import java.util.HashMap;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.json.JSONObject;
 
 public class TradeBL {
+	private NetHelper helper;
 	
-	public TradeBL(){}
+	public TradeBL(NetHelper netHelper){
+		this.helper = netHelper;
+	}
 	
 	public boolean order(String username,String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee){
 		
@@ -23,8 +26,12 @@ public class TradeBL {
 		params.put("bond", guarantee+"");
 		params.put("time", time+"");
 		
-		NetHelper helper = new NetHelper("order",params);
+		helper.setInitPara("order", params);
 		JSONObject ret = helper.getJSONObjectByGet();
+		
+		if (ret == null) {
+			return false;
+		}
 		
 		if(ret.getInt("result")==1){
 			return true;
@@ -39,8 +46,11 @@ public class TradeBL {
 		params.put("username", username);
 		params.put("id", record_ID+"");
 		
-		NetHelper helper = new NetHelper("cancelOrder",params);
+		helper.setInitPara("cancelOrder", params);
 		JSONObject ret = helper.getJSONObjectByGet();
+		if (ret == null) {
+			return false;
+		}
 		
 		if(ret.getInt("result")==1){
 			return true;
@@ -59,8 +69,12 @@ public class TradeBL {
 		params.put("profit", profit+"");
 		params.put("time", time+"");
 		
-		NetHelper helper = new NetHelper("trade",params);
+		helper.setInitPara("trade", params);
 		JSONObject ret = helper.getJSONObjectByGet();
+		
+		if (ret == null) {
+			return false;
+		}
 		
 		if(ret.getInt("result")==1){
 			return true;

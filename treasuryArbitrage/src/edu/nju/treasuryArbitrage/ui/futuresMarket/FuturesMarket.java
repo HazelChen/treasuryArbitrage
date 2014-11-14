@@ -1,6 +1,7 @@
 package edu.nju.treasuryArbitrage.ui.futuresMarket;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	private Arb_detail[] arb_details = new Arb_detail[3];
 	private DefaultTableModel model;
 	private LineChart[] charts = new LineChart[3];
+	private boolean[] isPresentPriceRed = new boolean[3];
 
 	public FuturesMarket() {
 		init();
@@ -63,7 +65,11 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	private void init() {
 		this.setLayout(null);
 		this.setBackground(Color.BLACK);
-
+		
+		for (int i = 0;i < arb_details.length; i++) {
+			arb_details[i] = Arb_detail.nullObject();
+		}
+		
 		ArrayList<Arb_detail> result = LiveData.getInstance().getArb_details();
 		if (result == null) {
 			return;
@@ -132,6 +138,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		column1.setPreferredWidth(100);
 
 		setColomnColor(0, Color.WHITE);
+		setColomnColorWithIsRed(2);
 		setColomnColorWithPositiveAndNegative(3);
 		DefaultTableCellRenderer renderer4 = setColomnColorWithPositiveAndNegative(4);
 		renderer4.setBackground(ColorConstants.DARK_FOCUS_BLUE);
@@ -155,23 +162,58 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		return renderer;
 	}
 	
+	private DefaultTableCellRenderer setColomnColorWithIsRed(int index) {
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {   
+			private static final long serialVersionUID = 3126419784517343739L;
+
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value,
+					boolean isSelected, boolean hasFocus, int row, int column) {
+				setText((value == null) ? "" : value.toString() + ""); 
+				setForeground((isPresentPriceRed[row]) ? Color.RED : Color.GREEN); 
+				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			}
+        };   
+		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);
+		return renderer;
+	}
+	
 	private DefaultTableCellRenderer setColomnColorWithPositiveAndNegative(int index) {
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {   
 			private static final long serialVersionUID = 1L;
-			public void setValue(Object value) {
+			/*public void setValue(Object value) {
 				double valueDouble = 0.0;
 				if (value instanceof String) {
 					String valueString = (String)value;
 					String formattedValueString = valueString.substring(0, valueString.length() - 1);
 					valueDouble = Double.parseDouble(formattedValueString);
-					setText((value == null) ? "" : value.toString() + "%");   
+					setText((value == null) ? "" : value.toString() + "%"); 
 				} else if (value instanceof Double) {
 					valueDouble = ((Double) value).doubleValue();   
 					setText((value == null) ? "" : value.toString());   
 				}
-                setForeground((valueDouble  > 0) ? Color.RED : Color.GREEN); //如果月薪大于3099元，就将字体设置为红色   
+                setForeground((valueDouble  > 0) ? Color.RED : Color.GREEN);
                 setColomnColor(2, (valueDouble  > 0) ? Color.RED : Color.GREEN);
-            }   
+            }*/  
+			
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value,
+					boolean isSelected, boolean hasFocus, int row, int column) {
+				double valueDouble = 0.0;
+				if (value instanceof String) {
+					String valueString = (String)value;
+					String formattedValueString = valueString.substring(0, valueString.length() - 1);
+					valueDouble = Double.parseDouble(formattedValueString);
+					setText((value == null) ? "" : value.toString() + "%"); 
+				} else if (value instanceof Double) {
+					valueDouble = ((Double) value).doubleValue();   
+					setText((value == null) ? "" : value.toString());   
+				}
+				
+				setForeground((valueDouble  > 0) ? Color.RED : Color.GREEN); 
+				isPresentPriceRed[row] = (valueDouble >= 0);
+				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			}
         };   
 		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);
 		return renderer;

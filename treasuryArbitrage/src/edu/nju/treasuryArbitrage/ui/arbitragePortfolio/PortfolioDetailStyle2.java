@@ -31,7 +31,7 @@ public class PortfolioDetailStyle2 extends PortfolioDetail{
 		this.height = height;
 
 		this.setLayout(null);
-		this.setBackground(ArbitragePortfolioChen.BACKGROUND_COLOR);
+		this.setBackground(ArbitragePortfolio.BACKGROUND_COLOR);
 
 		init();
 	}

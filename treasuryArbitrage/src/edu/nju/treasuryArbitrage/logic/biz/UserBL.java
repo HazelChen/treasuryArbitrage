@@ -12,10 +12,13 @@ import edu.nju.treasuryArbitrage.ui.personalCenter.LoginStateRecorder;
  * 处理用户相关的业务逻辑
  */
 public class UserBL {
+	private NetHelper helper;
 	private UserVO user;
 	public static final String PARAM_FILE_NAME = "Parameters";
 
-	public UserBL(){}
+	public UserBL(NetHelper helper){
+		this.helper = helper;
+	}
 	
 	@SuppressWarnings("unused")
 	public UserVO initUser(String username) {
@@ -58,8 +61,12 @@ public class UserBL {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
 		params.put("password", pwd);
-		NetHelper helper = new NetHelper("login",params);
+		helper.setInitPara("login", params);
 		JSONObject ret = helper.getJSONObjectByGet();
+		
+		if (ret == null) {
+			return false;
+		}
 		
 		if(ret.getInt("result")==1){
 			initUser(username);
@@ -74,8 +81,12 @@ public class UserBL {
 	public boolean logout(String username){
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
-		NetHelper helper = new NetHelper("logout",params);
+		helper.setInitPara("logout", params);
 		JSONObject ret = helper.getJSONObjectByGet();
+		
+		if (ret == null) {
+			return false;
+		}
 		
 		if(ret.getInt("result")==1){
 			return true;
@@ -90,7 +101,7 @@ public class UserBL {
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
 		params.put("password", pwd);
-		NetHelper helper = new NetHelper("register",params);
+		helper.setInitPara("register", params);
 		JSONObject ret = helper.getJSONObjectByGet();
 		
 		//用户名不为空，注册成功
@@ -106,7 +117,7 @@ public class UserBL {
 		params.put("username", username);
 		params.put("oldPassword", oldpwd);
 		params.put("newPassword", newpwd);
-		NetHelper helper = new NetHelper("changePaswd",params);
+		helper.setInitPara("changePaswd", params);
 		JSONObject ret = helper.getJSONObjectByGet();
 		
 		if(ret.getInt("result")==1){
