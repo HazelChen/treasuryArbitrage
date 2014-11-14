@@ -43,6 +43,7 @@ public class LineChart extends JPanel {
 	 */
 	public LineChart(Color lineColor) {
 		this();
+		lineColor = Color.WHITE;
 		XYPlot plot = jfreechart.getXYPlot();
 		plot.getRenderer().setSeriesPaint(0, lineColor);
 		plot.setBackgroundPaint(Color.BLACK);
@@ -64,9 +65,9 @@ public class LineChart extends JPanel {
 	}
 	
 	public void setYRange(double low, double high) {
-		XYPlot xyplot = jfreechart.getXYPlot();
+		/*XYPlot xyplot = jfreechart.getXYPlot();
 		NumberAxis yAxis = (NumberAxis) xyplot.getRangeAxis();
-//		yAxis.setRange(low, high);
+		yAxis.setRange(low, high);*/
 	}
 	
 	public void setTitle(String title) {

@@ -34,6 +34,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	private DefaultTableModel model;
 	private LineChart[] charts = new LineChart[3];
 	private boolean[] isPresentPriceRed = new boolean[3];
+	private double[] preSettlePrices = new double[3];
 
 	public FuturesMarket() {
 		init();
@@ -87,11 +88,12 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 
 			futuresInfo[i] = new Object[] { arb.getSymbol(), arb.getMonth(),
 					arb.getPresentPrice(), arb.getPriceChange(),
-					arb.getChange(), arb.getBid(), arb.getBidPirce(),
+					arb.getChange() + "%", arb.getBid(), arb.getBidPirce(),
 					arb.getAskPrice(), arb.getAsk(), arb.getVol(),
 					arb.getRepository(), arb.getDailyWarehouse(),
 					arb.getPreSettlePrice(), arb.getOpen(), arb.getHigh(),
 					arb.getLow(), arb.getClock()};
+			preSettlePrices[i] = arb.getPreSettlePrice();
 		}
 
 		model.setDataVector(futuresInfo, headerData);
@@ -149,10 +151,27 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		setColomnColor(9, Color.YELLOW);
 		setColomnColor(10, Color.YELLOW);
 		setColomnColor(11, Color.YELLOW);
-		setColomnColor(12, Color.RED);
-		setColomnColor(13, Color.RED);
-		setColomnColor(14, Color.RED);
-		setColomnColor(15, Color.RED);
+		setColomnColor(12, Color.WHITE);
+		setColomnCompareWithPreSettle(13);
+		setColomnCompareWithPreSettle(14);
+		setColomnCompareWithPreSettle(15);
+	}
+
+	private void setColomnCompareWithPreSettle(int i) {
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {   
+			private static final long serialVersionUID = 3126419784517343739L;
+
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value,
+					boolean isSelected, boolean hasFocus, int row, int column) {
+				if (value instanceof Double) {
+					double valueDouble = ((Double) value).doubleValue();   
+					setForeground(valueDouble >= preSettlePrices[row] ? Color.RED : Color.GREEN); 
+				}
+				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			}
+        };   
+		futuersTable.getColumn(headerData[i]).setCellRenderer(renderer);
 	}
 
 	private DefaultTableCellRenderer setColomnColor(int index, Color color) {
@@ -169,7 +188,6 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value,
 					boolean isSelected, boolean hasFocus, int row, int column) {
-				setText((value == null) ? "" : value.toString() + ""); 
 				setForeground((isPresentPriceRed[row]) ? Color.RED : Color.GREEN); 
 				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			}
@@ -181,20 +199,6 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	private DefaultTableCellRenderer setColomnColorWithPositiveAndNegative(int index) {
 		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {   
 			private static final long serialVersionUID = 1L;
-			/*public void setValue(Object value) {
-				double valueDouble = 0.0;
-				if (value instanceof String) {
-					String valueString = (String)value;
-					String formattedValueString = valueString.substring(0, valueString.length() - 1);
-					valueDouble = Double.parseDouble(formattedValueString);
-					setText((value == null) ? "" : value.toString() + "%"); 
-				} else if (value instanceof Double) {
-					valueDouble = ((Double) value).doubleValue();   
-					setText((value == null) ? "" : value.toString());   
-				}
-                setForeground((valueDouble  > 0) ? Color.RED : Color.GREEN);
-                setColomnColor(2, (valueDouble  > 0) ? Color.RED : Color.GREEN);
-            }*/  
 			
 			@Override
 			public Component getTableCellRendererComponent(JTable table, Object value,
@@ -209,8 +213,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 					valueDouble = ((Double) value).doubleValue();   
 					setText((value == null) ? "" : value.toString());   
 				}
-				
-				setForeground((valueDouble  > 0) ? Color.RED : Color.GREEN); 
+				setForeground((valueDouble  >= 0) ? Color.RED : Color.GREEN); 
 				isPresentPriceRed[row] = (valueDouble >= 0);
 				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			}
