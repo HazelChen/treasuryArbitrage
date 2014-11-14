@@ -29,45 +29,37 @@ import edu.nju.treasuryArbitrage.model.Repository;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 
-public class Holdings extends JPanel implements ComponentPanel{
+public class Holdings extends JPanel implements ComponentPanel {
 	private static final long serialVersionUID = 6470810944009110491L;
 
 	/* package */static final Color BACKGROUND_COLOR = new Color(246, 246, 246);
-	/* package */static final Color TABLE_DARKER_BACKGROUND_COLOR = new Color(237, 237, 237);
-	/* package */static final Color TABLE_HEADER_BACKGROUND_COLOR = new Color(214, 214, 214);
-	private static final Color HEADER_BACKGROUND_COLOR = new Color(211, 211, 211);
+	/* package */static final Color TABLE_DARKER_BACKGROUND_COLOR = new Color(
+			237, 237, 237);
+	/* package */static final Color TABLE_HEADER_BACKGROUND_COLOR = new Color(
+			214, 214, 214);
+	private static final Color HEADER_BACKGROUND_COLOR = new Color(211, 211,
+			211);
 
 	private Object holdHeaderData[] = { "套利组合信息", "交易时间", "交易手数", "投入保证金",
-			"即时损失/盈利金额", "操作" }, empOb[][] = { { "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""}};
-	private Object historyHeaderData[] = { "套利组合信息", "交易时间", "交易手数", "投入保证金", "交易状态"}, 
-			historyDefaultData[][] = { { "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			{ "", "", "", "", "", ""},
-			};
+			"即时损失/盈利金额", "操作" }, empOb[][] = { { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" } };
+	private Object historyHeaderData[] = { "套利组合信息", "交易时间", "交易手数", "投入保证金",
+			"交易状态" }, historyDefaultData[][] = { { "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" },
+			{ "", "", "", "", "", "" }, { "", "", "", "", "", "" }, };
 	private JTable hTable;
 	private JTable historyTable;
+	private DefaultTableModel repoTableModel;
+
 	private ArrayList<Repository> info;
 	private double[] buyPrices;
 	private double[] sellPrices;
@@ -107,7 +99,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 		JTable historyTableHeader = new JTable();
 		historyTableHeader.setModel(model);
 		makeFaceOfHeader(historyTableHeader);
-		
+
 		JPanel headerPanel = new JPanel(new BorderLayout());
 		headerPanel.setBackground(HEADER_BACKGROUND_COLOR);
 		headerPanel.add(reposityPageLabel, BorderLayout.CENTER);
@@ -184,7 +176,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 		JTable hTableHeader = new JTable();
 		hTableHeader.setModel(model);
 		makeFaceOfHeader(hTableHeader);
-		
+
 		JPanel headerPanel = new JPanel(new BorderLayout());
 		headerPanel.setBackground(HEADER_BACKGROUND_COLOR);
 		headerPanel.add(reposityPageLabel, BorderLayout.CENTER);
@@ -195,29 +187,8 @@ public class Holdings extends JPanel implements ComponentPanel{
 
 		final ArrayList<Repository> info = DataInterfaceFactory.getInstance()
 				.getDataInterfaceToServer().getRepoList();// 从服务器获取数据
-		hTable = new JTable(new DefaultTableModel() {
+		repoTableModel = new DefaultTableModel() {
 			private static final long serialVersionUID = -335420676543481799L;
-
-			@Override
-			public Object getValueAt(int row, int column) {
-				return empOb[row][column];
-			}
-
-			@Override
-			public void setValueAt(Object aValue, int row, int column) {
-				empOb[row][column] = aValue;
-				fireTableCellUpdated(row, column);
-			}
-
-			@Override
-			public int getRowCount() {
-				return info.size();
-			}
-
-			@Override
-			public int getColumnCount() {
-				return 6;
-			}
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -227,8 +198,8 @@ public class Holdings extends JPanel implements ComponentPanel{
 					return false;
 				}
 			}
-		});
-		makeFaceOfTable(hTable);
+		};
+		hTable = new JTable(repoTableModel);
 		updateRepoList();
 
 		JScrollPane jsp = new JScrollPane(hTable);
@@ -236,24 +207,27 @@ public class Holdings extends JPanel implements ComponentPanel{
 		northPanel.add(jsp);
 		return northPanel;
 	}
-	
+
 	public void liveUpdate() {
 		for (int i = 0; i < info.size(); i++) {
 			Repository repository = info.get(i);
 			Arb_detail buyArb = getLiveArb_detail(repository.getToBuy());
 			Arb_detail sellArb = getLiveArb_detail(repository.getToSell());
-			double profit = (sellArb.getPresentPrice() - repository.gettoBuy_price() +
-					repository.gettoSell_price() - buyArb.getPresentPrice()) * repository.getCount() * 10000;
-			double formatProfit = (int)(profit * 1000) / 1000.0;
+			double profit = (sellArb.getPresentPrice()
+					- repository.gettoBuy_price()
+					+ repository.gettoSell_price() - buyArb.getPresentPrice())
+					* repository.getCount() * 10000;
+			double formatProfit = (int) (profit * 1000) / 1000.0;
 			repository.setProfit(formatProfit);
 			sellPrices[i] = sellArb.getPresentPrice();
 			buyPrices[i] = buyArb.getPresentPrice();
 			hTable.setValueAt(formatProfit, i, 4);
 		}
 	}
-	
+
 	private Arb_detail getLiveArb_detail(String symble) {
-		ArrayList<Arb_detail> arb_details = LiveData.getInstance().getArb_details();
+		ArrayList<Arb_detail> arb_details = LiveData.getInstance()
+				.getArb_details();
 		for (Arb_detail arb_detail : arb_details) {
 			if (arb_detail.getSymbol().equals(symble)) {
 				return arb_detail;
@@ -269,37 +243,52 @@ public class Holdings extends JPanel implements ComponentPanel{
 	}
 
 	public void updateRepoList() {
-		info = DataInterfaceFactory.getInstance()
-				.getDataInterfaceToServer().getRepoList();// 从服务器获取数据
+		info = DataInterfaceFactory.getInstance().getDataInterfaceToServer()
+				.getRepoList();// 从服务器获取数据
 		sellPrices = new double[info.size()];
 		buyPrices = new double[info.size()];
-		if (info.size() > 0) {
-			for (int j = 0; j < info.size(); j++) {
-				Date dt = new Date(info.get(j).getTime());
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				String time = df.format(dt);
-				hTable.setValueAt(time, j, 1);
-				hTable.setValueAt(info.get(j).getCount(), j, 2);
-				hTable.setValueAt(info.get(j).getGuarantee(), j, 3);
-			}
-			hTable.getColumnModel().getColumn(5)
-					.setCellEditor(new ButtonEditor(info, sellPrices, buyPrices));
-			hTable.getColumnModel().getColumn(5)
-					.setCellRenderer(new ButtonCellRenderer());
-			hTable.getColumnModel().getColumn(0).setPreferredWidth(ScreenSize.WIDTH / 2);
-			hTable.getColumnModel().getColumn(0)
-					.setCellEditor(new MyTableEditor(info));
-			Repository[] repositories = new Repository[info.size()];
-			repositories = info.toArray(repositories);
-			repoFirstColumnRenderers = new MyTableCellRenderer(repositories);
-			hTable.getColumnModel().getColumn(0)
-					.setCellRenderer(repoFirstColumnRenderers);//
 
+		Object[][] tableData = new Object[info.size()][holdHeaderData.length];
+		for (int i = 0; i < info.size(); i++) {
+			Repository repository = info.get(i);
+
+			Date dt = new Date(repository.getTime());
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			String time = df.format(dt);
+			tableData[i][0] = "";
+			tableData[i][1] = time;
+			tableData[i][2] = repository.getCount();
+			tableData[i][3] = repository.getGuarantee();
+
+			Arb_detail buyArb = getLiveArb_detail(repository.getToBuy());
+			Arb_detail sellArb = getLiveArb_detail(repository.getToSell());
+			double profit = (sellArb.getPresentPrice()
+					- repository.gettoBuy_price()
+					+ repository.gettoSell_price() - buyArb.getPresentPrice())
+					* repository.getCount() * 10000;
+			double formatProfit = (int) (profit * 1000) / 1000.0;
+			repository.setProfit(formatProfit);
+			sellPrices[i] = sellArb.getPresentPrice();
+			buyPrices[i] = buyArb.getPresentPrice();
+			tableData[i][4] = formatProfit;
 		}
+		repoTableModel.setDataVector(tableData, holdHeaderData);
+		makeFaceOfTable(hTable);
+		hTable.getColumnModel().getColumn(5)
+				.setCellEditor(new ButtonEditor(info, sellPrices, buyPrices));
+		hTable.getColumnModel().getColumn(5)
+				.setCellRenderer(new ButtonCellRenderer());
+		hTable.getColumnModel().getColumn(0)
+				.setPreferredWidth(ScreenSize.WIDTH / 2);
+		hTable.getColumnModel().getColumn(0)
+				.setCellEditor(new MyTableEditor(info));
+		Repository[] repositories = new Repository[info.size()];
+		repositories = info.toArray(repositories);
+		repoFirstColumnRenderers = new MyTableCellRenderer(repositories);
+		hTable.getColumnModel().getColumn(0)
+				.setCellRenderer(repoFirstColumnRenderers);//
 		hTable.repaint();
 	}
-
-	
 
 	public void updateHistory() {
 		ArrayList<Record> info = DataInterfaceFactory.getInstance()
@@ -315,7 +304,8 @@ public class Holdings extends JPanel implements ComponentPanel{
 				String state = stateResolve(info.get(j).getState());
 				historyTable.setValueAt(state, j, 4);
 			}
-			historyTable.getColumnModel().getColumn(0).setPreferredWidth(ScreenSize.WIDTH / 2);
+			historyTable.getColumnModel().getColumn(0)
+					.setPreferredWidth(ScreenSize.WIDTH / 2);
 			Record[] records = new Record[info.size()];
 			records = info.toArray(records);
 			historyTable.getColumnModel().getColumn(0)
@@ -323,7 +313,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 
 		}
 		historyTable.repaint();
-		
+
 	}
 
 	private String stateResolve(String state) {
@@ -337,9 +327,11 @@ public class Holdings extends JPanel implements ComponentPanel{
 	private void makeFaceOfHeader(JTable table) {
 		table.setRowHeight(30);
 		table.setFont(new Font("微软雅黑", Font.PLAIN, 16));
-		table.getColumnModel().getColumn(0).setPreferredWidth(ScreenSize.WIDTH / 2);
+		table.getColumnModel().getColumn(0)
+				.setPreferredWidth(ScreenSize.WIDTH / 2);
 		table.setEnabled(false);
-		table.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, new Color(122,138,153)));
+		table.setBorder(BorderFactory.createMatteBorder(2, 0, 0, 0, new Color(
+				122, 138, 153)));
 		DefaultTableCellRenderer tcr1 = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 2220633049102091416L;
 
@@ -356,7 +348,7 @@ public class Holdings extends JPanel implements ComponentPanel{
 			table.getColumn(table.getColumnName(i)).setCellRenderer(tcr1);
 		}
 	}
-	
+
 	private void makeFaceOfTable(JTable table) {
 		table.setFont(new Font("微软雅黑", Font.PLAIN, 16));
 		table.getTableHeader().setPreferredSize(new Dimension(0, 0));

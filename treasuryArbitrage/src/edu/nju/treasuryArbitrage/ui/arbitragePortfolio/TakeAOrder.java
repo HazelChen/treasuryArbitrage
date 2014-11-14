@@ -158,6 +158,7 @@ public class TakeAOrder extends JPanel {
 		prePrice2 = arb2.getPresentPrice();
 		price1.setText(String.valueOf(prePrice1));
 		price2.setText(String.valueOf(prePrice2));
+		calculateAndSetHands();
 	}
 
 	public class HoldingsListener implements KeyListener {
@@ -165,17 +166,28 @@ public class TakeAOrder extends JPanel {
 		}
 
 		public void keyReleased(KeyEvent e) {
-			holds = Integer.parseInt(tfdHoldings.getText());
-			DataInterface dataInterface = DataInterfaceFactory.getInstance()
-					.getDataInterfaceToServer();
-			guar = (int) (dataInterface.getGuar(prePrice1, prePrice2, holds) * 1000) / 1000.0;
-			mny.setText(String.valueOf(guar));
-			restMoney = dataInterface.getFreeFund() - guar;
-			restMny.setText(restMoney >= 0 ? String.valueOf(restMoney) : "0");
+			try {
+				holds = Integer.parseInt(tfdHoldings.getText());
+			} catch (Exception e2) {
+				holds = 0;
+			}
+			calculateAndSetHands();
 		}
 
 		public void keyTyped(KeyEvent e) {
 		}
+	}
+	
+	private void calculateAndSetHands() {
+		if (holds == 0) {
+			return;
+		}
+		DataInterface dataInterface = DataInterfaceFactory.getInstance()
+				.getDataInterfaceToServer();
+		guar = (int) (dataInterface.getGuar(prePrice1, prePrice2, holds) * 1000) / 1000.0;
+		mny.setText(String.valueOf(guar));
+		restMoney = (int)((dataInterface.getFreeFund() - guar) * 1000) / 1000.0;
+		restMny.setText(restMoney >= 0 ? String.valueOf(restMoney) : "0");
 	}
 
 	public class ConfirmListener implements ActionListener {
