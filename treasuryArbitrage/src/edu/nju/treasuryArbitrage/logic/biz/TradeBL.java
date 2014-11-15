@@ -65,7 +65,7 @@ public class TradeBL {
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
-		params.put("Repo_ID", Repo_ID+"");
+		params.put("Repo_Id", Repo_ID+"");
 		params.put("profit", profit+"");
 		params.put("time", time+"");
 		
