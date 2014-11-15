@@ -128,7 +128,9 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		futuersTable.setBackground(Color.BLACK);
 		futuersTable.setBorder(null);
 		futuersTable.setForeground(Color.WHITE);
-
+		futuersTable.setSelectionBackground(new Color(89, 69, 61));
+		futuersTable.setSelectionForeground(Color.WHITE);
+		
 		JTableHeader header = futuersTable.getTableHeader();
 		header.setBackground(Color.BLACK);
 		header.setForeground(ColorConstants.BRIGHT_BLUE);
