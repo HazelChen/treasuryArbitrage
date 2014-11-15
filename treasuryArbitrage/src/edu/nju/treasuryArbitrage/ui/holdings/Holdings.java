@@ -52,7 +52,8 @@ public class Holdings extends JPanel implements ComponentPanel {
 	private ArrayList<Repository> info;
 	private double[] buyPrices;
 	private double[] sellPrices;
-	private MyTableCellRenderer repoFirstColumnRenderers;
+	private DateChooser historyFromDateChooser = DateChooser.getInstance();
+	private DateChooser historyToDateChoose = DateChooser.getInstance();
 
 	public Holdings() {
 		this.setBackground(BACKGROUND_COLOR);
@@ -76,6 +77,23 @@ public class Holdings extends JPanel implements ComponentPanel {
 		reposityPageLabel.setPreferredSize(new Dimension(ScreenSize.WIDTH,
 				(int) (ScreenSize.HEIGHT / 25.0)));
 
+		// TODO
+		JPanel dateChooserPanel = new JPanel();
+		dateChooserPanel.setOpaque(false);
+		JLabel timeTipLabel = new JLabel("Ê±¼ä:");
+		timeTipLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
+		dateChooserPanel.add(timeTipLabel);
+		historyFromDateChooser.setPreferredSize(new Dimension(100, 20));
+		dateChooserPanel.add(historyFromDateChooser);
+		dateChooserPanel.add(new JLabel("-"));
+		historyToDateChoose.setPreferredSize(new Dimension(100, 20));
+		dateChooserPanel.add(historyToDateChoose);
+
+		JPanel southHeaderPanel = new JPanel(new BorderLayout());
+		southHeaderPanel.setOpaque(false);
+		southHeaderPanel.add(reposityPageLabel, BorderLayout.WEST);
+		southHeaderPanel.add(dateChooserPanel, BorderLayout.EAST);
+
 		DefaultTableModel model = new DefaultTableModel(
 				new Object[0][historyHeaderData.length], historyHeaderData) {
 			private static final long serialVersionUID = 1L;
@@ -91,7 +109,7 @@ public class Holdings extends JPanel implements ComponentPanel {
 
 		JPanel headerPanel = new JPanel(new BorderLayout());
 		headerPanel.setBackground(HEADER_BACKGROUND_COLOR);
-		headerPanel.add(reposityPageLabel, BorderLayout.CENTER);
+		headerPanel.add(southHeaderPanel, BorderLayout.CENTER);
 		headerPanel.add(historyTableHeader, BorderLayout.SOUTH);
 		southPanel.add(headerPanel, BorderLayout.NORTH);
 		// =======table header end====================
@@ -224,16 +242,20 @@ public class Holdings extends JPanel implements ComponentPanel {
 
 			Arb_detail buyArb = getLiveArb_detail(repository.getToBuy());
 			Arb_detail sellArb = getLiveArb_detail(repository.getToSell());
-			double profit = (sellArb.getPresentPrice()
-					- repository.gettoBuy_price()
-					+ repository.gettoSell_price() - buyArb.getPresentPrice())
-					* repository.getCount() * 10000;
-			double formatProfit = (int) (profit * 1000) / 1000.0;
-			repository.setProfit(formatProfit);
-			sellPrices[i] = sellArb.getPresentPrice();
-			buyPrices[i] = buyArb.getPresentPrice();
-			tableData[i][4] = formatProfit;
-			tableData[i][5] = "";
+			if (buyArb == null || sellArb == null) {
+				tableData[i][4] = "";
+			} else {
+				double profit = (sellArb.getPresentPrice()
+						- repository.gettoBuy_price()
+						+ repository.gettoSell_price() - buyArb
+							.getPresentPrice()) * repository.getCount() * 10000;
+				double formatProfit = (int) (profit * 1000) / 1000.0;
+				repository.setProfit(formatProfit);
+				sellPrices[i] = sellArb.getPresentPrice();
+				buyPrices[i] = buyArb.getPresentPrice();
+				tableData[i][4] = formatProfit;
+				tableData[i][5] = "";
+			}
 		}
 		repoTableModel.setDataVector(tableData, holdHeaderData);
 		makeFaceOfTable(hTable);
@@ -247,7 +269,8 @@ public class Holdings extends JPanel implements ComponentPanel {
 				.setCellEditor(new MyTableEditor(info));
 		Repository[] repositories = new Repository[info.size()];
 		repositories = info.toArray(repositories);
-		repoFirstColumnRenderers = new MyTableCellRenderer(repositories);
+		MyTableCellRenderer repoFirstColumnRenderers = new MyTableCellRenderer(
+				repositories);
 		hTable.getColumnModel().getColumn(0)
 				.setCellRenderer(repoFirstColumnRenderers);//
 		hTable.repaint();
