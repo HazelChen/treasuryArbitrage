@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -52,8 +53,10 @@ public class Holdings extends JPanel implements ComponentPanel {
 	private ArrayList<Repository> info;
 	private double[] buyPrices;
 	private double[] sellPrices;
-	private DateChooser historyFromDateChooser = DateChooser.getInstance();
-	private DateChooser historyToDateChoose = DateChooser.getInstance();
+	private DateChooser historyFromDateChooser = DateChooser.getInstance("yyyy-MM-dd");
+	private DateChooser historyToDateChoose = DateChooser.getInstance("yyyy-MM-dd");
+	private JTextField historyDateFrom = new JTextField();
+	private JTextField historyDateTo = new JTextField();
 
 	public Holdings() {
 		this.setBackground(BACKGROUND_COLOR);
@@ -83,11 +86,14 @@ public class Holdings extends JPanel implements ComponentPanel {
 		JLabel timeTipLabel = new JLabel("Ê±¼ä:");
 		timeTipLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
 		dateChooserPanel.add(timeTipLabel);
-		historyFromDateChooser.setPreferredSize(new Dimension(100, 20));
-		dateChooserPanel.add(historyFromDateChooser);
+		
+		historyFromDateChooser.register(historyDateFrom);
+		historyToDateChoose.register(historyDateTo);
+		historyDateFrom.setColumns(6);
+		dateChooserPanel.add(historyDateFrom);
 		dateChooserPanel.add(new JLabel("-"));
-		historyToDateChoose.setPreferredSize(new Dimension(100, 20));
-		dateChooserPanel.add(historyToDateChoose);
+		historyDateTo.setColumns(6);
+		dateChooserPanel.add(historyDateTo);
 
 		JPanel southHeaderPanel = new JPanel(new BorderLayout());
 		southHeaderPanel.setOpaque(false);
