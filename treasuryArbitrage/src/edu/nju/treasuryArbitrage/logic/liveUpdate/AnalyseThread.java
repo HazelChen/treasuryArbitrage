@@ -167,6 +167,7 @@ public class AnalyseThread implements Runnable{
 //					}
 					
 					//-----------------对持仓进行判断，看是否需要平仓
+					info = dataInterface.getRepoList();
 					if(info != null && info.size() > 0){
 						System.out.println("Group Number :" + info.size());
 						
