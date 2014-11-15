@@ -22,6 +22,7 @@ public class AnalyseThread implements Runnable{
 		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		//dataInterface.loginValidate("a", "123"); //test
 		ArrayList<ArbGroup> arb_groups = new ArrayList<ArbGroup>();
+		arb_groups = LiveData.getInstance().getArbGroups();
 		DataInterface2Matlab dm = new DataInterface2Matlab();
         //System.out.println("x y k:" + dm.opt_x + ","+ dm.opt_y +","+ dm.opt_k);
 		long sleepsec = 0;
