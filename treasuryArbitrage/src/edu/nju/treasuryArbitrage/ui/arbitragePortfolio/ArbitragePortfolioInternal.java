@@ -33,7 +33,7 @@ public class ArbitragePortfolioInternal extends JPanel{
 	}
 	
 	private void init() {
-		setBackground(ArbitragePortfolioChen.BACKGROUND_COLOR);
+		setBackground(ArbitragePortfolio.BACKGROUND_COLOR);
 		setLayout(null);
 	}
 

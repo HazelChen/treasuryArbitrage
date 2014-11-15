@@ -66,6 +66,7 @@ public class Arb_detail {
 		arb_detail.bidPirce = this.bidPirce;
 		arb_detail.askPrice = this.askPrice;
 		arb_detail.bid = this.bid;
+		arb_detail.ask = this.ask;
 		//arb_detail.nvol = this.nvol;
 		arb_detail.vol = this.vol;
 		arb_detail.preRepository = this.preRepository;
@@ -395,6 +396,16 @@ public class Arb_detail {
 
 	public void setAverPrice(double averPrice) {
 		this.averPrice = averPrice;
+	}
+
+
+	public static Arb_detail nullObject() {
+		Arb_detail arb_detail = new Arb_detail();
+		arb_detail.symbol = "-";
+		arb_detail.month = "-";
+		arb_detail.date = "-";
+		arb_detail.clock = "-";
+		return arb_detail;
 	}
 
 

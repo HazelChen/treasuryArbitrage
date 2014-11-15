@@ -36,19 +36,22 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 	private JPanel panel;
 
 	private JButton button;
-	private Repository repository;
-	private SellDg selldialog;
-	private int rowN;
 	private ArrayList<Repository> infom;
+	private double[] sellPrices;
+	private double[] buyPrices;
+	
+	private Repository repository;
+	private double sellPrice;
+	private double buyPrice;
+	
+	public ButtonEditor(ArrayList<Repository> info, double[] sellPrices, double[] buyPrices) {
 
-	public ButtonEditor(ArrayList<Repository> info) {
-
-		initButton();
+		initButton();  
 
 		initPanel();
-		infom = new ArrayList<Repository>();
 		infom = info;
-		repository = new Repository();
+		this.sellPrices = sellPrices;
+		this.buyPrices = buyPrices;
 		panel.add(button);
 	}
 
@@ -58,7 +61,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				SellDialog sellDialog = new SellDialog(repository);
+				SellDialog sellDialog = new SellDialog(repository, buyPrice, sellPrice);
 				sellDialog.setVisible(true);
 				// stop!!!
 				fireEditingStopped();
@@ -77,8 +80,9 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 			boolean isSelected, int row, int column) {
 
 		button.setText(value == null ? "" : "Æ½²Ö");
-		rowN = row;
-		repository = infom.get(rowN);
+		repository = infom.get(row);
+		sellPrice = sellPrices[row];
+		buyPrice = buyPrices[row];
 		return panel;
 	}
 

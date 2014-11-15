@@ -1,10 +1,7 @@
 package edu.nju.treasuryArbitrage;
 
-import java.awt.Toolkit;
-
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 import edu.nju.treasuryArbitrage.logic.liveUpdate.AnalyseThread;
 import edu.nju.treasuryArbitrage.logic.liveUpdate.UpdateThread;
@@ -47,7 +44,7 @@ public class TreasuryArbitrage {
 	}
 	
 	private void startDataFetch() {
-		Thread thread = new Thread(new UpdateThread());
+		Thread thread = new Thread(UpdateThread.getInstance());
 		thread.start();
 
 	}
@@ -59,7 +56,7 @@ public class TreasuryArbitrage {
 	}
 	
 	private void launchMainSoftware() {
-		Thread thread = new Thread(new UpdateThread());
+		Thread thread = new Thread(UpdateThread.getInstance());
 		Thread thread2 = new Thread(new AnalyseThread());
 		thread.start();
 		try {
@@ -74,7 +71,16 @@ public class TreasuryArbitrage {
 	}
 
 	private void useLookAndFeel() {
-		Toolkit.getDefaultToolkit().setDynamicLayout(true);
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		/*Toolkit.getDefaultToolkit().setDynamicLayout(true);
 		System.setProperty("sun.awt.noerasebackground", "true");
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		JDialog.setDefaultLookAndFeelDecorated(true);
@@ -83,7 +89,7 @@ public class TreasuryArbitrage {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
+		}*/
 	}
 }
 

@@ -99,5 +99,4 @@ public class MyTableCellRenderer implements TableCellRenderer {
 		
 		return panel;
 	}
-
 }

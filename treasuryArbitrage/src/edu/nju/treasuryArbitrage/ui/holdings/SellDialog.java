@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
+import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
 import edu.nju.treasuryArbitrage.model.Repository;
 
 public class SellDialog extends JDialog {
@@ -48,7 +49,11 @@ public class SellDialog extends JDialog {
 	private double prePrice1, prePrice2;
 	private Repository repository;
 
-	public SellDialog(Repository repository) {
+	public SellDialog(Repository repository, 
+			double buyPrice, double sellPrice) {
+		this.prePrice1 = (int)(buyPrice * 1000) / 1000.0;
+		this.prePrice2 = (int)(sellPrice * 1000) / 1000.0;
+		
 		this.repository = repository;
 		this.setBackground(BACKGROUND_COLOR);
 		this.setLayout(null);
@@ -142,26 +147,26 @@ public class SellDialog extends JDialog {
 		name2.setText(repository.getToSell());
 		dir1.setText("多头");
 		dir2.setText("空头");
-		prePrice1 = repository.gettoBuy_price();
-		prePrice2 = repository.gettoSell_price();
 		price1.setText(String.valueOf(prePrice1));
 		price2.setText(String.valueOf(prePrice2));
 		hld.setText(repository.getCount() + "手");
 		mny.setText(repository.getGuarantee() + "元");
+		restMny.setText(repository.getProfit() + "元");
 	}
 
 	public class ConfirmListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			SellDialog.this.setVisible(false);
-			boolean result = DataInterfaceFactory.getInstance().getDataInterfaceToServer().Trade(repository.getRepo_ID(),
-					repository.getProfit());
-			if (result == true) {
-				JOptionPane.showMessageDialog(null, "下单成功！");
+			DataInterface database = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+			boolean result = database.Trade(repository.getRepo_ID(), repository.getProfit());
+			//TODO
+			boolean cancelOrderResult = database.cancleOrder(repository.getRepo_ID());
+			if (cancelOrderResult && result) {
+				JOptionPane.showMessageDialog(null, "平仓成功！");
 			} else {
 				JOptionPane.showMessageDialog(null, "平仓失败！");
 			}
 			MajorPartsFactory.getInstance().getHoldings().updatePage();
-			// --------------------------------
 			SellDialog.this.dispose();
 		}
 	}

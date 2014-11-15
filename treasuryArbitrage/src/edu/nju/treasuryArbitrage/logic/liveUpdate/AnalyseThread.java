@@ -11,7 +11,6 @@ import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
 import edu.nju.treasuryArbitrage.logic.dataInterface2Matlab.DataInterface2Matlab;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.Repository;
 
 public class AnalyseThread implements Runnable{
@@ -22,7 +21,6 @@ public class AnalyseThread implements Runnable{
 	public void run() {
 		DataInterface dataInterface = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 		//dataInterface.loginValidate("a", "123"); //test
-		ArrayList<Arb_detail> arb_details = dataInterface.getArbDetail();
 		ArrayList<ArbGroup> arb_groups = new ArrayList<ArbGroup>();
 		DataInterface2Matlab dm = new DataInterface2Matlab();
         //System.out.println("x y k:" + dm.opt_x + ","+ dm.opt_y +","+ dm.opt_k);
@@ -33,9 +31,9 @@ public class AnalyseThread implements Runnable{
 						  Lf1,Lf2;//前一交易日到现在的价格记录，相对较小,大约240条数据
 		ArrayList<Repository> info = dataInterface.getRepoList();
 		double newprice1, newprice2,newprice3;
-		String name1 = arb_details.get(0).getSymbol(),
-				name2 =arb_details.get(1).getSymbol(),
-				name3 =arb_details.get(2).getSymbol();
+		String name1 = "TF1412",
+				name2 = "TF1503",
+				name3 = "TF1506";
 		//获取Lf1,Lf2
 		//代码
 		//测试时暂时从文件读取

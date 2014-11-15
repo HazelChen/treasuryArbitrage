@@ -10,9 +10,13 @@ import edu.nju.treasuryArbitrage.model.Finance;
 
 
 public class FinanceBL {
+	private NetHelper helper;
+	
 	private ArrayList<Finance> finance_list;
 	
-	public FinanceBL(){}
+	public FinanceBL(NetHelper helper){
+		this.helper = helper;
+	}
 	
 	public ArrayList<Finance> getFinanceList(String username){
 		
@@ -20,8 +24,11 @@ public class FinanceBL {
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
-		NetHelper helper = new NetHelper("funds",params);
+		helper.setInitPara("funds", params);
 		JSONArray ret = helper.getJSONArrayByGet();
+		if (ret == null) {
+			return new ArrayList<Finance>();
+		}
 		
 //		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		for(int i=0;i<ret.length();i++){

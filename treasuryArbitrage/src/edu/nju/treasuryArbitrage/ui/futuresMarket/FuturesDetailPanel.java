@@ -56,11 +56,19 @@ public class FuturesDetailPanel extends JPanel{
 	}
 	
 	public void update(ArrayList<Arb_detail> details) {
-		update(details.get(index).getFormattedArb_detail());
+		if (index > details.size()) {
+			update(Arb_detail.nullObject());
+		} else {
+			update(details.get(index).getFormattedArb_detail());
+		}
 	}
 	
 	public void update(Arb_detail[] details) {
-		update(details[index].getFormattedArb_detail());
+		if (index > details.length) {
+			update(Arb_detail.nullObject());
+		} else {
+			update(details[index].getFormattedArb_detail());
+		}
 	}
 
 	public void update(Arb_detail arb) {
@@ -75,6 +83,7 @@ public class FuturesDetailPanel extends JPanel{
 		String changePre = change >= 0 ? "+" : "";
 		changeData.setText(changePre + String.valueOf(change) + "%");
 		changeData.setForeground(change >= 0 ? Color.RED : Color.GREEN);
+		currentPriceData.setForeground(change >= 0 ? Color.RED : Color.GREEN);
 		
 		askPriceData.setText(String.valueOf(arb.getAskPrice()));
 		askData.setText(String.valueOf(arb.getAsk()));
@@ -92,10 +101,12 @@ public class FuturesDetailPanel extends JPanel{
 		detail1Datas[6].setForeground(arb.getOpen() >= arb.getPreSettlePrice() ? Color.RED : Color.GREEN);
 		detail1Datas[7].setText(String.valueOf(arb.getLow()));
 		detail1Datas[8].setText(String.valueOf(arb.getSwing()) + "%");
+		detail1Datas[8].setToolTipText(String.valueOf(arb.getSwing()) + "%");
 		detail1Datas[9].setText(String.valueOf(arb.getLimitPrice()));
 		
 		detail2Datas[0].setText(String.valueOf(arb.getRepository()));
 		detail2Datas[1].setText(String.valueOf(arb.getFullAmount()));
+		detail2Datas[1].setToolTipText(String.valueOf(arb.getFullAmount()));
 		
 		String pre;
 		Color color;
@@ -106,7 +117,7 @@ public class FuturesDetailPanel extends JPanel{
 			pre = "+";
 			color = Color.RED;
 		} else {
-			pre = "-";
+			pre = "";
 			color = Color.GREEN;
 		}
 		detail2Datas[2].setText(pre + String.valueOf(arb.getDailyWarehouse()));
@@ -124,7 +135,6 @@ public class FuturesDetailPanel extends JPanel{
 		
 		currentPriceData.setBounds(LEFT_MARGIN, 30, width, 45);
 		currentPriceData.setHorizontalAlignment(SwingConstants.LEFT);
-		currentPriceData.setForeground(Color.RED);
 		currentPriceData.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 40));
 		currentPriceData.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(193,193,193)));
 		this.add(currentPriceData);

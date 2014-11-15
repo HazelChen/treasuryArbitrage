@@ -10,15 +10,18 @@ import edu.nju.treasuryArbitrage.model.News;
 
 
 public class NewsBL {
+	private NetHelper helper;
 	private ArrayList<News> newslist;
 	
-	public NewsBL(){}
+	public NewsBL(NetHelper helper){
+		this.helper = helper;
+	}
 	
 	public ArrayList<News> getNewsList(){
 		newslist = new ArrayList<News>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
-		NetHelper helper = new NetHelper("news",params);
+		helper.setInitPara("news", params);
 		JSONArray ret = helper.getJSONArrayByGet();
 		
 		for(int i=0;i<ret.length();i++){

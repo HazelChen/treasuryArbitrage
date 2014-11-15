@@ -11,19 +11,33 @@ import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 
 public class UpdateThread implements Runnable {
-
+	private static UpdateThread self;
+	private boolean canUpdateHoldings;
+	
+	private UpdateThread(){}
+	
+	public static UpdateThread getInstance() {
+		if (self == null) {
+			self = new UpdateThread();
+		}
+		return self;
+	}
+	
 	public void run() {
 		DataInterface dataInterface = DataInterfaceFactory.getInstance()
 				.getDataInterfaceToServer();
 		ArrayList<Arb_detail> arb_details = dataInterface.getArbDetail();
+		if (arb_details == null) {
+			arb_details = new ArrayList<Arb_detail>();
+		}
 		LiveData.getInstance().setArb_details(arb_details);
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 
 		ArbGroup arbGroup1 = new ArbGroup("TF1412", "TF1503");
 		ArbGroup arbGroup2 = new ArbGroup("TF1412", "TF1506");
 		ArrayList<ArbGroup> arbGroups = new ArrayList<>();
-		//arbGroups.add(arbGroup1);
-		//arbGroups.add(arbGroup2);
+		arbGroups.add(arbGroup1);
+		arbGroups.add(arbGroup2);
 		LiveData.getInstance().setArbGroups(arbGroups);
 		Date now = new Date();
 		int now_hour, now_min;
@@ -45,10 +59,16 @@ public class UpdateThread implements Runnable {
 					 */) {
 				runtime = true;
 				arb_details = dataInterface.getArbDetail();
+				if (arb_details == null) {
+					continue;
+				}
 				LiveData.getInstance().setArb_details(arb_details);
 
 				factory.getFuturesMarket().updatePage();
 				factory.getArbitragePortfolio().updatePage();
+				if (canUpdateHoldings) {
+					factory.getHoldings().liveUpdate();
+				}
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
@@ -77,5 +97,9 @@ public class UpdateThread implements Runnable {
 			}// end of while(!runtime)
 		}// end of while(true)
 
+	}
+
+	public void startUpdateHoldings() {
+		canUpdateHoldings = true;
 	}
 }
