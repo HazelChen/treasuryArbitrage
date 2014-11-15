@@ -227,7 +227,7 @@ public class Holdings extends JPanel implements ComponentPanel {
 				.getRepoList();// 从服务器获取数据
 		sellPrices = new double[info.size()];
 		buyPrices = new double[info.size()];
-
+		
 		Object[][] tableData = new Object[info.size()][holdHeaderData.length];
 		for (int i = 0; i < info.size(); i++) {
 			Repository repository = info.get(i);
