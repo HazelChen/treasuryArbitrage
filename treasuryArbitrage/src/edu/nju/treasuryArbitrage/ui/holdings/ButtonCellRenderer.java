@@ -1,6 +1,7 @@
 package edu.nju.treasuryArbitrage.ui.holdings;
 
 import java.awt.Component;
+import java.awt.Cursor;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -24,6 +25,8 @@ public class ButtonCellRenderer implements TableCellRenderer {
 	private void initButton() {
 		button = new JButton();
 		button.setFocusable(false);
+
+		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 //		button.setBackground(Color.white);
 //		button.setPreferredSize(new Dimension(60, 25));
 		button.setHorizontalAlignment(SwingConstants.CENTER);

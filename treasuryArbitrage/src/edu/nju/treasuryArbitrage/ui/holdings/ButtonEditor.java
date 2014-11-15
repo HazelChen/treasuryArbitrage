@@ -3,6 +3,7 @@ package edu.nju.treasuryArbitrage.ui.holdings;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -57,6 +58,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 
 	private void initButton() {
 		button = new JButton();
+		button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		button.setFocusable(false);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
