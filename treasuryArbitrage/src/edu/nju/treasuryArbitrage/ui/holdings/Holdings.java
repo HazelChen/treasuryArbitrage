@@ -3,6 +3,7 @@ package edu.nju.treasuryArbitrage.ui.holdings;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
@@ -128,7 +129,6 @@ public class Holdings extends JPanel implements ComponentPanel {
 
 		JButton doBtn = new JButton("Æ½²Ö");
 		doBtn.setFocusPainted(false);
-
 		DefaultTableModel model = new DefaultTableModel(
 				new Object[0][holdHeaderData.length], holdHeaderData) {
 			private static final long serialVersionUID = 1L;
