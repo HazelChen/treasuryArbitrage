@@ -56,11 +56,19 @@ public class FuturesDetailPanel extends JPanel{
 	}
 	
 	public void update(ArrayList<Arb_detail> details) {
-		update(details.get(index).getFormattedArb_detail());
+		if (index > details.size()) {
+			update(Arb_detail.nullObject());
+		} else {
+			update(details.get(index).getFormattedArb_detail());
+		}
 	}
 	
 	public void update(Arb_detail[] details) {
-		update(details[index].getFormattedArb_detail());
+		if (index > details.length) {
+			update(Arb_detail.nullObject());
+		} else {
+			update(details[index].getFormattedArb_detail());
+		}
 	}
 
 	public void update(Arb_detail arb) {

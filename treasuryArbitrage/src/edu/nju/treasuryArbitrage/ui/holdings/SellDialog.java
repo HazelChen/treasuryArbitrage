@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
+import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
 import edu.nju.treasuryArbitrage.model.Repository;
 
 public class SellDialog extends JDialog {
@@ -156,15 +157,16 @@ public class SellDialog extends JDialog {
 	public class ConfirmListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			SellDialog.this.setVisible(false);
-			boolean result = DataInterfaceFactory.getInstance().getDataInterfaceToServer().Trade(repository.getRepo_ID(),
-					repository.getProfit());
-			if (result == true) {
-				JOptionPane.showMessageDialog(null, "下单成功！");
+			DataInterface database = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+			boolean result = database.Trade(repository.getRepo_ID(), repository.getProfit());
+			//TODO
+			boolean cancelOrderResult = database.cancleOrder(repository.getRepo_ID());
+			if (cancelOrderResult && result) {
+				JOptionPane.showMessageDialog(null, "平仓成功！");
 			} else {
 				JOptionPane.showMessageDialog(null, "平仓失败！");
 			}
 			MajorPartsFactory.getInstance().getHoldings().updatePage();
-			// --------------------------------
 			SellDialog.this.dispose();
 		}
 	}
