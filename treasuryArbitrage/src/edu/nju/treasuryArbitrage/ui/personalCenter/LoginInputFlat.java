@@ -6,17 +6,17 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
-import edu.nju.treasuryArbitrage.logic.liveUpdate.AnalyseThread;
-import edu.nju.treasuryArbitrage.logic.liveUpdate.ThreadDiag;
 import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.ui.navigater.SettingStopParameters;
@@ -33,6 +33,9 @@ public class LoginInputFlat extends LoginInput{
 	private JPasswordField passwordField = new JPasswordField();
 	private JCheckBox readRiskWarning = new JCheckBox("已阅读风险提示");
 	private JButton okButton = new JButton("登录");
+	private JRadioButton simulationRadioButton = new JRadioButton("模拟交易");
+	private JRadioButton realRadioButton = new JRadioButton("真实交易");
+	private Label userLabel = new Label("账  号:");
 	
 	public LoginInputFlat(LoginFrame loginFrame) {
 		init();
@@ -61,11 +64,10 @@ public class LoginInputFlat extends LoginInput{
 	}
 	
 	private void assemble() {
-		Label userLabel = new Label("账号:");
 		userLabel.setFont(YAHEI_FONT);
 		userLabel.setForeground(FOREGROUND_COLOR);
-		userLabel.setBounds(10, 15, 45, 25);
-		userTextField.setBounds(60, 15, 105, 25);
+		userLabel.setBounds(10, 50, 100, 25);
+		userTextField.setBounds(115, 50, 135, 25);
 		userTextField.setFont(YAHEI_FONT);
 		this.add(userLabel);
 		this.add(userTextField);
@@ -73,20 +75,34 @@ public class LoginInputFlat extends LoginInput{
 		Label passwordLabel = new Label("密码:");
 		passwordLabel.setFont(YAHEI_FONT);
 		passwordLabel.setForeground(FOREGROUND_COLOR);
-		passwordLabel.setBounds(170, 15, 45, 25);
-		passwordField.setBounds(220, 15, 105, 25);
+		passwordLabel.setBounds(265, 50, 40, 25);
+		passwordField.setBounds(310, 50, 135, 25);
 		passwordField.setFont(YAHEI_FONT);
 		this.add(passwordLabel);
 		this.add(passwordField);
 		
 		readRiskWarning.setForeground(FOREGROUND_COLOR);
-		readRiskWarning.setBounds(330, 15, 120, 25);
-		readRiskWarning.setFont(TINY_YAHEI_FONT);
+		readRiskWarning.setBounds(400, 15, 150, 25);
+		readRiskWarning.setFont(YAHEI_FONT);
 		readRiskWarning.setBackground(BACKGROUND_COLOR);
 		this.add(readRiskWarning);
 		
-		okButton.setBounds(455, 15, 60, 25);
+		okButton.setBounds(465, 50, 60, 25);
 		this.add(okButton);
+		
+		simulationRadioButton.setFont(YAHEI_FONT);
+		realRadioButton.setFont(YAHEI_FONT);
+		simulationRadioButton.setOpaque(false);
+		realRadioButton.setOpaque(false);
+		simulationRadioButton.setSelected(true);
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(simulationRadioButton);
+		buttonGroup.add(realRadioButton);
+		
+		simulationRadioButton.setBounds(10, 15, 90, 25);
+		realRadioButton.setBounds(110, 15, 90, 25);
+		this.add(simulationRadioButton);
+		this.add(realRadioButton);
 	}
 	
 	private void addListeners(final LoginFrame loginFrame) {
@@ -137,5 +153,25 @@ public class LoginInputFlat extends LoginInput{
 				}
 			}
 		});
+		
+		simulationRadioButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				userLabel.setText("账  号:");
+				DataInterfaceFactory.getInstance().setIsSimulate(true);
+			}
+		});
+		
+		realRadioButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				userLabel.setText("CTP弘业期货:");
+				DataInterfaceFactory.getInstance().setIsSimulate(false);
+			}
+		});
+		
+		
 	}
 }

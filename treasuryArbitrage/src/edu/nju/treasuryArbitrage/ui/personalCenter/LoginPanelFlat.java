@@ -23,7 +23,7 @@ public class LoginPanelFlat extends LoginPanel{
 		this.add(logoLabel);
 		
 		LoginInput loginInput = new LoginInputFlat(loginFrame);
-		loginInput.setBounds(0, 300, 550, 50);
+		loginInput.setBounds(0, 300, 550, 75);
 		this.add(loginInput);
 	}
 }

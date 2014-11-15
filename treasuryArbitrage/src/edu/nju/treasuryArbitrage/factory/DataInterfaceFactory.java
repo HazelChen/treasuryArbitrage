@@ -5,6 +5,7 @@ import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterfaceToServer;
 
 public class DataInterfaceFactory {
 	private static DataInterfaceFactory self = new DataInterfaceFactory();
+	private boolean isSimulate;
 	
 	private DataInterfaceToServer dataInterfaceToServer;
 	
@@ -19,5 +20,9 @@ public class DataInterfaceFactory {
 	
 	public static DataInterfaceFactory getInstance() {
 		return self;
+	}
+
+	public void setIsSimulate(boolean b) {
+		this.isSimulate = b;
 	}
 }
