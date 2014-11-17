@@ -21,7 +21,6 @@ public class MyTableCellRenderer implements TableCellRenderer {
 	private JPanel panel,p2;
 
     private JTable intable;
-    private int rowN;
     private TransactionUnit[] infom;
     
     public MyTableCellRenderer(Repository[] info) {
@@ -86,11 +85,14 @@ public class MyTableCellRenderer implements TableCellRenderer {
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
-		rowN = row;
-		intable.setValueAt(infom[rowN].getToBuy().getId(), 0, 0);
-		intable.setValueAt(infom[rowN].getToBuy().getValue(), 0, 2);
-		intable.setValueAt(infom[rowN].getToSell().getId(), 1, 0);
-		intable.setValueAt(infom[rowN].getToSell().getValue(), 1, 2);
+		if (row >= infom.length) {
+			return panel;
+		}
+		
+		intable.setValueAt(infom[row].getToBuy().getId(), 0, 0);
+		intable.setValueAt(infom[row].getToBuy().getValue(), 0, 2);
+		intable.setValueAt(infom[row].getToSell().getId(), 1, 0);
+		intable.setValueAt(infom[row].getToSell().getValue(), 1, 2);
 		
 		if (row % 2 == 0)
 			intable.setBackground(Holdings.BACKGROUND_COLOR); // 设置奇数行底色 else
