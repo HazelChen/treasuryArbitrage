@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -24,7 +25,7 @@ import edu.nju.treasuryArbitrage.ui.navigater.SettingStopParameters;
 public class LoginInputFlat extends LoginInput{
 	private static final long serialVersionUID = -4223830916730143876L;
 	private static final Font YAHEI_FONT = new Font("微软雅黑", Font.PLAIN, 15);
-	private static final Font TINY_YAHEI_FONT = new Font("微软雅黑", Font.PLAIN, 13);
+//	private static final Font TINY_YAHEI_FONT = new Font("微软雅黑", Font.PLAIN, 13);
 	/*package*/ static final Color BACKGROUND_COLOR = new Color(235,242,250);
 	private static final Color FOREGROUND_COLOR = Color.BLACK;
 	
@@ -35,7 +36,7 @@ public class LoginInputFlat extends LoginInput{
 	private JButton okButton = new JButton("登录");
 	private JRadioButton simulationRadioButton = new JRadioButton("模拟交易");
 	private JRadioButton realRadioButton = new JRadioButton("真实交易");
-	private Label userLabel = new Label("账  号:");
+	private JLabel userLabel = new JLabel("账  号:");
 	
 	public LoginInputFlat(LoginFrame loginFrame) {
 		init();
@@ -167,7 +168,9 @@ public class LoginInputFlat extends LoginInput{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				userLabel.setText("CTP弘业期货:");
+				userLabel.setText("<html>" +
+						"<font color=red><b>CTP </b></font>" +
+						"弘业期货:</html>");
 				DataInterfaceFactory.getInstance().setIsSimulate(false);
 			}
 		});

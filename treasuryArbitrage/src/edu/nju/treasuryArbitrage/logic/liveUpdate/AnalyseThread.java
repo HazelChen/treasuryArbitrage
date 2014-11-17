@@ -72,7 +72,7 @@ public class AnalyseThread implements Runnable{
         Date now = new Date(); 
 		int now_hour,now_min;
 		boolean runtime = true;
-		ArbGroup arb_group = new ArbGroup(name1, name2);
+		ArbGroup arb_group = new ArbGroup(name1, name2, true);
 		//arb_groups.add(arb_group);
 		//LiveData.getInstance().setArbGroups(arb_groups);
 		
@@ -121,7 +121,7 @@ public class AnalyseThread implements Runnable{
 						if(result.length >=3 &&Integer.valueOf(String.valueOf(result[0])) != 0){
 							buyprice = Double.valueOf(String.valueOf(result[1]));
 							saleprice = Double.valueOf(String.valueOf(result[2]));
-							arb_group = new ArbGroup(name1, name2);
+							arb_group = new ArbGroup(name1, name2, true);
 							arb_groups.add(arb_group);
 							LiveData.getInstance().setArbGroups(arb_groups);
 							//µ¯³öÌáÊ¾¿ò

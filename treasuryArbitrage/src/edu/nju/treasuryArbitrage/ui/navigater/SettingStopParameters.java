@@ -35,6 +35,9 @@ public class SettingStopParameters extends JDialog{
 		if (pro != 0) {
 			stopProfitJTextField.setText(pro + "");
 			stopLossJTextField.setText(dataInterface.getPara_LOSS() + "");
+		} else {
+			stopProfitJTextField.setText("10");
+			stopLossJTextField.setText("-10");
 		}
 	}
 
@@ -88,16 +91,24 @@ public class SettingStopParameters extends JDialog{
 		JLabel stopProfitLaJLabel = new JLabel("Ö¹Ó¯µã");
 		stopProfitLaJLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
 		stopProfitLaJLabel.setBounds(50, 100, 150, 40);
-		stopProfitJTextField.setBounds(220,100, 180, 40);
+		stopProfitJTextField.setBounds(150,100, 200, 40);
+		JLabel stopPercentJLabel = new JLabel("%");
+		stopPercentJLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
+		stopPercentJLabel.setBounds(360, 100, 50, 40);
 		add(stopProfitLaJLabel);
 		add(stopProfitJTextField);
+		add(stopPercentJLabel);
 		
 		JLabel stopLossJlJLabel = new JLabel("Ö¹Ëðµã");
 		stopLossJlJLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
 		stopLossJlJLabel.setBounds(50, 150, 150, 40);
-		stopLossJTextField.setBounds(220, 150, 180, 40);
+		stopLossJTextField.setBounds(150, 150, 200, 40);
+		JLabel percentJLabel2 = new JLabel("%");
+		percentJLabel2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
+		percentJLabel2.setBounds(360, 150, 50, 40);
 		add(stopLossJlJLabel);
 		add(stopLossJTextField);
+		add(percentJLabel2);
 		
 		confirmation.setBounds(50,230,120,30);
 		cancelButton.setBounds(280,230,120,30);

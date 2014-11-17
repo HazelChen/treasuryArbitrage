@@ -1,11 +1,8 @@
 package edu.nju.treasuryArbitrage.ui.arbitragePortfolio;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -39,66 +36,24 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		tabbedPane.setForeground(Color.BLACK);
 		this.add(tabbedPane);
 		
+		internalList.addInt(new ArbGroup("TF1412", "TF1503"));
+		internalList.addInt(new ArbGroup("TF1412", "TF1506"));
+		internalList.addInt(new ArbGroup("TF1503", "TF1506"));
+		tabbedPane.add("组合一", internalList.get(0));
+		tabbedPane.add("组合二", internalList.get(1));
+		tabbedPane.add("组合三", internalList.get(2));
 		updatePage();
 	}
 	
 	@Override
 	public void updatePage() {
 		ArrayList<ArbGroup> arbGroups = LiveData.getInstance().getArbGroups();
-		if (arbGroups == null ||arbGroups.size() == 0) {
-			initEmptyPage();
-			repaint();
-			return;
+		for (int i = 0; i < arbGroups.size(); i++) {
+			ArbGroup arbGroup = arbGroups.get(i);
+			ArbitragePortfolioInternal internal = internalList.get(arbGroup);
+			internal.setGroupRecentBuy(arbGroup.isRecentBuy());
+			internal.update();
 		}
-		
-		boolean isChange = updateList(arbGroups);
-		if (!isChange) {
-			internalList.update();
-		} else {
-			tabbedPane.removeAll();
-			Iterator<ArbitragePortfolioInternal> iterator = internalList.iterator();
-			int i = 1;
-			while (iterator.hasNext()) {
-				ArbitragePortfolioInternal internal = iterator.next();
-				tabbedPane.add("组合" + arabToChinese(i), internal);
-				i++;
-			}
-			tabbedPane.repaint();
-		}
-		repaint();
+		internalList.update();
 	}
-
-	private boolean updateList(ArrayList<ArbGroup> arbGroups) {
-		boolean isChange = internalList.removeExcess(arbGroups);
-		for (ArbGroup arbGroup : arbGroups) {
-			if (!internalList.containsInt(arbGroup)) {
-				internalList.addInt(arbGroup);
-				isChange = true;
-			}
-		}
-		return isChange;
-	}
-
-	private void initEmptyPage() {
-		internalList.clear();
-		
-		JLabel label = new JLabel("目前还没有套利组合可推荐");
-		label.setFont(new Font("微软雅黑", Font.PLAIN, 18));
-		label.setForeground(Color.BLACK);
-		label.setBounds(ScreenSize.WIDTH / 2 - 150, 10, 300, 30);
-		this.add(label);
-	}
-	
-	private String arabToChinese(int i) {
-		switch (i) {
-		case 1:
-			return "一";
-		case 2:
-			return "二";
-		case 3:
-			return "三";
-		}
-		return "";
-	}
-
 }

@@ -24,6 +24,7 @@ public class ArbitragePortfolioInternal extends JPanel{
 	private TakeAOrder takeAOrder;
 	
 	private ArbGroup group;
+	private boolean isActive;
 	
 	public ArbitragePortfolioInternal(ArbGroup group) {
 		this.setGroup(group);
@@ -59,7 +60,7 @@ public class ArbitragePortfolioInternal extends JPanel{
 		detail2.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4, BORDER_COLOR));
 		this.add(detail2);
 		
-		takeAOrder = new TakeAOrder();
+		takeAOrder = new TakeAOrder(group);
 		takeAOrder.setBounds(700, underneathY, ScreenSize.WIDTH - 700, underneathHeight);
 		this.add(takeAOrder);
 	}
@@ -78,20 +79,34 @@ public class ArbitragePortfolioInternal extends JPanel{
 		spreadLineChart.addNewPrice(priceDiff);
 		detail1.update(grpArbs[0]);
 		detail2.update(grpArbs[1]);
-		takeAOrder.update(grpArbs);
+		if(isActive) {
+			takeAOrder.update(grpArbs, group.isRecentBuy());
+		}
 	}
 	
 	private Arb_detail[] getArbDetails() {
 		Arb_detail[] grpArbs = new Arb_detail[2];
 		ArrayList<Arb_detail> currentArbs = LiveData.getInstance().getArb_details();
 		for (Arb_detail arb_detail : currentArbs) {
-			if (arb_detail.getSymbol().equals(group.getTobuy())) {
+			if (arb_detail.getSymbol().equals(group.getRecent())) {
 				grpArbs[0] = arb_detail.getFormattedArb_detail();
 			}
-			if (arb_detail.getSymbol().equals(group.getTosell())) {
+			if (arb_detail.getSymbol().equals(group.getFar())) {
 				grpArbs[1] = arb_detail.getFormattedArb_detail();
 			}
 		}
 		return grpArbs;
 	}
+
+	public void setGroupRecentBuy(boolean recentBuy) {
+		group.setRecentBuy(recentBuy);
+		isActive = true;
+		takeAOrder.active();
+	}
+	
+	public void clearActive() {
+		isActive = false;
+		takeAOrder.clearActive();
+	}
+
 }

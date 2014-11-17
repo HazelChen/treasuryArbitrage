@@ -1,34 +1,44 @@
 package edu.nju.treasuryArbitrage.model;
 
 public class ArbGroup {
-	private String tobuy;
-	private String tosell;
+	private String recent;
+	private String far;
+	private boolean isRecentBuy;
 	
-	public ArbGroup(String tobuy,String tosell){
-		this.tobuy = tobuy;
-		this.tosell = tosell;
-	}
-	
-//	public ArbGroup(String buy_id,String sell_id){
-//		
-//	}
-	
-	public String getTobuy() {
-		return tobuy;
+	public ArbGroup(String recent,String far, boolean isRecentBuy){
+		this(recent, far);
+		this.isRecentBuy = isRecentBuy;
 	}
 
-	public void setTobuy(String tobuy) {
-		this.tobuy = tobuy;
+	public ArbGroup(String recent, String far) {
+		this.recent = recent;
+		this.far = far;
 	}
 
-	public String getTosell() {
-		return tosell;
+	public String getRecent() {
+		return recent;
 	}
 
-	public void setTosell(String tosell) {
-		this.tosell = tosell;
+	public void setRecent(String recent) {
+		this.recent = recent;
 	}
-	
+
+	public String getFar() {
+		return far;
+	}
+
+	public void setFar(String far) {
+		this.far = far;
+	}
+
+	public boolean isRecentBuy() {
+		return isRecentBuy;
+	}
+
+	public void setRecentBuy(boolean isRecentBuy) {
+		this.isRecentBuy = isRecentBuy;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ArbGroup)) {
@@ -36,7 +46,7 @@ public class ArbGroup {
 		}
 		
 		ArbGroup other = (ArbGroup)o;
-		if (other.tobuy.equals(this.tobuy) && other.tosell.equals(this.tosell)) {
+		if (other.recent.equals(this.recent) && other.far.equals(this.far)) {
 			return true;
 		} else {
 			return false;

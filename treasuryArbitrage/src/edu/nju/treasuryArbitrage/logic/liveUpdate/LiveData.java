@@ -9,7 +9,7 @@ import edu.nju.treasuryArbitrage.model.Arb_detail;
 public class LiveData {
 	private static LiveData self = new LiveData();
 	private ArrayList<Arb_detail> arb_details;
-	private ArrayList<ArbGroup> arbGroups;
+	private ArrayList<ArbGroup> arbGroups = new ArrayList<>();
 	
 	private LiveData(){}
 	
