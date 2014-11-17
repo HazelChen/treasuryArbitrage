@@ -18,7 +18,7 @@ public class LoginFrame extends JFrame{
 	private void init() {
 		this.setTitle(TextConstants.TITLE_CHS);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(550, 380);
+		this.setSize(550, 410);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false); 
 		this.setIconImage(new ImageIcon(LOGO_ICON_PATH).getImage());

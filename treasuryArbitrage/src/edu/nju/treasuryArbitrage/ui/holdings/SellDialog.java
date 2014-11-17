@@ -161,9 +161,7 @@ public class SellDialog extends JDialog {
 			boolean result = database.Trade(repository.getRepo_ID(), repository.getProfit());
 			//TODO
 			boolean cancelOrderResult = database.cancleOrder(repository.getRepo_ID());
-			if (cancelOrderResult && result) {
-				JOptionPane.showMessageDialog(null, "平仓成功！");
-			} else {
+			if (!(cancelOrderResult && result)) {
 				JOptionPane.showMessageDialog(null, "平仓失败！");
 			}
 			MajorPartsFactory.getInstance().getHoldings().updatePage();

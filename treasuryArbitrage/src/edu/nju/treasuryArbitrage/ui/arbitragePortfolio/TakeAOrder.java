@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 
 public class TakeAOrder extends JPanel {
@@ -54,7 +55,7 @@ public class TakeAOrder extends JPanel {
 	private double prePrice1, prePrice2, guar, restMoney;
 	private int holds;
 
-	public TakeAOrder() {
+	public TakeAOrder(ArbGroup arbGroup) {
 		this.setBackground(BACKGROUND_COLOR);
 		this.setLayout(null);
 
@@ -141,26 +142,30 @@ public class TakeAOrder extends JPanel {
 		confirm.setFont(NORMAL_FONT);
 		confirm.setForeground(FOREGROUND_COLOR);
 		confirm.addActionListener(new ConfirmListener());
+		confirm.setEnabled(false);
 
 		tfdHoldings.addKeyListener(new HoldingsListener());
 
+		name1.setText(arbGroup.getRecent());
+		name2.setText(arbGroup.getFar());
 	}
 
-	public void update(Arb_detail[] arb_details) {
-		arbGroups = arb_details;
-		Arb_detail arb1 = arb_details[0];
-		Arb_detail arb2 = arb_details[1];
-		name1.setText(arb1.getSymbol());
-		name2.setText(arb2.getSymbol());
-		dir1.setText("多头");
-		dir2.setText("空头");
-		prePrice1 = arb1.getPresentPrice();
-		prePrice2 = arb2.getPresentPrice();
+	public void update(Arb_detail[] arbGroups, boolean isRecentBuy) {
+		this.arbGroups = arbGroups;
+		if (isRecentBuy) {
+			dir1.setText("多头");
+			dir2.setText("空头");
+		} else {
+			dir1.setText("空头");
+			dir2.setText("多头");
+		}
+		prePrice1 = arbGroups[0].getPresentPrice();
+		prePrice2 = arbGroups[1].getPresentPrice();
 		price1.setText(String.valueOf(prePrice1));
 		price2.setText(String.valueOf(prePrice2));
 		calculateAndSetHands();
 	}
-
+	
 	public class HoldingsListener implements KeyListener {
 		public void keyPressed(KeyEvent e) {
 		}
@@ -223,6 +228,19 @@ public class TakeAOrder extends JPanel {
 					1));
 		}
 	}
+
+	public void clearActive() {
+		dir1.setText("");
+		dir2.setText("");
+		price1.setText("");
+		price2.setText("");
+		confirm.setEnabled(false);
+	}
+	
+	public void active() {
+		confirm.setEnabled(true);
+	}
+
 
 	/*
 	 * class ConfirmPanel extends JPanel{ private JLabel title; private JLabel

@@ -12,6 +12,10 @@ public class InternalList {
 		internals.clear();
 	}
 	
+	public ArbitragePortfolioInternal get(int i) {
+		return internals.get(i);
+	}
+	
 	public boolean containsInt(ArbGroup arbGroup) {
 		for(ArbitragePortfolioInternal internal : internals) {
 			if (internal.getGroup().equals(arbGroup)) {
@@ -26,18 +30,15 @@ public class InternalList {
 		internals.add(internal);
 	}
 	
-	public boolean removeExcess(ArrayList<ArbGroup> readTimeGroups) {
-		boolean isChange = false;
+	public void removeExcess(ArrayList<ArbGroup> readTimeGroups) {
 		Iterator<ArbitragePortfolioInternal> iterator = internals.iterator();
 		while (iterator.hasNext()) {
 			ArbitragePortfolioInternal internal = iterator.next();
 			ArbGroup group = internal.getGroup();
 			if (!readTimeGroups.contains(group)) {
-				internals.remove(internal);
-				isChange = true;
+				internal.clearActive();
 			}
 		}
-		return isChange;
 	}
 
 	public void update() {
@@ -48,5 +49,14 @@ public class InternalList {
 	
 	public Iterator<ArbitragePortfolioInternal> iterator() {
 		return internals.iterator();
+	}
+
+	public ArbitragePortfolioInternal get(ArbGroup arbGroup) {
+		for(ArbitragePortfolioInternal internal : internals) {
+			if (internal.getGroup().equals(arbGroup)) {
+				return internal;
+			}
+		}
+		return null;
 	}
 }

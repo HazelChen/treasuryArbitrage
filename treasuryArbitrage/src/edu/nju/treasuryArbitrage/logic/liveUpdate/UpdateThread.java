@@ -7,7 +7,6 @@ import java.util.Date;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
-import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 
 public class UpdateThread implements Runnable {
@@ -33,12 +32,6 @@ public class UpdateThread implements Runnable {
 		LiveData.getInstance().setArb_details(arb_details);
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
 
-		ArbGroup arbGroup1 = new ArbGroup("TF1412", "TF1503");
-		ArbGroup arbGroup2 = new ArbGroup("TF1412", "TF1506");
-		ArrayList<ArbGroup> arbGroups = new ArrayList<>();
-		arbGroups.add(arbGroup1);
-		arbGroups.add(arbGroup2);
-		LiveData.getInstance().setArbGroups(arbGroups);
 		Date now = new Date();
 		int now_hour, now_min;
 		boolean runtime = true;

@@ -3,9 +3,9 @@ package edu.nju.treasuryArbitrage.ui.holdings;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -81,7 +83,6 @@ public class Holdings extends JPanel implements ComponentPanel {
 		reposityPageLabel.setPreferredSize(new Dimension(ScreenSize.WIDTH,
 				(int) (ScreenSize.HEIGHT / 25.0)));
 
-		// TODO
 		JPanel dateChooserPanel = new JPanel();
 		dateChooserPanel.setOpaque(false);
 		JLabel timeTipLabel = new JLabel("时间:");
@@ -95,6 +96,9 @@ public class Holdings extends JPanel implements ComponentPanel {
 		dateChooserPanel.add(new JLabel("-"));
 		historyDateTo.setColumns(6);
 		dateChooserPanel.add(historyDateTo);
+		
+		historyDateFrom.getDocument().addDocumentListener(new FilterListener());
+		historyDateTo.getDocument().addDocumentListener(new FilterListener());
 
 		JPanel southHeaderPanel = new JPanel(new BorderLayout());
 		southHeaderPanel.setOpaque(false);
@@ -283,26 +287,44 @@ public class Holdings extends JPanel implements ComponentPanel {
 	}
 
 	public void updateHistory() {
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		ArrayList<Record> info = DataInterfaceFactory.getInstance()
 				.getDataInterfaceToServer().getRecordList();// 从服务器获取数据
-		Object[][] tableData = new Object[info.size()][historyHeaderData.length];
+		ArrayList<Record> showRecords = new ArrayList<>();
+		ArrayList<Object[]> increaseTableData = new ArrayList<>();
+		Date filterBegin = new Date(0);
+		Date filterEnd = new Date(32503715404257l); 
+		try {
+			filterBegin = df.parse(historyDateFrom.getText());
+			filterEnd = df.parse(historyDateTo.getText());
+		} catch (ParseException e) {
+			//do nothing
+		}
+		
 		for (int j = 0; j < info.size(); j++) {
 			Date dt = new Date(info.get(j).getTime());
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			if ((dt.before(filterBegin) || dt.after(filterEnd))) {
+				continue;
+			}
 			String time = df.format(dt);
-			tableData[j][0] = "";
-			tableData[j][1] = time;
-			tableData[j][2] = info.get(j).getCount();
-			tableData[j][3] = info.get(j).getGuarantee();
+			Object[] singleData = new Object[historyHeaderData.length];
+			singleData[0] = "";
+			singleData[1] = time;
+			singleData[2] = info.get(j).getCount();
+			singleData[3] = info.get(j).getGuarantee();
 			String state = stateResolve(info.get(j).getState());
-			tableData[j][4] = state;
+			singleData[4] = state;
+			increaseTableData.add(singleData);
+			showRecords.add(info.get(j));
 		}
+		Object[][] tableData = new Object[info.size()][historyHeaderData.length];
+		tableData = increaseTableData.toArray(tableData);
 		historyTableModel.setDataVector(tableData, historyHeaderData);
 		makeFaceOfTable(historyTable);
 		historyTable.getColumnModel().getColumn(0)
 				.setPreferredWidth(ScreenSize.WIDTH / 2);
-		Record[] records = new Record[info.size()];
-		records = info.toArray(records);
+		Record[] records = new Record[showRecords.size()];
+		records = showRecords.toArray(records);
 		historyTable.getColumnModel().getColumn(0)
 				.setCellRenderer(new MyTableCellRenderer(records));
 
@@ -369,6 +391,23 @@ public class Holdings extends JPanel implements ComponentPanel {
 			column.setCellRenderer(tcr22);
 		}
 
+	}
+	
+	private class FilterListener implements DocumentListener {
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			updateHistory();
+		}
+
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			updateHistory();
+		}
+
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			updateHistory();
+		}
 	}
 
 	public static void main(String[] args) {
