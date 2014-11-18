@@ -3,23 +3,8 @@ package edu.nju.treasuryArbitrage.logic.dataInterface;
 import java.util.ArrayList;
 import java.util.Date;
 
-import edu.nju.treasuryArbitrage.logic.biz.ArbitrageBL;
-import edu.nju.treasuryArbitrage.logic.biz.CalculateBL;
-import edu.nju.treasuryArbitrage.logic.biz.FinanceBL;
-import edu.nju.treasuryArbitrage.logic.biz.MessContainerBL;
-import edu.nju.treasuryArbitrage.logic.biz.NetHelper;
-import edu.nju.treasuryArbitrage.logic.biz.NewsBL;
-import edu.nju.treasuryArbitrage.logic.biz.RecordBL;
-import edu.nju.treasuryArbitrage.logic.biz.RepositoryBL;
-import edu.nju.treasuryArbitrage.logic.biz.TradeBL;
-import edu.nju.treasuryArbitrage.logic.biz.UserBL;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
-import edu.nju.treasuryArbitrage.model.Finance;
-import edu.nju.treasuryArbitrage.model.Message;
-import edu.nju.treasuryArbitrage.model.News;
-import edu.nju.treasuryArbitrage.model.Record;
-import edu.nju.treasuryArbitrage.model.Repository;
-import edu.nju.treasuryArbitrage.model.UserVO;
+import edu.nju.treasuryArbitrage.logic.biz.*;
+import edu.nju.treasuryArbitrage.model.*;
 
 public class DataInterfaceToServer implements DataInterface {
 
@@ -161,6 +146,11 @@ public class DataInterfaceToServer implements DataInterface {
 		return arbtbl.getDetailList();
 	}
 
+	@Override
+	public ArrayList<Arb_brief> getArbBrief(String symbol){
+		return arbtbl.getBriefList(symbol);
+	}
+	
 	@Override
 	public boolean Order(String More_contract,
 			String Blank_contract, double more_price, double blank_price,
