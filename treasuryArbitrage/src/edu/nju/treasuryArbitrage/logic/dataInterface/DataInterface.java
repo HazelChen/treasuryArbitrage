@@ -3,6 +3,7 @@ package edu.nju.treasuryArbitrage.logic.dataInterface;
 import java.util.ArrayList;
 import java.util.Date;
 
+import edu.nju.treasuryArbitrage.model.Arb_brief;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.Finance;
 import edu.nju.treasuryArbitrage.model.Message;
@@ -40,6 +41,7 @@ public interface DataInterface {
 	public boolean setPara(double PROF,double LOSS,double GUAR);
 	
 	public ArrayList<Arb_detail> getArbDetail();
+	public ArrayList<Arb_brief> getArbBrief(String symbol);
 	
 	public boolean Order(String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee);
 	public boolean cancleOrder(int Record_ID);

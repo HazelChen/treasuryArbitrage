@@ -10,12 +10,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import edu.nju.treasuryArbitrage.model.ArbGroup;
+import edu.nju.treasuryArbitrage.model.Arb_brief;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 
 
 public class ArbitrageBL {
 	
 	private ArrayList<Arb_detail> detail_list;
+	private ArrayList<Arb_brief> brief_list;
 	private ArrayList<ArbGroup> group_list;
 	
 	private NetHelper helper;
@@ -141,4 +143,27 @@ public class ArbitrageBL {
 		double result = Double.parseDouble(temp);
 		return result;
 	}
+	
+	public ArrayList<Arb_brief> getBriefList(String symbol){
+		brief_list = new ArrayList<Arb_brief>();
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("CODE", symbol);
+		helper.setInitPara("olddetail", params);
+		JSONArray ret = helper.getJSONArrayByGet();
+		
+		if (ret == null) {
+			return null;
+		}
+		for(int i=0;i<ret.length();i++){
+			JSONObject temp = ret.getJSONObject(i);
+			String time = temp.getString("RT_TIME");
+			double price = temp.getDouble("RT_LAST");
+			Arb_brief brief = new Arb_brief(symbol,time,price);
+			brief_list.add(brief);
+		}
+		
+		return brief_list;
+	}
+	
 }
