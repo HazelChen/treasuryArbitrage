@@ -56,7 +56,7 @@ public class FuturesDetailPanel extends JPanel{
 	}
 	
 	public void update(ArrayList<Arb_detail> details) {
-		if (index > details.size()) {
+		if (index > details.size() - 1) {
 			update(Arb_detail.nullObject());
 		} else {
 			update(details.get(index).getFormattedArb_detail());

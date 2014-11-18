@@ -22,8 +22,6 @@ public class MajorPartsFactory {
 	private PersonalCenter personalCenter;
 	private SettingStopParameters settingStopParameters;
 	
-	private MajorPartsFactory(){}
-	
 	public static MajorPartsFactory getInstance() {
 		if (self == null) {
 			self = new MajorPartsFactory();

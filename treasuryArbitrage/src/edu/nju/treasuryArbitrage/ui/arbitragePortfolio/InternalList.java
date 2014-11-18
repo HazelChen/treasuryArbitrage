@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import edu.nju.treasuryArbitrage.model.ArbGroup;
+import edu.nju.treasuryArbitrage.model.Arb_brief;
 
 public class InternalList {
 	private ArrayList<ArbitragePortfolioInternal> internals = new ArrayList<>();
@@ -25,8 +26,8 @@ public class InternalList {
 		return false;
 	}
 	
-	public void addInt(ArbGroup arbGroup) {
-		ArbitragePortfolioInternal internal = new ArbitragePortfolioInternal(arbGroup);
+	public void addInt(ArbGroup arbGroup, ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
+		ArbitragePortfolioInternal internal = new ArbitragePortfolioInternal(arbGroup, histroy1, histroy2);
 		internals.add(internal);
 	}
 	

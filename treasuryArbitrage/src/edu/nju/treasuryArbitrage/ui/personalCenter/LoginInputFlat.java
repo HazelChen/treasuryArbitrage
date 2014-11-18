@@ -124,11 +124,15 @@ public class LoginInputFlat extends LoginInput{
 					
 					LoginedUser.setLoginedUser(username);
 					
+					try {
+						Thread.sleep(3000);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
 					TreasuryFrame frame = new TreasuryFrame();
 					loginFrame.setVisible(false);
 					frame.setVisible(true);
 					loginFrame.dispose();
-					frame.analyseThread.start();//开始模型计算分析线程
 					
 					double para = dataInterface.getPara_PROF(); 
 					if (para == 0) {

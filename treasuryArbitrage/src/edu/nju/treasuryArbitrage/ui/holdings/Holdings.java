@@ -26,8 +26,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.Record;
 import edu.nju.treasuryArbitrage.model.Repository;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
@@ -201,30 +199,14 @@ public class Holdings extends JPanel implements ComponentPanel {
 	public void liveUpdate() {
 		for (int i = 0; i < info.size(); i++) {
 			Repository repository = info.get(i);
-			Arb_detail buyArb = getLiveArb_detail(repository.getToBuy());
-			Arb_detail sellArb = getLiveArb_detail(repository.getToSell());
-			double profit = (sellArb.getPresentPrice()
-					- repository.gettoBuy_price()
-					+ repository.gettoSell_price() - buyArb.getPresentPrice())
-					* repository.getCount() * 10000;
-			double formatProfit = (int) (profit * 1000) / 1000.0;
-			repository.setProfit(formatProfit);
-			sellPrices[i] = sellArb.getPresentPrice();
-			buyPrices[i] = buyArb.getPresentPrice();
-			hTable.setValueAt(formatProfit, i, 4);
+			repository.update();
+			sellPrices[i] = repository.getSellPrecentPrice();
+			buyPrices[i] = repository.getBuyPrecentPrice();
+			hTable.setValueAt(repository.getFormatProfit(), i, 4);
 		}
 	}
 
-	private Arb_detail getLiveArb_detail(String symble) {
-		ArrayList<Arb_detail> arb_details = LiveData.getInstance()
-				.getArb_details();
-		for (Arb_detail arb_detail : arb_details) {
-			if (arb_detail.getSymbol().equals(symble)) {
-				return arb_detail;
-			}
-		}
-		return null;
-	}
+	
 
 	public void updatePage() {
 		// 更新持仓情况页面显示
@@ -249,23 +231,13 @@ public class Holdings extends JPanel implements ComponentPanel {
 			tableData[i][1] = time;
 			tableData[i][2] = repository.getCount();
 			tableData[i][3] = repository.getGuarantee();
-
-			Arb_detail buyArb = getLiveArb_detail(repository.getToBuy());
-			Arb_detail sellArb = getLiveArb_detail(repository.getToSell());
-			if (buyArb == null || sellArb == null) {
-				tableData[i][4] = "";
-			} else {
-				double profit = (sellArb.getPresentPrice()
-						- repository.gettoBuy_price()
-						+ repository.gettoSell_price() - buyArb
-							.getPresentPrice()) * repository.getCount() * 10000;
-				double formatProfit = (int) (profit * 1000) / 1000.0;
-				repository.setProfit(formatProfit);
-				sellPrices[i] = sellArb.getPresentPrice();
-				buyPrices[i] = buyArb.getPresentPrice();
-				tableData[i][4] = formatProfit;
-				tableData[i][5] = "";
-			}
+			tableData[i][4] = "";
+			
+			repository.update();
+			sellPrices[i] = repository.getSellPrecentPrice();
+			buyPrices[i] = repository.getBuyPrecentPrice();
+			tableData[i][4] = repository.getFormatProfit();
+			tableData[i][5] = "";
 		}
 		repoTableModel.setDataVector(tableData, holdHeaderData);
 		makeFaceOfTable(hTable);

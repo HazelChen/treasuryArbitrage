@@ -17,6 +17,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.model.Arb_brief;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
@@ -44,33 +45,35 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	}
 
 	private void addListeners() {
-		futuersTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				int r = futuersTable.getSelectedRow();
-				if (r == -1) {
-					return;
-				}
-				detailPanel.setDetail(r);
-				detailPanel.update(arb_details[r].getFormattedArb_detail());
-				for (int i = 0; i < charts.length; i++) {
-					charts[i].setVisible(false);
-				}
-				charts[r].setVisible(true);
-			}
-		});
-		
+		futuersTable.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener() {
+
+					@Override
+					public void valueChanged(ListSelectionEvent e) {
+						int r = futuersTable.getSelectedRow();
+						if (r == -1) {
+							return;
+						}
+						detailPanel.setDetail(r);
+						detailPanel.update(arb_details[r]
+								.getFormattedArb_detail());
+						for (int i = 0; i < charts.length; i++) {
+							charts[i].setVisible(false);
+						}
+						charts[r].setVisible(true);
+					}
+				});
+
 	}
 
 	private void init() {
 		this.setLayout(null);
 		this.setBackground(Color.BLACK);
-		
-		for (int i = 0;i < arb_details.length; i++) {
+
+		for (int i = 0; i < arb_details.length; i++) {
 			arb_details[i] = Arb_detail.nullObject();
 		}
-		
+
 		ArrayList<Arb_detail> result = LiveData.getInstance().getArb_details();
 		if (result == null) {
 			return;
@@ -92,7 +95,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 					arb.getAskPrice(), arb.getAsk(), arb.getVol(),
 					arb.getRepository(), arb.getDailyWarehouse(),
 					arb.getPreSettlePrice(), arb.getOpen(), arb.getHigh(),
-					arb.getLow(), arb.getClock()};
+					arb.getLow(), arb.getClock() };
 			preSettlePrices[i] = arb.getPreSettlePrice();
 		}
 
@@ -130,7 +133,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		futuersTable.setForeground(Color.WHITE);
 		futuersTable.setSelectionBackground(new Color(89, 69, 61));
 		futuersTable.setSelectionForeground(Color.WHITE);
-		
+
 		JTableHeader header = futuersTable.getTableHeader();
 		header.setBackground(Color.BLACK);
 		header.setForeground(ColorConstants.BRIGHT_BLUE);
@@ -160,19 +163,22 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	}
 
 	private void setColomnCompareWithPreSettle(int i) {
-		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {   
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 3126419784517343739L;
 
 			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value,
-					boolean isSelected, boolean hasFocus, int row, int column) {
+			public Component getTableCellRendererComponent(JTable table,
+					Object value, boolean isSelected, boolean hasFocus,
+					int row, int column) {
 				if (value instanceof Double) {
-					double valueDouble = ((Double) value).doubleValue();   
-					setForeground(valueDouble >= preSettlePrices[row] ? Color.RED : Color.GREEN); 
+					double valueDouble = ((Double) value).doubleValue();
+					setForeground(valueDouble >= preSettlePrices[row] ? Color.RED
+							: Color.GREEN);
 				}
-				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				return super.getTableCellRendererComponent(table, value,
+						isSelected, hasFocus, row, column);
 			}
-        };   
+		};
 		futuersTable.getColumn(headerData[i]).setCellRenderer(renderer);
 	}
 
@@ -182,44 +188,51 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);
 		return renderer;
 	}
-	
+
 	private DefaultTableCellRenderer setColomnColorWithIsRed(int index) {
-		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {   
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 3126419784517343739L;
 
 			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value,
-					boolean isSelected, boolean hasFocus, int row, int column) {
-				setForeground((isPresentPriceRed[row]) ? Color.RED : Color.GREEN); 
-				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			public Component getTableCellRendererComponent(JTable table,
+					Object value, boolean isSelected, boolean hasFocus,
+					int row, int column) {
+				setForeground((isPresentPriceRed[row]) ? Color.RED
+						: Color.GREEN);
+				return super.getTableCellRendererComponent(table, value,
+						isSelected, hasFocus, row, column);
 			}
-        };   
+		};
 		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);
 		return renderer;
 	}
-	
-	private DefaultTableCellRenderer setColomnColorWithPositiveAndNegative(int index) {
-		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {   
+
+	private DefaultTableCellRenderer setColomnColorWithPositiveAndNegative(
+			int index) {
+		DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
-			public Component getTableCellRendererComponent(JTable table, Object value,
-					boolean isSelected, boolean hasFocus, int row, int column) {
+			public Component getTableCellRendererComponent(JTable table,
+					Object value, boolean isSelected, boolean hasFocus,
+					int row, int column) {
 				double valueDouble = 0.0;
 				if (value instanceof String) {
-					String valueString = (String)value;
-					String formattedValueString = valueString.substring(0, valueString.length() - 1);
+					String valueString = (String) value;
+					String formattedValueString = valueString.substring(0,
+							valueString.length() - 1);
 					valueDouble = Double.parseDouble(formattedValueString);
-					setText((value == null) ? "" : value.toString() + "%"); 
+					setText((value == null) ? "" : value.toString() + "%");
 				} else if (value instanceof Double) {
-					valueDouble = ((Double) value).doubleValue();   
-					setText((value == null) ? "" : value.toString());   
+					valueDouble = ((Double) value).doubleValue();
+					setText((value == null) ? "" : value.toString());
 				}
-				setForeground((valueDouble  >= 0) ? Color.RED : Color.GREEN); 
+				setForeground((valueDouble >= 0) ? Color.RED : Color.GREEN);
 				isPresentPriceRed[row] = (valueDouble >= 0);
-				return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+				return super.getTableCellRendererComponent(table, value,
+						isSelected, hasFocus, row, column);
 			}
-        };   
+		};
 		futuersTable.getColumn(headerData[index]).setCellRenderer(renderer);
 		return renderer;
 	}
@@ -232,17 +245,20 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 
 		int detailPanelWidth = 350;
 		int detailPanelHeight = ScreenSize.HEIGHT - 170;
-		detailPanel = new FuturesDetailPanel(detailPanelWidth, detailPanelHeight);
+		detailPanel = new FuturesDetailPanel(detailPanelWidth,
+				detailPanelHeight);
 		detailPanel.setDetail(0);
 		detailPanel.update(arb_details[0].getFormattedArb_detail());
-		detailPanel.setBounds(0, 160, detailPanelWidth,detailPanelHeight);
-		detailPanel.setBounds(ScreenSize.WIDTH - detailPanelWidth, 160, detailPanelWidth,detailPanelHeight);
+		detailPanel.setBounds(0, 160, detailPanelWidth, detailPanelHeight);
+		detailPanel.setBounds(ScreenSize.WIDTH - detailPanelWidth, 160,
+				detailPanelWidth, detailPanelHeight);
 		this.add(detailPanel);
 
 		for (int i = 0; i < charts.length; i++) {
 			charts[i].setBounds(0, 160, ScreenSize.WIDTH - detailPanelWidth,
 					ScreenSize.HEIGHT - 220);
-			charts[i].setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4, new Color(193,193,193)));
+			charts[i].setBorder(BorderFactory.createMatteBorder(0, 0, 0, 4,
+					new Color(193, 193, 193)));
 			this.add(charts[i]);
 		}
 
@@ -253,8 +269,23 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 
 	private void initCharts() {
 		charts[0] = new LineChart(Color.YELLOW);
+		charts[0].setYRange(95.0, 97.0);
 		charts[1] = new LineChart(ColorConstants.BRIGHT_BLUE);
+		charts[1].setYRange(95.0, 97.0);
 		charts[2] = new LineChart(Color.WHITE);
+		charts[2].setYRange(95.0, 97.0);
+
+		initPoints(0, LiveData.getInstance().getBriefsTF1412());
+		initPoints(1, LiveData.getInstance().getBriefsTF1503());
+		initPoints(2, LiveData.getInstance().getBriefsTF1506());
+
+	}
+
+	private void initPoints(int index, final ArrayList<Arb_brief> arb_briefs) {
+		for (int j = 0; j < arb_briefs.size(); j++) {
+			Arb_brief brief = arb_briefs.get(j);
+			charts[index].addNewPrice(brief.getTodayDate(), brief.getPrice());
+		}
 	}
 
 	@Override

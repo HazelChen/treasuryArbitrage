@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
+import edu.nju.treasuryArbitrage.model.Arb_brief;
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
@@ -26,10 +27,10 @@ public class ArbitragePortfolioInternal extends JPanel{
 	private ArbGroup group;
 	private boolean isActive;
 	
-	public ArbitragePortfolioInternal(ArbGroup group) {
+	public ArbitragePortfolioInternal(ArbGroup group, ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
 		this.setGroup(group);
 		init();
-		initComponents();
+		initComponents(histroy1, histroy2);
 		assemble();
 	}
 	
@@ -38,10 +39,17 @@ public class ArbitragePortfolioInternal extends JPanel{
 		setLayout(null);
 	}
 
-	private void initComponents() {
+	private void initComponents(ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
 		spreadLineChart.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, BORDER_COLOR));
-		spreadLineChart.setYRange(-5.0, 5.0);
+//		spreadLineChart.setYRange(-1.5, 1.5);
 		spreadLineChart.setTitle("¼Û²î×ßÊÆ");
+		
+		int size = Math.min(histroy1.size(), histroy2.size());
+		for (int i = 0; i < size; i++) {
+			Arb_brief point1 = histroy1.get(i);
+			Arb_brief point2 = histroy2.get(i);
+			spreadLineChart.addNewPrice(point1.getTodayDate(), point2.getPrice() - point1.getPrice());
+ 		}
 	}
 	
 	private void assemble() {

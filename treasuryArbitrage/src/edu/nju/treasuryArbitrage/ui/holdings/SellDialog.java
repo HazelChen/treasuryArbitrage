@@ -145,8 +145,8 @@ public class SellDialog extends JDialog {
 	public void update() {
 		name1.setText(repository.getToBuy());
 		name2.setText(repository.getToSell());
-		dir1.setText("多头");
-		dir2.setText("空头");
+		dir1.setText("空头");
+		dir2.setText("多头");
 		price1.setText(String.valueOf(prePrice1));
 		price2.setText(String.valueOf(prePrice2));
 		hld.setText(repository.getCount() + "手");

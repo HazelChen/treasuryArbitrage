@@ -58,16 +58,17 @@ public class LineChart extends JPanel {
 	}
 	
 	public void addNewPrice(double newPrice) {
-//		Calendar calendar = Calendar.getInstance();
-//		calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) - 8);
-//		timeseries.addOrUpdate(new Second(calendar.getTime()), newPrice);
 		timeseries.addOrUpdate(new Second(new Date()), newPrice);
 	}
 	
+	public void addNewPrice(Date date, double newPrice) {
+		timeseries.addOrUpdate(new Second(date), newPrice);
+	}
+	
 	public void setYRange(double low, double high) {
-		/*XYPlot xyplot = jfreechart.getXYPlot();
+		XYPlot xyplot = jfreechart.getXYPlot();
 		NumberAxis yAxis = (NumberAxis) xyplot.getRangeAxis();
-		yAxis.setRange(low, high);*/
+		yAxis.setRange(low, high);
 	}
 	
 	public void setTitle(String title) {
@@ -111,8 +112,8 @@ public class LineChart extends JPanel {
 		NumberAxis yAxis = (NumberAxis) xyplot.getRangeAxis();
 		yAxis.setAxisLinePaint(Color.RED);
 		yAxis.setTickLabelPaint(new Color(255,43,28));
-		//TODO
-//		yAxis.setRange(90.0, 100.0);
+		
+//		yAxis.setRange(95.0, 97.0);
 		
 		//Í¼Àý
 		jfreechart.getLegend().setVisible(false);

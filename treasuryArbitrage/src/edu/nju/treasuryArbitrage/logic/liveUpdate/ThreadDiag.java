@@ -2,7 +2,6 @@ package edu.nju.treasuryArbitrage.logic.liveUpdate;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -19,222 +18,222 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
-import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 
-public class ThreadDiag extends JDialog{
-	/**
-	 * 提示框
-	 */
+/**
+ * 提示框
+ */
+public class ThreadDiag extends JDialog {
 	private static final long serialVersionUID = -5251697653622360445L;
-	private ThreadDiag curdg2 = this;
-	String Message[] = {"",""};
 	JLabel information;
-	JPanel panel,con;
+	JPanel panel;
 	MsgDgML listener;
-	private JButton btnY,btnN;
+	private JButton btnY, btnN;
 	MyButtonUI btnUI = new MyButtonUI();
-	
-	public ThreadDiag(String message){
-		Message[1] = message.substring(0,1);//to do  (O for open or C for close)
-		Message[0] = message.substring(1,message.length());//title
-		setUndecorated(false);
+
+	public ThreadDiag(String message, final boolean isOpen) {
+
 		this.setTitle("消息");
-    	setBackground(Color.WHITE);
-    	setMaximumSize(new Dimension(383,150));
-    	setMinimumSize(new Dimension(383,150));
-        this.setLocation((ScreenSize.WIDTH - this.getWidth())/2,
-        		(ScreenSize.HEIGHT - this.getHeight())/2);
+		this.getContentPane().setBackground(Navigater.BACKGROUND_COLOR);
+		setMaximumSize(new Dimension(400, 150));
+		setMinimumSize(new Dimension(400, 150));
+		this.setLocationRelativeTo(null);
 		setResizable(false);
-		setModal(false);//
-		
+		setModal(true);
+
 		btnY = new JButton("是");
 		btnY.setFocusable(true);
 		btnY.setBackground(Color.white);
-        btnY.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        //setDefaultButton(btnY);
-        btnY.requestFocus();
-        btnY.requestDefaultFocus();
-        btnY.requestFocus(true);
-        btnY.requestFocusInWindow();
-        btnY.setUI(btnUI);
-        btnN = new JButton("否");
+		btnY.setUI(btnUI);
+		btnN = new JButton("否");
 		btnN.setFocusable(true);
 		btnN.setBackground(Color.white);
-        btnN.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnN.setUI(btnUI);
-        information = new JLabel(Message[0]);
-		Font titlef=new Font("宋体",Font.BOLD,15);
+		btnN.setUI(btnUI);
+		information = new JLabel(message);
+		Font titlef = new Font("微软雅黑", Font.BOLD, 15);
 		information.setFont(titlef);
-		con = new JPanel();
 		panel = new JPanel();
+		panel.setOpaque(false);
 		panel.setLayout(new BorderLayout());
 		JPanel p1 = new JPanel();
+		p1.setOpaque(false);
 		JPanel invp = new JPanel();
-		invp.setPreferredSize(new Dimension(383,30));
-		p1.add(invp,BorderLayout.CENTER);
-		p1.add(information,BorderLayout.SOUTH);
-		panel.add(p1,"Center");
-		JPanel p2 = new JPanel();
-		p2.add(btnY,BorderLayout.WEST);
-		p2.add(btnN,BorderLayout.EAST);
-		p2.setPreferredSize(new Dimension(383,60));
-		panel.add(p2,"South");
-		panel.setPreferredSize(new Dimension(383,150));
-		con.add(panel,BorderLayout.CENTER);
-		
+		invp.setOpaque(false);
+		invp.setPreferredSize(new Dimension(383, 30));
+		p1.add(invp, BorderLayout.CENTER);
+		p1.add(information, BorderLayout.SOUTH);
+		panel.add(p1, BorderLayout.CENTER);
+		JPanel p2 = new JPanel(null);
+		p2.setOpaque(false);
+		btnY.setBounds(80, 15, 50, 30);
+		btnN.setBounds(200, 15, 50, 30);
+		p2.add(btnY);
+		p2.add(btnN);
+		p2.setPreferredSize(new Dimension(383, 60));
+		panel.add(p2, BorderLayout.SOUTH);
+		panel.setPreferredSize(new Dimension(383, 150));
+
 		listener = new MsgDgML();
-		//btnY.addMouseListener(listener);
-		//btnN.addMouseListener(listener);
-		btnY.addActionListener(new ActionListener(){
+		btnY.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				curdg2.setVisible(false);
-				if(ThreadDiag.this.Message[1].equals("Open"))
-					go2ArbitragePortfolio();//跳转到套利组合
-				else if(ThreadDiag.this.Message[1].equals("Close"))
+				ThreadDiag.this.setVisible(false);
+				if (isOpen) {
+					go2ArbitragePortfolio();// 跳转到套利组合
+				} else {
 					go2Holdings();
-				curdg2.dispose();
+				}
+				ThreadDiag.this.dispose();
 			}
-			
+
 		});
-		btnY.addKeyListener(new KeyListener(){
-			public void keyTyped(KeyEvent e) {}
+		btnY.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
+			}
+
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) { 
-					if(btnY.isFocusOwner()){
-						curdg2.setVisible(false);
-						if(ThreadDiag.this.Message[1].equals("O"))
-							go2ArbitragePortfolio();//跳转到套利组合
-						else if(ThreadDiag.this.Message[1].equals("C"))
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if (btnY.isFocusOwner()) {
+						ThreadDiag.this.setVisible(false);
+						if (isOpen) {
+							go2ArbitragePortfolio();// 跳转到套利组合
+						} else {
 							go2Holdings();
+						}
 					}
-				} 
+				}
 			}
-			public void keyReleased(KeyEvent e) {}
+
+			public void keyReleased(KeyEvent e) {
+			}
 		});
-		btnN.addActionListener(new ActionListener(){
+		btnN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				curdg2.setVisible(false);
+				ThreadDiag.this.setVisible(false);
 			}
-			
+
 		});
-		btnN.addKeyListener(new KeyListener(){
-			public void keyTyped(KeyEvent e) {}
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) { 
-					if(btnN.isFocusOwner()){
-						curdg2.setVisible(false);
-					}
-				} 
+		btnN.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {
 			}
-			public void keyReleased(KeyEvent e) {}
+
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if (btnN.isFocusOwner()) {
+						ThreadDiag.this.setVisible(false);
+					}
+				}
+			}
+
+			public void keyReleased(KeyEvent e) {
+			}
 		});
 
-		add(con);
-		this.setVisible(false);
-		this.pack();
+		this.add(panel);
 	}
-	public void go2ArbitragePortfolio()
-	{
+
+	public void go2ArbitragePortfolio() {
 		Navigater navigater = MajorPartsFactory.getInstance().getNavigater();
 		navigater.setArbitragePortfolioSelected();
 	}
-	
-	public void go2Holdings()
-	{
+
+	public void go2Holdings() {
 		Navigater navigater = MajorPartsFactory.getInstance().getNavigater();
 		navigater.setHoldingsSelected();
 	}
-	
-	public Object getBtnY(){
+
+	public Object getBtnY() {
 		return this.btnY;
 	}
-	class MsgDgML implements MouseListener{
+
+	class MsgDgML implements MouseListener {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if(e.getSource() == btnN){
-				curdg2.setVisible(false);
-				//curdg2.dispose();
-			}
-			else if(e.getSource() == btnY){
-				//跳转到套利组合页面
-				curdg2.setVisible(false);
+			if (e.getSource() == btnN) {
+				ThreadDiag.this.setVisible(false);
+				// curdg2.dispose();
+			} else if (e.getSource() == btnY) {
+				// 跳转到套利组合页面
+				ThreadDiag.this.setVisible(false);
 				go2ArbitragePortfolio();
 			}
 		}
 
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}
-    	
-    }
-	
-	
+		public void mousePressed(MouseEvent e) {
+		}
+
+		public void mouseReleased(MouseEvent e) {
+		}
+
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		public void mouseExited(MouseEvent e) {
+		}
+
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		 
+
 		JFrame frame = new JFrame();
 		frame.setVisible(true);
 		JButton b = new JButton("打开对话框");
-		frame.getContentPane().setSize(100, 100);
-		b.setPreferredSize(new Dimension(100,100));
+		frame.setSize(100, 100);
+		b.setPreferredSize(new Dimension(100, 100));
 
 		frame.getContentPane().add(b);
 
-		b.addActionListener(new ActionListener(){
+		b.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ThreadDiag d = new ThreadDiag("O有重大套利机会！\r\n马上前往套利组合页面查看？"); 
-				d.show();
+				ThreadDiag d = new ThreadDiag("有重大套利机会！\r\n马上前往套利组合页面查看？", true);
+				d.setVisible(true);
 			}
 		});
-		
-		//(new ThreadDiag(null,test,"提示")).start();//启动等待提示框线程
 	}
-	
+
 }
 
-//public class ThreadDiag extends Thread
-//{
-//	private Thread currentThread = null;//实际调用时就是TestThread事务处理线程
-//	private String messages = "";//提示框的提示信息
-//	private JFrame parentFrame = null;//提示框的父窗体
-//	private JDialog clueDiag = null;// 提示框
-//	private Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
-//	private int width = dimensions.width / 4, height = 60;
-//	private int left = 0, top = 0;
-//	public ThreadDiag(JFrame parentFrame, Thread currentThread, String messages)
-//	{
-//		this.parentFrame = parentFrame;
-//		this.currentThread = currentThread;
-//		this.messages = messages;
-//		initDiag();//初始化提示框
-//	}
-//	  protected void initDiag()
-//	{
-//		clueDiag = new JDialog(parentFrame,"提示",true);
-//		JPanel testPanel = new JPanel();
-//		JLabel testLabel = new JLabel(messages);
-//		JButton btnY = new JButton("是"),btnN = new JButton("否");
-//		clueDiag.getContentPane().add(testPanel);
-//		testPanel.add(testLabel);
-//		testPanel.add(btnY);
-//		testPanel.add(btnN);
-//	}
-//    public void run()
-//	{
-//		//显示提示框
-//		int left = (dimensions.width - width)/2;
-//		int top = (dimensions.height - height)/2;
-//		clueDiag.setSize(new Dimension(width,height));
-//		clueDiag.setLocation(left, top);
-//		clueDiag.show();
-//		//JOptionPane.showMessageDialog(null, "有重大套利机会！立刻前往套利组合页面下单？");
-//	}
-//    public JDialog getDiag(){
-//    	return clueDiag;
-//    }
-//}; 
+// public class ThreadDiag extends Thread
+// {
+// private Thread currentThread = null;//实际调用时就是TestThread事务处理线程
+// private String messages = "";//提示框的提示信息
+// private JFrame parentFrame = null;//提示框的父窗体
+// private JDialog clueDiag = null;// 提示框
+// private Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
+// private int width = dimensions.width / 4, height = 60;
+// private int left = 0, top = 0;
+// public ThreadDiag(JFrame parentFrame, Thread currentThread, String messages)
+// {
+// this.parentFrame = parentFrame;
+// this.currentThread = currentThread;
+// this.messages = messages;
+// initDiag();//初始化提示框
+// }
+// protected void initDiag()
+// {
+// clueDiag = new JDialog(parentFrame,"提示",true);
+// JPanel testPanel = new JPanel();
+// JLabel testLabel = new JLabel(messages);
+// JButton btnY = new JButton("是"),btnN = new JButton("否");
+// clueDiag.getContentPane().add(testPanel);
+// testPanel.add(testLabel);
+// testPanel.add(btnY);
+// testPanel.add(btnN);
+// }
+// public void run()
+// {
+// //显示提示框
+// int left = (dimensions.width - width)/2;
+// int top = (dimensions.height - height)/2;
+// clueDiag.setSize(new Dimension(width,height));
+// clueDiag.setLocation(left, top);
+// clueDiag.show();
+// //JOptionPane.showMessageDialog(null, "有重大套利机会！立刻前往套利组合页面下单？");
+// }
+// public JDialog getDiag(){
+// return clueDiag;
+// }
+// };

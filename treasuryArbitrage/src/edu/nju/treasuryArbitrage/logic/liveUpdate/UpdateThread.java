@@ -2,7 +2,6 @@ package edu.nju.treasuryArbitrage.logic.liveUpdate;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
@@ -30,16 +29,15 @@ public class UpdateThread implements Runnable {
 			arb_details = new ArrayList<Arb_detail>();
 		}
 		LiveData.getInstance().setArb_details(arb_details);
+		LiveData.getInstance().setBriefsTF1412(dataInterface.getArbBrief("TF1412"));
+		LiveData.getInstance().setBriefsTF1503(dataInterface.getArbBrief("TF1503"));
+		LiveData.getInstance().setBriefsTF1506(dataInterface.getArbBrief("TF1506"));
+		
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();
-
-		Date now = new Date();
 		int now_hour, now_min;
 		boolean runtime = true;
-
 		while (true) {
 			Calendar calendar = Calendar.getInstance();
-			now = new Date();
-			calendar.setTime(now);
 			now_hour = calendar.get(Calendar.HOUR_OF_DAY);
 			now_min = calendar.get(Calendar.MINUTE);
 			// 交易时间 9:15-11:30、13:00-15:15
@@ -72,8 +70,7 @@ public class UpdateThread implements Runnable {
 			}
 			// 休市时间，线程休眠
 			while (!runtime) {
-				now = new Date();
-				calendar.setTime(now);
+				calendar = Calendar.getInstance();
 				now_hour = calendar.get(Calendar.HOUR_OF_DAY);
 				now_min = calendar.get(Calendar.MINUTE);
 				// 稍微提前一段时间启动

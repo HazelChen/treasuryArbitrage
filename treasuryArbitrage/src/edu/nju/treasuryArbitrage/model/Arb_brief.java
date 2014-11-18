@@ -1,5 +1,10 @@
 package edu.nju.treasuryArbitrage.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Arb_brief {
 	String symbol;
 	String time;
@@ -9,6 +14,26 @@ public class Arb_brief {
 		this.symbol = symbol;
 		this.time = time;
 		this.price = price;
+	}
+	
+	public Date getTodayDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");
+		Date date = new Date();
+		try {
+			Date aDayDate = dateFormat.parse(time);
+			Calendar aDayCalendar = Calendar.getInstance();
+			aDayCalendar.setTime(aDayDate);
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.HOUR_OF_DAY,
+					aDayCalendar.get(Calendar.HOUR_OF_DAY));
+			calendar.set(Calendar.MINUTE, aDayCalendar.get(Calendar.MINUTE));
+			calendar.set(Calendar.SECOND, aDayCalendar.get(Calendar.SECOND));
+			date = calendar.getTime();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
 	}
 	
 	public String getSymbol() {
@@ -33,5 +58,10 @@ public class Arb_brief {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	@Override
+	public String toString() {
+		return time + " " + price;
 	}
 }

@@ -1,5 +1,9 @@
 package edu.nju.treasuryArbitrage.model;
 
+import java.util.ArrayList;
+
+import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
+
 public class Repository {
 	int repo_ID;	//持仓标记……………………我感觉蛮有必要
 	long time;	//交易结束时间
@@ -14,9 +18,48 @@ public class Repository {
 	double toSell_price;
 	double toBuy_price;
 	
+	double sellPrecentPrice;
+	double buyPrecentPrice;
+	
 	public Repository(){
-		
 	}
+	
+	public void update() {
+		Arb_detail buyArb = getLiveArb_detail(toBuy);
+		Arb_detail sellArb = getLiveArb_detail(toSell);
+		if (buyArb == null || sellArb == null) {
+			return;
+		}
+		profit = (buyArb.getPresentPrice() - toBuy_price + toSell_price - sellArb.getPresentPrice())
+				* count * 10000;
+		sellPrecentPrice = sellArb.getPresentPrice();
+		buyPrecentPrice = buyArb.getPresentPrice();
+	}
+
+	public double getFormatProfit() {
+		return (int) (profit * 1000) / 1000.0;
+	}
+	
+	private Arb_detail getLiveArb_detail(String symble) {
+		ArrayList<Arb_detail> arb_details = LiveData.getInstance()
+				.getArb_details();
+		for (Arb_detail arb_detail : arb_details) {
+			if (arb_detail.getSymbol().equals(symble)) {
+				return arb_detail;
+			}
+		}
+		return null;
+	}
+	
+	
+	public double getSellPrecentPrice() {
+		return sellPrecentPrice;
+	}
+
+	public double getBuyPrecentPrice() {
+		return buyPrecentPrice;
+	}
+
 	public int getSignal() {
 		return signal;
 	}
