@@ -1,17 +1,17 @@
 package edu.nju.treasuryArbitrage.logic.dataInterface2Matlab;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+//import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
+//import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-
-import com.mathworks.toolbox.javabuilder.MWClassID;
-import com.mathworks.toolbox.javabuilder.MWComplexity;
-import com.mathworks.toolbox.javabuilder.MWNumericArray;
+//import java.util.Date;
+//
+//import com.mathworks.toolbox.javabuilder.MWClassID;
+//import com.mathworks.toolbox.javabuilder.MWComplexity;
+//import com.mathworks.toolbox.javabuilder.MWNumericArray;
 
 public class testM2J {
 
@@ -36,7 +36,8 @@ public class testM2J {
             //System.out.println("以行为单位读取文件内容，一次读一整行：");
             reader = new BufferedReader(new FileReader(file));
             String tempString = null;
-            int line = 1;
+            @SuppressWarnings("unused")
+			int line = 1;
             // 一次读入一行，直到读入null为文件结束
             while ((tempString = reader.readLine()) != null) {
                 // 显示行号

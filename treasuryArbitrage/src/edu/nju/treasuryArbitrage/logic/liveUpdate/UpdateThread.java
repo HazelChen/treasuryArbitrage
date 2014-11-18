@@ -21,6 +21,7 @@ public class UpdateThread implements Runnable {
 		return self;
 	}
 	
+	@SuppressWarnings("unused")
 	public void run() {
 		DataInterface dataInterface = DataInterfaceFactory.getInstance()
 				.getDataInterfaceToServer();

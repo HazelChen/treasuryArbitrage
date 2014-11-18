@@ -83,4 +83,29 @@ public class TradeBL {
 		return false;
 	}
 	
+	public boolean trade(String username,int Repo_ID,double profit,double blank_price,double more_price){
+		
+		long time = new Date().getTime();
+		
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("username", username);
+		params.put("Repo_Id", Repo_ID+"");
+		params.put("profit", profit+"");
+		params.put("time", time+"");
+		params.put("blank_price", blank_price+"");
+		params.put("blank_price", blank_price+"");
+		
+		helper.setInitPara("trade", params);
+		JSONObject ret = helper.getJSONObjectByGet();
+		
+		if (ret == null) {
+			return false;
+		}
+		
+		if(ret.getInt("result")==1){
+			return true;
+		}
+		
+		return false;
+	}
 }

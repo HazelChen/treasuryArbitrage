@@ -5,6 +5,7 @@ import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterfaceToServer;
 
 public class DataInterfaceFactory {
 	private static DataInterfaceFactory self = new DataInterfaceFactory();
+	@SuppressWarnings("unused")
 	private boolean isSimulate;
 	
 	private DataInterfaceToServer dataInterfaceToServer;
