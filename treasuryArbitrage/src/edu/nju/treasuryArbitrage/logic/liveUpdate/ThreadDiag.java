@@ -38,7 +38,8 @@ public class ThreadDiag extends JDialog{
 	public ThreadDiag(String message){
 		Message[1] = message.substring(0,1);//to do  (O for open or C for close)
 		Message[0] = message.substring(1,message.length());//title
-		setUndecorated(true);
+		setUndecorated(false);
+		this.setTitle("ÏûÏ¢");
     	setBackground(Color.WHITE);
     	setMaximumSize(new Dimension(383,150));
     	setMinimumSize(new Dimension(383,150));
