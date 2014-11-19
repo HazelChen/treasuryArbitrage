@@ -93,7 +93,7 @@ public class TradeBL {
 		params.put("profit", profit+"");
 		params.put("time", time+"");
 		params.put("blank_price", blank_price+"");
-		params.put("blank_price", blank_price+"");
+		params.put("more_price", more_price+"");
 		
 		helper.setInitPara("trade", params);
 		JSONObject ret = helper.getJSONObjectByGet();
