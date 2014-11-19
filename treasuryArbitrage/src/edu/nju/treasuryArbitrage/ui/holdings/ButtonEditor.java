@@ -227,8 +227,8 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 					repository.update();
 					boolean result = di.Trade(repository.getRepo_ID(),
 							repository.getProfit(),
-							repository.getSellPrecentPrice(),
-							repository.getBuyPrecentPrice());
+							repository.getBuyPrecentPrice(),
+							repository.getSellPrecentPrice());
 					if (result == true) {
 						JOptionPane.showMessageDialog(null, "下单成功！");
 					} else {
