@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import org.jfree.chart.ChartFactory;
@@ -16,6 +17,8 @@ import org.jfree.chart.axis.DateAxis;
 import org.jfree.chart.axis.DateTickUnit;
 import org.jfree.chart.axis.DateTickUnitType;
 import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.SegmentedTimeline;
+import org.jfree.chart.axis.Timeline;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.time.Second;
@@ -95,6 +98,16 @@ public class LineChart extends JPanel {
 		xyplot.setRangeGridlinePaint(Color.RED);
 		
 		DateAxis xAxis = (DateAxis) xyplot.getDomainAxis();
+		
+		SegmentedTimeline timeline = new SegmentedTimeline(SegmentedTimeline.MINUTE_SEGMENT_SIZE, 270, 0);
+		Calendar minExceptCalendar = Calendar.getInstance();
+		minExceptCalendar.set(Calendar.HOUR_OF_DAY, 11);
+		minExceptCalendar.set(Calendar.MINUTE, 30);
+		Calendar maxExceptCalendar = Calendar.getInstance();
+		maxExceptCalendar.set(Calendar.HOUR_OF_DAY, 13);
+		maxExceptCalendar.set(Calendar.MINUTE, 0);
+		timeline.addException(minExceptCalendar.getTimeInMillis(), maxExceptCalendar.getTimeInMillis());
+		xAxis.setTimeline(timeline);
 		//TODO change with date
 		Calendar minCalendar = Calendar.getInstance();
 		minCalendar.set(Calendar.HOUR_OF_DAY, 9);
@@ -118,5 +131,13 @@ public class LineChart extends JPanel {
 		//Í¼Àý
 		jfreechart.getLegend().setVisible(false);
 		return chartPanel;
+	}
+	
+	public static void main(String[] args) {
+		JFrame frame = new JFrame();
+		frame.setSize(800, 600);
+		frame.add(new LineChart());
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
 	}
 }
