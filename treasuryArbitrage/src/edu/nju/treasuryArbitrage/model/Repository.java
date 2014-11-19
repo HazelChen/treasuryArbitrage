@@ -117,4 +117,16 @@ public class Repository {
 	public void settoSell_price(double d) {
 		this.toSell_price = d;
 	}
+	
+//	public void updatePrice(){
+//		ArrayList<Arb_detail> arb_lists = LiveData.getInstance()
+//				.getArb_details();
+//		for(int i=0;i < arb_lists.size();i++){
+//			Arb_detail temp = arb_lists.get(i);
+//			if(temp.symbol.equals(toSell))
+//				settoSell_price(temp.getPresentPrice());
+//			if(temp.symbol.equals(toBuy))
+//				settoBuy_price(temp.getPresentPrice());
+//		}
+//	}
 }

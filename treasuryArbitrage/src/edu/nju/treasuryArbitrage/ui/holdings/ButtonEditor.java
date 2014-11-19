@@ -40,14 +40,15 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 	private ArrayList<Repository> infom;
 	private double[] sellPrices;
 	private double[] buyPrices;
-	
+
 	private Repository repository;
 	private double sellPrice;
 	private double buyPrice;
-	
-	public ButtonEditor(ArrayList<Repository> info, double[] sellPrices, double[] buyPrices) {
 
-		initButton();  
+	public ButtonEditor(ArrayList<Repository> info, double[] sellPrices,
+			double[] buyPrices) {
+
+		initButton();
 
 		initPanel();
 		infom = info;
@@ -62,8 +63,9 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 		button.setFocusable(false);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				SellDialog sellDialog = new SellDialog(repository, buyPrice, sellPrice);
+
+				SellDialog sellDialog = new SellDialog(repository, buyPrice,
+						sellPrice);
 				sellDialog.setVisible(true);
 				// stop!!!
 				fireEditingStopped();
@@ -101,7 +103,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 		JLabel confirmL;
 		JTable table;
 		JPanel btnpanel, panel;
-		Object data[][] = { { "合约名称:", "", ""}, { "卖出手数:", "" },
+		Object data[][] = { { "合约名称:", "", "" }, { "卖出手数:", "" },
 				{ "交易类型:", "平仓" }, { "套利方向:", "" }, { "合约价格:", "" },
 				{ "投入保证金:", "" }, { "收益/损失:", "" }, };
 		Object cnames[] = { "name", "data" };
@@ -222,8 +224,11 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 
 					// -------------------卖出对应合约-----
 					// repository; 更新数据库
+					repository.update();
 					boolean result = di.Trade(repository.getRepo_ID(),
-							repository.getProfit());
+							repository.getProfit(),
+							repository.getSellPrecentPrice(),
+							repository.getBuyPrecentPrice());
 					if (result == true) {
 						JOptionPane.showMessageDialog(null, "下单成功！");
 					} else {
