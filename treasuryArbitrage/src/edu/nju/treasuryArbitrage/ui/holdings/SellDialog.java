@@ -158,10 +158,8 @@ public class SellDialog extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 			SellDialog.this.setVisible(false);
 			DataInterface database = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
-			boolean result = database.Trade(repository.getRepo_ID(), repository.getProfit());
-			//TODO
-			boolean cancelOrderResult = database.cancleOrder(repository.getRepo_ID());
-			if (!(cancelOrderResult && result)) {
+			boolean result = database.Trade(repository.getRepo_ID(), repository.getProfit(), repository.getBuyPrecentPrice(), repository.getSellPrecentPrice());
+			if (result) {
 				JOptionPane.showMessageDialog(null, "∆Ω≤÷ ß∞‹£°");
 			}
 			MajorPartsFactory.getInstance().getHoldings().updatePage();
