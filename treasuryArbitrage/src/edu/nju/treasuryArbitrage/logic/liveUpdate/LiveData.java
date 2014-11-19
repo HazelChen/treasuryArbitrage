@@ -22,6 +22,15 @@ public class LiveData {
 		return self;
 	}
 	
+	public boolean isReady() {
+		if (briefsTF1412 != null &&
+				briefsTF1503 != null &&
+				briefsTF1506 != null) {
+			return true;
+		}
+		return false;
+	}
+	
 	public ArrayList<Arb_detail> getArb_details() {
 		return arb_details;
 	}

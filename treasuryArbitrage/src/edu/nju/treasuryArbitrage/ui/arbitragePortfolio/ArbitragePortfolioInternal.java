@@ -44,11 +44,11 @@ public class ArbitragePortfolioInternal extends JPanel{
 //		spreadLineChart.setYRange(-1.5, 1.5);
 		spreadLineChart.setTitle("¼Û²î×ßÊÆ");
 		
-		int size = Math.min(histroy1.size(), histroy2.size());
-		for (int i = 0; i < size; i++) {
+		ArrayList<Arb_brief> base = (histroy1.size() < histroy2.size()) ? histroy1 : histroy2;
+		for (int i = 0; i < base.size(); i++) {
 			Arb_brief point1 = histroy1.get(i);
 			Arb_brief point2 = histroy2.get(i);
-			spreadLineChart.addNewPrice(point1.getTodayDate(), point2.getPrice() - point1.getPrice());
+			spreadLineChart.addNewPrice(base.get(i).getTodayDate(), point2.getPrice() - point1.getPrice());
  		}
 	}
 	

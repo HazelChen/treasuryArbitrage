@@ -44,15 +44,11 @@ public class TreasuryArbitrage {
 					defaultArbCombinationRecommend();
 				} else if(keyEvent.getKeyCode() == KeyEvent.VK_F2) {
 					defaultArbSellRemind();
-				} else if(keyEvent.getKeyCode() == keyEvent.VK_F3) {
+				} else if(keyEvent.getKeyCode() == KeyEvent.VK_F3) {
 					defaultArbSell();
 				}
 			}
-
-
-
 		}, AWTEvent.KEY_EVENT_MASK | AWTEvent.MOUSE_EVENT_MASK| AWTEvent.WINDOW_EVENT_MASK); 
-		
 	}
 
 	private void startDataFetch() {
@@ -114,7 +110,7 @@ public class TreasuryArbitrage {
 	}
 	
 	private void defaultArbSellRemind() {
-		ThreadDiag recommandDiag = new ThreadDiag("组合\"TF1412 TF1503\"已自动平仓!\r\n马上前往查看？", false);
+		ThreadDiag recommandDiag = new ThreadDiag("组合\"TF1412 TF1503\"出现平仓机会!\r\n马上前往查看？", false);
 		recommandDiag.setVisible(true);
 	}
 }

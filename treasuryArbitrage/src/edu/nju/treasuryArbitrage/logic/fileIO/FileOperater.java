@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -41,6 +42,17 @@ public class FileOperater {
 			printWriter.print(content);
 			printWriter.close();
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void writeAppend(String filename, String content) {
+		try {
+			FileWriter writer = new FileWriter(filename, true);
+			PrintWriter printWriter = new PrintWriter(writer);
+			printWriter.print(content);
+			printWriter.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

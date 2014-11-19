@@ -54,6 +54,7 @@ public class TakeAOrder extends JPanel {
 	private Arb_detail[] arbGroups;
 	private double prePrice1, prePrice2, guar, restMoney;
 	private int holds;
+	private boolean isRecentBuy;
 
 	public TakeAOrder(ArbGroup arbGroup) {
 		this.setBackground(BACKGROUND_COLOR);
@@ -152,6 +153,8 @@ public class TakeAOrder extends JPanel {
 
 	public void update(Arb_detail[] arbGroups, boolean isRecentBuy) {
 		this.arbGroups = arbGroups;
+		this.isRecentBuy = isRecentBuy;
+		
 		if (isRecentBuy) {
 			dir1.setText("多头");
 			dir2.setText("空头");
@@ -203,10 +206,8 @@ public class TakeAOrder extends JPanel {
 						JOptionPane.WARNING_MESSAGE);
 			} else {
 				if (Integer.parseInt(text) > 0 && restMoney >= 0) {
-					JOptionPane.showMessageDialog(null, "下单成功！");
-					DataInterfaceFactory.getInstance().getDataInterfaceToServer().Order(arbGroups[0].getSymbol(), 
-							arbGroups[1].getSymbol(), arbGroups[0].getPresentPrice(), arbGroups[1].getPresentPrice(), 
-							holds, guar);
+					BuyDialog buyDialog = new BuyDialog(arbGroups, isRecentBuy, holds, guar);
+					buyDialog.setVisible(true);
 				} else if (restMoney < 0){
 					JOptionPane.showMessageDialog(null, "剩余保证金不足", "错误提示",
 							JOptionPane.WARNING_MESSAGE);
@@ -240,114 +241,4 @@ public class TakeAOrder extends JPanel {
 	public void active() {
 		confirm.setEnabled(true);
 	}
-
-
-	/*
-	 * class ConfirmPanel extends JPanel{ private JLabel title; private JLabel
-	 * name,name1,name2; private JLabel type,typeData; private JLabel
-	 * direction,dir_name1,dir_name2,dir1,dir2; private JLabel
-	 * price,price_name1,price_name2,price1,price2; private JLabel holdings,hld;
-	 * private JLabel money,mny; private JButton confirm,cancel;
-	 * 
-	 * private double prePrice1,prePrice2,guar; private int holds; private
-	 * String tobuy,tosell;
-	 * 
-	 * public ConfirmPanel(){ title=new JLabel("下单信息确认"); name=new
-	 * JLabel("合约名称",JLabel.CENTER); type=new JLabel("交易类型",JLabel.CENTER);
-	 * typeData=new JLabel("建仓"); direction=new JLabel("套利方向",JLabel.CENTER);
-	 * price=new JLabel("合约价格",JLabel.CENTER); holdings=new
-	 * JLabel("手数",JLabel.CENTER); money=new JLabel("投入保证金",JLabel.CENTER);
-	 * confirm=new JButton("确认"); cancel=new JButton("取消"); name1=new JLabel();
-	 * name2=new JLabel(); dir_name1=new JLabel(); dir_name2=new JLabel();
-	 * dir1=new JLabel(); dir2=new JLabel(); price_name1=new JLabel();
-	 * price_name2=new JLabel(); price1=new JLabel(); price2=new JLabel();
-	 * hld=new JLabel(); mny=new JLabel();
-	 * 
-	 * this.add(confirm); this.add(cancel); this.add(money); this.add(holdings);
-	 * this.add(price); this.add(direction); this.add(name); this.add(title);
-	 * this.add(name1); this.add(name2); this.add(type); this.add(typeData);
-	 * this.add(dir_name1); this.add(dir_name2); this.add(dir1); this.add(dir2);
-	 * this.add(price_name1); this.add(price_name2); this.add(price1);
-	 * this.add(price2); this.add(hld); this.add(mny);
-	 * 
-	 * this.setLayout(null); title.setBounds(160,5,200,30); title.setFont(new
-	 * Font("serif",Font.BOLD,20)); title.setForeground(Color.BLACK);
-	 * 
-	 * Font font=new Font("serif",Font.BOLD,14); name.setBounds(50,50,80,30);
-	 * name.setFont(font); name.setForeground(Color.BLACK);
-	 * 
-	 * name1.setBounds(160,50,80,30); name2.setBounds(280,50,80,30);
-	 * name1.setFont(font); name1.setForeground(Color.BLACK);
-	 * name2.setFont(font); name2.setForeground(Color.BLACK);
-	 * 
-	 * type.setBounds(50,110,80,30); type.setFont(font);
-	 * type.setForeground(Color.BLACK); typeData.setBounds(160,110,80,30);
-	 * typeData.setFont(font); typeData.setForeground(Color.BLACK);
-	 * 
-	 * direction.setBounds(50,170,80,30); direction.setFont(font);
-	 * direction.setForeground(Color.BLACK); dir_name1.setBounds(160,170,80,30);
-	 * dir1.setBounds(280,170,80,30); dir_name2.setBounds(160,200,80,30);
-	 * dir2.setBounds(280,200,80,30); dir_name1.setFont(font);
-	 * dir_name1.setForeground(Color.BLACK); dir_name2.setFont(font);
-	 * dir_name2.setForeground(Color.BLACK); dir1.setFont(font);
-	 * dir1.setForeground(Color.BLACK); dir2.setFont(font);
-	 * dir2.setForeground(Color.BLACK);
-	 * 
-	 * price.setBounds(50,230,80,30); price.setFont(font);
-	 * price.setForeground(Color.BLACK); price_name1.setBounds(160,230,80,30);
-	 * price1.setBounds(280,230,80,30); price_name2.setBounds(160,260,80,30);
-	 * price2.setBounds(280,260,80,30); price_name1.setFont(font);
-	 * price_name1.setForeground(Color.BLACK); price_name2.setFont(font);
-	 * price_name2.setForeground(Color.BLACK); price1.setFont(font);
-	 * price1.setForeground(Color.BLACK); price2.setFont(font);
-	 * price2.setForeground(Color.BLACK);
-	 * 
-	 * holdings.setBounds(50,290,80,30); holdings.setFont(font);
-	 * holdings.setForeground(Color.BLACK); hld.setBounds(250,290,80,30);
-	 * hld.setFont(font); hld.setForeground(Color.BLACK);
-	 * 
-	 * money.setBounds(50,350,80,30); money.setFont(font);
-	 * money.setForeground(Color.BLACK); mny.setBounds(140,350,240,30);
-	 * mny.setFont(font); mny.setForeground(Color.BLACK);
-	 * 
-	 * confirm.setBounds(110,400,100,30); cancel.setBounds(260,400,100,30);
-	 * confirm.setContentAreaFilled(false); confirm.setBorderPainted(true);
-	 * confirm.setFocusPainted(false); confirm.setFont(new
-	 * Font("serif",Font.BOLD,20)); confirm.setForeground(Color.BLACK);
-	 * cancel.setContentAreaFilled(false); cancel.setBorderPainted(true);
-	 * cancel.setFocusPainted(false); cancel.setFont(new
-	 * Font("serif",Font.BOLD,20)); cancel.setForeground(Color.BLACK);
-	 * 
-	 * confirm.addActionListener(new ConfirmDetailListener());
-	 * cancel.addActionListener(new CancelListener());
-	 * 
-	 * }
-	 * 
-	 * public void setData(String tb,String ts,double p1,double p2,int h,double
-	 * g){ tobuy=tb; tosell=ts; prePrice1=p1; prePrice2=p2; holds=h; guar=g;
-	 * 
-	 * name1.setText(tobuy); name2.setText(tosell); dir_name1.setText(tobuy);
-	 * dir1.setText("多头"); dir_name2.setText(tosell); dir2.setText("空头");
-	 * 
-	 * price_name1.setText(tobuy); price_name2.setText(tosell);
-	 * price1.setText(String.valueOf(p1)); price2.setText(String.valueOf(p2));
-	 * 
-	 * hld.setText(String.valueOf(holds));
-	 * 
-	 * mny.setText(String.valueOf(guar));
-	 * 
-	 * this.setVisible(true); }
-	 * 
-	 * 
-	 * 
-	 * public class ConfirmDetailListener implements ActionListener{ public void
-	 * actionPerformed(ActionEvent e) {
-	 * JOptionPane.showMessageDialog(null,"下单成功！"); database.Order(tobuy,
-	 * tosell, prePrice1, prePrice2, holds, guar); } }
-	 * 
-	 * public class CancelListener implements ActionListener{ public void
-	 * actionPerformed(ActionEvent e) { confirmPanel.setVisible(false); } }
-	 * 
-	 * }
-	 */
 }

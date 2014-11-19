@@ -125,10 +125,13 @@ public class LoginInputFlat extends LoginInput{
 					LoginedUser.setLoginedUser(username);
 					
 					try {
-						Thread.sleep(3000);
+						Thread.sleep(5000);
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
+//					while (!LiveData.getInstance().isReady()) {
+//					}
+					
 					TreasuryFrame frame = new TreasuryFrame();
 					loginFrame.setVisible(false);
 					frame.setVisible(true);

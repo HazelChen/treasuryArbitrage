@@ -28,7 +28,7 @@ public class SellDialog extends JDialog {
 	private JLabel name1 = new BordedLabel("", JLabel.CENTER);
 	private JLabel name2 = new BordedLabel("", JLabel.CENTER);
 
-	private JLabel direction = new BordedLabel("套利方向", JLabel.CENTER);
+	private JLabel direction = new BordedLabel("平仓方向", JLabel.CENTER);
 	private JLabel dir1 = new BordedLabel("", JLabel.CENTER);
 	private JLabel dir2 = new BordedLabel("", JLabel.CENTER);
 
