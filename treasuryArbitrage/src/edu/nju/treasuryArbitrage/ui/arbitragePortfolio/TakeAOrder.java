@@ -208,6 +208,9 @@ public class TakeAOrder extends JPanel {
 				if (Integer.parseInt(text) > 0 && restMoney >= 0) {
 					BuyDialog buyDialog = new BuyDialog(arbGroups, isRecentBuy, holds, guar);
 					buyDialog.setVisible(true);
+					tfdHoldings.setText("");
+					mny.setText("");
+					restMny.setText("");
 				} else if (restMoney < 0){
 					JOptionPane.showMessageDialog(null, "剩余保证金不足", "错误提示",
 							JOptionPane.WARNING_MESSAGE);

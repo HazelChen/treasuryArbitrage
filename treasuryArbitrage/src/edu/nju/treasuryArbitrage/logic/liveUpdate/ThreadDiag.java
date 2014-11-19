@@ -6,8 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -82,52 +80,18 @@ public class ThreadDiag extends JDialog {
 				} else {
 					go2Holdings();
 				}
+				ThreadDiag.this.setVisible(false);
 				ThreadDiag.this.dispose();
 			}
 
 		});
-		btnY.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-			}
-
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					if (btnY.isFocusOwner()) {
-						ThreadDiag.this.setVisible(false);
-						if (isOpen) {
-							go2ArbitragePortfolio();// 跳转到套利组合
-						} else {
-							go2Holdings();
-						}
-					}
-				}
-			}
-
-			public void keyReleased(KeyEvent e) {
-			}
-		});
 		btnN.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ThreadDiag.this.setVisible(false);
+				ThreadDiag.this.dispose();
 			}
 
 		});
-		btnN.addKeyListener(new KeyListener() {
-			public void keyTyped(KeyEvent e) {
-			}
-
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					if (btnN.isFocusOwner()) {
-						ThreadDiag.this.setVisible(false);
-					}
-				}
-			}
-
-			public void keyReleased(KeyEvent e) {
-			}
-		});
-
 		this.add(panel);
 	}
 
