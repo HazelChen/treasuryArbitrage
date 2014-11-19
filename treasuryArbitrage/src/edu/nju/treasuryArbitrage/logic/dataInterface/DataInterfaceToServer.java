@@ -166,11 +166,11 @@ public class DataInterfaceToServer implements DataInterface {
 		return tradebl.cancleOrder(user.getUserID(), record_ID);
 	}
 
-	@Override
-	public boolean Trade(int Repo_ID, double profit) {
-		UserVO user = userbl.getUser();
-		return tradebl.trade(user.getUserID(), Repo_ID, profit);
-	}
+//	@Override
+//	public boolean Trade(int Repo_ID, double profit) {
+//		UserVO user = userbl.getUser();
+//		return tradebl.trade(user.getUserID(), Repo_ID, profit);
+//	}
 
 	@Override
 	public boolean Trade(int Repo_ID, double profit, double blank_price, double more_price) {

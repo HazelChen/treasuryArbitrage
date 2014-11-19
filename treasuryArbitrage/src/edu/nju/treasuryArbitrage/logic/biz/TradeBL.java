@@ -102,6 +102,8 @@ public class TradeBL {
 			return false;
 		}
 		
+		//System.out.println(ret.getInt("result"));
+		
 		if(ret.getInt("result")==1){
 			return true;
 		}

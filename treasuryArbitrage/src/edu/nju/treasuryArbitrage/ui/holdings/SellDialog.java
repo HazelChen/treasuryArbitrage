@@ -159,8 +159,10 @@ public class SellDialog extends JDialog {
 			SellDialog.this.setVisible(false);
 			DataInterface database = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 			boolean result = database.Trade(repository.getRepo_ID(), repository.getProfit(), repository.getBuyPrecentPrice(), repository.getSellPrecentPrice());
-			if (result) {
+			if (!result) {
 				JOptionPane.showMessageDialog(null, "平仓失败！");
+			}else{
+				JOptionPane.showMessageDialog(null, "平仓成功！");
 			}
 			MajorPartsFactory.getInstance().getHoldings().updatePage();
 			SellDialog.this.dispose();

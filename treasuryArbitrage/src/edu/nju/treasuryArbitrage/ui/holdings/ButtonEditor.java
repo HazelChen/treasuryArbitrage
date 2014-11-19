@@ -229,6 +229,7 @@ public class ButtonEditor extends AbstractCellEditor implements TableCellEditor 
 							repository.getProfit(),
 							repository.getBuyPrecentPrice(),
 							repository.getSellPrecentPrice());
+					//System.out.println(result);
 					if (result == true) {
 						JOptionPane.showMessageDialog(null, "下单成功！");
 					} else {

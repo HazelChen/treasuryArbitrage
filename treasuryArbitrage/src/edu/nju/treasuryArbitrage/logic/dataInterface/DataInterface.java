@@ -45,7 +45,7 @@ public interface DataInterface {
 	
 	public boolean Order(String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee);
 	public boolean cancleOrder(int Record_ID);
-	public boolean Trade(int Repo_ID, double profit);//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean
+	//public boolean Trade(int Repo_ID, double profit);//客户端刷新三处数据（资金、持仓、历史记录）,返回boolean
 	public boolean Trade(int Repo_ID, double profit, double blank_price, double more_price);
 	
 	public double getProfit(double buyprice1,double saleprice1,double buyprice2,double saleprice2,int count);
