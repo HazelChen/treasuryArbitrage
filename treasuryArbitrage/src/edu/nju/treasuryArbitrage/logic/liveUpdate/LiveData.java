@@ -57,6 +57,14 @@ public class LiveData {
 	}
 
 	public ArrayList<Arb_brief> getBriefsTF1412() {
+//		while (briefsTF1412 == null) {
+//			System.out.println("waitting for TF1412...");
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		return briefsTF1412;
 	}
 
@@ -65,6 +73,14 @@ public class LiveData {
 	}
 
 	public ArrayList<Arb_brief> getBriefsTF1503() {
+//		while (briefsTF1503 == null) {
+//			System.out.println("waitting for TF1503...");
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		return briefsTF1503;
 	}
 
@@ -73,6 +89,14 @@ public class LiveData {
 	}
 
 	public ArrayList<Arb_brief> getBriefsTF1506() {
+//		while (briefsTF1506 == null) {
+//			System.out.println("waitting for TF1506...");
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
+//		}
 		return briefsTF1506;
 	}
 

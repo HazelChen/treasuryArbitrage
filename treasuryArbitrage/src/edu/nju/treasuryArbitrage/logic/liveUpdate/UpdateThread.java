@@ -11,6 +11,7 @@ import edu.nju.treasuryArbitrage.model.Arb_detail;
 public class UpdateThread implements Runnable {
 	private static UpdateThread self;
 	private boolean canUpdateHoldings;
+	private boolean canUpdate;
 	
 	private UpdateThread(){}
 	
@@ -56,10 +57,12 @@ public class UpdateThread implements Runnable {
 				}
 				LiveData.getInstance().setArb_details(arb_details);
 
-				factory.getFuturesMarket().updatePage();
-				factory.getArbitragePortfolio().updatePage();
-				if (canUpdateHoldings) {
-					factory.getHoldings().liveUpdate();
+				if (canUpdate) {
+					factory.getFuturesMarket().updatePage();
+					factory.getArbitragePortfolio().updatePage();
+					if (canUpdateHoldings) {
+						factory.getHoldings().liveUpdate();
+					}
 				}
 				try {
 					Thread.sleep(1000);
@@ -92,5 +95,9 @@ public class UpdateThread implements Runnable {
 
 	public void startUpdateHoldings() {
 		canUpdateHoldings = true;
+	}
+	
+	public void startUpdate() {
+		canUpdate = true;
 	}
 }
