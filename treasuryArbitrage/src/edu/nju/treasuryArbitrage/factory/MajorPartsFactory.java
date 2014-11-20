@@ -29,10 +29,14 @@ public class MajorPartsFactory {
 		return self;
 	}
 	
+	public void init() {
+		futuresMarket = new FuturesMarket();
+		arbitragePortfolio = new ArbitragePortfolio();
+		holdings = new Holdings();
+		navigater = new Navigater();
+	}
+	
 	public Navigater getNavigater() {
-		if (navigater == null) {
-			navigater = new Navigater();
-		}
 		return navigater;
 	}
 
@@ -45,23 +49,14 @@ public class MajorPartsFactory {
 	}
 
 	public FuturesMarket getFuturesMarket() {
-		if (futuresMarket == null) {
-			futuresMarket = new FuturesMarket();
-		}
 		return futuresMarket;
 	}
 
 	public ArbitragePortfolio getArbitragePortfolio() {
-		if (arbitragePortfolio == null) {
-			arbitragePortfolio = new ArbitragePortfolio();
-		}
 		return arbitragePortfolio;
 	}
 
 	public Holdings getHoldings() {
-		if (holdings == null) {
-			holdings = new Holdings();
-		}
 		return holdings;
 	}
 

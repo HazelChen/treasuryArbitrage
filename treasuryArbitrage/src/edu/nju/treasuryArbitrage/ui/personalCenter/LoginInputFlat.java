@@ -125,7 +125,8 @@ public class LoginInputFlat extends LoginInput{
 					stateRecorder.rememberUsername(username);
 					
 					LoginedUser.setLoginedUser(username);
-					
+
+					MajorPartsFactory.getInstance().getNavigater().setUserName(username);
 					UpdateThread.getInstance().startUpdate();
 					
 					while (!LiveData.getInstance().isReady()) {
@@ -135,7 +136,6 @@ public class LoginInputFlat extends LoginInput{
 						} catch (InterruptedException e1) {
 							e1.printStackTrace();
 						}
-						
 					}
 					System.out.println("loading finish");
 					

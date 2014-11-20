@@ -16,6 +16,8 @@ public class LiveData {
 	private ArrayList<Arb_brief> briefsTF1503;
 	private ArrayList<Arb_brief> briefsTF1506;
 	
+	private boolean isReady;
+	
 	private LiveData(){}
 	
 	public static LiveData getInstance() {
@@ -23,12 +25,7 @@ public class LiveData {
 	}
 	
 	public boolean isReady() {
-		if (briefsTF1412 != null &&
-				briefsTF1503 != null &&
-				briefsTF1506 != null) {
-			return true;
-		}
-		return false;
+		return isReady;
 	}
 	
 	public ArrayList<Arb_detail> getArb_details() {
@@ -102,6 +99,10 @@ public class LiveData {
 
 	public void setBriefsTF1506(ArrayList<Arb_brief> briefsTF1506) {
 		this.briefsTF1506 = briefsTF1506;
+	}
+
+	public void ready() {
+		this.isReady = true;
 	}
 	
 	

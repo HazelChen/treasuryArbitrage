@@ -27,10 +27,10 @@ public class ArbitragePortfolioInternal extends JPanel{
 	private ArbGroup group;
 	private boolean isActive;
 	
-	public ArbitragePortfolioInternal(ArbGroup group, ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
+	public ArbitragePortfolioInternal(ArbGroup group) {
 		this.setGroup(group);
 		init();
-		initComponents(histroy1, histroy2);
+		initComponents();
 		assemble();
 	}
 	
@@ -39,17 +39,11 @@ public class ArbitragePortfolioInternal extends JPanel{
 		setLayout(null);
 	}
 
-	private void initComponents(ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
+	private void initComponents() {
 		spreadLineChart.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, BORDER_COLOR));
 //		spreadLineChart.setYRange(-1.5, 1.5);
 		spreadLineChart.setTitle("¼Û²î×ßÊÆ");
 		
-		ArrayList<Arb_brief> base = (histroy1.size() < histroy2.size()) ? histroy1 : histroy2;
-		for (int i = 0; i < base.size(); i++) {
-			Arb_brief point1 = histroy1.get(i);
-			Arb_brief point2 = histroy2.get(i);
-			spreadLineChart.addNewPrice(base.get(i).getTodayDate(), point2.getPrice() - point1.getPrice());
- 		}
 	}
 	
 	private void assemble() {
@@ -83,6 +77,9 @@ public class ArbitragePortfolioInternal extends JPanel{
 
 	public void update() {
 		Arb_detail[] grpArbs = getArbDetails();
+		if (grpArbs == null) {
+			return;
+		}
 		double priceDiff = grpArbs[1].getPresentPrice() - grpArbs[0].getPresentPrice();
 		spreadLineChart.addNewPrice(priceDiff);
 		detail1.update(grpArbs[0]);
@@ -95,6 +92,9 @@ public class ArbitragePortfolioInternal extends JPanel{
 	private Arb_detail[] getArbDetails() {
 		Arb_detail[] grpArbs = new Arb_detail[2];
 		ArrayList<Arb_detail> currentArbs = LiveData.getInstance().getArb_details();
+		if (currentArbs == null) {
+			return null;
+		}
 		for (Arb_detail arb_detail : currentArbs) {
 			if (arb_detail.getSymbol().equals(group.getRecent())) {
 				grpArbs[0] = arb_detail.getFormattedArb_detail();
@@ -115,6 +115,15 @@ public class ArbitragePortfolioInternal extends JPanel{
 	public void clearActive() {
 		isActive = false;
 		takeAOrder.clearActive();
+	}
+
+	public void initPoint(ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
+		ArrayList<Arb_brief> base = (histroy1.size() < histroy2.size()) ? histroy1 : histroy2;
+		for (int i = 0; i < base.size(); i++) {
+			Arb_brief point1 = histroy1.get(i);
+			Arb_brief point2 = histroy2.get(i);
+			spreadLineChart.addNewPrice(base.get(i).getTodayDate(), point2.getPrice() - point1.getPrice());
+ 		}
 	}
 
 }

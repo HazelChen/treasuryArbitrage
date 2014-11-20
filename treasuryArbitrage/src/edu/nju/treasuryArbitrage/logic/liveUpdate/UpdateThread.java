@@ -30,12 +30,21 @@ public class UpdateThread implements Runnable {
 		if (arb_details == null) {
 			arb_details = new ArrayList<Arb_detail>();
 		}
+		
+		MajorPartsFactory factory = MajorPartsFactory.getInstance();
+		factory.init();
+		
 		LiveData.getInstance().setArb_details(arb_details);
 		LiveData.getInstance().setBriefsTF1412(dataInterface.getArbBrief("TF1412"));
 		LiveData.getInstance().setBriefsTF1503(dataInterface.getArbBrief("TF1503"));
 		LiveData.getInstance().setBriefsTF1506(dataInterface.getArbBrief("TF1506"));
 		
-		MajorPartsFactory factory = MajorPartsFactory.getInstance();
+		factory.getFuturesMarket().initPoint();
+		factory.getArbitragePortfolio().initPoint();
+		
+		LiveData.getInstance().ready();
+		System.out.println("ready!");
+		
 		int now_hour, now_min;
 		boolean runtime = true;
 		while (true) {

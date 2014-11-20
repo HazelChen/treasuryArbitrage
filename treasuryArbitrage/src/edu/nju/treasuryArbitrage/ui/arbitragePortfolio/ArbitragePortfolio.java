@@ -27,6 +27,15 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		init();
 	}
 	
+	public void initPoint() {
+		internalList.initPoint(0, LiveData.getInstance().getBriefsTF1412(),
+				LiveData.getInstance().getBriefsTF1503());
+		internalList.initPoint(1, LiveData.getInstance().getBriefsTF1503(),
+				LiveData.getInstance().getBriefsTF1506());
+		internalList.initPoint(2, LiveData.getInstance().getBriefsTF1412(),
+				LiveData.getInstance().getBriefsTF1506());
+	}
+	
 	private void init() {
 		setLayout(null);
 		setBackground(Navigater.BACKGROUND_COLOR);
@@ -36,15 +45,9 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		tabbedPane.setForeground(Color.BLACK);
 		this.add(tabbedPane);
 		
-		internalList.addInt(new ArbGroup("TF1412", "TF1503"), 
-				LiveData.getInstance().getBriefsTF1412(),
-				LiveData.getInstance().getBriefsTF1503());
-		internalList.addInt(new ArbGroup("TF1412", "TF1506"),
-				LiveData.getInstance().getBriefsTF1412(),
-				LiveData.getInstance().getBriefsTF1506());
-		internalList.addInt(new ArbGroup("TF1503", "TF1506"),
-				LiveData.getInstance().getBriefsTF1503(),
-				LiveData.getInstance().getBriefsTF1506());
+		internalList.addInt(new ArbGroup("TF1412", "TF1503"));
+		internalList.addInt(new ArbGroup("TF1412", "TF1506"));
+		internalList.addInt(new ArbGroup("TF1503", "TF1506"));
 		tabbedPane.add("组合一", internalList.get(0));
 		tabbedPane.add("组合二", internalList.get(1));
 		tabbedPane.add("组合三", internalList.get(2));

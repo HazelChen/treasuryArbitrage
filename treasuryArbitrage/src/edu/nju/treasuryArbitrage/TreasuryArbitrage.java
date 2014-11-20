@@ -6,6 +6,8 @@ import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
 import edu.nju.treasuryArbitrage.logic.liveUpdate.AnalyseThread;
@@ -19,8 +21,12 @@ import edu.nju.treasuryArbitrage.ui.personalCenter.LoginFrame;
 public class TreasuryArbitrage {
 	
 	public static void main(String[] args) {
-		TreasuryArbitrage treasuryArbitrage = new TreasuryArbitrage();
-		treasuryArbitrage.launch();
+		try {
+			TreasuryArbitrage treasuryArbitrage = new TreasuryArbitrage();
+			treasuryArbitrage.launch();
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "软件好像遇到了一点问题");
+		}
 	}
 	
 	public void launch() {

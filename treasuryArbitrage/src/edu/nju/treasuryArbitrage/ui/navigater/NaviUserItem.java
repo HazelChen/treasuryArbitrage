@@ -17,6 +17,7 @@ import edu.nju.treasuryArbitrage.ui.personalCenter.LoginFrame;
 public class NaviUserItem extends JPanel{
 	private static final long serialVersionUID = -1940967418792821751L;
 	
+	private JLabel userMessageLabel;
 	private JLabel setModelButton = new JLabel("²ÎÊýÉèÖÃ");
 	private JLabel loggoutLabel = new JLabel("°²È«ÍË³ö");
 	
@@ -63,10 +64,10 @@ public class NaviUserItem extends JPanel{
 
 	private void assemble() {
 		String userMessage = "ÄãºÃ," + LoginedUser.getLoginedUser();
-		JLabel label = new JLabel(userMessage);
-		label.setForeground(Navigater.FOREGROUND_COLOR);
-		label.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
-		this.add(label);
+		userMessageLabel = new JLabel(userMessage);
+		userMessageLabel.setForeground(Navigater.FOREGROUND_COLOR);
+		userMessageLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
+		this.add(userMessageLabel);
 		
 		setModelButton.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
 		setModelButton.setForeground(ColorConstants.LINK_BLUE);
@@ -80,6 +81,10 @@ public class NaviUserItem extends JPanel{
 		loggoutLabel.setForeground(ColorConstants.LINK_BLUE);
 		loggoutLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 16));
 		this.add(loggoutLabel);
+	}
+
+	public void setUserName(String username) {
+		userMessageLabel.setText("ÄãºÃ," + username);
 	}
 
 }

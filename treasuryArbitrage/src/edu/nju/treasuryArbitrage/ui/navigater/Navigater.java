@@ -26,6 +26,8 @@ public class Navigater extends JPanel{
 	
 	private NavigaterItem[] items = new NavigaterItem[3];
 	
+	private NaviUserItem naviUserItem;
+	
 	
 	public Navigater() {
 		init();
@@ -79,7 +81,7 @@ public class Navigater extends JPanel{
 		}
 		this.add(left, BorderLayout.WEST);
 		
-		NaviUserItem naviUserItem = new NaviUserItem();
+		naviUserItem = new NaviUserItem();
 		this.add(naviUserItem, BorderLayout.EAST);
 	}
 
@@ -113,6 +115,10 @@ public class Navigater extends JPanel{
 
 	public void setHoldingsSelected() {
 		setSelected(2);
+	}
+
+	public void setUserName(String username) {
+		naviUserItem.setUserName(username);
 	}
 
 }

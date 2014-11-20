@@ -26,8 +26,8 @@ public class InternalList {
 		return false;
 	}
 	
-	public void addInt(ArbGroup arbGroup, ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
-		ArbitragePortfolioInternal internal = new ArbitragePortfolioInternal(arbGroup, histroy1, histroy2);
+	public void addInt(ArbGroup arbGroup) {
+		ArbitragePortfolioInternal internal = new ArbitragePortfolioInternal(arbGroup);
 		internals.add(internal);
 	}
 	
@@ -59,5 +59,9 @@ public class InternalList {
 			}
 		}
 		return null;
+	}
+
+	public void initPoint(int index, ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
+		internals.get(index).initPoint(histroy1, histroy2);
 	}
 }

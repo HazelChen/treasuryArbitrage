@@ -43,6 +43,12 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		assemble();
 		addListeners();
 	}
+	
+	public void initPoint() {
+		initPoints(0, LiveData.getInstance().getBriefsTF1412());
+		initPoints(1, LiveData.getInstance().getBriefsTF1503());
+		initPoints(2, LiveData.getInstance().getBriefsTF1506());
+	}
 
 	private void addListeners() {
 		futuersTable.getSelectionModel().addListSelectionListener(
@@ -274,11 +280,6 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		charts[1].setYRange(95.5, 96.5);
 		charts[2] = new LineChart(Color.WHITE);
 		charts[2].setYRange(96.0, 97.0);
-
-		initPoints(0, LiveData.getInstance().getBriefsTF1412());
-		initPoints(1, LiveData.getInstance().getBriefsTF1503());
-		initPoints(2, LiveData.getInstance().getBriefsTF1506());
-
 	}
 
 	private void initPoints(int index, final ArrayList<Arb_brief> arb_briefs) {
