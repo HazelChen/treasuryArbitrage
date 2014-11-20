@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
 import edu.nju.treasuryArbitrage.logic.liveUpdate.UpdateThread;
 import edu.nju.treasuryArbitrage.ui.common.LoginedUser;
 import edu.nju.treasuryArbitrage.ui.common.TreasuryFrame;
@@ -127,11 +128,14 @@ public class LoginInputFlat extends LoginInput{
 					
 					UpdateThread.getInstance().startUpdate();
 					
-					System.out.println("loading...");
-					try {
-						Thread.sleep(5000);
-					} catch (InterruptedException e1) {
-						e1.printStackTrace();
+					while (!LiveData.getInstance().isReady()) {
+						System.out.println("loading...");
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e1) {
+							e1.printStackTrace();
+						}
+						
 					}
 					System.out.println("loading finish");
 					

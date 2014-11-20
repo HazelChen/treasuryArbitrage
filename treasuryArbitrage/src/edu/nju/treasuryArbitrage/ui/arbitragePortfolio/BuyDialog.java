@@ -42,7 +42,7 @@ public class BuyDialog extends JDialog {
 	private JLabel money = new BordedLabel("投入保证金", JLabel.CENTER);
 	private JLabel mny = new BordedLabel("", JLabel.CENTER);
 
-	private JButton confirm = new JButton("确认卖出");
+	private JButton confirm = new JButton("确认下单");
 	
 	private Arb_detail[] arbGroup;
 	private boolean isRecentBuy;
@@ -60,7 +60,7 @@ public class BuyDialog extends JDialog {
 		this.setSize(700, 380);
 		this.setResizable(false);
 		this.setModal(true);
-		this.setTitle("平仓");
+		this.setTitle("下单");
 		this.setLocationRelativeTo(null);
 		
 		name.setBounds(30, 50, 200, 40);
