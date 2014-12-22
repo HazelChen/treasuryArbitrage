@@ -14,13 +14,13 @@ public class ctpdataAdapter {
 	private ArrayList<Arb_detail> detail_list;
 	
 	public static void main(String[] args) {
-		new ctpdataAdapter().getDetailList();
+		new ctpdataAdapter().getSingleData("rb1505");
 	}
 	
 	@SuppressWarnings("deprecation")
 	public Arb_detail getSingleData(String code){
 		
-		Thread th = new Thread(new getCtpData("rb1510"));
+		Thread th = new Thread(new getCtpData(code));
 		th.start();
 		try {
 			Thread.sleep(1000);
@@ -30,6 +30,7 @@ public class ctpdataAdapter {
 		}
 		th.stop();
 		th.interrupt();
+		if(th.isAlive()){System.out.println("WTF");}
 		CThostFtdcDepthMarketDataField ctpdata = CThostFtdcDepthMarketDataField.getInstance();
 		
 		Arb_detail detail = new Arb_detail();
