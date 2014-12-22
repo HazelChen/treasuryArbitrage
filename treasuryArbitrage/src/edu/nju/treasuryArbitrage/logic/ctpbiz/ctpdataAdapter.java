@@ -7,6 +7,7 @@ import java.util.Date;
 
 import edu.nju.treasuryArbitrage.model.Arb_detail;
 import edu.nju.treasuryArbitrage.model.ctp.CThostFtdcDepthMarketDataField;
+import edu.nju.treasuryArbitrage.model.ctp.TestJNA;
 import edu.nju.treasuryArbitrage.model.ctp.getCtpData;
 
 public class ctpdataAdapter {
@@ -14,23 +15,28 @@ public class ctpdataAdapter {
 	private ArrayList<Arb_detail> detail_list;
 	
 	public static void main(String[] args) {
-		new ctpdataAdapter().getSingleData("rb1505");
+		ctpdataAdapter adapter = new ctpdataAdapter();
+		adapter.startOrder();
+		ArrayList<Arb_detail> list = adapter.getDetailList();
+		for(Arb_detail tem:list){
+			System.out.println(tem.getSymbol());
+		}
 	}
 	
-	@SuppressWarnings("deprecation")
-	public Arb_detail getSingleData(String code){
-		
-		Thread th = new Thread(new getCtpData(code));
+	public void startOrder(){
+		String[] codes = {"rb1505","rb1510","ag1505"};
+		Thread th = new Thread(new getCtpData(codes));
 		th.start();
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(800);
 		} catch (InterruptedException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		th.stop();
-		th.interrupt();
-		if(th.isAlive()){System.out.println("WTF");}
+	}
+	
+	public Arb_detail getSingleData(){
+		TestJNA.INSTANCE.copyData();
 		CThostFtdcDepthMarketDataField ctpdata = CThostFtdcDepthMarketDataField.getInstance();
 		
 		Arb_detail detail = new Arb_detail();
@@ -80,8 +86,19 @@ public class ctpdataAdapter {
 	
 	public ArrayList<Arb_detail> getDetailList(){
 		detail_list = new ArrayList<Arb_detail>();
-		for(int i=0;i<3;i++){
-			detail_list.add(getSingleData("rb1505"));
+		for(int i=0;i<6;i++){
+			System.err.println("Copying->"+i);
+			Arb_detail detail = getSingleData();
+			boolean find = false;
+			for(Arb_detail tem:detail_list){
+				if(tem.getSymbol().equals(detail.getSymbol())){
+					//if(i>=3) detail.setSymbol("Test"+i);
+					tem = detail;
+					find=true;
+					break;
+				}
+			}
+			if(!find){detail_list.add(detail);}
 		}
 		return detail_list;
 	}

@@ -1,8 +1,8 @@
 package edu.nju.treasuryArbitrage.model.ctp;
 
 public class getCtpData implements Runnable{
-	String code = "";
-	public getCtpData(String code){this.code = code;}
+	public String[] codes = {"rb1505","rb1510","ag1505"};
+	public getCtpData(String[] codes){this.codes = codes;}
 	
 	@Override
 	public void run() {
@@ -10,7 +10,7 @@ public class getCtpData implements Runnable{
 		System.loadLibrary("../ThostTraderApi/thostmduserapi");
 		TestJNA.INSTANCE.callBack_String(new callBack_String());
 		TestJNA.INSTANCE.callBack_Double(new callBack_Double());		
-		TestJNA.INSTANCE.initial(code);
+		TestJNA.INSTANCE.initial(codes,codes.length);
 	}
 	
 }

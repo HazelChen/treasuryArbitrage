@@ -145,7 +145,15 @@ public class DataInterfaceToServer implements DataInterface {
 	@Override
 	public ArrayList<Arb_detail> getArbDetail() {
 		//return arbtbl.getDetailList();
-		return new ctpdataAdapter().getDetailList();
+		ctpdataAdapter adapter = new ctpdataAdapter();
+		adapter.startOrder();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+		}
+		return adapter.getDetailList();
 	}
 
 	@Override
