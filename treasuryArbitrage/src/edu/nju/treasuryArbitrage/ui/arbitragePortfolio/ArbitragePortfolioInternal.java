@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 
 import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
-import edu.nju.treasuryArbitrage.model.Arb_brief;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbBrief;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
 import edu.nju.treasuryArbitrage.ui.futuresMarket.LineChart;
@@ -76,7 +76,7 @@ public class ArbitragePortfolioInternal extends JPanel{
 	}
 
 	public void update() {
-		Arb_detail[] grpArbs = getArbDetails();
+		ArbDetail[] grpArbs = getArbDetails();
 		if (grpArbs == null) {
 			return;
 		}
@@ -89,13 +89,13 @@ public class ArbitragePortfolioInternal extends JPanel{
 		}
 	}
 	
-	private Arb_detail[] getArbDetails() {
-		Arb_detail[] grpArbs = new Arb_detail[2];
-		ArrayList<Arb_detail> currentArbs = LiveData.getInstance().getArb_details();
+	private ArbDetail[] getArbDetails() {
+		ArbDetail[] grpArbs = new ArbDetail[2];
+		ArrayList<ArbDetail> currentArbs = LiveData.getInstance().getArb_details();
 		if (currentArbs == null) {
 			return null;
 		}
-		for (Arb_detail arb_detail : currentArbs) {
+		for (ArbDetail arb_detail : currentArbs) {
 			if (arb_detail.getSymbol().equals(group.getRecent())) {
 				grpArbs[0] = arb_detail.getFormattedArb_detail();
 			}
@@ -117,11 +117,11 @@ public class ArbitragePortfolioInternal extends JPanel{
 		takeAOrder.clearActive();
 	}
 
-	public void initPoint(ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
-		ArrayList<Arb_brief> base = (histroy1.size() < histroy2.size()) ? histroy1 : histroy2;
+	public void initPoint(ArrayList<ArbBrief> histroy1, ArrayList<ArbBrief> histroy2) {
+		ArrayList<ArbBrief> base = (histroy1.size() < histroy2.size()) ? histroy1 : histroy2;
 		for (int i = 0; i < base.size(); i++) {
-			Arb_brief point1 = histroy1.get(i);
-			Arb_brief point2 = histroy2.get(i);
+			ArbBrief point1 = histroy1.get(i);
+			ArbBrief point2 = histroy2.get(i);
 			spreadLineChart.addNewPrice(base.get(i).getTodayDate(), point2.getPrice() - point1.getPrice());
  		}
 	}

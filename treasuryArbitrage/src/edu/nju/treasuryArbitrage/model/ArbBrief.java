@@ -5,12 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Arb_brief {
+public class ArbBrief {
 	String symbol;
 	String time;
 	double price;
 	
-	public Arb_brief(String symbol,String time,double price){
+	public ArbBrief(String symbol,String time,double price){
 		this.symbol = symbol;
 		this.time = time;
 		this.price = price;

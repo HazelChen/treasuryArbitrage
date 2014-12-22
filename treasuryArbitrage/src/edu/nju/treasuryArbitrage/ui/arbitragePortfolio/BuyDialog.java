@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 
 public class BuyDialog extends JDialog {
@@ -44,12 +44,12 @@ public class BuyDialog extends JDialog {
 
 	private JButton confirm = new JButton("确认下单");
 	
-	private Arb_detail[] arbGroup;
+	private ArbDetail[] arbGroup;
 	private boolean isRecentBuy;
 	private int hold;
 	private double guar;
 	
-	public BuyDialog(Arb_detail[] arbGroup, boolean isRecentBuy, int hold, double guar) {
+	public BuyDialog(ArbDetail[] arbGroup, boolean isRecentBuy, int hold, double guar) {
 		this.arbGroup = arbGroup;
 		this.isRecentBuy = isRecentBuy;
 		this.hold = hold;
@@ -150,7 +150,7 @@ public class BuyDialog extends JDialog {
 			BuyDialog.this.setVisible(false);
 			JOptionPane.showMessageDialog(null, "下单成功！");
 			
-			Arb_detail buy, sell;
+			ArbDetail buy, sell;
 			if (isRecentBuy) {
 				buy = arbGroup[0];
 				sell = arbGroup[1];

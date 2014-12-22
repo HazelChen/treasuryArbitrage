@@ -1,10 +1,9 @@
 package edu.nju.treasuryArbitrage.logic.dataInterface;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import edu.nju.treasuryArbitrage.model.Arb_brief;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbBrief;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.model.Finance;
 import edu.nju.treasuryArbitrage.model.Message;
 import edu.nju.treasuryArbitrage.model.News;
@@ -40,8 +39,8 @@ public interface DataInterface {
 	public double getPara_GUAR();
 	public boolean setPara(double PROF,double LOSS,double GUAR);
 	
-	public ArrayList<Arb_detail> getArbDetail();
-	public ArrayList<Arb_brief> getArbBrief(String symbol);
+	public ArrayList<ArbDetail> getArbDetail();
+	public ArrayList<ArbBrief> getArbBrief(String symbol);
 	
 	public boolean Order(String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee);
 	public boolean cancleOrder(int Record_ID);
@@ -50,7 +49,6 @@ public interface DataInterface {
 	
 	public double getProfit(double buyprice1,double saleprice1,double buyprice2,double saleprice2,int count);
 	public double getGuar(double price1, double price2, int count);
-	public ArrayList<News> searchNews(String keyword, Date fD1, Date tD2);
 	
 	//CTP=============================================================================================================	
 }

@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 public class FuturesDetailInPortfolio extends JPanel {
 	private static final long serialVersionUID = -1068475248299847947L;
@@ -42,7 +42,7 @@ public class FuturesDetailInPortfolio extends JPanel {
 		initDetail1();
 	}
 
-	public void update(Arb_detail arb) {
+	public void update(ArbDetail arb) {
 		title.setText(arb.getSymbol());
 		currentPriceData.setText(String.valueOf(arb.getPresentPrice()));
 

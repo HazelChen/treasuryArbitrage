@@ -25,8 +25,8 @@ public class Repository {
 	}
 	
 	public void update() {
-		Arb_detail buyArb = getLiveArb_detail(toBuy);
-		Arb_detail sellArb = getLiveArb_detail(toSell);
+		ArbDetail buyArb = getLiveArb_detail(toBuy);
+		ArbDetail sellArb = getLiveArb_detail(toSell);
 		if (buyArb == null || sellArb == null) {
 			return;
 		}
@@ -40,10 +40,10 @@ public class Repository {
 		return (int) (profit * 1000) / 1000.0;
 	}
 	
-	private Arb_detail getLiveArb_detail(String symble) {
-		ArrayList<Arb_detail> arb_details = LiveData.getInstance()
+	private ArbDetail getLiveArb_detail(String symble) {
+		ArrayList<ArbDetail> arb_details = LiveData.getInstance()
 				.getArb_details();
-		for (Arb_detail arb_detail : arb_details) {
+		for (ArbDetail arb_detail : arb_details) {
 			if (arb_detail.getSymbol().equals(symble)) {
 				return arb_detail;
 			}

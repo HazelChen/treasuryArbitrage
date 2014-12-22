@@ -7,7 +7,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 public class PortfolioDetailStyle2 extends PortfolioDetail{
 	private static final long serialVersionUID = 6883083029440568354L;
@@ -37,9 +37,9 @@ public class PortfolioDetailStyle2 extends PortfolioDetail{
 	}
 
 	@Override
-	public void update(Arb_detail[] arbs) {
+	public void update(ArbDetail[] arbs) {
 		for (int i = 0; i < arbs.length; i++) {
-			Arb_detail arb = arbs[i];
+			ArbDetail arb = arbs[i];
 			title[i].setText(arb.getSymbol());
 			currentPriceData[i].setText(String.valueOf(arb.getPresentPrice()));
 			double priceChange = arb.getPriceChange();

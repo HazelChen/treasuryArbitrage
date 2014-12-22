@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import edu.nju.treasuryArbitrage.model.ArbGroup;
-import edu.nju.treasuryArbitrage.model.Arb_brief;
+import edu.nju.treasuryArbitrage.model.ArbBrief;
 
 public class InternalList {
 	private ArrayList<ArbitragePortfolioInternal> internals = new ArrayList<>();
@@ -61,7 +61,7 @@ public class InternalList {
 		return null;
 	}
 
-	public void initPoint(int index, ArrayList<Arb_brief> histroy1, ArrayList<Arb_brief> histroy2) {
+	public void initPoint(int index, ArrayList<ArbBrief> histroy1, ArrayList<ArbBrief> histroy2) {
 		internals.get(index).initPoint(histroy1, histroy2);
 	}
 }

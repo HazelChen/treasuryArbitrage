@@ -6,7 +6,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 public class PortfolioDetailStyle1 extends PortfolioDetail {
 	private static final long serialVersionUID = -4365806896770758444L;
@@ -35,9 +35,9 @@ public class PortfolioDetailStyle1 extends PortfolioDetail {
 		init();
 	}
 
-	public void update(Arb_detail[] arbs) {
+	public void update(ArbDetail[] arbs) {
 		for (int i = 0; i < arbs.length; i++) {
-			Arb_detail arb = arbs[i];
+			ArbDetail arb = arbs[i];
 			title[i].setText(arb.getSymbol());
 			currentPriceData[i].setText(String.valueOf(arb.getPresentPrice()));
 			double priceChange = arb.getPriceChange();

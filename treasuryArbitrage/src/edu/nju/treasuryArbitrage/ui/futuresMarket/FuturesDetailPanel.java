@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 public class FuturesDetailPanel extends JPanel{
 	private static final long serialVersionUID = -4185005520541760560L;
@@ -55,23 +55,23 @@ public class FuturesDetailPanel extends JPanel{
 		this.index = index;
 	}
 	
-	public void update(ArrayList<Arb_detail> details) {
+	public void update(ArrayList<ArbDetail> details) {
 		if (index > details.size() - 1) {
-			update(Arb_detail.nullObject());
+			update(ArbDetail.nullObject());
 		} else {
 			update(details.get(index).getFormattedArb_detail());
 		}
 	}
 	
-	public void update(Arb_detail[] details) {
+	public void update(ArbDetail[] details) {
 		if (index > details.length) {
-			update(Arb_detail.nullObject());
+			update(ArbDetail.nullObject());
 		} else {
 			update(details[index].getFormattedArb_detail());
 		}
 	}
 
-	public void update(Arb_detail arb) {
+	public void update(ArbDetail arb) {
 		title.setText(arb.getSymbol());
 		currentPriceData.setText(String.valueOf(arb.getPresentPrice()));
 		

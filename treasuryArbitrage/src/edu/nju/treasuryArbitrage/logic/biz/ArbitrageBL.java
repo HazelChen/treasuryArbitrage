@@ -10,14 +10,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import edu.nju.treasuryArbitrage.model.ArbGroup;
-import edu.nju.treasuryArbitrage.model.Arb_brief;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbBrief;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 
 public class ArbitrageBL {
 	
-	private ArrayList<Arb_detail> detail_list;
-	private ArrayList<Arb_brief> brief_list;
+	private ArrayList<ArbDetail> detail_list;
+	private ArrayList<ArbBrief> brief_list;
 	private ArrayList<ArbGroup> group_list;
 	
 	private NetHelper helper;
@@ -26,9 +26,9 @@ public class ArbitrageBL {
 		this.helper = netHelper;
 	}
 	
-	public ArrayList<Arb_detail> getDetailList(){
+	public ArrayList<ArbDetail> getDetailList(){
 		
-		detail_list = new ArrayList<Arb_detail>();
+		detail_list = new ArrayList<ArbDetail>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		helper.setInitPara("detail", params);
@@ -38,7 +38,7 @@ public class ArbitrageBL {
 		}
 		for(int i=0;i<ret.length();i++){
 			JSONObject temp = ret.getJSONObject(i);
-			Arb_detail detail = new Arb_detail();
+			ArbDetail detail = new ArbDetail();
 			
 			String symbol = temp.getString("RT_CODE");
 			int year = Integer.valueOf(symbol.substring(2, 4));
@@ -144,8 +144,8 @@ public class ArbitrageBL {
 		return result;
 	}
 	
-	public ArrayList<Arb_brief> getBriefList(String symbol){
-		brief_list = new ArrayList<Arb_brief>();
+	public ArrayList<ArbBrief> getBriefList(String symbol){
+		brief_list = new ArrayList<ArbBrief>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("CODE", symbol);
@@ -159,7 +159,7 @@ public class ArbitrageBL {
 			JSONObject temp = ret.getJSONObject(i);
 			String time = temp.getString("RT_TIME");
 			double price = temp.getDouble("RT_LAST");
-			Arb_brief brief = new Arb_brief(symbol,time,price);
+			ArbBrief brief = new ArbBrief(symbol,time,price);
 			brief_list.add(brief);
 		}
 		

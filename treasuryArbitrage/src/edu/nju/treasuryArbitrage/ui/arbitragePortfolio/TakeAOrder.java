@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 public class TakeAOrder extends JPanel {
 	private static final long serialVersionUID = 3595675326727853779L;
@@ -51,7 +51,7 @@ public class TakeAOrder extends JPanel {
 	private JButton confirm = new JButton("ÏÂµ¥");
 	public JTextField tfdHoldings = new JTextField();
 	
-	private Arb_detail[] arbGroups;
+	private ArbDetail[] arbGroups;
 	private double prePrice1, prePrice2, guar, restMoney;
 	private int holds;
 	private boolean isRecentBuy;
@@ -151,7 +151,7 @@ public class TakeAOrder extends JPanel {
 		name2.setText(arbGroup.getFar());
 	}
 
-	public void update(Arb_detail[] arbGroups, boolean isRecentBuy) {
+	public void update(ArbDetail[] arbGroups, boolean isRecentBuy) {
 		this.arbGroups = arbGroups;
 		this.isRecentBuy = isRecentBuy;
 		

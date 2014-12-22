@@ -1,7 +1,7 @@
 package edu.nju.treasuryArbitrage.model;
 
 
-public class Arb_detail {
+public class ArbDetail {
 	String symbol;			//***国债期货代码
 	String month;			//***交割月份
 	
@@ -50,11 +50,11 @@ public class Arb_detail {
 	double averPrice;		//***均价
 	
 	
-	public Arb_detail(){}
+	public ArbDetail(){}
 	
 	
-	private Arb_detail cloneArb() {
-		Arb_detail arb_detail = new Arb_detail();
+	private ArbDetail cloneArb() {
+		ArbDetail arb_detail = new ArbDetail();
 		arb_detail.symbol = this.symbol;
 		arb_detail.month = this.month;
 		arb_detail.date = this.date;
@@ -89,8 +89,8 @@ public class Arb_detail {
 		return arb_detail;
 	}
 	
-	public Arb_detail getFormattedArb_detail() {
-		Arb_detail arb_detail = cloneArb();
+	public ArbDetail getFormattedArb_detail() {
+		ArbDetail arb_detail = cloneArb();
 		
 		arb_detail.presentPrice = format(presentPrice);
 		arb_detail.change = format(change);
@@ -399,8 +399,8 @@ public class Arb_detail {
 	}
 
 
-	public static Arb_detail nullObject() {
-		Arb_detail arb_detail = new Arb_detail();
+	public static ArbDetail nullObject() {
+		ArbDetail arb_detail = new ArbDetail();
 		arb_detail.symbol = "-";
 		arb_detail.month = "-";
 		arb_detail.date = "-";

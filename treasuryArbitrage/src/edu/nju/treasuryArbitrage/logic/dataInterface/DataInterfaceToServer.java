@@ -1,11 +1,26 @@
 package edu.nju.treasuryArbitrage.logic.dataInterface;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import edu.nju.treasuryArbitrage.logic.biz.*;
-import edu.nju.treasuryArbitrage.logic.ctpbiz.ctpdataAdapter;
-import edu.nju.treasuryArbitrage.model.*;
+import edu.nju.treasuryArbitrage.logic.biz.ArbitrageBL;
+import edu.nju.treasuryArbitrage.logic.biz.CalculateBL;
+import edu.nju.treasuryArbitrage.logic.biz.FinanceBL;
+import edu.nju.treasuryArbitrage.logic.biz.MessContainerBL;
+import edu.nju.treasuryArbitrage.logic.biz.NetHelper;
+import edu.nju.treasuryArbitrage.logic.biz.NewsBL;
+import edu.nju.treasuryArbitrage.logic.biz.RecordBL;
+import edu.nju.treasuryArbitrage.logic.biz.RepositoryBL;
+import edu.nju.treasuryArbitrage.logic.biz.TradeBL;
+import edu.nju.treasuryArbitrage.logic.biz.UserBL;
+import edu.nju.treasuryArbitrage.logic.ctpbiz.CtpDataAdapter;
+import edu.nju.treasuryArbitrage.model.ArbBrief;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
+import edu.nju.treasuryArbitrage.model.Finance;
+import edu.nju.treasuryArbitrage.model.Message;
+import edu.nju.treasuryArbitrage.model.News;
+import edu.nju.treasuryArbitrage.model.Record;
+import edu.nju.treasuryArbitrage.model.Repository;
+import edu.nju.treasuryArbitrage.model.UserVO;
 
 public class DataInterfaceToServer implements DataInterface {
 
@@ -21,7 +36,7 @@ public class DataInterfaceToServer implements DataInterface {
 
 	CalculateBL calcbl;
 	
-	ctpdataAdapter adapter;
+	CtpDataAdapter ctpAdapter;
 
 	public DataInterfaceToServer() {
 		NetHelper netHelper = new NetHelper();
@@ -34,8 +49,8 @@ public class DataInterfaceToServer implements DataInterface {
 		tradebl = new TradeBL(netHelper);
 		calcbl = new CalculateBL();
 		newsbl = new NewsBL(netHelper);
-		adapter = new ctpdataAdapter();
-		adapter.startOrder();
+		ctpAdapter = new CtpDataAdapter();
+		ctpAdapter.startOrder();
 		
 	}
 
@@ -147,13 +162,13 @@ public class DataInterfaceToServer implements DataInterface {
 	// ==================================================================================================
 
 	@Override
-	public ArrayList<Arb_detail> getArbDetail() {
+	public ArrayList<ArbDetail> getArbDetail() {
 		//return arbtbl.getDetailList();
-		return adapter.getDetailList();
+		return ctpAdapter.getDetailList();
 	}
 
 	@Override
-	public ArrayList<Arb_brief> getArbBrief(String symbol){
+	public ArrayList<ArbBrief> getArbBrief(String symbol){
 		return arbtbl.getBriefList(symbol);
 	}
 	
@@ -207,12 +222,6 @@ public class DataInterfaceToServer implements DataInterface {
 			}
 		}
 		return latestFinance.getIdle();
-	}
-
-	@Override
-	public ArrayList<News> searchNews(String keyword, Date fD1, Date tD2) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -17,8 +17,8 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
 import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
-import edu.nju.treasuryArbitrage.model.Arb_brief;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbBrief;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.ui.common.ColorConstants;
 import edu.nju.treasuryArbitrage.ui.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.ui.common.ScreenSize;
@@ -31,7 +31,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	private String[] headerData = { "代码", "交割月份", "现价", "涨跌", "涨跌幅", "买量",
 			"买价", "卖价", "卖量", "成交量", "持仓量", "日增仓", "前结算价", "今开", "最高", "最低",
 			"时间" };
-	private Arb_detail[] arb_details = new Arb_detail[3];
+	private ArbDetail[] arb_details = new ArbDetail[3];
 	private DefaultTableModel model;
 	private LineChart[] charts = new LineChart[3];
 	private boolean[] isPresentPriceRed = new boolean[3];
@@ -77,10 +77,10 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		this.setBackground(Color.BLACK);
 
 		for (int i = 0; i < arb_details.length; i++) {
-			arb_details[i] = Arb_detail.nullObject();
+			arb_details[i] = ArbDetail.nullObject();
 		}
 
-		ArrayList<Arb_detail> result = LiveData.getInstance().getArb_details();
+		ArrayList<ArbDetail> result = LiveData.getInstance().getArb_details();
 		if (result == null) {
 			return;
 		}
@@ -93,7 +93,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 
 		Object[][] futuresInfo = new Object[arb_details.length][headerData.length];
 		for (int i = 0; i < arb_details.length; i++) {
-			Arb_detail arb = arb_details[i].getFormattedArb_detail();
+			ArbDetail arb = arb_details[i].getFormattedArb_detail();
 
 			futuresInfo[i] = new Object[] { arb.getSymbol(), arb.getMonth(),
 					arb.getPresentPrice(), arb.getPriceChange(),
@@ -282,19 +282,19 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		charts[2].setYRange(96.0, 97.0);
 	}
 
-	private void initPoints(int index, final ArrayList<Arb_brief> arb_briefs) {
+	private void initPoints(int index, final ArrayList<ArbBrief> arb_briefs) {
 		for (int j = 0; j < arb_briefs.size(); j++) {
-			Arb_brief brief = arb_briefs.get(j);
+			ArbBrief brief = arb_briefs.get(j);
 			charts[index].addNewPrice(brief.getTodayDate(), brief.getPrice());
 		}
 	}
 
 	@Override
 	public void updatePage() {
-		ArrayList<Arb_detail> arb_lists = LiveData.getInstance()
+		ArrayList<ArbDetail> arb_lists = LiveData.getInstance()
 				.getArb_details();
 		for (int i = 0; i < Math.min(arb_lists.size(), arb_details.length); i++) {
-			Arb_detail arb_detail = arb_lists.get(i);
+			ArbDetail arb_detail = arb_lists.get(i);
 			arb_details[i] = arb_detail;
 			charts[i].addNewPrice(arb_detail.getPresentPrice());
 		}

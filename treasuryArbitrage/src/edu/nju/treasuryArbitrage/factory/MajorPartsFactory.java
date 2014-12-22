@@ -7,7 +7,6 @@ import edu.nju.treasuryArbitrage.ui.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.ui.holdings.Holdings;
 import edu.nju.treasuryArbitrage.ui.navigater.Navigater;
 import edu.nju.treasuryArbitrage.ui.navigater.SettingStopParameters;
-import edu.nju.treasuryArbitrage.ui.news.NewsPanel;
 import edu.nju.treasuryArbitrage.ui.personalCenter.PersonalCenter;
 
 public class MajorPartsFactory {
@@ -18,7 +17,6 @@ public class MajorPartsFactory {
 	private FuturesMarket futuresMarket;
 	private ArbitragePortfolio arbitragePortfolio;
 	private Holdings holdings;
-	private NewsPanel news;
 	private PersonalCenter personalCenter;
 	private SettingStopParameters settingStopParameters;
 	
@@ -58,13 +56,6 @@ public class MajorPartsFactory {
 
 	public Holdings getHoldings() {
 		return holdings;
-	}
-
-	public NewsPanel getNews() {
-		if (news == null) {
-			news = new NewsPanel();
-		}
-		return news;
 	}
 
 	public PersonalCenter getPersonalCenter() {

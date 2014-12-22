@@ -3,18 +3,18 @@ package edu.nju.treasuryArbitrage.logic.liveUpdate;
 import java.util.ArrayList;
 
 import edu.nju.treasuryArbitrage.model.ArbGroup;
-import edu.nju.treasuryArbitrage.model.Arb_brief;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbBrief;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 
 public class LiveData {
 	private static LiveData self = new LiveData();
-	private ArrayList<Arb_detail> arb_details;
+	private ArrayList<ArbDetail> arb_details;
 	private ArrayList<ArbGroup> arbGroups = new ArrayList<>();
 	
-	private ArrayList<Arb_brief> briefsTF1412;
-	private ArrayList<Arb_brief> briefsTF1503;
-	private ArrayList<Arb_brief> briefsTF1506;
+	private ArrayList<ArbBrief> briefsTF1412;
+	private ArrayList<ArbBrief> briefsTF1503;
+	private ArrayList<ArbBrief> briefsTF1506;
 	
 	private boolean isReady;
 	
@@ -28,12 +28,12 @@ public class LiveData {
 		return isReady;
 	}
 	
-	public ArrayList<Arb_detail> getArb_details() {
+	public ArrayList<ArbDetail> getArb_details() {
 		return arb_details;
 	}
 	
 	public double getPresentPrice(String id) {
-		for (Arb_detail arb_detail : arb_details) {
+		for (ArbDetail arb_detail : arb_details) {
 			if (arb_detail.getSymbol().equals(id)) {
 				return arb_detail.getPresentPrice();
 			}
@@ -41,7 +41,7 @@ public class LiveData {
 		return -1;
 	}
 	
-	public void setArb_details(ArrayList<Arb_detail> arb_details) {
+	public void setArb_details(ArrayList<ArbDetail> arb_details) {
 		this.arb_details = arb_details;
 	}
 
@@ -53,7 +53,7 @@ public class LiveData {
 		this.arbGroups = arbGroups;
 	}
 
-	public ArrayList<Arb_brief> getBriefsTF1412() {
+	public ArrayList<ArbBrief> getBriefsTF1412() {
 //		while (briefsTF1412 == null) {
 //			System.out.println("waitting for TF1412...");
 //			try {
@@ -65,11 +65,11 @@ public class LiveData {
 		return briefsTF1412;
 	}
 
-	public void setBriefsTF1412(ArrayList<Arb_brief> briefsTF1412) {
+	public void setBriefsTF1412(ArrayList<ArbBrief> briefsTF1412) {
 		this.briefsTF1412 = briefsTF1412;
 	}
 
-	public ArrayList<Arb_brief> getBriefsTF1503() {
+	public ArrayList<ArbBrief> getBriefsTF1503() {
 //		while (briefsTF1503 == null) {
 //			System.out.println("waitting for TF1503...");
 //			try {
@@ -81,11 +81,11 @@ public class LiveData {
 		return briefsTF1503;
 	}
 
-	public void setBriefsTF1503(ArrayList<Arb_brief> briefsTF1503) {
+	public void setBriefsTF1503(ArrayList<ArbBrief> briefsTF1503) {
 		this.briefsTF1503 = briefsTF1503;
 	}
 
-	public ArrayList<Arb_brief> getBriefsTF1506() {
+	public ArrayList<ArbBrief> getBriefsTF1506() {
 //		while (briefsTF1506 == null) {
 //			System.out.println("waitting for TF1506...");
 //			try {
@@ -97,7 +97,7 @@ public class LiveData {
 		return briefsTF1506;
 	}
 
-	public void setBriefsTF1506(ArrayList<Arb_brief> briefsTF1506) {
+	public void setBriefsTF1506(ArrayList<ArbBrief> briefsTF1506) {
 		this.briefsTF1506 = briefsTF1506;
 	}
 

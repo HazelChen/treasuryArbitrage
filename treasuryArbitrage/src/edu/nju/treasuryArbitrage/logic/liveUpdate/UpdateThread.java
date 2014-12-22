@@ -6,7 +6,7 @@ import java.util.Calendar;
 import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.factory.MajorPartsFactory;
 import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 public class UpdateThread implements Runnable {
 	private static UpdateThread self;
@@ -26,9 +26,9 @@ public class UpdateThread implements Runnable {
 	public void run() {
 		DataInterface dataInterface = DataInterfaceFactory.getInstance()
 				.getDataInterfaceToServer();
-		ArrayList<Arb_detail> arb_details = dataInterface.getArbDetail();
+		ArrayList<ArbDetail> arb_details = dataInterface.getArbDetail();
 		if (arb_details == null) {
-			arb_details = new ArrayList<Arb_detail>();
+			arb_details = new ArrayList<ArbDetail>();
 		}
 		
 		MajorPartsFactory factory = MajorPartsFactory.getInstance();

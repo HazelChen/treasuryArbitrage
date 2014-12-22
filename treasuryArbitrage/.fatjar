@@ -1,12 +1,12 @@
 #Fat Jar Configuration File
-#Sun Sep 14 23:10:17 CST 2014
+#Thu Nov 13 21:38:51 CST 2014
 onejar.license.required=true
 manifest.classpath=
 manifest.removesigners=true
 onejar.checkbox=false
 jarname=treasuryArbitrage_fat.jar
 manifest.mergeall=true
-manifest.mainclass=edu.nju.treasuryArbitrage.framework.Launch
+manifest.mainclass=edu.nju.treasuryArbitrage.TreasuryArbitrage
 manifest.file=<createnew>
 jarname.isextern=false
 onejar.expand=

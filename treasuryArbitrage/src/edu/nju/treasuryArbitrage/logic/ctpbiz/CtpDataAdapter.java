@@ -5,20 +5,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import edu.nju.treasuryArbitrage.model.Arb_detail;
+import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.model.ctp.CThostFtdcDepthMarketDataField;
 import edu.nju.treasuryArbitrage.model.ctp.TestJNA;
 import edu.nju.treasuryArbitrage.model.ctp.getCtpData;
 
-public class ctpdataAdapter {
+public class CtpDataAdapter {
 	
-	private ArrayList<Arb_detail> detail_list;
+	private ArrayList<ArbDetail> detail_list;
 	
 	public static void main(String[] args) {
-		ctpdataAdapter adapter = new ctpdataAdapter();
+		CtpDataAdapter adapter = new CtpDataAdapter();
 		adapter.startOrder();
-		ArrayList<Arb_detail> list = adapter.getDetailList();
-		for(Arb_detail tem:list){
+		ArrayList<ArbDetail> list = adapter.getDetailList();
+		for(ArbDetail tem:list){
 			System.out.println(tem.getSymbol());
 		}
 	}
@@ -35,11 +35,11 @@ public class ctpdataAdapter {
 		}
 	}
 	
-	public Arb_detail getSingleData(){
+	public ArbDetail getSingleData(){
 		TestJNA.INSTANCE.copyData();
 		CThostFtdcDepthMarketDataField ctpdata = CThostFtdcDepthMarketDataField.getInstance();
 		
-		Arb_detail detail = new Arb_detail();
+		ArbDetail detail = new ArbDetail();
 		
 		String symbol = ctpdata.InstrumentID;
 		int year = Integer.valueOf(symbol.substring(2, 4));
@@ -83,13 +83,13 @@ public class ctpdataAdapter {
 		return detail;
 	}
 	
-	public ArrayList<Arb_detail> getDetailList(){
-		detail_list = new ArrayList<Arb_detail>();
+	public ArrayList<ArbDetail> getDetailList(){
+		detail_list = new ArrayList<ArbDetail>();
 		for(int i=0;i<6;i++){
 			System.err.println("Copying->"+i);
-			Arb_detail detail = getSingleData();
+			ArbDetail detail = getSingleData();
 			boolean find = false;
-			for(Arb_detail tem:detail_list){
+			for(ArbDetail tem:detail_list){
 				if(tem.getSymbol().equals(detail.getSymbol())){
 					//if(i>=3) detail.setSymbol("Test"+i);
 					tem = detail;
