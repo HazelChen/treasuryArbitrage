@@ -20,5 +20,6 @@
 	<classpathentry kind="lib" path="lib/JTattoo-1.6.10.jar"/>
 	<classpathentry kind="lib" path="lib/javabuilder.jar"/>
 	<classpathentry kind="lib" path="lib/Arbitrage_Main/distrib/Arbitrage_Main.jar"/>
+	<classpathentry kind="lib" path="lib/jna.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

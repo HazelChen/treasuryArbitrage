@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import edu.nju.treasuryArbitrage.logic.biz.*;
+import edu.nju.treasuryArbitrage.logic.ctpbiz.ctpdataAdapter;
 import edu.nju.treasuryArbitrage.model.*;
 
 public class DataInterfaceToServer implements DataInterface {
@@ -143,7 +144,8 @@ public class DataInterfaceToServer implements DataInterface {
 
 	@Override
 	public ArrayList<Arb_detail> getArbDetail() {
-		return arbtbl.getDetailList();
+		//return arbtbl.getDetailList();
+		return new ctpdataAdapter().getDetailList();
 	}
 
 	@Override

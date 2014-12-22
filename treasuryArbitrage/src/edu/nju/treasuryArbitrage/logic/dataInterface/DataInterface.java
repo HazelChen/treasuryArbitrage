@@ -52,4 +52,5 @@ public interface DataInterface {
 	public double getGuar(double price1, double price2, int count);
 	public ArrayList<News> searchNews(String keyword, Date fD1, Date tD2);
 	
+	//CTP=============================================================================================================	
 }
