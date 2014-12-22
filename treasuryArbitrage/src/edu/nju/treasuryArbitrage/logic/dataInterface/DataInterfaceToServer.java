@@ -20,6 +20,8 @@ public class DataInterfaceToServer implements DataInterface {
 	TradeBL tradebl;
 
 	CalculateBL calcbl;
+	
+	ctpdataAdapter adapter;
 
 	public DataInterfaceToServer() {
 		NetHelper netHelper = new NetHelper();
@@ -32,6 +34,8 @@ public class DataInterfaceToServer implements DataInterface {
 		tradebl = new TradeBL(netHelper);
 		calcbl = new CalculateBL();
 		newsbl = new NewsBL(netHelper);
+		adapter = new ctpdataAdapter();
+		adapter.startOrder();
 		
 	}
 
@@ -145,14 +149,6 @@ public class DataInterfaceToServer implements DataInterface {
 	@Override
 	public ArrayList<Arb_detail> getArbDetail() {
 		//return arbtbl.getDetailList();
-		ctpdataAdapter adapter = new ctpdataAdapter();
-		adapter.startOrder();
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
 		return adapter.getDetailList();
 	}
 

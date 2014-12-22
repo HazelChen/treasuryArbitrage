@@ -1,9 +1,11 @@
 package edu.nju.treasuryArbitrage.logic.dataInterface;
 
+import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
+
 public class TestInterface {
 
 	public static void main(String[] args) {
-		DataInterfaceToServer dif = new DataInterfaceToServer();
+//		DataInterfaceToServer dif = new DataInterfaceToServer();
 //		System.out.println(dif.register("name", "psdd"));
 //		System.out.println(dif.loginValidate("name", "psd"));
 //		System.out.println(dif.Trade(60, 100000));
@@ -15,10 +17,23 @@ public class TestInterface {
 //		System.out.println(dif.getRepoList());
 //		System.out.println(dif.getPara_GUAR());
 //		System.out.println(dif.getArbDetail());
+//		System.out.println(dif.getArbDetail());
 //		System.out.println(dif.getNewsList());
 //		System.out.println(dif.Order("TF1409", "TF1412", 93.2, 93.3, 1, 100));
 //		System.out.println(dif.Trade(21, 90));
-		System.out.println(dif.getArbBrief("TF1412"));
+//		System.out.println(dif.getArbBrief("TF1412"));
+		Thread th = new Thread(new Runnable(){
+
+			@Override
+			public void run() {
+				// TODO 自动生成的方法存根
+				DataInterface dataInterface = DataInterfaceFactory.getInstance()
+						.getDataInterfaceToServer();
+				System.out.println(dataInterface.getArbDetail());
+			}
+			
+		});
+		th.start();
 	}
 
 }

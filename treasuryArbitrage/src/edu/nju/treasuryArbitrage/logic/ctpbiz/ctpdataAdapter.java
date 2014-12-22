@@ -48,7 +48,6 @@ public class ctpdataAdapter {
 		detail.setSymbol(symbol);
 		detail.setMonth(End);
 		detail.setDate(End);
-		detail.setDate(End);
 		//================================================
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
