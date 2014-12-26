@@ -11,7 +11,6 @@ import edu.nju.treasuryArbitrage.model.ctp.GetCtpData;
 import edu.nju.treasuryArbitrage.model.ctp.TestJNA;
 import edu.nju.treasuryArbitrage.model.ctp.callBack_Double;
 import edu.nju.treasuryArbitrage.model.ctp.callBack_String;
-import edu.nju.treasuryArbitrage.model.ctp.getCtpData;
 
 public class CtpDataAdapter {
 	
