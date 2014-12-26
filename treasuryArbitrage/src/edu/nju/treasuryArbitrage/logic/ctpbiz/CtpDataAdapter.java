@@ -8,6 +8,8 @@ import java.util.Date;
 import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.model.ctp.CThostFtdcDepthMarketDataField;
 import edu.nju.treasuryArbitrage.model.ctp.TestJNA;
+import edu.nju.treasuryArbitrage.model.ctp.callBack_Double;
+import edu.nju.treasuryArbitrage.model.ctp.callBack_String;
 import edu.nju.treasuryArbitrage.model.ctp.getCtpData;
 
 public class CtpDataAdapter {
@@ -36,6 +38,8 @@ public class CtpDataAdapter {
 	}
 	
 	public ArbDetail getSingleData(){
+		TestJNA.INSTANCE.callBack_String(new callBack_String());
+		TestJNA.INSTANCE.callBack_Double(new callBack_Double());
 		TestJNA.INSTANCE.copyData();
 		CThostFtdcDepthMarketDataField ctpdata = CThostFtdcDepthMarketDataField.getInstance();
 		
