@@ -7,8 +7,8 @@ import java.util.Date;
 
 import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.model.ctp.CThostFtdcDepthMarketDataField;
+import edu.nju.treasuryArbitrage.model.ctp.GetCtpData;
 import edu.nju.treasuryArbitrage.model.ctp.TestJNA;
-import edu.nju.treasuryArbitrage.model.ctp.getCtpData;
 
 public class CtpDataAdapter {
 	
@@ -17,15 +17,15 @@ public class CtpDataAdapter {
 	public static void main(String[] args) {
 		CtpDataAdapter adapter = new CtpDataAdapter();
 		adapter.startOrder();
-		ArrayList<ArbDetail> list = adapter.getDetailList();
-		for(ArbDetail tem:list){
-			System.out.println(tem.getSymbol());
-		}
+//		ArrayList<ArbDetail> list = adapter.getDetailList();
+//		for(ArbDetail tem:list){
+//			System.out.println(tem.getSymbol());
+//		}
 	}
 	
 	public void startOrder(){
 		String[] codes = {"rb1505","rb1510","ag1505"};
-		Thread th = new Thread(new getCtpData(codes));
+		Thread th = new Thread(new GetCtpData(codes));
 		th.start();
 		try {
 			Thread.sleep(1500);
