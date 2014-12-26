@@ -28,7 +28,7 @@ public class CtpDataAdapter {
 		Thread th = new Thread(new getCtpData(codes));
 		th.start();
 		try {
-			Thread.sleep(800);
+			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			// TODO 自动生成的 catch 块
 			e.printStackTrace();
