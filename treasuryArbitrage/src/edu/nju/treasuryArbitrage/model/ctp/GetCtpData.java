@@ -5,12 +5,16 @@ public class GetCtpData implements Runnable{
 	public String[] codes = {"rb1505","rb1510","ag1505"};
 	public GetCtpData(String[] codes){this.codes = codes;}
 	
+	public static callBack_String callStr = new callBack_String();
+	public static callBack_Double callDou = new callBack_Double();
+	
 	@Override
 	public void run() {
 		// TODO 自动生成的方法存根
-		System.loadLibrary("../ThostTraderApi/thostmduserapi");
-//		TestJNA.INSTANCE.callBack_String(new callBack_String());
-//		TestJNA.INSTANCE.callBack_Double(new callBack_Double());
+//		System.loadLibrary("../ThostTraderApi/thostmduserapi");
+		System.loadLibrary("../DLL/TestJNA");
+		TestJNA.INSTANCE.callBack_String(callStr);
+		TestJNA.INSTANCE.callBack_Double(callDou);
 		TestJNA.INSTANCE.initial(codes,codes.length);
 	}
 	

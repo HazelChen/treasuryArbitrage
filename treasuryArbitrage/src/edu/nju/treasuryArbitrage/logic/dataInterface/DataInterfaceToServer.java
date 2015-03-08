@@ -163,8 +163,8 @@ public class DataInterfaceToServer implements DataInterface {
 
 	@Override
 	public ArrayList<ArbDetail> getArbDetail() {
-		//return arbtbl.getDetailList();
-		return ctpAdapter.getDetailList();
+		return arbtbl.getDetailList();
+		//return ctpAdapter.getDetailList();
 	}
 
 	@Override
