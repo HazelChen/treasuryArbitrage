@@ -12,7 +12,7 @@ import edu.nju.treasuryArbitrage.model.ArbDetail;
 public class PortfolioDetailStyle2 extends PortfolioDetail{
 	private static final long serialVersionUID = 6883083029440568354L;
 	
-	private static final Font NORMAL_FONT = new Font("΢���ź�", Font.PLAIN, 18);
+	private static final Font NORMAL_FONT = new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 18);
 	private static final int LABEL_WIDTH = 100;
 	private static final int LABEL_HEIGHT = 20;
 	private static final int ARB_SHOW_HEIGHT = 180;
@@ -66,13 +66,13 @@ public class PortfolioDetailStyle2 extends PortfolioDetail{
 		title[index].setBounds(LEFT_MARGIN, ARB_SHOW_HEIGHT * index, width, 30);
 		title[index].setHorizontalAlignment(SwingConstants.LEFT);
 		title[index].setForeground(Color.YELLOW);
-		title[index].setFont(new Font("΢���ź�", Font.PLAIN, 22));
+		title[index].setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 22));
 		this.add(title[index]);
 		
 		JLabel[] labels = new JLabel[3];
-		labels[0] = new JLabel("���");
-		labels[1] = new JLabel("�ǵ���");
-		labels[2] = new JLabel("�ǵ�");
+		labels[0] = new JLabel("锟斤拷锟�");
+		labels[1] = new JLabel("锟角碉拷锟斤拷");
+		labels[2] = new JLabel("锟角碉拷");
 		
 		for (int i = 0; i < labels.length; i++) {
 			labels[i].setBounds(LEFT_MARGIN, 78 + (LABEL_HEIGHT + 3) * i + ARB_SHOW_HEIGHT * index,
@@ -86,7 +86,7 @@ public class PortfolioDetailStyle2 extends PortfolioDetail{
 		currentPriceData[index].setBounds(LEFT_MARGIN, 30 + ARB_SHOW_HEIGHT * index, width, 45);
 		currentPriceData[index].setHorizontalAlignment(SwingConstants.LEFT);
 		currentPriceData[index].setForeground(Color.RED);
-		currentPriceData[index].setFont(new Font("΢���ź�", Font.PLAIN, 40));
+		currentPriceData[index].setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 40));
 		currentPriceData[index].setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(193,193,193)));
 		this.add(currentPriceData[index]);
 

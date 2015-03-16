@@ -25,19 +25,19 @@ import edu.nju.treasuryArbitrage.view.navigater.SettingStopParameters;
 
 public class LoginInputSquare extends LoginInput{
 	private static final long serialVersionUID = -4223830916730143876L;
-	private static final Font YAHEI_FONT = new Font("΢���ź�", Font.PLAIN, 15);
-	private static final Font TINY_YAHEI_FONT = new Font("΢���ź�", Font.PLAIN, 13);
+	private static final Font YAHEI_FONT = new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 15);
+	private static final Font TINY_YAHEI_FONT = new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 13);
 	private static final Color BACKGROUND_COLOR = new Color(235,242,250);
 	private static final Color FOREGROUND_COLOR = Color.BLACK;
 	
 	private RiskTipDialog dialog = new RiskTipDialog();
 	private JTextField userTextField = new JTextField();
 	private JPasswordField passwordField = new JPasswordField();
-	private JCheckBox rememberpwdCheckBox = new JCheckBox("��ס����");
-	private JCheckBox autoLoginCheckBox = new JCheckBox("�Զ���¼");
-	private JCheckBox readRiskWarning = new JCheckBox("���Ķ�������ʾ");
-	private JButton okButton = new JButton("��¼");
-	private Label forgetPasswordLabel = new Label("�������룿");
+	private JCheckBox rememberpwdCheckBox = new JCheckBox("锟斤拷住锟斤拷锟斤拷");
+	private JCheckBox autoLoginCheckBox = new JCheckBox("锟皆讹拷锟斤拷录");
+	private JCheckBox readRiskWarning = new JCheckBox("锟斤拷锟侥讹拷锟斤拷锟斤拷锟斤拷示");
+	private JButton okButton = new JButton("锟斤拷录");
+	private Label forgetPasswordLabel = new Label("锟斤拷锟斤拷锟斤拷锟诫？");
 	
 	public LoginInputSquare(LoginFrame loginFrame) {
 		init();
@@ -66,7 +66,7 @@ public class LoginInputSquare extends LoginInput{
 	}
 	
 	private void assemble() {
-		Label userLabel = new Label("�˺�:");
+		Label userLabel = new Label("锟剿猴拷:");
 		userLabel.setFont(YAHEI_FONT);
 		userLabel.setForeground(FOREGROUND_COLOR);
 		userLabel.setBounds(90, 20, 45, 25);
@@ -75,7 +75,7 @@ public class LoginInputSquare extends LoginInput{
 		this.add(userLabel);
 		this.add(userTextField);
 		
-		Label passwordLabel = new Label("����:");
+		Label passwordLabel = new Label("锟斤拷锟斤拷:");
 		passwordLabel.setFont(YAHEI_FONT);
 		passwordLabel.setForeground(FOREGROUND_COLOR);
 		passwordLabel.setBounds(90, 60, 45, 20);
@@ -141,7 +141,7 @@ public class LoginInputSquare extends LoginInput{
 						settingStopParameters.setVisible(true);
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "�û�����������󣡣�");
+					JOptionPane.showMessageDialog(null, "锟矫伙拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷螅。锟�");
 				}
 			}
 		});
@@ -169,7 +169,7 @@ public class LoginInputSquare extends LoginInput{
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "����ϵ�ͷ����� XXX 130XXXXXXX");
+				JOptionPane.showMessageDialog(null, "锟斤拷锟斤拷系锟酵凤拷锟斤拷锟斤拷 XXX 130XXXXXXX");
 			}
 		});
 	}

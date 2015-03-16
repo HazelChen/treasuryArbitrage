@@ -28,9 +28,9 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	private static final int TABLE_HEIGHT = 40;
 	private JTable futuerTable;
 	private FuturesDetailPanel detailPanel;
-	private String[] headerData = { "����", "�����·�", "�ּ�", "�ǵ�", "�ǵ���", "����",
-			"���", "����", "����", "�ɽ���", "�ֲ���", "������", "ǰ�����", "��", "���", "���",
-			"ʱ��" };
+	private String[] headerData = { "锟斤拷锟斤拷", "锟斤拷锟斤拷锟铰凤拷", "锟街硷拷", "锟角碉拷", "锟角碉拷锟斤拷", "锟斤拷锟斤拷",
+			"锟斤拷锟�", "锟斤拷锟斤拷", "锟斤拷锟斤拷", "锟缴斤拷锟斤拷", "锟街诧拷锟斤拷", "锟斤拷锟斤拷锟斤拷", "前锟斤拷锟斤拷锟�", "锟斤拷", "锟斤拷锟�", "锟斤拷锟�",
+			"时锟斤拷" };
 	private ArbDetail[] arb_details = new ArbDetail[3];
 	private DefaultTableModel model;
 	private LineChart[] charts = new LineChart[3];
@@ -133,7 +133,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		futuerTable.setShowHorizontalLines(false);
 		futuerTable.setShowVerticalLines(false);
 		futuerTable.setRowHeight(TABLE_HEIGHT);
-		futuerTable.setFont(new Font("����", Font.PLAIN, 18));
+		futuerTable.setFont(new Font("锟斤拷锟斤拷", Font.PLAIN, 18));
 		futuerTable.setBackground(Color.BLACK);
 		futuerTable.setBorder(null);
 		futuerTable.setForeground(Color.WHITE);
@@ -143,7 +143,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 		JTableHeader header = futuerTable.getTableHeader();
 		header.setBackground(Color.BLACK);
 		header.setForeground(ColorConstants.BRIGHT_BLUE);
-		header.setFont(new Font("����", Font.PLAIN, 18));
+		header.setFont(new Font("锟斤拷锟斤拷", Font.PLAIN, 18));
 	}
 
 	private void setColomnWidthAndColor() {

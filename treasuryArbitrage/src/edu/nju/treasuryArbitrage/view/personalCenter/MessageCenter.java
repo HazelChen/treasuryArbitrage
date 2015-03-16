@@ -70,10 +70,10 @@ public class MessageCenter extends JPanel {
 		icon3 = new ImageIcon("image/icon4.jpg");
 		bxJLabel = new JLabel(icon);
 		dbtype = new JComboBox<>();
-		dbtype.addItem("ȫѡ");
-		dbtype.addItem("��ѡ");
-		dbtype.addItem("δ��");
-		dbtype.addItem("�Ѷ�");
+		dbtype.addItem("全选");
+		dbtype.addItem("锟斤拷选");
+		dbtype.addItem("未锟斤拷");
+		dbtype.addItem("锟窖讹拷");
 		dbtype.setSelectedIndex(1);;
 		dbtype.addItemListener(new ItemListener() {
 			@Override
@@ -92,14 +92,14 @@ public class MessageCenter extends JPanel {
 				} else if (index == 2) {
 					for (int i = 0; i < table.getRowCount(); i++) {
 						table.setValueAt(icon2, i, 0);
-						if(table.getValueAt(i, 1).equals("��")){
+						if(table.getValueAt(i, 1).equals("锟斤拷")){
 							table.setValueAt(icon3, i, 0);
 						}
 					}
 				} else if (index == 3) {
 					for (int i = 0; i < table.getRowCount(); i++) {
 						table.setValueAt(icon2, i, 0);
-						if(table.getValueAt(i, 1).equals("��")){
+						if(table.getValueAt(i, 1).equals("锟斤拷")){
 							table.setValueAt(icon3, i, 0);
 						}
 					}
@@ -114,7 +114,7 @@ public class MessageCenter extends JPanel {
 		mainJPanel.setComponentZOrder(bxJLabel, 0);
 		setData();
 		setTable(w, h);
-		deleteButton = new JButton(new ImageIcon("image/ɾ��.jpg"));
+		deleteButton = new JButton(new ImageIcon("image/删锟斤拷.jpg"));
 		mainJPanel.add(deleteButton);
 		deleteButton.setBounds(80, 20, 40, 25);
 		mainJPanel.setPreferredSize(new Dimension(600, 400));
@@ -182,7 +182,7 @@ public class MessageCenter extends JPanel {
 		int result = 0;
 		if(cellData.length>0){
 			for (int i = 0; i < cellData.length; i++) {
-				if (cellData[i][1].equals("��")) {
+				if (cellData[i][1].equals("锟斤拷")) {
 					result++;
 				}
 			}
@@ -191,7 +191,7 @@ public class MessageCenter extends JPanel {
 	}
 
 	private void setReword() {
-		reward = new JLabel("��" + getNoRead() + "��δ����Ϣ");
+		reward = new JLabel("锟斤拷" + getNoRead() + "锟斤拷未锟斤拷锟斤拷息");
 		reward.setForeground(Color.WHITE);
 		mainJPanel.add(reward);
 		reward.setBounds(150, 20, 100, 25);
@@ -204,9 +204,9 @@ public class MessageCenter extends JPanel {
 		for(int i = 0 ; i<messageList.size();i++){
 			cellData[i][0]=icon2;
 			if(messageList.get(i).getRead()){
-				cellData[i][1]="��";
+				cellData[i][1]="锟斤拷";
 			}else{
-				cellData[i][1]="��";
+				cellData[i][1]="锟斤拷";
 			}
 			cellData[i][2]=String.valueOf(i+1);
 			cellData[i][3]=messageList.get(i).getInfo();
@@ -218,7 +218,7 @@ public class MessageCenter extends JPanel {
 	
 
 	private void setTable(int w, int h) {
-		String[] columnNames = { "", "δ��", "���", "����", "ʱ��" };
+		String[] columnNames = { "", "未锟斤拷", "锟斤拷锟�", "锟斤拷锟斤拷", "时锟斤拷" };
 		DefaultTableModel myTableModel = new MYModel(cellData, columnNames) {
 			private static final long serialVersionUID = 4811840115068048761L;
 
@@ -300,9 +300,9 @@ public class MessageCenter extends JPanel {
 	private void showMessage(final int row) {
 		remove(mainJPanel);
 		final JPanel jPanel = new JPanel();
-		JLabel jLabel = new JLabel(messages[row]+" , ǰ���鿴", JLabel.CENTER);
-		jLabel.setFont(new Font("΢���ź�",1,30));
-		JButton cancel = new JButton("ȡ��");
+		JLabel jLabel = new JLabel(messages[row]+" , 前锟斤拷锟介看", JLabel.CENTER);
+		jLabel.setFont(new Font("微锟斤拷锟脚猴拷",1,30));
+		JButton cancel = new JButton("取锟斤拷");
 		jPanel.setLayout(null);
 		jPanel.add(cancel);
 		jPanel.setBounds(5, 5, getWidth() - 10, getHeight() - 10);
@@ -320,8 +320,8 @@ public class MessageCenter extends JPanel {
 				remove(jPanel);
 				add(mainJPanel);
 				mainJPanel.setBounds(0, 0, getWidth(), getHeight());
-				table.setValueAt("��", row, 1);
-				cellData[row][1] = "��";
+				table.setValueAt("锟斤拷", row, 1);
+				cellData[row][1] = "锟斤拷";
 				service.ReadMess(row);
 				mainJPanel.remove(reward);
 				setReword();

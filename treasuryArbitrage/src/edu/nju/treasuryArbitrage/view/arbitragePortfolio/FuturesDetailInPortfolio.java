@@ -12,7 +12,7 @@ import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 public class FuturesDetailInPortfolio extends JPanel {
 	private static final long serialVersionUID = -1068475248299847947L;
-	private static final Font NORMAL_FONT = new Font("΢���ź�", Font.PLAIN, 18);
+	private static final Font NORMAL_FONT = new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 18);
 	private static final int LABEL_WIDTH = 100;
 	private static final int LABEL_HEIGHT = 20;
 	private static final int LEFT_MARGIN = 3;
@@ -67,13 +67,13 @@ public class FuturesDetailInPortfolio extends JPanel {
 		title.setBounds(LEFT_MARGIN, 0, width, 30);
 		title.setHorizontalAlignment(SwingConstants.LEFT);
 		title.setForeground(Color.YELLOW);
-		title.setFont(new Font("΢���ź�", Font.PLAIN, 22));
+		title.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 22));
 		this.add(title);
 
 		currentPriceData.setBounds(LEFT_MARGIN, 30, width, 45);
 		currentPriceData.setHorizontalAlignment(SwingConstants.LEFT);
 		currentPriceData.setForeground(Color.RED);
-		currentPriceData.setFont(new Font("΢���ź�", Font.PLAIN, 40));
+		currentPriceData.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 40));
 		currentPriceData.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0,
 				new Color(193, 193, 193)));
 		this.add(currentPriceData);
@@ -81,11 +81,11 @@ public class FuturesDetailInPortfolio extends JPanel {
 
 	private void initBuy() {
 		JLabel[] sellLabels = new JLabel[5];
-		sellLabels[0] = new JLabel("����");
-		sellLabels[1] = new JLabel("����");
-		sellLabels[2] = new JLabel("����");
-		sellLabels[3] = new JLabel("����");
-		sellLabels[4] = new JLabel("��һ");
+		sellLabels[0] = new JLabel("锟斤拷锟斤拷");
+		sellLabels[1] = new JLabel("锟斤拷锟斤拷");
+		sellLabels[2] = new JLabel("锟斤拷锟斤拷");
+		sellLabels[3] = new JLabel("锟斤拷锟斤拷");
+		sellLabels[4] = new JLabel("锟斤拷一");
 
 		JLabel[] nullLabel1s = new JLabel[4];
 		JLabel[] nullLabel2s = new JLabel[4];
@@ -93,7 +93,7 @@ public class FuturesDetailInPortfolio extends JPanel {
 		for (int i = 0; i < sellLabels.length; i++) {
 			sellLabels[i].setBounds(LEFT_MARGIN, 78 + (LABEL_HEIGHT + 3) * i,
 					width, LABEL_HEIGHT);
-			sellLabels[i].setFont(new Font("΢���ź�", Font.PLAIN, 18));
+			sellLabels[i].setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 18));
 			sellLabels[i].setForeground(Color.WHITE);
 			this.add(sellLabels[i]);
 
@@ -132,11 +132,11 @@ public class FuturesDetailInPortfolio extends JPanel {
 
 	private void initSell() {
 		JLabel[] buyLabels = new JLabel[5];
-		buyLabels[0] = new JLabel("��һ");
-		buyLabels[1] = new JLabel("���");
-		buyLabels[2] = new JLabel("����");
-		buyLabels[3] = new JLabel("����");
-		buyLabels[4] = new JLabel("����");
+		buyLabels[0] = new JLabel("锟斤拷一");
+		buyLabels[1] = new JLabel("锟斤拷锟�");
+		buyLabels[2] = new JLabel("锟斤拷锟斤拷");
+		buyLabels[3] = new JLabel("锟斤拷锟斤拷");
+		buyLabels[4] = new JLabel("锟斤拷锟斤拷");
 
 		JLabel[] nullLabel1s = new JLabel[4];
 		JLabel[] nullLabel2s = new JLabel[4];
@@ -144,7 +144,7 @@ public class FuturesDetailInPortfolio extends JPanel {
 		for (int i = 0; i < buyLabels.length; i++) {
 			buyLabels[i].setBounds(LEFT_MARGIN, 193 + (LABEL_HEIGHT + 3) * i,
 					width, LABEL_HEIGHT);
-			buyLabels[i].setFont(new Font("΢���ź�", Font.PLAIN, 18));
+			buyLabels[i].setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 18));
 			buyLabels[i].setForeground(Color.WHITE);
 			this.add(buyLabels[i]);
 
@@ -183,8 +183,8 @@ public class FuturesDetailInPortfolio extends JPanel {
 
 	private void initDetail1() {
 		JLabel[] detail1 = new JLabel[2];
-		detail1[0] = new JLabel("�ǵ�");
-		detail1[1] = new JLabel("�ǵ���");
+		detail1[0] = new JLabel("锟角碉拷");
+		detail1[1] = new JLabel("锟角碉拷锟斤拷");
 
 		for (int i = 0; i < 1; i++) {
 			detail1[i].setFont(NORMAL_FONT);

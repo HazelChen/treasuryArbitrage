@@ -45,9 +45,9 @@ public class NavigationBar extends JPanel{
 	
 	public void naviPanelInit() {
 		ViewFactory factory = ViewFactory.getInstance();
-		items[0] = new NavigationBarItem(this, factory.getFuturesMarket(), "�ڻ�����");
-		items[1] = new NavigationBarItem(this, factory.getArbitragePortfolio(), "�������");
-		items[2] = new NavigationBarItem(this, factory.getHoldings(), "�ֲ����"){
+		items[0] = new NavigationBarItem(this, factory.getFuturesMarket(), "锟节伙拷锟斤拷锟斤拷");
+		items[1] = new NavigationBarItem(this, factory.getArbitragePortfolio(), "锟斤拷锟斤拷锟斤拷锟�");
+		items[2] = new NavigationBarItem(this, factory.getHoldings(), "锟街诧拷锟斤拷锟�"){
 			private static final long serialVersionUID = -4590415644339941609L;
 
 			@Override
@@ -58,8 +58,8 @@ public class NavigationBar extends JPanel{
 				}
 			}
 		}; 
-		//items[3] = new NavigaterItem(this, factory.getNews(), "�ƾ�Ҫ��", false, false);
-//		items[3] = new NavigaterItem(this, factory.getPersonalCenter(), "��������");
+		//items[3] = new NavigaterItem(this, factory.getNews(), "锟狡撅拷要锟斤拷", false, false);
+//		items[3] = new NavigaterItem(this, factory.getPersonalCenter(), "锟斤拷锟斤拷锟斤拷锟斤拷");
 	}
 	
 	public void assemble() {
@@ -73,9 +73,9 @@ public class NavigationBar extends JPanel{
 			if (i == items.length - 1) {
 				continue;
 			}
-			JLabel dotLabel = new JLabel(" �� ");
+			JLabel dotLabel = new JLabel(" 锟斤拷 ");
 			dotLabel.setForeground(FOREGROUND_COLOR);
-			dotLabel.setFont(new Font("΢���ź�", Font.BOLD, 15));
+			dotLabel.setFont(new Font("微锟斤拷锟脚猴拷", Font.BOLD, 15));
 			dotLabel.setBackground(BACKGROUND_COLOR);
 			left.add(dotLabel);
 		}
@@ -110,7 +110,7 @@ public class NavigationBar extends JPanel{
 		TreasuryFrame frame = ViewFactory.getInstance().getFrame();
 		ComponentPanel changedPage = items[i].getPage();
 		frame.setPage((JPanel)changedPage);
-		changedPage.updatePage(LiveData.getInstance().getArb_details());
+		changedPage.updatePage();
 	}
 
 	public void setHoldingsSelected() {

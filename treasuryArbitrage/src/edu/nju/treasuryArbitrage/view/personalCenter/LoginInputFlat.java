@@ -26,18 +26,18 @@ import edu.nju.treasuryArbitrage.view.navigater.SettingStopParameters;
 
 public class LoginInputFlat extends LoginInput{
 	private static final long serialVersionUID = -4223830916730143876L;
-	private static final Font YAHEI_FONT = new Font("΢���ź�", Font.PLAIN, 15);
+	private static final Font YAHEI_FONT = new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 15);
 	/*package*/ static final Color BACKGROUND_COLOR = new Color(235,242,250);
 	private static final Color FOREGROUND_COLOR = Color.BLACK;
 	
 	private RiskTipDialog dialog = new RiskTipDialog();
 	private JTextField userTextField = new JTextField();
 	private JPasswordField passwordField = new JPasswordField();
-	private JCheckBox readRiskWarning = new JCheckBox("���Ķ�������ʾ");
-	private JButton okButton = new JButton("��¼");
-	private JRadioButton simulationRadioButton = new JRadioButton("ģ�⽻��");
-	private JRadioButton realRadioButton = new JRadioButton("��ʵ����");
-	private JLabel userLabel = new JLabel("��  ��:");
+	private JCheckBox readRiskWarning = new JCheckBox("锟斤拷锟侥讹拷锟斤拷锟斤拷锟斤拷示");
+	private JButton okButton = new JButton("锟斤拷录");
+	private JRadioButton simulationRadioButton = new JRadioButton("模锟解交锟斤拷");
+	private JRadioButton realRadioButton = new JRadioButton("锟斤拷实锟斤拷锟斤拷");
+	private JLabel userLabel = new JLabel("锟斤拷  锟斤拷:");
 	
 	public LoginInputFlat(LoginFrame loginFrame) {
 		init();
@@ -74,7 +74,7 @@ public class LoginInputFlat extends LoginInput{
 		this.add(userLabel);
 		this.add(userTextField);
 		
-		Label passwordLabel = new Label("����:");
+		Label passwordLabel = new Label("锟斤拷锟斤拷:");
 		passwordLabel.setFont(YAHEI_FONT);
 		passwordLabel.setForeground(FOREGROUND_COLOR);
 		passwordLabel.setBounds(265, 50, 40, 25);
@@ -149,7 +149,7 @@ public class LoginInputFlat extends LoginInput{
 						settingStopParameters.setVisible(true);
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "�û�����������󣡣�");
+					JOptionPane.showMessageDialog(null, "锟矫伙拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷螅。锟�");
 				}
 			}
 		});
@@ -172,7 +172,7 @@ public class LoginInputFlat extends LoginInput{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				userLabel.setText("��  ��:");
+				userLabel.setText("锟斤拷  锟斤拷:");
 				DataInterfaceFactory.getInstance().setIsSimulate(true);
 			}
 		});
@@ -183,7 +183,7 @@ public class LoginInputFlat extends LoginInput{
 			public void actionPerformed(ActionEvent e) {
 				userLabel.setText("<html>" +
 						"<font color=red><b>CTP </b></font>" +
-						"��ҵ�ڻ�:</html>");
+						"锟斤拷业锟节伙拷:</html>");
 				DataInterfaceFactory.getInstance().setIsSimulate(false);
 			}
 		});

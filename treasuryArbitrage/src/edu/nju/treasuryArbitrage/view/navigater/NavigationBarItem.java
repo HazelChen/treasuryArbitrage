@@ -90,8 +90,7 @@ public class NavigationBarItem extends JPanel{
 				
 				TreasuryFrame frame = ViewFactory.getInstance().getFrame();
 				frame.setPage((JPanel)changedPage);
-                LiveData liveData = LiveData.getInstance();
-				changedPage.updatePage(liveData.getArb_details());
+				changedPage.updatePage();
 			}
 		});
 	}

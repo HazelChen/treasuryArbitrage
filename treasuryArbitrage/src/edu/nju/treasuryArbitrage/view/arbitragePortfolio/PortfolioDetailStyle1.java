@@ -11,7 +11,7 @@ import edu.nju.treasuryArbitrage.model.ArbDetail;
 public class PortfolioDetailStyle1 extends PortfolioDetail {
 	private static final long serialVersionUID = -4365806896770758444L;
 
-	private static final Font NORMAL_FONT = new Font("΢���ź�", Font.PLAIN, 18);
+	private static final Font NORMAL_FONT = new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 18);
 	private static final int LABEL_WIDTH = 60;
 	private static final int LABEL_HEIGHT = 20;
 	private static final int LABEL_GAP = 5;
@@ -59,7 +59,7 @@ public class PortfolioDetailStyle1 extends PortfolioDetail {
 			title[i].setBounds(LEFT_MARGIN, 0 + (100) * i, width, 30);
 			title[i].setHorizontalAlignment(SwingConstants.LEFT);
 			title[i].setForeground(Color.YELLOW);
-			title[i].setFont(new Font("΢���ź�", Font.PLAIN, 22));
+			title[i].setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 22));
 			this.add(title[i]);
 
 			initLeft(i);
@@ -69,8 +69,8 @@ public class PortfolioDetailStyle1 extends PortfolioDetail {
 
 	private void initLeft(int index) {
 		JLabel[] labels = new JLabel[2];
-		labels[0] = new JLabel("���");
-		labels[1] = new JLabel("�ǵ���");
+		labels[0] = new JLabel("锟斤拷锟�");
+		labels[1] = new JLabel("锟角碉拷锟斤拷");
 
 		for (int i = 0; i < labels.length; i++) {
 			labels[i].setBounds(LEFT_MARGIN, 33 + (LABEL_HEIGHT + 3) * i + 100 * index,
@@ -97,13 +97,13 @@ public class PortfolioDetailStyle1 extends PortfolioDetail {
 	
 	private void initRight(int index) {
 		JLabel[] labels = new JLabel[2];
-		labels[0] = new JLabel("�ּ�");
-		labels[1] = new JLabel("�ǵ�");
+		labels[0] = new JLabel("锟街硷拷");
+		labels[1] = new JLabel("锟角碉拷");
 
 		for (int i = 0; i < labels.length; i++) {
 			labels[i].setBounds(width / 2 + 3, 33 + (LABEL_HEIGHT + 3) * i + 100 * index,
 					width, LABEL_HEIGHT);
-			labels[i].setFont(new Font("΢���ź�", Font.PLAIN, 18));
+			labels[i].setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 18));
 			labels[i].setForeground(Color.WHITE);
 			this.add(labels[i]);
 		}

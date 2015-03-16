@@ -6,14 +6,13 @@ import edu.nju.treasuryArbitrage.model.ArbBrief;
 import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.model.Finance;
 import edu.nju.treasuryArbitrage.model.Message;
-import edu.nju.treasuryArbitrage.model.News;
 import edu.nju.treasuryArbitrage.model.Record;
 import edu.nju.treasuryArbitrage.model.Repository;
 
 
 /**
- * ���ݽӿ�
- * �ýӿڴ������������������ĺ�����Ŀǰ���ǿ�����DataInterfacePile���׮ʵ��
+ * 锟斤拷锟捷接匡拷
+ * 锟矫接口达拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟侥猴拷锟斤拷锟斤拷目前锟斤拷锟角匡拷锟斤拷锟斤拷DataInterfacePile锟斤拷锟阶碉拷锟�
  */
 public interface DataInterface {
 	public boolean register(String username,String password);
@@ -26,7 +25,6 @@ public interface DataInterface {
 	
 	public ArrayList<Repository> getRepoList();
 	public ArrayList<Record> getRecordList();
-	public ArrayList<News> getNewsList();
 	
 	public ArrayList<Message> getMessList();
 	public void AddUnwindMess();
@@ -44,7 +42,7 @@ public interface DataInterface {
 	
 	public boolean Order(String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee);
 	public boolean cancleOrder(int Record_ID);
-	//public boolean Trade(int Repo_ID, double profit);//�ͻ���ˢ���������ݣ��ʽ𡢳ֲ֡���ʷ��¼��,����boolean
+	//public boolean Trade(int Repo_ID, double profit);//锟酵伙拷锟斤拷刷锟斤拷锟斤拷锟斤拷锟斤拷锟捷ｏ拷锟绞金、持仓★拷锟斤拷史锟斤拷录锟斤拷,锟斤拷锟斤拷boolean
 	public boolean Trade(int Repo_ID, double profit, double blank_price, double more_price);
 	
 	public double getProfit(double buyprice1,double saleprice1,double buyprice2,double saleprice2,int count);

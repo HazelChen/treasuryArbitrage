@@ -19,8 +19,8 @@ public class SettingStopParameters extends JDialog{
 	private JTextField stopProfitJTextField  = new JTextField();
 	private JTextField stopLossJTextField = new JTextField();
 	
-	private JButton confirmation =new JButton("ȷ��");
-	private JButton cancelButton = new JButton("ȡ��");
+	private JButton confirmation =new JButton("确锟斤拷");
+	private JButton cancelButton = new JButton("取锟斤拷");
 	
 	public SettingStopParameters(){
 		init();
@@ -71,7 +71,7 @@ public class SettingStopParameters extends JDialog{
 	}
 
 	private void init() {
-		this.setTitle("ģ�Ͳ�������");
+		this.setTitle("模锟酵诧拷锟斤拷锟斤拷锟斤拷");
 		this.setBackground(NavigationBar.BACKGROUND_COLOR);
 		this.getContentPane().setBackground(NavigationBar.BACKGROUND_COLOR);
 		this.setMaximumSize(new Dimension(450, 350));
@@ -83,28 +83,28 @@ public class SettingStopParameters extends JDialog{
 	}
 	
 	private void assemble() {
-		JLabel title = new JLabel("ģ�Ͳ�������");
-		title.setFont(new Font("΢���ź�", Font.PLAIN, 25));
+		JLabel title = new JLabel("模锟酵诧拷锟斤拷锟斤拷锟斤拷");
+		title.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 25));
 		title.setBounds(150, 20, 200, 50);
 		add(title);
 		
-		JLabel stopProfitLaJLabel = new JLabel("ֹӯ��");
-		stopProfitLaJLabel.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		JLabel stopProfitLaJLabel = new JLabel("止盈锟斤拷");
+		stopProfitLaJLabel.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 16));
 		stopProfitLaJLabel.setBounds(50, 100, 150, 40);
 		stopProfitJTextField.setBounds(150,100, 200, 40);
 		JLabel stopPercentJLabel = new JLabel("%");
-		stopPercentJLabel.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		stopPercentJLabel.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 16));
 		stopPercentJLabel.setBounds(360, 100, 50, 40);
 		add(stopProfitLaJLabel);
 		add(stopProfitJTextField);
 		add(stopPercentJLabel);
 		
-		JLabel stopLossJlJLabel = new JLabel("ֹ���");
-		stopLossJlJLabel.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		JLabel stopLossJlJLabel = new JLabel("止锟斤拷锟�");
+		stopLossJlJLabel.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 16));
 		stopLossJlJLabel.setBounds(50, 150, 150, 40);
 		stopLossJTextField.setBounds(150, 150, 200, 40);
 		JLabel percentJLabel2 = new JLabel("%");
-		percentJLabel2.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		percentJLabel2.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 16));
 		percentJLabel2.setBounds(360, 150, 50, 40);
 		add(stopLossJlJLabel);
 		add(stopLossJTextField);

@@ -24,7 +24,7 @@ import edu.nju.treasuryArbitrage.model.Record;
 public class HistoryRecord extends JPanel {
 	private static final long serialVersionUID = -4056530132719983788L;
 	Object[][] data = null;
-	String[] columns ={ "���������Ϣ", "����ʱ��", "��������", "Ͷ�뱣֤��", "����״̬" };
+	String[] columns ={ "锟斤拷锟斤拷锟斤拷锟斤拷锟较�", "锟斤拷锟斤拷时锟斤拷", "锟斤拷锟斤拷锟斤拷锟斤拷", "投锟诫保证锟斤拷", "锟斤拷锟斤拷状态" };
 	JTable jTableData;
 	JScrollPane jScrollPane;
 	private DataInterface service = DataInterfaceFactory.getInstance().getDataInterfaceToServer();
@@ -33,8 +33,8 @@ public class HistoryRecord extends JPanel {
 		ArrayList<Record> records = service.getRecordList();
 		data = new Object[records.size()][columns.length];
 		for(int i = 0 ; i < records.size() ; i++){
-			String[] strings = {records.get(i).getToBuy().getId(),"��ͷ",Double.toString(records.get(i).getToBuy().getValue()),
-					records.get(i).getToSell().getId(),"��ͷ",Double.toString(records.get(i).getToSell().getValue())};
+			String[] strings = {records.get(i).getToBuy().getId(),"锟斤拷头",Double.toString(records.get(i).getToBuy().getValue()),
+					records.get(i).getToSell().getId(),"锟斤拷头",Double.toString(records.get(i).getToSell().getValue())};
 			data[i][0]=strings;
 			Date date = new Date(records.get(i).getTime());
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");   

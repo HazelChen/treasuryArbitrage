@@ -6,7 +6,7 @@ import com.sun.jna.Native;
 
 public interface TestJNA extends  Library{
 	public static final TestJNA 
-	INSTANCE = (TestJNA)Native.loadLibrary("./DLL/TestJNA", TestJNA.class);
+	INSTANCE = (TestJNA)Native.loadLibrary("TestJNA", TestJNA.class);
 	
 	void initial(String[] codes, int length);
 	

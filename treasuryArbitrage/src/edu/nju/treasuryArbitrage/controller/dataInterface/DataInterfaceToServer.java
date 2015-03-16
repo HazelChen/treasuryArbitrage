@@ -7,7 +7,6 @@ import edu.nju.treasuryArbitrage.controller.logic.CalculateBL;
 import edu.nju.treasuryArbitrage.controller.logic.FinanceBL;
 import edu.nju.treasuryArbitrage.controller.logic.MessContainerBL;
 import edu.nju.treasuryArbitrage.controller.logic.NetHelper;
-import edu.nju.treasuryArbitrage.controller.logic.NewsBL;
 import edu.nju.treasuryArbitrage.controller.logic.RecordBL;
 import edu.nju.treasuryArbitrage.controller.logic.RepositoryBL;
 import edu.nju.treasuryArbitrage.controller.logic.TradeBL;
@@ -17,7 +16,6 @@ import edu.nju.treasuryArbitrage.model.ArbBrief;
 import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.model.Finance;
 import edu.nju.treasuryArbitrage.model.Message;
-import edu.nju.treasuryArbitrage.model.News;
 import edu.nju.treasuryArbitrage.model.Record;
 import edu.nju.treasuryArbitrage.model.Repository;
 import edu.nju.treasuryArbitrage.model.UserVO;
@@ -29,7 +27,6 @@ public class DataInterfaceToServer implements DataInterface {
 	FinanceBL finanbl;
 	RepositoryBL repobl;
 	RecordBL recordbl;
-	NewsBL newsbl;
 
 	ArbitrageBL arbtbl;
 	TradeBL tradebl;
@@ -48,7 +45,6 @@ public class DataInterfaceToServer implements DataInterface {
 		arbtbl = new ArbitrageBL(netHelper);
 		tradebl = new TradeBL(netHelper);
 		calcbl = new CalculateBL();
-		newsbl = new NewsBL(netHelper);
 		ctpAdapter = new CtpDataAdapter();
 		ctpAdapter.startOrder();
 		
@@ -103,11 +99,6 @@ public class DataInterfaceToServer implements DataInterface {
 			return new ArrayList<>();
 		}
 		return recordbl.getRecordList(user.getUserID());
-	}
-
-	@Override
-	public ArrayList<News> getNewsList() {
-		return newsbl.getNewsList();
 	}
 
 	// ==================================================================================================

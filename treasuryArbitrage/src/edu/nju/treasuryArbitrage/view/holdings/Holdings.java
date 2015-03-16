@@ -42,10 +42,10 @@ public class Holdings extends JPanel implements ComponentPanel {
 	private static final Color HEADER_BACKGROUND_COLOR = new Color(211, 211,
 			211);
 
-	private String[] holdHeaderData = { "���������Ϣ", "����ʱ��", "��������", "Ͷ�뱣֤��",
-			"��ʱ��ʧ/ӯ�����", "����" };
-	private String[] historyHeaderData = { "���������Ϣ", "����ʱ��", "��������", "Ͷ�뱣֤��",
-			"����״̬" };
+	private String[] holdHeaderData = { "锟斤拷锟斤拷锟斤拷锟斤拷锟较�", "锟斤拷锟斤拷时锟斤拷", "锟斤拷锟斤拷锟斤拷锟斤拷", "投锟诫保证锟斤拷",
+			"锟斤拷时锟斤拷失/盈锟斤拷锟斤拷锟�", "锟斤拷锟斤拷" };
+	private String[] historyHeaderData = { "锟斤拷锟斤拷锟斤拷锟斤拷锟较�", "锟斤拷锟斤拷时锟斤拷", "锟斤拷锟斤拷锟斤拷锟斤拷", "投锟诫保证锟斤拷",
+			"锟斤拷锟斤拷状态" };
 	private JTable hTable;
 	private JTable historyTable;
 	private DefaultTableModel repoTableModel;
@@ -75,16 +75,16 @@ public class Holdings extends JPanel implements ComponentPanel {
 		southPanel.setPreferredSize(new Dimension(ScreenSize.WIDTH,
 				(int) (ScreenSize.HEIGHT / 10.0 * 3)));
 
-		JLabel reposityPageLabel = new JLabel(" ��ʷ���׼�¼", JLabel.LEFT);
-		reposityPageLabel.setFont(new Font("΢���ź�", Font.BOLD, 16));
+		JLabel reposityPageLabel = new JLabel(" 锟斤拷史锟斤拷锟阶硷拷录", JLabel.LEFT);
+		reposityPageLabel.setFont(new Font("微锟斤拷锟脚猴拷", Font.BOLD, 16));
 		reposityPageLabel.setForeground(new Color(247, 68, 97));
 		reposityPageLabel.setPreferredSize(new Dimension(ScreenSize.WIDTH,
 				(int) (ScreenSize.HEIGHT / 25.0)));
 
 		JPanel dateChooserPanel = new JPanel();
 		dateChooserPanel.setOpaque(false);
-		JLabel timeTipLabel = new JLabel("ʱ��:");
-		timeTipLabel.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		JLabel timeTipLabel = new JLabel("时锟斤拷:");
+		timeTipLabel.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 16));
 		dateChooserPanel.add(timeTipLabel);
 		
 		historyFromDateChooser.register(historyDateFrom);
@@ -147,13 +147,13 @@ public class Holdings extends JPanel implements ComponentPanel {
 		northPanel.setPreferredSize(new Dimension(ScreenSize.WIDTH,
 				(int) (ScreenSize.HEIGHT / 10.0 * 7)));
 
-		JLabel reposityPageLabel = new JLabel(" �ֲ����", JLabel.LEFT);
-		reposityPageLabel.setFont(new Font("΢���ź�", Font.BOLD, 16));
+		JLabel reposityPageLabel = new JLabel(" 锟街诧拷锟斤拷锟�", JLabel.LEFT);
+		reposityPageLabel.setFont(new Font("微锟斤拷锟脚猴拷", Font.BOLD, 16));
 		reposityPageLabel.setForeground(new Color(247, 68, 97));
 		reposityPageLabel.setPreferredSize(new Dimension(ScreenSize.WIDTH,
 				(int) (ScreenSize.HEIGHT / 25.0)));
 
-		JButton doBtn = new JButton("ƽ��");
+		JButton doBtn = new JButton("平锟斤拷");
 		doBtn.setFocusPainted(false);
 		DefaultTableModel model = new DefaultTableModel(
 				new Object[0][holdHeaderData.length], holdHeaderData) {
@@ -209,14 +209,14 @@ public class Holdings extends JPanel implements ComponentPanel {
 	
 
 	public void updatePage() {
-		// ���³ֲ����ҳ����ʾ
+		// 锟斤拷锟铰持诧拷锟斤拷锟揭筹拷锟斤拷锟绞�
 		updateHistory();
 		updateRepoList();
 	}
 
 	public void updateRepoList() {
 		info = DataInterfaceFactory.getInstance().getDataInterfaceToServer()
-				.getRepoList();// �ӷ�������ȡ����
+				.getRepoList();// 锟接凤拷锟斤拷锟斤拷锟斤拷取锟斤拷锟斤拷
 		sellPrices = new double[info.size()];
 		buyPrices = new double[info.size()];
 		
@@ -261,7 +261,7 @@ public class Holdings extends JPanel implements ComponentPanel {
 	public void updateHistory() {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		ArrayList<Record> info = DataInterfaceFactory.getInstance()
-				.getDataInterfaceToServer().getRecordList();// �ӷ�������ȡ����
+				.getDataInterfaceToServer().getRecordList();// 锟接凤拷锟斤拷锟斤拷锟斤拷取锟斤拷锟斤拷
 		ArrayList<Record> showRecords = new ArrayList<>();
 		ArrayList<Object[]> increaseTableData = new ArrayList<>();
 		Date filterBegin = new Date(0);
@@ -306,7 +306,7 @@ public class Holdings extends JPanel implements ComponentPanel {
 
 	private String stateResolve(String state) {
 		if (state.equals("done")) {
-			return "�ѳɽ�";
+			return "锟窖成斤拷";
 		} else {
 			return "";
 		}
@@ -314,7 +314,7 @@ public class Holdings extends JPanel implements ComponentPanel {
 
 	private void makeFaceOfHeader(JTable table) {
 		table.setRowHeight(30);
-		table.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		table.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 16));
 		table.getColumnModel().getColumn(0)
 				.setPreferredWidth(ScreenSize.WIDTH / 2);
 		table.setEnabled(false);
@@ -338,7 +338,7 @@ public class Holdings extends JPanel implements ComponentPanel {
 	}
 
 	private void makeFaceOfTable(JTable table) {
-		table.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		table.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 16));
 		table.getTableHeader().setPreferredSize(new Dimension(0, 0));
 		table.getTableHeader().setVisible(false);
 		table.setRowHeight(60);
@@ -350,7 +350,7 @@ public class Holdings extends JPanel implements ComponentPanel {
 					Object value, boolean isSelected, boolean hasFocus,
 					int row, int column) {
 				if (row % 2 == 0)
-					setBackground(BACKGROUND_COLOR); // ���������е�ɫ else
+					setBackground(BACKGROUND_COLOR); // 锟斤拷锟斤拷锟斤拷锟斤拷锟叫碉拷色 else
 				if (row % 2 == 1)
 					setBackground(TABLE_DARKER_BACKGROUND_COLOR);
 				setHorizontalAlignment(SwingConstants.CENTER);
