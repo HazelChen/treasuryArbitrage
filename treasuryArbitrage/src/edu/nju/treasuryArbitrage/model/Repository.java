@@ -2,19 +2,19 @@ package edu.nju.treasuryArbitrage.model;
 
 import java.util.ArrayList;
 
-import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
+import edu.nju.treasuryArbitrage.controller.threads.LiveData;
 
 public class Repository {
-	int repo_ID;	//³Ö²Ö±ê¼Ç¡­¡­¡­¡­¡­¡­¡­¡­ÎÒ¸Ð¾õÂùÓÐ±ØÒª
-	long time;	//½»Ò×½áÊøÊ±¼ä
-	int count;		//½»Ò×ÊÖÊý
-	double guarantee;	//Í¶Èë±£Ö¤½ð
-	double profit;	//ÊÕÒæ½ð¶î¡­¡­·½·¨¼ÆËãµÃ³ö
+	int repo_ID;	//ï¿½Ö²Ö±ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¸Ð¾ï¿½ï¿½ï¿½ï¿½Ð±ï¿½Òª
+	long time;	//ï¿½ï¿½ï¿½×½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
+	int count;		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	double guarantee;	//Í¶ï¿½ë±£Ö¤ï¿½ï¿½
+	double profit;	//ï¿½ï¿½ï¿½ï¿½ï¿½î¡­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½
 	
-	int signal;     //½»Ò××´Ì¬       signal=1£¬ÕýÏòÌ×Àû½¨²Ö£»signal=-1£¬·´ÏòÌ×Àû½¨²Ö£»signal=0£¬²»½»Ò×¡£signal=0£¬²»½»Ò×£»signal=2£¬Ö¹Ó¯Æ½²Ö£»signal=-2,Ö¹ËðÆ½²Ö,signal=3£¬ÕýÏòÌ×ÀûÆ½²Ö£»signal=-3£¬·´ÏòÌ×ÀûÆ½²Ö£»
+	int signal;     //ï¿½ï¿½ï¿½ï¿½×´Ì¬       signal=1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½signal=-1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½signal=0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¡ï¿½signal=0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×£ï¿½signal=2ï¿½ï¿½Ö¹Ó¯Æ½ï¿½Ö£ï¿½signal=-2,Ö¹ï¿½ï¿½Æ½ï¿½ï¿½,signal=3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½Ö£ï¿½signal=-3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½Ö£ï¿½
 	
-	String toSell;	//¿ÕÍ·
-	String toBuy;	//¶àÍ·
+	String toSell;	//ï¿½ï¿½Í·
+	String toBuy;	//ï¿½ï¿½Í·
 	double toSell_price;
 	double toBuy_price;
 	

@@ -8,15 +8,15 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import edu.nju.treasuryArbitrage.factory.DataInterfaceFactory;
-import edu.nju.treasuryArbitrage.logic.dataInterface.DataInterface;
-import edu.nju.treasuryArbitrage.logic.liveUpdate.AnalyseThread;
-import edu.nju.treasuryArbitrage.logic.liveUpdate.LiveData;
-import edu.nju.treasuryArbitrage.logic.liveUpdate.ThreadDiag;
-import edu.nju.treasuryArbitrage.logic.liveUpdate.UpdateThread;
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.controller.threads.AnalyseThread;
+import edu.nju.treasuryArbitrage.controller.threads.LiveData;
+import edu.nju.treasuryArbitrage.controller.threads.ThreadDiag;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Repository;
-import edu.nju.treasuryArbitrage.ui.personalCenter.LoginFrame;
+import edu.nju.treasuryArbitrage.view.common.ViewHelper;
+import edu.nju.treasuryArbitrage.view.personalCenter.LoginFrame;
 
 public class TreasuryArbitrage {
 	
@@ -25,12 +25,12 @@ public class TreasuryArbitrage {
 			TreasuryArbitrage treasuryArbitrage = new TreasuryArbitrage();
 			treasuryArbitrage.launch();
 		} catch(Exception e) {
-			JOptionPane.showMessageDialog(null, "软件好像遇到了一点问题");
+			JOptionPane.showMessageDialog(null, "????????????????????");
 		}
 	}
 	
 	public void launch() {
-//		useLookAndFeel();	
+        ViewHelper.getInstance().init();
 		startDataFetch();
 		setOverallHotKey();
 		launchLoginPage();
@@ -58,9 +58,6 @@ public class TreasuryArbitrage {
 	}
 
 	private void startDataFetch() {
-		Thread thread = new Thread(UpdateThread.getInstance());
-		thread.start();
-
 		Thread analyseThread = new Thread(new AnalyseThread());
 		analyseThread.start();
 	}
@@ -70,30 +67,8 @@ public class TreasuryArbitrage {
 		loginFrame.setVisible(true);
 	}
 	
-	/*private void useLookAndFeel() {
-		try {
-			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels())
-				if ("Nimbus".equals(info.getName())) {
-					UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		Toolkit.getDefaultToolkit().setDynamicLayout(true);
-		System.setProperty("sun.awt.noerasebackground", "true");
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-
-		try {
-			UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}*/
-	
 	private void defaultArbCombinationRecommend() {
-		ThreadDiag recommandDiag = new ThreadDiag("有重大套利机会！\r\n马上前往套利组合页面查看？", true);
+		ThreadDiag recommandDiag = new ThreadDiag("?????????????\r\n????????????????????", true);
 		recommandDiag.setVisible(true);
 		ArbGroup group = new ArbGroup("TF1412", "TF1503", true);
 		ArrayList<ArbGroup> groups = new ArrayList<>();
@@ -111,12 +86,12 @@ public class TreasuryArbitrage {
 		Repository repository = holdings.get(0);
 		repository.update();
 		dataInterface.Trade(repository.getRepo_ID(), repository.getProfit(), repository.getBuyPrecentPrice(), repository.getSellPrecentPrice());
-		ThreadDiag recommandDiag = new ThreadDiag("组合\"TF1412 TF1503\"已自动平仓!\r\n马上前往查看？", false);
+		ThreadDiag recommandDiag = new ThreadDiag("???\"TF1412 TF1503\"????????!\r\n???????????", false);
 		recommandDiag.setVisible(true);
 	}
 	
 	private void defaultArbSellRemind() {
-		ThreadDiag recommandDiag = new ThreadDiag("组合\"TF1412 TF1503\"出现平仓机会!\r\n马上前往查看？", false);
+		ThreadDiag recommandDiag = new ThreadDiag("???\"TF1412 TF1503\"??????????!\r\n???????????", false);
 		recommandDiag.setVisible(true);
 	}
 }
