@@ -11,15 +11,26 @@ import java.util.ArrayList;
 import Arbitrage_Main.*;
 
 import com.mathworks.toolbox.javabuilder.*;
-//ï¿½ï¿½ï¿½ï¿½javaï¿½Ô´ï¿½Matlabï¿½ï¿½Ø°ï¿½
-//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ô¼ï¿½ï¿½ï¿½matlabï¿½ï¿½ï¿½ï¿½ï¿½jarï¿½ï¿½
+//ÒýÈëjava×Ô´øMatlabÏà¹Ø°ü
+//µ¼Èë³ÌÐòÔ±×Ô¼ºÓÃmatlabÊä³öµÄjar°ü
 
 public class DataInterface2Matlab {
 	 ArrayList<Double> Lmarket_condition = null;	
 	public double opt_x,opt_y,opt_k;
 	 ArrayList<Double> Llambda = null;
-	
+	Arbitrage_Main m;
+	Open open_position;
+	Close close_position;
 	public DataInterface2Matlab(){
+		try {
+			m = new Arbitrage_Main();
+			open_position = new Open(); 
+			close_position = new Close(); 			
+		} catch (MWException e3) {
+			// TODO ×Ô¶¯Éú³ÉµÄ catch ¿é
+			e3.printStackTrace();
+		}
+		
 	    Lmarket_condition = new ArrayList<Double>();
 	    Llambda = new ArrayList<Double>();
 	    Lmarket_condition.add(4.0);
@@ -34,9 +45,9 @@ public class DataInterface2Matlab {
         try {
             reader = new BufferedReader(new FileReader(file));
             String tempString = null;
-            // Ò»ï¿½Î¶ï¿½ï¿½ï¿½Ò»ï¿½Ð£ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nullÎªï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+            // Ò»´Î¶ÁÈëÒ»ÐÐ£¬Ö±µ½¶ÁÈënullÎªÎÄ¼þ½áÊø
             while ((tempString = reader.readLine()) != null) {
-                // ï¿½ï¿½Ê¾ï¿½Ðºï¿½
+                // ÏÔÊ¾ÐÐºÅ
                 s = tempString.trim();
                 String t[]=s.split("\t");
             	opt_x = (Double.parseDouble(t[0]));
@@ -59,12 +70,12 @@ public class DataInterface2Matlab {
 	 	BufferedReader reader2 = null;
 	 	String s2 = "";
         try {
-            //System.out.println("ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Î»ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ý£ï¿½Ò»ï¿½Î¶ï¿½Ò»ï¿½ï¿½ï¿½Ð£ï¿½");
+            //System.out.println("ÒÔÐÐÎªµ¥Î»¶ÁÈ¡ÎÄ¼þÄÚÈÝ£¬Ò»´Î¶ÁÒ»ÕûÐÐ£º");
             reader2 = new BufferedReader(new FileReader(file2));
             String tempString2 = null;
-            // Ò»ï¿½Î¶ï¿½ï¿½ï¿½Ò»ï¿½Ð£ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nullÎªï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+            // Ò»´Î¶ÁÈëÒ»ÐÐ£¬Ö±µ½¶ÁÈënullÎªÎÄ¼þ½áÊø
             while ((tempString2 = reader2.readLine()) != null) {
-                // ï¿½ï¿½Ê¾ï¿½Ðºï¿½
+                // ÏÔÊ¾ÐÐºÅ
                 s2 = tempString2.trim();
                 String t2[]=s2.split("\t");
                 Llambda.add(Double.parseDouble(t2[0]));
@@ -86,11 +97,10 @@ public class DataInterface2Matlab {
 	
 	
 	/*
-	 * resultÎªï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½Ôªï¿½Ø·Ö±ï¿½Îªx,y,k
+	 * resultÎª·µ»Ø¶ÔÏóÊý×é£¬¸÷ÔªËØ·Ö±ðÎªx,y,k
 	 */
 	public Object[] Arbitrage_Main(ArrayList<Double>  Lf1,ArrayList<Double>  Lf2,double stop_loss,double stop_profit){
 		Object[] result = null;
-		Arbitrage_Main m = null;
 		MWNumericArray f1 = null,f2 = null;   
 		int[] dims1 = {Lf1.size(), 1};  
         f1 = MWNumericArray.newInstance(dims1,   
@@ -105,10 +115,9 @@ public class DataInterface2Matlab {
         	f2.set(i, Double.valueOf(Lf2.get(i - 1)));
         }
 		try {
-			//Arbitrage_Mainï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
-			//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ê¾ï¿½ï¿½Òªï¿½ï¿½ÃµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½x,y,k;ï¿½ï¿½ï¿½Ð´2,ï¿½ï¿½Ö»ï¿½ÜµÃµï¿½x,y;
-			//ï¿½ï¿½Í¬
-			m = new Arbitrage_Main();  //!!!!important
+			//Arbitrage_Main·½·¨µ÷ÓÃÊ¾Àý
+			//µÚÒ»¸ö²ÎÊýÊý×Ö±íÊ¾ÐèÒª»ñµÃµÄ½á¹û¸öÊý£¬±ÈÈçÕâÀïµÄ3£¬±íÊ¾»ñµÃÈý¸ö½á¹û£¬x,y,k;Èç¹ûÐ´2,ÔòÖ»ÄÜµÃµ½x,y;
+			//ÏÂÍ¬
 			result =m.Arbitrage_Main(3,f1,f2,stop_loss, stop_profit);
 			//optimization_x,optimization_y,optimization_k
 			double x,y,k;
@@ -123,12 +132,12 @@ public class DataInterface2Matlab {
 					e.printStackTrace();
 				}
 	        }
-	        FileWriter fileWritter;
+	        FileWriter fileWriter;
 			try {
-				fileWritter = new FileWriter(parafile.getName());
-	             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-	             bufferWritter.write(x + "\t" + y+ "\t" + k);
-	             bufferWritter.close();
+				fileWriter = new FileWriter(parafile.getName());
+	             BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
+	             bufferWriter.write(x + "\t" + y+ "\t" + k);
+	             bufferWriter.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -143,11 +152,11 @@ public class DataInterface2Matlab {
 	
 	/*
 	 * 
-	 * resultÎªï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½Ôªï¿½Ø·Ö±ï¿½Îªsignal,buyprice,saleprice
+	 * resultÎª·µ»Ø¶ÔÏóÊý×é£¬¸÷ÔªËØ·Ö±ðÎªsignal,buyprice,saleprice
 	 */
 	public Object[] Open(ArrayList<Double>  Lf1,ArrayList<Double>  Lf2,
 			double newprice1,double newprice2,double x,double y,double k){
-		Open open_position = null;
+		
 		Object[] result = null;
 		MWNumericArray f1 = null,f2 = null,
 				mwnewprice1 = null,mwnewprice2 = null,
@@ -170,9 +179,8 @@ public class DataInterface2Matlab {
 		mwy =  new MWNumericArray(y,MWClassID.DOUBLE);
 		mwk =  new MWNumericArray(k,MWClassID.DOUBLE);  
 		try {
-			//Openï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
-			open_position = new Open(); //!!!!important
-			result =open_position.open(3,f1,f2,mwnewprice1,mwnewprice2,mwx,mwy,mwk);
+			//Open·½·¨µ÷ÓÃÊ¾Àý
+		    result =open_position.open(3,f1,f2,mwnewprice1,mwnewprice2,mwx,mwy,mwk);
 		    //signal,buyprice1,saleprice1
 		} catch (Exception e) {
 			System.out.println("Open Exception catched!");
@@ -183,18 +191,17 @@ public class DataInterface2Matlab {
 	}
 	
 	/*
-	 * ï¿½ï¿½ï¿½ï¿½ï¿½ resultÎªï¿½ï¿½ï¿½Ø¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½Ôªï¿½Ø·Ö±ï¿½Îªsignal,buyprice,saleprice
-	 * ï¿½ï¿½ï¿½ë£º%signalï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½×´Ì¬ï¿½ï¿½È¡-3,-2ï¿½ï¿½-1,0,1,2,3ï¿½ï¿½
-	 * Lf1ï¿½ï¿½Lf2ï¿½ï¿½Ç°Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Õ¿ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½Ç°Ò»ï¿½ï¿½Ä¼Û¸ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * % ï¿½ï¿½ï¿½ï¿½ï¿½signalï¿½ï¿½ï¿½Õµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Â¼Û¸ï¿½ï¿½Ç·ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½×¡ï¿½signal=1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½
-	 * %signal=-1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½signal=0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×£ï¿½signal=2ï¿½ï¿½Ö¹Ó¯Æ½ï¿½Ö£ï¿½signal=-2,Ö¹
-	 * %ï¿½ï¿½Æ½ï¿½ï¿½,signal=3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½Ö£ï¿½signal=-3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½Ö£ï¿½
+	 * Êä³ö£º resultÎª·µ»Ø¶ÔÏóÊý×é£¬¸÷ÔªËØ·Ö±ðÎªsignal,buyprice,saleprice
+	 * ÊäÈë£º%signalµ±Ç°½»Ò××´Ì¬£¨×´Ì¬£¬È¡-3,-2£¬-1,0,1,2,3£©
+	 * Lf1£¬Lf2ÊÇÇ°Ò»½»Ò×ÈÕ¿ªÅÌµ½ÏÖÔÚÇ°Ò»ÃëµÄ¼Û¸ñÊý×é
+	 * % Êä³ö£ºsignal°´ÕÕµ±Ç°µÄ×îÐÂ¼Û¸ñ£¬ÊÇ·ñÓ¦µ±½»Ò×¡£signal=1£¬ÕýÏòÌ×Àû½¨²Ö£»
+	 * %signal=-1£¬·´ÏòÌ×Àû½¨²Ö£»signal=0£¬²»½»Ò×£»signal=2£¬Ö¹Ó¯Æ½²Ö£»signal=-2,Ö¹
+	 * %ËðÆ½²Ö,signal=3£¬ÕýÏòÌ×ÀûÆ½²Ö£»signal=-3£¬·´ÏòÌ×ÀûÆ½²Ö£»
 	 * 
 	 */
 	public Object[] Close(ArrayList<Double> Lf1,ArrayList<Double>  Lf2,
 			double newprice1,double newprice2,double buyprice,double saleprice,
 			double k,double signal,double stop_loss,double stop_profit){
-		Close close_position = null;
 		Object[] result = null;
 		MWNumericArray f1 = null,f2 = null,mwsignal = null,mwstop_loss = null,mwstop_profit = null,
 				mwnewprice1 = null,mwnewprice2 = null,
@@ -220,7 +227,6 @@ public class DataInterface2Matlab {
 		mwstop_loss =  new MWNumericArray(stop_loss,MWClassID.DOUBLE);  
 		mwstop_profit =  new MWNumericArray(stop_profit,MWClassID.DOUBLE);  
 		try{
-			close_position = new Close(); //!!!!important
 			result =close_position.close(3,f1,f2,
 					mwnewprice1,mwnewprice2,mwbuyprice,mwsaleprice,mwk,mwsignal,mwstop_loss,mwstop_profit);
 			//signal,buyprice,saleprice
@@ -236,22 +242,22 @@ public class DataInterface2Matlab {
 	/*
 	 * [signal long_name short_name long short current_state current_trade_return units_time_return]
 	 * =judge(name1,name2,f1,f2,new_price1,new_price2,lambda,last_time_state,last_trade_return,spoint,market_condition,sigma_method)
-	 * %% ï¿½Ð¶Ïµï¿½Ç°ï¿½Ä¼Û¸ï¿½ï¿½Ç·ï¿½Æ«ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½
-	 * %% ï¿½ï¿½ï¿½ë£º
-	 * %  name1ï¿½ï¿½ï¿½ï¿½Ô¼1ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½ï¿½ï¿½ï¿½ï¿½'TF1412';name2ï¿½ï¿½ï¿½ï¿½Ô¼2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %  f1ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ò»Î¬ï¿½ï¿½ï¿½é£©ï¿½ï¿½f2ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½Ò»Î¬ï¿½ï¿½ï¿½é£©ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %  new_price1Îªï¿½Â¼Û¸ï¿½1ï¿½ï¿½doubleï¿½ï¿½ï¿½ï¿½new_price2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½doubleï¿½ï¿½ï¿½ï¿½lambdaï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½2*1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %  last_time_stateï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½È¡-1,0,1ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½Õ²Öºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½
-	 * %  last_trade_returnÖ¸ï¿½ï¿½ï¿½Çµï¿½Ç°ï¿½Ö²Öµï¿½Ä¿Ç°ÎªÖ¹ï¿½ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %  spointÎªÖ¹ï¿½ï¿½ã£¬ï¿½ï¿½ï¿½ï¿½-0.02
-	 * %  market_conditionï¿½ï¿½Îªï¿½ï¿½Ó³ï¿½ï¿½Ç°ï¿½Ð³ï¿½×´ï¿½ï¿½ï¿½ï¿½Ò»Ïµï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¹¹ï¿½ï¿½Îª[Ò»ï¿½Ö½ï¿½ï¿½×·ï¿½,ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ÆµÄ³ï¿½ï¿½ï¿½É±ï¿½,ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]
-	 * %  sigma_methodÎªï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÊµÄ¾ï¿½ï¿½å·½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª'garch'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ß¾ï¿½ï¿½È¸ßµï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¾ï¿½ï¿½ÈµÍµï¿½ï¿½Ù¶È¿ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %% ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %  signalï¿½ï¿½ï¿½Õµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Â¼Û¸ï¿½ï¿½Ç·ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½×¡ï¿½
-	 * %  signal=1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½signal=-1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½signal=0ï¿½ï¿½ï¿½Þ¶ï¿½ï¿½ï¿½ï¿½ï¿½signal=2ï¿½ï¿½Ö¹Ó¯Æ½ï¿½Ö£ï¿½signal=-2,Ö¹ï¿½ï¿½Æ½ï¿½Ö¡ï¿½
-	 * %  long_nameï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½Ô¼ï¿½ï¿½ï¿½Æ£ï¿½short_nameï¿½ï¿½ï¿½ï¿½ï¿½ÕµÄºï¿½Ô¼ï¿½ï¿½ï¿½Æ£ï¿½longï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½Ä²Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shortï¿½ï¿½ï¿½ï¿½ï¿½Õºï¿½Ô¼ï¿½Ä²Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %  current_stateï¿½ï¿½ï¿½Ú°ï¿½ï¿½Õµï¿½Ç°ï¿½ÅºÅ½ï¿½ï¿½ï¿½ï¿½ï¿½Éºó£¬µï¿½Ç°ï¿½Ä³Ö²ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½Õ²Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½Ö±ï¿½Îª-1,0ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½last_time_stateï¿½ï¿½
-	 * %  current_trade_returnï¿½ï¿½Ç°ï¿½Ö²ï¿½ï¿½Ú±ï¿½ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½ï¿½ï¿½Âµï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½unit_time_returnï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Î»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½
+	 * %% ÅÐ¶Ïµ±Ç°µÄ¼Û¸ñÊÇ·ñÆ«Àë£¬²¢·¢³öÂòÈëÂô³öÐÅºÅ
+	 * %% ÊäÈë£º
+	 * %  name1£¬ºÏÔ¼1µÄÃû³Æ£¬ÀýÈç'TF1412';name2£¬ºÏÔ¼2µÄÃû³Æ
+	 * %  f1ÀúÊ·Êý¾ÝÐòÁÐ1£¨Ò»Î¬Êý×é£©£¬f2ÀúÊ·Êý¾ÝÐòÁÐ2£¨Ò»Î¬Êý×é£©£¬¾ùÎªÁÐÏòÁ¿
+	 * %  new_price1ÎªÐÂ¼Û¸ñ1£¨double£©£¬new_price2ÐÂÊý¾Ý2£¨double£©£¬lambda²ßÂÔ²ÎÊý£¨2*1ÏòÁ¿£©£¬
+	 * %  last_time_stateµ±Ç°½»Ò××´Ì¬£¨È¡-1,0,1£¬·Ö±ð´ú±í¸ºÏòÌ×Àû×éºÏ¡¢¿Õ²ÖºÍÕýÏòÌ×Àû×éºÏ£©
+	 * %  last_trade_returnÖ¸µÄÊÇµ±Ç°³Ö²Öµ½Ä¿Ç°ÎªÖ¹µÄÀÛ¼ÆÊÕÒæµãÊý£»
+	 * %  spointÎªÖ¹Ëðµã£¬ÀýÈç-0.02
+	 * %  market_conditionÔòÎª·´Ó³µ±Ç°ÊÐ³¡×´¿öµÄÒ»ÏµÁÐ²ÎÊý£¬Æä¹¹ÔìÎª[Ò»ÊÖ½»Ò×·Ñ,±£Ö¤½ð±ÈÀý,¹À¼ÆµÄ³å»÷³É±¾,ÎÞ·çÏÕÀûÂÊ]
+	 * %  sigma_methodÎª¹À¼ÆÎ´À´²¨¶¯ÂÊµÄ¾ßÌå·½·¨£¬·ÖÎª'garch'ºÍÆäËû£¬Ç°Õß¾«¶È¸ßµ«ËÙ¶ÈÂý£¬ºóÕß¾«¶ÈµÍµ«ËÙ¶È¿ìÊý±¶
+	 * %% Êä³ö£º
+	 * %  signal°´ÕÕµ±Ç°µÄ×îÐÂ¼Û¸ñ£¬ÊÇ·ñÓ¦µ±½»Ò×¡£
+	 * %  signal=1£¬ÕýÏòÌ×Àû½¨²Ö£»signal=-1£¬·´ÏòÌ×Àû½¨²Ö£»signal=0£¬ÎÞ¶¯×÷£»signal=2£¬Ö¹Ó¯Æ½²Ö£»signal=-2,Ö¹ËðÆ½²Ö¡£
+	 * %  long_name£¬×ö¶àµÄºÏÔ¼Ãû³Æ£»short_name£¬×ö¿ÕµÄºÏÔ¼Ãû³Æ£»long£¬×ö¶àºÏÔ¼µÄ²Î¿¼µãÊý£»short£¬×ö¿ÕºÏÔ¼µÄ²Î¿¼µãÊý¡£
+	 * %  current_state£¬ÔÚ°´ÕÕµ±Ç°ÐÅºÅ½»Ò×Íê³Éºó£¬µ±Ç°µÄ³Ö²ÖÊÇ¸ºÏòÌ×Àû×éºÏ¡¢¿Õ²Ö»¹ÊÇÕýÏòÌ×Àû×éºÏ£¬·Ö±ðÎª-1,0ºÍ1£¬¶ÔÓ¦ÓÚlast_time_state¡£
+	 * %  current_trade_returnµ±Ç°³Ö²ÖÔÚ±¾´Î½»Ò×Íê³Éºó¸üÐÂµÄÀÛ¼ÆÊÕÒæµãÊý£»unit_time_return£¬µ±Ç°½»Ò×ÔÚµ¥Î»½»Ò×Ê±¼äµÄÊÕÒæµãÊý£¬ÈôÎÞ½»Ò×ÔòÎª0¡£
 	 * 	 */
 	public Object[] Judge(String name1,String name2,ArrayList<Double> Lf1,ArrayList<Double> Lf2,
 			double new_price1,double new_price2,
@@ -286,20 +292,20 @@ public class DataInterface2Matlab {
         market_condition.set(4, Double.valueOf(Lmarket_condition.get(3)));
 		//System.out.println("complete convertion ...");
 		try {
-			//Arbitrage_Mainï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
-			//ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ê¾ï¿½ï¿½Òªï¿½ï¿½ÃµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½x,y,k;ï¿½ï¿½ï¿½Ð´2,ï¿½ï¿½Ö»ï¿½ÜµÃµï¿½x,y;
-			//ï¿½ï¿½Í¬
+			//Arbitrage_Main·½·¨µ÷ÓÃÊ¾Àý
+			//µÚÒ»¸ö²ÎÊýÊý×Ö±íÊ¾ÐèÒª»ñµÃµÄ½á¹û¸öÊý£¬±ÈÈçÕâÀïµÄ3£¬±íÊ¾»ñµÃÈý¸ö½á¹û£¬x,y,k;Èç¹ûÐ´2,ÔòÖ»ÄÜµÃµ½x,y;
+			//ÏÂÍ¬
 			J = new Judge();  //!!!!important
 			//System.out.println("Judging ...");
 			result = J.judge(8,name1,name2,f1,f2,new_price1,new_price2,lambda,
 					last_time_state,last_trade_return,spoint,market_condition);
 			//[signal long_name short_name long short current_state current_trade_return unit_time_return]
-			/*   8ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			 * %% ï¿½ï¿½ï¿½ï¿½ï¿½signalï¿½ï¿½ï¿½Õµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Â¼Û¸ï¿½ï¿½Ç·ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½×¡ï¿½
-			 * %  signal=1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½signal=-1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½signal=0ï¿½ï¿½ï¿½Þ¶ï¿½ï¿½ï¿½ï¿½ï¿½signal=2ï¿½ï¿½Ö¹Ó¯Æ½ï¿½Ö£ï¿½signal=-2,Ö¹ï¿½ï¿½Æ½ï¿½Ö¡ï¿½
-			 * %  long_nameï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½Ô¼ï¿½ï¿½ï¿½Æ£ï¿½short_nameï¿½ï¿½ï¿½ï¿½ï¿½ÕµÄºï¿½Ô¼ï¿½ï¿½ï¿½Æ£ï¿½longï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½Ä²Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½shortï¿½ï¿½ï¿½ï¿½ï¿½Õºï¿½Ô¼ï¿½Ä²Î¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			 * %  current_stateï¿½ï¿½ï¿½Ú°ï¿½ï¿½Õµï¿½Ç°ï¿½ÅºÅ½ï¿½ï¿½ï¿½ï¿½ï¿½Éºó£¬µï¿½Ç°ï¿½Ä³Ö²ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½Õ²Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½Ö±ï¿½Îª-1,0ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½last_time_stateï¿½ï¿½
-			 * %  current_trade_returnï¿½ï¿½Ç°ï¿½Ö²ï¿½ï¿½Ú±ï¿½ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½Éºï¿½ï¿½ï¿½Âµï¿½ï¿½Û¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½unit_time_returnï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Î»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½
+			/*   8¸öÊý¾Ý
+			 * %% Êä³ö£ºsignal°´ÕÕµ±Ç°µÄ×îÐÂ¼Û¸ñ£¬ÊÇ·ñÓ¦µ±½»Ò×¡£
+			 * %  signal=1£¬ÕýÏòÌ×Àû½¨²Ö£»signal=-1£¬·´ÏòÌ×Àû½¨²Ö£»signal=0£¬ÎÞ¶¯×÷£»signal=2£¬Ö¹Ó¯Æ½²Ö£»signal=-2,Ö¹ËðÆ½²Ö¡£
+			 * %  long_name£¬×ö¶àµÄºÏÔ¼Ãû³Æ£»short_name£¬×ö¿ÕµÄºÏÔ¼Ãû³Æ£»long£¬×ö¶àºÏÔ¼µÄ²Î¿¼µãÊý£»short£¬×ö¿ÕºÏÔ¼µÄ²Î¿¼µãÊý¡£
+			 * %  current_state£¬ÔÚ°´ÕÕµ±Ç°ÐÅºÅ½»Ò×Íê³Éºó£¬µ±Ç°µÄ³Ö²ÖÊÇ¸ºÏòÌ×Àû×éºÏ¡¢¿Õ²Ö»¹ÊÇÕýÏòÌ×Àû×éºÏ£¬·Ö±ðÎª-1,0ºÍ1£¬¶ÔÓ¦ÓÚlast_time_state¡£
+			 * %  current_trade_returnµ±Ç°³Ö²ÖÔÚ±¾´Î½»Ò×Íê³Éºó¸üÐÂµÄÀÛ¼ÆÊÕÒæµãÊý£»unit_time_return£¬µ±Ç°½»Ò×ÔÚµ¥Î»½»Ò×Ê±¼äµÄÊÕÒæµãÊý£¬ÈôÎÞ½»Ò×ÔòÎª0¡£
 			 *  */
 		} catch (Exception e) {
 			System.out.println("Judge Exception catched!");
@@ -317,14 +323,14 @@ public class DataInterface2Matlab {
 	 * [all_return,trade_count,opt_lambda,prob_of_win,
 	 *  trade,trade_stddev,trade_maxloss sharpe_ratio]
 	 * =back_test(f1,f2,spoint,opt_option,market_condition,sigma_method)
-	 * %% ï¿½Ø²âº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ý»Ø²ï¿½ï¿½ï¿½ï¿½ÅµÄ²ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %% ï¿½ï¿½ï¿½ë£ºf1ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½f2ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½spointÖ¹ï¿½ï¿½ï¿½
-	 * %  opt_choiceï¿½ï¿½ï¿½Å»ï¿½Ñ¡ï¿½î£¬1Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó»¯£ï¿½2Îªï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó»¯£ï¿½3ÎªÊ¤ï¿½ï¿½ï¿½ï¿½ï¿½4ÎªÊ¤ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %  market_conditionÎªï¿½ï¿½Ó³ï¿½ï¿½Ç°ï¿½Ð³ï¿½×´ï¿½ï¿½ï¿½ï¿½Ò»Ïµï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¹¹ï¿½ï¿½Îª[Ò»ï¿½Ö½ï¿½ï¿½×·ï¿½,ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ÆµÄ³ï¿½ï¿½ï¿½É±ï¿½,ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]
-	 * %  sigma_methodÎªï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½ï¿½ÊµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªgarchï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ÖµÎªï¿½ï¿½Garchï¿½ï¿½Ê±Ê¹ï¿½ï¿½GARCHÄ£ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð¡Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½Ê·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * %% ï¿½ï¿½ï¿½ï¿½ï¿½all_returnÎªï¿½Ø²ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ£¬opt_lambdaÎªï¿½ï¿½ï¿½ÅµÄ²ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
-	 * %  prob_of_winÎªï¿½ï¿½ï¿½ï¿½Ó¯ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ê£ï¿½tradeÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½á¹¹Îª[ï¿½Ç·ï¿½Ö²ï¿½ ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û²ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ«ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]
-	 * %  trade_stddev trade_maxloss sharpe_ratioï¿½Ö±ï¿½Îªï¿½ï¿½×¼ï¿½î¡¢ï¿½ï¿½ï¿½Ø³ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ï¿½
+	 * %% »Ø²âº¯Êý£¬¸ù¾ÝÏÖÓÐµÄÊý¾Ý»Ø²â×îÓÅµÄ²ßÂÔ²ÎÊýºÍÏà¹ØÊÕÒæÇé¿ö
+	 * %% ÊäÈë£ºf1ÀúÊ·Êý¾ÝÐòÁÐ1£¨ÁÐÏòÁ¿£©£¬f2ÀúÊ·Êý¾ÝÐòÁÐ2£¨ÁÐÏòÁ¿£©£¬spointÖ¹Ëðµã
+	 * %  opt_choice£ºÓÅ»¯Ñ¡Ïî£¬1Îª×ÜÊÕÒæ×î´ó»¯£¬2Îª·çÏÕµ÷ÕûºóµÄÊÕÒæ×î´ó»¯£¬3ÎªÊ¤ÂÊ×î´ó£¬4ÎªÊ¤ÂÊµ÷ÕûºóµÄÊÕÒæ×î´ó
+	 * %  market_conditionÎª·´Ó³µ±Ç°ÊÐ³¡×´¿öµÄÒ»ÏµÁÐ²ÎÊý£¬Æä¹¹ÔìÎª[Ò»ÊÖ½»Ò×·Ñ,±£Ö¤½ð±ÈÀý,¹À¼ÆµÄ³å»÷³É±¾,ÎÞ·çÏÕÀûÂÊ]
+	 * %  sigma_methodÎª¹À¼Æ²¨¶¯ÂÊµÄ·½·¨£¬·ÖÎªgarchºÍÆäËû£¬È¡ÖµÎª¡®Garch¡¯Ê±Ê¹ÓÃGARCHÄ£ÐÍ£¨²»Çø·Ö´óÐ¡Ð´£©£¬ÆäËûÇé¿öÏÂÔòÊ¹ÓÃÀúÊ·²¨¶¯ÂÊ
+	 * %% Êä³ö£ºall_returnÎª»Ø²âµÃµ½µÄ×î´óÊÕÒæ£¬opt_lambdaÎª×îÓÅµÄ²ßÂÔ²ÎÊý
+	 * %  prob_of_winÎª½»Ò×Ó¯ÀûµÄ¸ÅÂÊ£¬tradeÎª½»Ò×Ã÷Ï¸£¬½á¹¹Îª[ÊÇ·ñ³Ö²Ö ²Ð²îÐòÁÐ ¼Û²îÐòÁÐ ²¨¶¯ÂÊÐòÁÐ Æ«Àë±ÈÂÊ µ±Ç°Ê±¼äÊÕÒæµãÊý µ±Ç°½»Ò×ÊÕÒæµãÊý]
+	 * %  trade_stddev trade_maxloss sharpe_ratio·Ö±ðÎª±ê×¼²î¡¢×î´ó»Ø³·ºÍ²ßÂÔÏÄÆÕ±ÈÂÊ
 	 * */
 	public Object[] BackTest(ArrayList<Double> Lf1, ArrayList<Double> Lf2,double spoint,
 			int opt_option,ArrayList<Double> Lmarket_condition){
@@ -355,9 +361,9 @@ public class DataInterface2Matlab {
 			result = back_test.back_test(8,f1,f2,spoint,opt_option,market_condition);
 			//[all_return,trade_count,opt_lambda,prob_of_win,
 			//trade,trade_stddev,trade_maxloss,sharpe_ratio]
-			/* %% ï¿½ï¿½ï¿½ï¿½ï¿½all_returnÎªï¿½Ø²ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ£¬opt_lambdaÎªï¿½ï¿½ï¿½ÅµÄ²ï¿½ï¿½Ô²ï¿½ï¿½ï¿½
-			 * %  prob_of_winÎªï¿½ï¿½ï¿½ï¿½Ó¯ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½Ê£ï¿½tradeÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½á¹¹Îª[ï¿½Ç·ï¿½Ö²ï¿½ ï¿½Ð²ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û²ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ«ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]
-			 * %  trade_stddev trade_maxloss sharpe_ratioï¿½Ö±ï¿½Îªï¿½ï¿½×¼ï¿½î¡¢ï¿½ï¿½ï¿½Ø³ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ±ï¿½ï¿½ï¿½
+			/* %% Êä³ö£ºall_returnÎª»Ø²âµÃµ½µÄ×î´óÊÕÒæ£¬opt_lambdaÎª×îÓÅµÄ²ßÂÔ²ÎÊý
+			 * %  prob_of_winÎª½»Ò×Ó¯ÀûµÄ¸ÅÂÊ£¬tradeÎª½»Ò×Ã÷Ï¸£¬½á¹¹Îª[ÊÇ·ñ³Ö²Ö ²Ð²îÐòÁÐ ¼Û²îÐòÁÐ ²¨¶¯ÂÊÐòÁÐ Æ«Àë±ÈÂÊ µ±Ç°Ê±¼äÊÕÒæµãÊý µ±Ç°½»Ò×ÊÕÒæµãÊý]
+			 * %  trade_stddev trade_maxloss sharpe_ratio·Ö±ðÎª±ê×¼²î¡¢×î´ó»Ø³·ºÍ²ßÂÔÏÄÆÕ±ÈÂÊ
 			 * */
 		} catch (Exception e) {
 			System.out.println("BackTest Exception catched!");
@@ -372,8 +378,8 @@ public class DataInterface2Matlab {
 	
 	/*
 	 * return_ratio=convert2ratio(return_of_trade,market_condition,trade_count)
-	 * %% ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	 * % ï¿½ï¿½ï¿½ë£ºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * %% ¸ù¾ÝÒ»¶¨µÄµãÊý£¬¼ÆËãÊÕÒæÂÊ
+	 * % ÊäÈë£ºÊÕÒæµãÊý£¬ÊÐ³¡²ÎÊý
 	 * */
 	public double Convert2ratio(double return_of_trade,ArrayList<Double> Lmarket_condition,double trade_count){
 		double result = 0.0;
@@ -409,3 +415,4 @@ public class DataInterface2Matlab {
 		return Llambda;
 	}
 }
+
