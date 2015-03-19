@@ -42,7 +42,7 @@ public class Repository {
 	
 	private ArbDetail getLiveArb_detail(String symble) {
 		ArrayList<ArbDetail> arb_details = LiveData.getInstance()
-				.getArb_details();
+				.getArbDetails();
 		for (ArbDetail arb_detail : arb_details) {
 			if (arb_detail.getSymbol().equals(symble)) {
 				return arb_detail;
@@ -118,15 +118,4 @@ public class Repository {
 		this.toSell_price = d;
 	}
 	
-//	public void updatePrice(){
-//		ArrayList<Arb_detail> arb_lists = LiveData.getInstance()
-//				.getArb_details();
-//		for(int i=0;i < arb_lists.size();i++){
-//			Arb_detail temp = arb_lists.get(i);
-//			if(temp.symbol.equals(toSell))
-//				settoSell_price(temp.getPresentPrice());
-//			if(temp.symbol.equals(toBuy))
-//				settoBuy_price(temp.getPresentPrice());
-//		}
-//	}
 }

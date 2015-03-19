@@ -1,6 +1,8 @@
 package edu.nju.treasuryArbitrage.controller.threads;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.ArbBrief;
@@ -9,7 +11,10 @@ import edu.nju.treasuryArbitrage.model.ArbDetail;
 
 public class LiveData {
 	private static LiveData self = new LiveData();
-	private ArrayList<ArbDetail> arb_details;
+
+    private Map<String, Integer> arbNameToIndex = new HashMap<>();
+
+	private ArrayList<ArbDetail> arbDetails = new ArrayList<>();
 	private ArrayList<ArbGroup> arbGroups = new ArrayList<>();
 	
 	private ArrayList<ArbBrief> briefsTF1412;
@@ -23,17 +28,32 @@ public class LiveData {
 	public static LiveData getInstance() {
 		return self;
 	}
+
+    /**
+     * When a arb data come, judge whether it's a new arb.
+     * If it's a new arb, give a index to it and put to map.
+     * Add the data to arbDetails.
+     */
+    public void register(ArbDetail arbDetail) {
+        String symbol = arbDetail.getSymbol();
+        if (arbNameToIndex.size() < 3 &&
+                !arbNameToIndex.containsKey(symbol)) {
+            arbNameToIndex.put(symbol, arbNameToIndex.size());
+        }
+
+        arbDetails.set(arbNameToIndex.get(symbol), arbDetail);
+    }
 	
 	public boolean isReady() {
 		return isReady;
 	}
 	
-	public ArrayList<ArbDetail> getArb_details() {
-		return arb_details;
+	public ArrayList<ArbDetail> getArbDetails() {
+		return arbDetails;
 	}
 	
 	public double getPresentPrice(String id) {
-		for (ArbDetail arb_detail : arb_details) {
+		for (ArbDetail arb_detail : arbDetails) {
 			if (arb_detail.getSymbol().equals(id)) {
 				return arb_detail.getPresentPrice();
 			}
@@ -41,10 +61,6 @@ public class LiveData {
 		return -1;
 	}
 	
-	public void setArb_details(ArrayList<ArbDetail> arb_details) {
-		this.arb_details = arb_details;
-	}
-
 	public ArrayList<ArbGroup> getArbGroups() {
 		return arbGroups;
 	}

@@ -91,7 +91,7 @@ public class ArbitragePortfolioInternal extends JPanel{
 	
 	private ArbDetail[] getArbDetails() {
 		ArbDetail[] grpArbs = new ArbDetail[2];
-		ArrayList<ArbDetail> currentArbs = LiveData.getInstance().getArb_details();
+		ArrayList<ArbDetail> currentArbs = LiveData.getInstance().getArbDetails();
 		if (currentArbs == null) {
 			return null;
 		}
