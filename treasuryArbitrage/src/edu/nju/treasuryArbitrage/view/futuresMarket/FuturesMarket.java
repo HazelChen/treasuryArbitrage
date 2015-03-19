@@ -80,7 +80,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 			arb_details[i] = ArbDetail.nullObject();
 		}
 
-		ArrayList<ArbDetail> result = LiveData.getInstance().getArb_details();
+		ArrayList<ArbDetail> result = LiveData.getInstance().getArbDetails();
 		if (result == null) {
 			return;
 		}
@@ -291,7 +291,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	@Override
 	public void updatePage() {
         ArrayList<ArbDetail> arb_lists = LiveData.getInstance()
-                .getArb_details();
+                .getArbDetails();
         for (int i = 0; i < Math.min(arb_lists.size(), arb_details.length); i++) {
             ArbDetail arb_detail = arb_lists.get(i);
             arb_details[i] = arb_detail;

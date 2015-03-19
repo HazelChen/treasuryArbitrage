@@ -4,7 +4,7 @@ package edu.nju.treasuryArbitrage.controller.logic;
 //import java.util.*;
 //
 //import edu.nju.treasuryArbitrage.model.ArbDetail;
-import edu.nju.treasuryArbitrage.model.ctp.*;
+import edu.nju.treasuryArbitrage.controller.ctp.*;
 
 public class CtpDataAdapter {
 	
@@ -31,55 +31,7 @@ public class CtpDataAdapter {
 //		}
 	}
 	
-//	public ArbDetail getSingleData(){
-//		TestJNA.INSTANCE.callBack_String(new callBack_String());
-//		TestJNA.INSTANCE.callBack_Double(new callBack_Double());
-//		TestJNA.INSTANCE.copyData();
-//		CThostFtdcDepthMarketDataField ctpdata = CThostFtdcDepthMarketDataField.getInstance();
-//		
-//		ArbDetail detail = new ArbDetail();
-//		
-//		String symbol = ctpdata.InstrumentID;
-//		int year = Integer.valueOf(symbol.substring(2, 4));
-//		int month = Integer.valueOf(symbol.substring(4, 6));
-//		String End = 20+""+year+"��"+month+"��";
-//		detail.setSymbol(symbol);
-//		detail.setMonth(End);
-//		detail.setDate(End);
-//		//================================================
-//		Calendar calendar = Calendar.getInstance();
-//		calendar.setTime(new Date());
-//		String clockString = twoNumberFormat(calendar.get(Calendar.HOUR_OF_DAY)) + ":" + 
-//				twoNumberFormat(calendar.get(Calendar.MINUTE)) + ":" + twoNumberFormat(calendar.get(Calendar.SECOND));
-//		detail.setClock(clockString);
-//		//================================================
-//		detail.setPresentPrice(ctpdata.LastPrice);
-//		//detail.setChange(change);
-//		//detail.setPriceChange(temp.getDouble("RT_CHG"));//û���ҵ�
-//		detail.setBidPirce(ctpdata.BidPrice1);
-//		detail.setBid((int)ctpdata.BidVolume1);
-//		detail.setAskPrice(ctpdata.AskPrice1);
-//		detail.setAsk((int)ctpdata.AskVolume1);
-//		
-//		detail.setVol((int)ctpdata.Volume);
-//		detail.setPreRepository((int)ctpdata.PreOpenInterest);
-//		detail.setRepository((int)ctpdata.OpenInterest);
-//		
-//		//detail.setDailyWarehouse(temp.getInt("RT_OI_CHG"));
-//		detail.setPreClose(ctpdata.PreClosePrice);
-//		detail.setOpen(ctpdata.OpenPrice);
-//		detail.setHigh(ctpdata.HighestPrice);
-//		detail.setLow(ctpdata.LowestPrice);
-//		detail.setFullAmount(ctpdata.Turnover);
-//		detail.setPreSettlePrice(ctpdata.PreSettlementPrice);
-//		
-//		//detail.setSwing(swing);
-//		detail.setHardenPrice(ctpdata.UpperLimitPrice);
-//		detail.setLimitPrice(ctpdata.LowerLimitPrice);
-//		detail.setAverPrice(ctpdata.AveragePrice);
-//		
-//		return detail;
-//	}
+
 //	
 //	public ArrayList<ArbDetail> getDetailList(){
 //		detail_list = new ArrayList<ArbDetail>();
@@ -100,9 +52,6 @@ public class CtpDataAdapter {
 //		return detail_list;
 //	}
 //	
-//	private String twoNumberFormat(int i) {
-//		DecimalFormat df = new DecimalFormat("00");
-//		return df.format(i);
-//	}
+
 	
 }

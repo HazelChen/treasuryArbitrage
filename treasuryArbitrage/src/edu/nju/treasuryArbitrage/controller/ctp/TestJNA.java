@@ -1,4 +1,4 @@
-package edu.nju.treasuryArbitrage.model.ctp;
+package edu.nju.treasuryArbitrage.controller.ctp;
 import com.sun.jna.Callback;
 import com.sun.jna.Library;
 import com.sun.jna.Native;

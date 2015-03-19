@@ -1,5 +1,5 @@
 
-package edu.nju.treasuryArbitrage.model.ctp;
+package edu.nju.treasuryArbitrage.controller.ctp;
 
 public class GetCtpData implements Runnable{
 	public String[] codes = {"rb1505","rb1510","ag1505"};
