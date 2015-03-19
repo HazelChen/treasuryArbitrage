@@ -23,7 +23,11 @@ public class LiveData {
 	
 	private boolean isReady;
 	
-	private LiveData(){}
+	private LiveData(){
+		arbDetails.add(new ArbDetail());
+		arbDetails.add(new ArbDetail());
+		arbDetails.add(new ArbDetail());
+	}
 	
 	public static LiveData getInstance() {
 		return self;

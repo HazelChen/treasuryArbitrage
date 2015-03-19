@@ -25,6 +25,7 @@ public class TreasuryArbitrage {
 			TreasuryArbitrage treasuryArbitrage = new TreasuryArbitrage();
 			treasuryArbitrage.launch();
 		} catch(Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "????????????????????");
 		}
 	}
