@@ -2,6 +2,8 @@ package edu.nju.treasuryArbitrage.model.ctp;
 
 import com.sun.jna.Callback;
 
+import edu.nju.treasuryArbitrage.view.common.ViewHelper;
+
 
 public class callBack_Double implements Callback{
 	
@@ -17,8 +19,9 @@ public class callBack_Double implements Callback{
 	
 	private void show(){
 		CThostFtdcDepthMarketDataField tem = CThostFtdcDepthMarketDataField.getInstance();
-		
 		System.err.println(tem.InstrumentID);
+		
+		ViewHelper.getInstance().updateViews();
 	}
 	
 }

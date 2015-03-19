@@ -241,4 +241,9 @@ public class CThostFtdcDepthMarketDataField{
 		}
 		return self;
 	}
+	
+	public snapshotOfData getSnapshot(){
+		snapshotOfData data = new snapshotOfData(self);
+		return data;
+	}
 }

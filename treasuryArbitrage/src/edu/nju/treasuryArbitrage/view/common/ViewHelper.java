@@ -1,6 +1,8 @@
 package edu.nju.treasuryArbitrage.view.common;
 
 import edu.nju.treasuryArbitrage.model.ArbDetail;
+import edu.nju.treasuryArbitrage.model.ctp.CThostFtdcDepthMarketDataField;
+import edu.nju.treasuryArbitrage.model.ctp.snapshotOfData;
 
 import java.util.ArrayList;
 
@@ -38,6 +40,9 @@ public class ViewHelper {
     }
 
     public void updateViews() {
+    	CThostFtdcDepthMarketDataField tem = CThostFtdcDepthMarketDataField.getInstance();
+    	snapshotOfData snap = tem.getSnapshot();
+    	
         viewFactory.getFuturesMarket().updatePage();
         viewFactory.getArbitragePortfolio().updatePage();
         if (canHoldingsUpdate) {
