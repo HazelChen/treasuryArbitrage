@@ -47,7 +47,7 @@ public class LiveData {
      */
     private void initArbDetails() {
         for (int i = 0; i < futuresCodes.length; i++) {
-            arbDetails.add(ArbDetail.nullObject());
+            arbDetails.add(ArbDetail.nullObject(futuresCodes[i]));
         }
     }
 

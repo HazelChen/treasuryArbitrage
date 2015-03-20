@@ -310,4 +310,13 @@ public class ArbDetail {
 		arb_detail.clock = "-";
 		return arb_detail;
 	}
+
+    public static ArbDetail nullObject(String symbol) {
+        ArbDetail arb_detail = new ArbDetail();
+        arb_detail.symbol = symbol;
+        arb_detail.month = "-";
+        arb_detail.date = "-";
+        arb_detail.clock = "-";
+        return arb_detail;
+    }
 }
