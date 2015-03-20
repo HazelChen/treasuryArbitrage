@@ -24,9 +24,9 @@ public class LiveData {
 	private boolean isReady;
 	
 	private LiveData(){
-		arbDetails.add(new ArbDetail());
-		arbDetails.add(new ArbDetail());
-		arbDetails.add(new ArbDetail());
+		arbDetails.add(ArbDetail.nullObject());
+		arbDetails.add(ArbDetail.nullObject());
+		arbDetails.add(ArbDetail.nullObject());
 	}
 	
 	public static LiveData getInstance() {

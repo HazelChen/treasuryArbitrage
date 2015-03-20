@@ -12,7 +12,8 @@ public class GetCtpData implements Runnable{
 	public void run() {
 		// TODO �Զ����ɵķ������
 //		System.loadLibrary("../ThostTraderApi/thostmduserapi");
-		System.loadLibrary("TestJNA");
+		System.loadLibrary("../DLL/TestJNA");
+//		System.loadLibrary("TestJNA");
 		TestJNA.INSTANCE.callBack_String(callStr);
 		TestJNA.INSTANCE.callBack_Double(callDou);
 		TestJNA.INSTANCE.initial(codes,codes.length);
