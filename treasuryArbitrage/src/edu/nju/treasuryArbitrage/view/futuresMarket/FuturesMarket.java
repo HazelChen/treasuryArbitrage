@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
-import edu.nju.treasuryArbitrage.controller.threads.LiveData;
+import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.model.ArbBrief;
 import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.view.common.ColorConstants;

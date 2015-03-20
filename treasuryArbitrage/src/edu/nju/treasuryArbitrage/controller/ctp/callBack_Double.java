@@ -1,7 +1,7 @@
 package edu.nju.treasuryArbitrage.controller.ctp;
 
 import com.sun.jna.Callback;
-import edu.nju.treasuryArbitrage.controller.threads.LiveData;
+import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.model.CTPArbDetail;
 import edu.nju.treasuryArbitrage.view.common.ViewHelper;
 

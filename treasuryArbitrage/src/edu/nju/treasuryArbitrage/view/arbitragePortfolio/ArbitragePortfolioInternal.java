@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import edu.nju.treasuryArbitrage.controller.threads.LiveData;
+import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.ArbBrief;
 import edu.nju.treasuryArbitrage.model.ArbDetail;

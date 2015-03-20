@@ -5,6 +5,7 @@ package edu.nju.treasuryArbitrage.controller.logic;
 //
 //import edu.nju.treasuryArbitrage.model.ArbDetail;
 import edu.nju.treasuryArbitrage.controller.ctp.*;
+import edu.nju.treasuryArbitrage.model.LiveData;
 
 public class CtpDataAdapter {
 	
@@ -20,7 +21,7 @@ public class CtpDataAdapter {
 	}
 	
 	public void startOrder(){
-		String[] codes = {"rb1505","rb1510","ag1505"};
+		String[] codes = LiveData.getInstance().getFuturesCodes();
 		Thread th = new Thread(new GetCtpData(codes));
 		th.start();
 //		try {

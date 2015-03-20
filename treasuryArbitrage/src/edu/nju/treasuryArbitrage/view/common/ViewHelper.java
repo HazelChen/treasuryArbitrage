@@ -1,11 +1,5 @@
 package edu.nju.treasuryArbitrage.view.common;
 
-import edu.nju.treasuryArbitrage.controller.threads.LiveData;
-import edu.nju.treasuryArbitrage.model.ArbDetail;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by Hazel on 2015/3/16.
  */

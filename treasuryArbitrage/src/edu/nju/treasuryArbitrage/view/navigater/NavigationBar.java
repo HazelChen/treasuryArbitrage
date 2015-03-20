@@ -9,7 +9,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import edu.nju.treasuryArbitrage.controller.threads.LiveData;
 import edu.nju.treasuryArbitrage.view.common.ViewFactory;
 import edu.nju.treasuryArbitrage.view.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.view.common.ScreenSize;

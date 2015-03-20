@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 public class FileOperater {
 	
-	public String read(String fileName) {
+	public static String read(String fileName) {
 		File file = new File(fileName);
 		BufferedReader reader = null;
 		StringBuffer sb = new StringBuffer();

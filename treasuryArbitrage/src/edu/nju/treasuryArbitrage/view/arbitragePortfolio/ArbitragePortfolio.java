@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import edu.nju.treasuryArbitrage.controller.threads.LiveData;
+import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.view.common.ComponentPanel;
 import edu.nju.treasuryArbitrage.view.common.ScreenSize;
@@ -44,10 +44,12 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		tabbedPane.setBackground(NavigationBar.BACKGROUND_COLOR);
 		tabbedPane.setForeground(Color.BLACK);
 		this.add(tabbedPane);
-		
-		internalList.addInt(new ArbGroup("TF1412", "TF1503"));
-		internalList.addInt(new ArbGroup("TF1412", "TF1506"));
-		internalList.addInt(new ArbGroup("TF1503", "TF1506"));
+
+        //XXX Futures codes in the array is from small to large by default.
+        String[] futuresCodes = LiveData.getInstance().getFuturesCodes();
+		internalList.addInt(new ArbGroup(futuresCodes[0], futuresCodes[1]));
+		internalList.addInt(new ArbGroup(futuresCodes[0], futuresCodes[2]));
+		internalList.addInt(new ArbGroup(futuresCodes[1], futuresCodes[2]));
 		tabbedPane.add("组合一", internalList.get(0));
 		tabbedPane.add("组合二", internalList.get(1));
 		tabbedPane.add("组合三", internalList.get(2));
@@ -65,4 +67,5 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		}
 		internalList.update();
 	}
+
 }

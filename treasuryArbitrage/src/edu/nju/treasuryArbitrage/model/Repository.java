@@ -2,8 +2,6 @@ package edu.nju.treasuryArbitrage.model;
 
 import java.util.ArrayList;
 
-import edu.nju.treasuryArbitrage.controller.threads.LiveData;
-
 public class Repository {
 	int repo_ID;	//�ֱֲ�ǡ����������������Ҹо����б�Ҫ
 	long time;	//���׽���ʱ��

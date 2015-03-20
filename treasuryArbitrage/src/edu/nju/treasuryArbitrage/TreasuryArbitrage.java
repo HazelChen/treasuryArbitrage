@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
 import edu.nju.treasuryArbitrage.controller.threads.AnalyseThread;
-import edu.nju.treasuryArbitrage.controller.threads.LiveData;
+import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.controller.threads.ThreadDiag;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.model.Repository;

@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.view.common.ViewFactory;
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
-import edu.nju.treasuryArbitrage.controller.threads.LiveData;
+import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.view.common.LoginedUser;
 import edu.nju.treasuryArbitrage.view.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.view.common.ViewHelper;
