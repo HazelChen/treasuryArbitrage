@@ -2,7 +2,6 @@ package edu.nju.treasuryArbitrage.view.futuresMarket;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -89,7 +88,7 @@ public class FuturesDetailPanel extends JPanel{
 		askPriceData.setText(String.valueOf(arb.getAskPrice()));
 		askData.setText(String.valueOf(arb.getAsk()));
 		
-		bidPriceData.setText(String.valueOf(arb.getBidPirce()));
+		bidPriceData.setText(String.valueOf(arb.getBidPrice()));
 		bidData.setText(String.valueOf(arb.getBid()));
 		
 		detail1Datas[0].setText(String.valueOf(arb.getVol()));
