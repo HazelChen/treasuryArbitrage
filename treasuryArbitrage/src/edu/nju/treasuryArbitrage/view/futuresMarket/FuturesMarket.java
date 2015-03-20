@@ -97,7 +97,7 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 
 			futuresInfo[i] = new Object[] { arb.getSymbol(), arb.getMonth(),
 					arb.getPresentPrice(), arb.getPriceChange(),
-					arb.getChange() + "%", arb.getBid(), arb.getBidPirce(),
+					arb.getChange() + "%", arb.getBid(), arb.getBidPrice(),
 					arb.getAskPrice(), arb.getAsk(), arb.getVol(),
 					arb.getRepository(), arb.getDailyWarehouse(),
 					arb.getPreSettlePrice(), arb.getOpen(), arb.getHigh(),

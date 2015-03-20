@@ -2,111 +2,106 @@ package edu.nju.treasuryArbitrage.model;
 
 
 public class ArbDetail {
-	String symbol;			//***¹úÕ®ÆÚ»õ´úÂë
-	String month;			//***½»¸îÔÂ·Ý
+	String symbol;			//***ï¿½ï¿½Õ®ï¿½Ú»ï¿½ï¿½ï¿½ï¿½ï¿½
+	String month;			//***ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½
 	
 	//==========================================================
-	//ËµÃ÷1£ºÈ¥³ýtime£¬½«Ô­À´µÄday¸ÄÎªclock;date,clock¸ÄÎªStringÀàÐÍ
-	//ËµÃ÷2£ºchangeºÍswingÈ¡³öÎª´ø%ºÅµÄString£¨ÒÑ×ª»¯Îªdouble£©£¬Ê¹ÓÃÊ±ÐèÒª £¡£¡*100²¢Ìí¼Ó%±íÊ¾Êµ¼Êº¬Òå
+	//Ëµï¿½ï¿½1ï¿½ï¿½È¥ï¿½ï¿½timeï¿½ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½dayï¿½ï¿½Îªclock;date,clockï¿½ï¿½ÎªStringï¿½ï¿½ï¿½ï¿½
+	//Ëµï¿½ï¿½2ï¿½ï¿½changeï¿½ï¿½swingÈ¡ï¿½ï¿½Îªï¿½ï¿½%ï¿½Åµï¿½Stringï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Îªdoubleï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ê±ï¿½ï¿½Òª ï¿½ï¿½ï¿½ï¿½*100ï¿½ï¿½ï¿½ï¿½ï¿½%ï¿½ï¿½Ê¾Êµï¿½Êºï¿½ï¿½ï¿½
 	//==========================================================
-	String date;			//***ÈÕÆÚ
-	String clock;				//***Ê±¼ä
-	//long time;				//***Ê±¼ä
+	String date;			//***ï¿½ï¿½ï¿½ï¿½
+	String clock;				//***Ê±ï¿½ï¿½
+
+	double presentPrice;	//***ï¿½Ö¼Û£ï¿½ï¿½ï¿½ï¿½Ö¼Û¡ï¿½ï¿½ï¿½ï¿½Ú¡ï¿½ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¡ï¿½ï¿½ï¿½Ô¼ï¿½Û¸ñ¡±£ï¿½Í³Ò»ï¿½ï¿½ï¿½Ö¼Û£ï¿½
+	double change;			//***ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½Í³Ò»ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½
+	double	priceChange;	//***ï¿½ï¿½ï¿½ï¿½
+
+	double bidPrice;		//***ï¿½ï¿½ï¿½
+	double askPrice;		//***ï¿½ï¿½ï¿½ï¿½
+	int bid;				//***ï¿½ï¿½ï¿½ï¿½
+	int ask;				//***ï¿½ï¿½ï¿½ï¿½
+
+	//==========================================================
+	//Ëµï¿½ï¿½3ï¿½ï¿½È¥ï¿½ï¿½nvol,settlePrice,ratio,outvol,invol
+	//==========================================================
+ 	int vol;				//***ï¿½É½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ú³É½ï¿½ï¿½ï¿½ï¿½ï¿½Í³Ò»ï¿½É³É½ï¿½ï¿½ï¿½ï¿½ï¿½
+	int preRepository;		//***ï¿½ï¿½Ö²ï¿½
+	int repository;			//***ï¿½Ö²ï¿½ï¿½ï¿½
 	
-	double presentPrice;	//***ÏÖ¼Û£¨¡°ÏÖ¼Û¡±µÈÓÚ¡°³É½»¡±µÈÓÚ¡°ºÏÔ¼¼Û¸ñ¡±£¬Í³Ò»³ÉÏÖ¼Û£©
-	double change;			//***ÕÇµø·ù£¨ÕÇ·ùµÈÓÚÕÇµø·ù£¬Í³Ò»³ÉÕÇµø·ù£©
-	double	priceChange;	//***µøÕÇ
-
-	double  bidPirce;		//***Âò¼Û
-	double askPrice;		//***Âô¼Û
-	int bid;				//***ÂòÁ¿
-	int ask;				//***ÂôÁ¿
-
-	//==========================================================
-	//ËµÃ÷3£ºÈ¥³ýnvol,settlePrice,ratio,outvol,invol
-	//==========================================================
-	//int nvol;				//***ÏÖÊÖ
- 	int vol;				//***³É½»Á¿£¨×ÜÊÖµÈÓÚ³É½»Á¿£¬Í³Ò»³É³É½»Á¿£©
-	int preRepository;		//***×ò³Ö²Ö
-	int repository;			//***³Ö²ÖÁ¿
-	
-	int dailyWarehouse;		//***ÈÕÔö²Ö
-	double preClose;		//***×òÊÕ
-	double open;			//***¿ªÅÌ£¨½ñ¿ªµÈÓÚ¿ªÅÌ£¬Í³Ò»³É¿ªÅÌ£©
-	double high;			//***×î¸ß
-	double low;				//***×îµÍ
-	double fullAmount;		//***½ð¶î
-	double preSettlePrice;	//***Ç°½áËã¼Û£¨×ò½áµÈÓÚÇ°½áËã¼Û£¬Í³Ò»³ÉÇ°½áËã¼Û£©
-	//double settlePrice;		//***½ñ½á
-	double swing;			//***Õñ·ù
-	//double ratio;			//***Á¿±È
+	int dailyWarehouse;		//***ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	double preClose;		//***ï¿½ï¿½ï¿½ï¿½
+	double open;			//***ï¿½ï¿½ï¿½Ì£ï¿½ï¿½ñ¿ªµï¿½ï¿½Ú¿ï¿½ï¿½Ì£ï¿½Í³Ò»ï¿½É¿ï¿½ï¿½Ì£ï¿½
+	double high;			//***ï¿½ï¿½ï¿½
+	double low;				//***ï¿½ï¿½ï¿½
+	double fullAmount;		//***ï¿½ï¿½ï¿½
+	double preSettlePrice;	//***Ç°ï¿½ï¿½ï¿½ï¿½Û£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Û£ï¿½Í³Ò»ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Û£ï¿½
+	double swing;			//***ï¿½ï¿½ï¿½
 
 
-	double hardenPrice;		//***ÕÇÍ£
-	double limitPrice;		//***µøÍ£	
-	//int outvol;				//***ÍâÅÌ
-	//int invol;				//***ÄÚÅÌ
+	double hardenPrice;		//***ï¿½ï¿½Í£
+	double limitPrice;		//***ï¿½ï¿½Í£	
 
-	double averPrice;		//***¾ù¼Û
+	double averPrice;		//***ï¿½ï¿½ï¿½ï¿½
 	
 	
 	public ArbDetail(){}
 	
 	
 	private ArbDetail cloneArb() {
-		ArbDetail arb_detail = new ArbDetail();
-		arb_detail.symbol = this.symbol;
-		arb_detail.month = this.month;
-		arb_detail.date = this.date;
-		arb_detail.clock = this.clock;
-		//arb_detail.time = this.time;
-		arb_detail.presentPrice = this.presentPrice;
-		arb_detail.change = this.change;
-		arb_detail.priceChange = this.priceChange;
-		arb_detail.bidPirce = this.bidPirce;
-		arb_detail.askPrice = this.askPrice;
-		arb_detail.bid = this.bid;
-		arb_detail.ask = this.ask;
-		//arb_detail.nvol = this.nvol;
-		arb_detail.vol = this.vol;
-		arb_detail.preRepository = this.preRepository;
-		arb_detail.repository = this.repository;
-		arb_detail.dailyWarehouse = this.dailyWarehouse;
-		arb_detail.preClose = this.preClose;
-		arb_detail.open = this.open;
-		arb_detail.high = this.high;
-		arb_detail.low = this.low;
-		arb_detail.fullAmount = this.fullAmount;
-		arb_detail.preSettlePrice = this.preSettlePrice;
-		//arb_detail.settlePrice = this.settlePrice;
-		arb_detail.swing = this.swing;
-		//arb_detail.ratio = this.ratio;
-		arb_detail.hardenPrice = this.hardenPrice;
-		arb_detail.limitPrice = this.limitPrice;
-		//arb_detail.outvol = this.outvol;
-		//arb_detail.invol = this.invol;
-		arb_detail.averPrice = this.averPrice;
-		return arb_detail;
+		ArbDetail arbDetail = new ArbDetail();
+		arbDetail.symbol = this.symbol;
+		arbDetail.month = this.month;
+		arbDetail.date = this.date;
+		arbDetail.clock = this.clock;
+		//arbDetail.time = this.time;
+		arbDetail.presentPrice = this.presentPrice;
+		arbDetail.change = this.change;
+		arbDetail.priceChange = this.priceChange;
+		arbDetail.bidPrice = this.bidPrice;
+		arbDetail.askPrice = this.askPrice;
+		arbDetail.bid = this.bid;
+		arbDetail.ask = this.ask;
+		//arbDetail.nvol = this.nvol;
+		arbDetail.vol = this.vol;
+		arbDetail.preRepository = this.preRepository;
+		arbDetail.repository = this.repository;
+		arbDetail.dailyWarehouse = this.dailyWarehouse;
+		arbDetail.preClose = this.preClose;
+		arbDetail.open = this.open;
+		arbDetail.high = this.high;
+		arbDetail.low = this.low;
+		arbDetail.fullAmount = this.fullAmount;
+		arbDetail.preSettlePrice = this.preSettlePrice;
+		//arbDetail.settlePrice = this.settlePrice;
+		arbDetail.swing = this.swing;
+		//arbDetail.ratio = this.ratio;
+		arbDetail.hardenPrice = this.hardenPrice;
+		arbDetail.limitPrice = this.limitPrice;
+		//arbDetail.outvol = this.outvol;
+		//arbDetail.invol = this.invol;
+		arbDetail.averPrice = this.averPrice;
+		return arbDetail;
 	}
 	
 	public ArbDetail getFormattedArb_detail() {
-		ArbDetail arb_detail = cloneArb();
+		ArbDetail arbDetail = cloneArb();
 		
-		arb_detail.presentPrice = format(presentPrice);
-		arb_detail.change = format(change);
-		arb_detail.bidPirce = format(bidPirce);
-		arb_detail.preSettlePrice = format(preSettlePrice);
-		arb_detail.high = format(high);
-		arb_detail.low = format(low);
-		arb_detail.swing = format(swing);
-		arb_detail.fullAmount = format(fullAmount);
+		arbDetail.presentPrice = format(presentPrice);
+		arbDetail.change = format(change);
+		arbDetail.bidPrice = format(bidPrice);
+		arbDetail.preSettlePrice = format(preSettlePrice);
+		arbDetail.high = format(high);
+		arbDetail.low = format(low);
+		arbDetail.swing = format(swing);
+		arbDetail.fullAmount = format(fullAmount);
 		
-		return arb_detail;
+		return arbDetail;
 	}
 	
 	private double format(double num) {
 		return (int)(num * 1000) / 1000.0;
 	}
+
 	public String getSymbol() {
 		return symbol;
 	}
@@ -143,261 +138,169 @@ public class ArbDetail {
 		return presentPrice;
 	}
 
-
 	public void setPresentPrice(double presentPrice) {
 		this.presentPrice = presentPrice;
 	}
-
 
 	public double getChange() {
 		return change;
 	}
 
-
 	public void setChange(double change) {
 		this.change = change;
 	}
-
 
 	public double getPriceChange() {
 		return priceChange;
 	}
 
-
 	public void setPriceChange(double priceChange) {
 		this.priceChange = priceChange;
 	}
 
-
-	public double getBidPirce() {
-		return bidPirce;
+	public double getBidPrice() {
+		return bidPrice;
 	}
 
-
-	public void setBidPirce(double bidPirce) {
-		this.bidPirce = bidPirce;
+	public void setBidPrice(double bidPrice) {
+		this.bidPrice = bidPrice;
 	}
-
 
 	public double getAskPrice() {
 		return askPrice;
 	}
 
-
 	public void setAskPrice(double askPrice) {
 		this.askPrice = askPrice;
 	}
-
 
 	public int getBid() {
 		return bid;
 	}
 
-
 	public void setBid(int bid) {
 		this.bid = bid;
 	}
-
 
 	public int getAsk() {
 		return ask;
 	}
 
-
 	public void setAsk(int ask) {
 		this.ask = ask;
 	}
-
-
-//	public int getNvol() {
-//		return nvol;
-//	}
-//
-//
-//	public void setNvol(int nvol) {
-//		this.nvol = nvol;
-//	}
-
 
 	public int getVol() {
 		return vol;
 	}
 
-
 	public void setVol(int vol) {
 		this.vol = vol;
 	}
-
 
 	public int getPreRepository() {
 		return preRepository;
 	}
 
-
 	public void setPreRepository(int preRepository) {
 		this.preRepository = preRepository;
 	}
-
 
 	public int getRepository() {
 		return repository;
 	}
 
-
 	public void setRepository(int repository) {
 		this.repository = repository;
 	}
 
-	
 	public int getDailyWarehouse() {
 		return dailyWarehouse;
 	}
-
 
 	public void setDailyWarehouse(int dailyWarehouse) {
 		this.dailyWarehouse = dailyWarehouse;
 	}
 
-
 	public double getPreClose() {
 		return preClose;
 	}
-
 
 	public void setPreClose(double preClose) {
 		this.preClose = preClose;
 	}
 
-
 	public double getOpen() {
 		return open;
 	}
-
 
 	public void setOpen(double open) {
 		this.open = open;
 	}
 
-
 	public double getHigh() {
 		return high;
 	}
-
 
 	public void setHigh(double high) {
 		this.high = high;
 	}
 
-
 	public double getLow() {
 		return low;
 	}
-
 
 	public void setLow(double low) {
 		this.low = low;
 	}
 
-
 	public double getFullAmount() {
 		return fullAmount;
 	}
-
 
 	public void setFullAmount(double fullAmount) {
 		this.fullAmount = fullAmount;
 	}
 
-
 	public double getPreSettlePrice() {
 		return preSettlePrice;
 	}
-
 
 	public void setPreSettlePrice(double preSettlePrice) {
 		this.preSettlePrice = preSettlePrice;
 	}
 
-
-//	public double getSettlePrice() {
-//		return settlePrice;
-//	}
-//
-//
-//	public void setSettlePrice(double settlePrice) {
-//		this.settlePrice = settlePrice;
-//	}
-
-
 	public double getSwing() {
 		return swing;
 	}
-
 
 	public void setSwing(double swing) {
 		this.swing = swing;
 	}
 
-
-//	public double getRatio() {
-//		return ratio;
-//	}
-//
-//
-//	public void setRatio(double ratio) {
-//		this.ratio = ratio;
-//	}
-
-
 	public double getHardenPrice() {
 		return hardenPrice;
 	}
-
 
 	public void setHardenPrice(double hardenPrice) {
 		this.hardenPrice = hardenPrice;
 	}
 
-
 	public double getLimitPrice() {
 		return limitPrice;
 	}
-
 
 	public void setLimitPrice(double limitPrice) {
 		this.limitPrice = limitPrice;
 	}
 
-
-//	public int getOutvol() {
-//		return outvol;
-//	}
-//
-//
-//	public void setOutvol(int outvol) {
-//		this.outvol = outvol;
-//	}
-//
-//
-//	public int getInvol() {
-//		return invol;
-//	}
-//
-//
-//	public void setInvol(int invol) {
-//		this.invol = invol;
-//	}
-
-
 	public double getAverPrice() {
 		return averPrice;
 	}
 
-
 	public void setAverPrice(double averPrice) {
 		this.averPrice = averPrice;
 	}
-
 
 	public static ArbDetail nullObject() {
 		ArbDetail arb_detail = new ArbDetail();
@@ -407,15 +310,4 @@ public class ArbDetail {
 		arb_detail.clock = "-";
 		return arb_detail;
 	}
-
-
-//	public long getTime() {
-//		return time;
-//	}
-//
-//
-//	public void setTime(long time) {
-//		this.time = time;
-//	}
-
 }

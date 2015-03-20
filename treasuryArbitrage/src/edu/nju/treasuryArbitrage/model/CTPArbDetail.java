@@ -269,7 +269,7 @@ public class CTPArbDetail {
         detail.setPresentPrice(lastPrice);
         //detail.setChange(change);
         //detail.setPriceChange(temp.getDouble("RT_CHG"));//û���ҵ�
-        detail.setBidPirce(bidPrice1);
+        detail.setBidPrice(bidPrice1);
         detail.setBid((int) bidVolume1);
         detail.setAskPrice(askPrice1);
         detail.setAsk((int) askVolume1);

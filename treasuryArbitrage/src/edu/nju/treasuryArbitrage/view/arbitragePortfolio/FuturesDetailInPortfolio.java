@@ -59,7 +59,7 @@ public class FuturesDetailInPortfolio extends JPanel {
 		askPriceData.setText(String.valueOf(arb.getAskPrice()));
 		askData.setText(String.valueOf(arb.getAsk()));
 
-		bidPriceData.setText(String.valueOf(arb.getBidPirce()));
+		bidPriceData.setText(String.valueOf(arb.getBidPrice()));
 		bidData.setText(String.valueOf(arb.getBid()));
 	}
 
