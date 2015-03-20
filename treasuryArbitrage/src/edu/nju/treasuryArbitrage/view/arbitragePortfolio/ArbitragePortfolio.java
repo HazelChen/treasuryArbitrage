@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.model.ArbGroup;
 import edu.nju.treasuryArbitrage.view.common.ComponentPanel;
@@ -28,12 +30,15 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 	}
 	
 	public void initPoint() {
-		internalList.initPoint(0, LiveData.getInstance().getBriefsTF1412(),
-				LiveData.getInstance().getBriefsTF1503());
-		internalList.initPoint(1, LiveData.getInstance().getBriefsTF1503(),
-				LiveData.getInstance().getBriefsTF1506());
-		internalList.initPoint(2, LiveData.getInstance().getBriefsTF1412(),
-				LiveData.getInstance().getBriefsTF1506());
+        DataInterface dataInterface = DataInterfaceFactory.getInstance()
+                .getDataInterfaceToServer();
+        String[] futuresCodes = LiveData.getInstance().getFuturesCodes();
+		internalList.initPoint(0, dataInterface.getPastPriceToday(futuresCodes[0]),
+                dataInterface.getPastPriceToday(futuresCodes[1]));
+		internalList.initPoint(1, dataInterface.getPastPriceToday(futuresCodes[0]),
+                dataInterface.getPastPriceToday(futuresCodes[2]));
+		internalList.initPoint(2, dataInterface.getPastPriceToday(futuresCodes[0]),
+                dataInterface.getPastPriceToday(futuresCodes[3]));
 	}
 	
 	private void init() {

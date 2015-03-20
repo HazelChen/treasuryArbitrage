@@ -38,7 +38,11 @@ public interface DataInterface {
 	public boolean setPara(double PROF,double LOSS,double GUAR);
 	
 	public ArrayList<ArbDetail> getArbDetail();
-	public ArrayList<ArbBrief> getArbBrief(String symbol);
+
+    /**
+     * Get past price today of a futures to draw point graph.
+     */
+	public ArrayList<ArbBrief> getPastPriceToday(String symbol);
 	
 	public boolean Order(String More_contract,String Blank_contract,double more_price,double blank_price,int hand,double guarantee);
 	public boolean cancleOrder(int Record_ID);

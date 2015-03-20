@@ -16,6 +16,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.model.ArbBrief;
 import edu.nju.treasuryArbitrage.model.ArbDetail;
@@ -45,9 +47,12 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	}
 	
 	public void initPoint() {
-		initPoints(0, LiveData.getInstance().getBriefsTF1412());
-		initPoints(1, LiveData.getInstance().getBriefsTF1503());
-		initPoints(2, LiveData.getInstance().getBriefsTF1506());
+        DataInterface dataInterface = DataInterfaceFactory.getInstance()
+                .getDataInterfaceToServer();
+        String[] futuresCodes = LiveData.getInstance().getFuturesCodes();
+		initPoints(0, dataInterface.getPastPriceToday(futuresCodes[0]));
+		initPoints(1, dataInterface.getPastPriceToday(futuresCodes[1]));
+		initPoints(2, dataInterface.getPastPriceToday(futuresCodes[2]));
 	}
 
 	private void addListeners() {

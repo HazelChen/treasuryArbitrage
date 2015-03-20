@@ -19,7 +19,7 @@ public class TestInterface {
 //		System.out.println(dif.getNewsList());
 //		System.out.println(dif.Order("TF1409", "TF1412", 93.2, 93.3, 1, 100));
 //		System.out.println(dif.Trade(21, 90));
-//		System.out.println(dif.getArbBrief("TF1412"));
+//		System.out.println(dif.getPastPriceToday("TF1412"));
 	}
 
 }

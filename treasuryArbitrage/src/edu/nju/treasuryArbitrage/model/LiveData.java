@@ -19,10 +19,6 @@ public class LiveData {
     private ArrayList<ArbDetail> arbDetails = new ArrayList<>();
 
 	private ArrayList<ArbGroup> arbGroups = new ArrayList<>();
-    private ArrayList<ArbBrief> briefsTF1412;
-    private ArrayList<ArbBrief> briefsTF1503;
-
-	private ArrayList<ArbBrief> briefsTF1506;
 
 	private boolean isReady;
 
@@ -95,30 +91,6 @@ public class LiveData {
 
 	public void setArbGroups(ArrayList<ArbGroup> arbGroups) {
 		this.arbGroups = arbGroups;
-	}
-
-	public ArrayList<ArbBrief> getBriefsTF1412() {
-		return briefsTF1412;
-	}
-
-	public void setBriefsTF1412(ArrayList<ArbBrief> briefsTF1412) {
-		this.briefsTF1412 = briefsTF1412;
-	}
-
-	public ArrayList<ArbBrief> getBriefsTF1503() {
-		return briefsTF1503;
-	}
-
-	public void setBriefsTF1503(ArrayList<ArbBrief> briefsTF1503) {
-		this.briefsTF1503 = briefsTF1503;
-	}
-
-	public ArrayList<ArbBrief> getBriefsTF1506() {
-		return briefsTF1506;
-	}
-
-	public void setBriefsTF1506(ArrayList<ArbBrief> briefsTF1506) {
-		this.briefsTF1506 = briefsTF1506;
 	}
 
 	public void ready() {
