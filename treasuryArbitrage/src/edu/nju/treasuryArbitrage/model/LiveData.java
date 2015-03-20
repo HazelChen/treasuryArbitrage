@@ -3,12 +3,10 @@ package edu.nju.treasuryArbitrage.model;
 import edu.nju.treasuryArbitrage.controller.fileIO.FileOperater;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class LiveData {
-    private static final String FUTURES_CODE_CONFIG_FILE = "config/futures-code";
+    private static final String FUTURES_CODE_CONFIG_FILE = "config/futures-codes";
 
 	private static LiveData self = new LiveData();
 
@@ -62,7 +60,7 @@ public class LiveData {
         //find the index in arb-details for this arb-detail
         int index = 0;
         for (; index < futuresCodes.length; index++) {
-            if (futuresCodes[index].equals(arbDetail)) {
+            if (futuresCodes[index].equals(symbol)) {
                 break;
             }
         }

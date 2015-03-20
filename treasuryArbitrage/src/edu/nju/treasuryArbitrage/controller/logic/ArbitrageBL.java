@@ -82,7 +82,7 @@ public class ArbitrageBL {
 			//========================================================
 			detail.setPriceChange(temp.getDouble("RT_CHG"));
 			
-			detail.setBidPirce(temp.getDouble("RT_BID1"));
+			detail.setBidPrice(temp.getDouble("RT_BID1"));
 			detail.setAskPrice(temp.getDouble("RT_ASK1"));
 			detail.setBid(temp.getInt("RT_BSIZE1"));
 			detail.setAsk(temp.getInt("RT_ASIZE1"));
