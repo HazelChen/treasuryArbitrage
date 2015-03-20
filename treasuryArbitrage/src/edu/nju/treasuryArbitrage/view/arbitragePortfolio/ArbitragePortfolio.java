@@ -48,9 +48,9 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
 		internalList.addInt(new ArbGroup("TF1412", "TF1503"));
 		internalList.addInt(new ArbGroup("TF1412", "TF1506"));
 		internalList.addInt(new ArbGroup("TF1503", "TF1506"));
-		tabbedPane.add("锟斤拷锟揭�", internalList.get(0));
-		tabbedPane.add("锟斤拷隙锟�", internalList.get(1));
-		tabbedPane.add("锟斤拷锟斤拷锟�", internalList.get(2));
+		tabbedPane.add("组合一", internalList.get(0));
+		tabbedPane.add("组合二", internalList.get(1));
+		tabbedPane.add("组合三", internalList.get(2));
 		updatePage();
 	}
 	
