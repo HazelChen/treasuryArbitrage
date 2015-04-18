@@ -26,7 +26,7 @@ public class TreasuryArbitrage {
 			treasuryArbitrage.launch();
 		} catch(Exception e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "????????????????????");
+			JOptionPane.showMessageDialog(null, "软件好像遇到了一点问题");
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class TreasuryArbitrage {
 	}
 	
 	private void defaultArbCombinationRecommend() {
-		ThreadDiag recommandDiag = new ThreadDiag("?????????????\r\n????????????????????", true);
+		ThreadDiag recommandDiag = new ThreadDiag("有重大套利机会！\r\n马上前往套利组合页面查看？", true);
 		recommandDiag.setVisible(true);
 		ArbGroup group = new ArbGroup("TF1412", "TF1503", true);
 		ArrayList<ArbGroup> groups = new ArrayList<>();
@@ -87,12 +87,12 @@ public class TreasuryArbitrage {
 		Repository repository = holdings.get(0);
 		repository.update();
 		dataInterface.Trade(repository.getRepo_ID(), repository.getProfit(), repository.getBuyPrecentPrice(), repository.getSellPrecentPrice());
-		ThreadDiag recommandDiag = new ThreadDiag("???\"TF1412 TF1503\"????????!\r\n???????????", false);
+		ThreadDiag recommandDiag = new ThreadDiag("组合\"TF1412 TF1503\"已自动平仓!\r\n马上前往查看？", false);
 		recommandDiag.setVisible(true);
 	}
 	
 	private void defaultArbSellRemind() {
-		ThreadDiag recommandDiag = new ThreadDiag("???\"TF1412 TF1503\"??????????!\r\n???????????", false);
+		ThreadDiag recommandDiag = new ThreadDiag("组合\"TF1412 TF1503\"出现平仓机会!\r\n马上前往查看？", false);
 		recommandDiag.setVisible(true);
 	}
 }

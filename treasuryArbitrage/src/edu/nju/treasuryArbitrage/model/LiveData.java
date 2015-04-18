@@ -20,8 +20,6 @@ public class LiveData {
 
 	private ArrayList<ArbGroup> arbGroups = new ArrayList<>();
 
-	private boolean isReady;
-
 	private LiveData(){
         loadFutureCodes();
         initArbDetails();
@@ -33,6 +31,11 @@ public class LiveData {
     private void loadFutureCodes() {
         String codes = FileOperater.read(FUTURES_CODE_CONFIG_FILE);
         futuresCodes = codes.split(" ");
+        
+        for (int i = 0; i < futuresCodes.length; i++) {
+        	futuresCodes[i] = futuresCodes[i].trim();
+        }
+        
         if (futuresCodes.length != 3) {
             throw new RuntimeException("Error in futures config");
         }
@@ -68,10 +71,6 @@ public class LiveData {
         return futuresCodes;
     }
 
-	public boolean isReady() {
-		return isReady;
-	}
-	
 	public ArrayList<ArbDetail> getArbDetails() {
 		return arbDetails;
 	}
@@ -93,9 +92,4 @@ public class LiveData {
 		this.arbGroups = arbGroups;
 	}
 
-	public void ready() {
-		this.isReady = true;
-	}
-	
-	
 }

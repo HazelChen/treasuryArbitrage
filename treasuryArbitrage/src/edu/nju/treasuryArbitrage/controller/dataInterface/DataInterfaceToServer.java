@@ -160,7 +160,13 @@ public class DataInterfaceToServer implements DataInterface {
 
 	@Override
 	public ArrayList<ArbBrief> getPastPriceToday(String symbol){
-		return arbtbl.getBriefList(symbol);
+		ArrayList<ArbBrief> pastPrices = arbtbl.getBriefList(symbol);
+		
+		if (pastPrices == null) {
+			return new ArrayList<ArbBrief>();
+		}
+		
+		return pastPrices;
 	}
 	
 	@Override

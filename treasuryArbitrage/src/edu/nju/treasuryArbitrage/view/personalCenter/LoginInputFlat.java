@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.view.common.ViewFactory;
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
-import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.view.common.LoginedUser;
 import edu.nju.treasuryArbitrage.view.common.TreasuryFrame;
 import edu.nju.treasuryArbitrage.view.common.ViewHelper;
@@ -26,18 +25,18 @@ import edu.nju.treasuryArbitrage.view.navigater.SettingStopParameters;
 
 public class LoginInputFlat extends LoginInput{
 	private static final long serialVersionUID = -4223830916730143876L;
-	private static final Font YAHEI_FONT = new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 15);
+	private static final Font YAHEI_FONT = new Font("微软雅黑", Font.PLAIN, 15);
 	/*package*/ static final Color BACKGROUND_COLOR = new Color(235,242,250);
 	private static final Color FOREGROUND_COLOR = Color.BLACK;
 	
 	private RiskTipDialog dialog = new RiskTipDialog();
 	private JTextField userTextField = new JTextField();
 	private JPasswordField passwordField = new JPasswordField();
-	private JCheckBox readRiskWarning = new JCheckBox("锟斤拷锟侥讹拷锟斤拷锟斤拷锟斤拷示");
-	private JButton okButton = new JButton("锟斤拷录");
-	private JRadioButton simulationRadioButton = new JRadioButton("模锟解交锟斤拷");
-	private JRadioButton realRadioButton = new JRadioButton("锟斤拷实锟斤拷锟斤拷");
-	private JLabel userLabel = new JLabel("锟斤拷  锟斤拷:");
+	private JCheckBox readRiskWarning = new JCheckBox("已阅读风险提示");
+	private JButton okButton = new JButton("登录");
+	private JRadioButton simulationRadioButton = new JRadioButton("模拟交易");
+	private JRadioButton realRadioButton = new JRadioButton("真实交易");
+	private JLabel userLabel = new JLabel("账  号:");
 	
 	public LoginInputFlat(LoginFrame loginFrame) {
 		init();
@@ -74,7 +73,7 @@ public class LoginInputFlat extends LoginInput{
 		this.add(userLabel);
 		this.add(userTextField);
 		
-		Label passwordLabel = new Label("锟斤拷锟斤拷:");
+		Label passwordLabel = new Label("密码:");
 		passwordLabel.setFont(YAHEI_FONT);
 		passwordLabel.setForeground(FOREGROUND_COLOR);
 		passwordLabel.setBounds(265, 50, 40, 25);
@@ -127,16 +126,6 @@ public class LoginInputFlat extends LoginInput{
 
 					ViewFactory.getInstance().getNavigationBar().setUserName(username);
 					ViewHelper.getInstance().startUpdate();
-
-					while (!LiveData.getInstance().isReady()) {
-						System.out.println("loading...");
-						try {
-							Thread.sleep(1000);
-						} catch (InterruptedException e1) {
-							e1.printStackTrace();
-						}
-					}
-					System.out.println("loading finish");
 					
 					TreasuryFrame frame = new TreasuryFrame();
 					loginFrame.setVisible(false);
@@ -149,7 +138,7 @@ public class LoginInputFlat extends LoginInput{
 						settingStopParameters.setVisible(true);
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "锟矫伙拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷螅。锟�");
+					JOptionPane.showMessageDialog(null, "用户名和密码错误");
 				}
 			}
 		});
@@ -172,7 +161,7 @@ public class LoginInputFlat extends LoginInput{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				userLabel.setText("锟斤拷  锟斤拷:");
+				userLabel.setText("账  号:");
 				DataInterfaceFactory.getInstance().setIsSimulate(true);
 			}
 		});
@@ -183,7 +172,7 @@ public class LoginInputFlat extends LoginInput{
 			public void actionPerformed(ActionEvent e) {
 				userLabel.setText("<html>" +
 						"<font color=red><b>CTP </b></font>" +
-						"锟斤拷业锟节伙拷:</html>");
+						"弘业期货:</html>");
 				DataInterfaceFactory.getInstance().setIsSimulate(false);
 			}
 		});

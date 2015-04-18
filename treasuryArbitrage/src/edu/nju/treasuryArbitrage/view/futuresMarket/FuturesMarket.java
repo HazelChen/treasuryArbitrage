@@ -30,8 +30,8 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	private static final int TABLE_HEIGHT = 40;
 	private JTable futuerTable;
 	private FuturesDetailPanel detailPanel;
-	private String[] headerData = { "锟斤拷锟斤拷", "锟斤拷锟斤拷锟铰凤拷", "锟街硷拷", "锟角碉拷", "锟角碉拷锟斤拷", "锟斤拷锟斤拷",
-			"锟斤拷锟�", "锟斤拷锟斤拷", "锟斤拷锟斤拷", "锟缴斤拷锟斤拷", "锟街诧拷锟斤拷", "锟斤拷锟斤拷锟斤拷", "前锟斤拷锟斤拷锟�", "锟斤拷", "锟斤拷锟�", "锟斤拷锟�",
+	private String[] headerData = { "代码", "交割月份", "现价", "涨跌", "涨跌幅", "买量",
+			"买价", "锟斤拷锟斤拷", "锟斤拷锟斤拷", "锟缴斤拷锟斤拷", "锟街诧拷锟斤拷", "锟斤拷锟斤拷锟斤拷", "前锟斤拷锟斤拷锟�", "锟斤拷", "锟斤拷锟�", "锟斤拷锟�",
 			"时锟斤拷" };
 	private ArbDetail[] arb_details = new ArbDetail[3];
 	private DefaultTableModel model;

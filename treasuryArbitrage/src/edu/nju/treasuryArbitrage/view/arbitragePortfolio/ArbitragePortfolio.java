@@ -34,11 +34,11 @@ public class ArbitragePortfolio extends JPanel implements ComponentPanel{
                 .getDataInterfaceToServer();
         String[] futuresCodes = LiveData.getInstance().getFuturesCodes();
 		internalList.initPoint(0, dataInterface.getPastPriceToday(futuresCodes[0]),
-                dataInterface.getPastPriceToday(futuresCodes[1]));
+                dataInterface.getPastPriceToday(futuresCodes[0]));
 		internalList.initPoint(1, dataInterface.getPastPriceToday(futuresCodes[0]),
-                dataInterface.getPastPriceToday(futuresCodes[2]));
+                dataInterface.getPastPriceToday(futuresCodes[1]));
 		internalList.initPoint(2, dataInterface.getPastPriceToday(futuresCodes[0]),
-                dataInterface.getPastPriceToday(futuresCodes[3]));
+                dataInterface.getPastPriceToday(futuresCodes[2]));
 	}
 	
 	private void init() {

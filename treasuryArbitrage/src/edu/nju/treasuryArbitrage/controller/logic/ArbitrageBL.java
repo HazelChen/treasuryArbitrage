@@ -1,5 +1,7 @@
 package edu.nju.treasuryArbitrage.controller.logic;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -148,17 +150,22 @@ public class ArbitrageBL {
 		brief_list = new ArrayList<ArbBrief>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
-		params.put("CODE", symbol);
+		try {
+			params.put("CODE", URLEncoder.encode(symbol, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		helper.setInitPara("olddetail", params);
 		JSONArray ret = helper.getJSONArrayByGet();
 		
 		if (ret == null) {
-			return null;
+			return new ArrayList<ArbBrief>();
 		}
+		
 		for(int i=0;i<ret.length();i++){
 			JSONObject temp = ret.getJSONObject(i);
-			String time = temp.getString("RT_TIME");
-			double price = temp.getDouble("RT_LAST");
+			String time = temp.getString("UpdataTime");
+			double price = temp.getDouble("LastPrice");
 			ArbBrief brief = new ArbBrief(symbol,time,price);
 			brief_list.add(brief);
 		}

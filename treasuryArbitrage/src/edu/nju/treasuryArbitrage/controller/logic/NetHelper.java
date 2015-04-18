@@ -28,7 +28,8 @@ public class NetHelper {
 	
 	public void setInitPara(String method, HashMap<String, String> params) {
 //		this.urlString = "http://njuhq.sinaapp.com/"+method;
-		this.urlString = "http://localhost:8000/"+method;
+		this.urlString = "http://192.168.206.31/"+method;
+//		this.urlString = "http://localhost:8000/"+method;
 		this.setPara(params);
 	}
 	
