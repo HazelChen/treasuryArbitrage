@@ -98,7 +98,6 @@ public class NetHelper {
 					String line = null;
 					while ((line = bufferedReader.readLine()) != null) {
 						entityStringBuilder.append(line + "/n");
-//						System.out.println(line);
 					}
 					// 利用从HttpEntity中得到的String生成JsonObject
 					resultString = entityStringBuilder.toString();
