@@ -153,12 +153,6 @@ public class DataInterfaceToServer implements DataInterface {
 	// ==================================================================================================
 
 	@Override
-	public ArrayList<ArbDetail> getArbDetail() {
-		return arbtbl.getDetailList();
-		//return ctpAdapter.getDetailList();
-	}
-
-	@Override
 	public ArrayList<ArbBrief> getPastPriceToday(String symbol){
 		ArrayList<ArbBrief> pastPrices = arbtbl.getBriefList(symbol);
 		

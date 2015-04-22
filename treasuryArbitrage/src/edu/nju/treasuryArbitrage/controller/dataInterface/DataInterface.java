@@ -37,8 +37,6 @@ public interface DataInterface {
 	public double getPara_GUAR();
 	public boolean setPara(double PROF,double LOSS,double GUAR);
 	
-	public ArrayList<ArbDetail> getArbDetail();
-
     /**
      * Get past price today of a futures to draw point graph.
      */

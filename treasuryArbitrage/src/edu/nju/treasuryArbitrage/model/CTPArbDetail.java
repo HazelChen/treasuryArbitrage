@@ -275,10 +275,9 @@ public class CTPArbDetail {
         detail.setAsk((int) askVolume1);
 
         detail.setVol((int) volume);
-        detail.setPreRepository((int) preOpenInterest);
         detail.setRepository((int) openInterest);
+        detail.setDailyWarehouse((int)(openInterest - preOpenInterest));
 
-        //detail.setDailyWarehouse(temp.getInt("RT_OI_CHG"));
         detail.setPreClose(preClosePrice);
         detail.setOpen(openPrice);
         detail.setHigh(highestPrice);
@@ -286,7 +285,7 @@ public class CTPArbDetail {
         detail.setFullAmount(turnover);
         detail.setPreSettlePrice(preSettlementPrice);
 
-        //detail.setSwing(swing);
+        detail.setSwing((highestPrice - lowestPrice) / preClosePrice);
         detail.setHardenPrice(upperLimitPrice);
         detail.setLimitPrice(lowerLimitPrice);
         detail.setAverPrice(averagePrice);

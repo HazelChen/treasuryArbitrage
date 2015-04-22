@@ -17,7 +17,6 @@ public class ArbDetail {
 	int ask;				//***卖量
 
  	int vol;				//***成交量（即总手）
-	int preRepository;		//***昨持仓
 	int repository;			//***持仓量
 	
 	int dailyWarehouse;		//***日增仓
@@ -34,11 +33,9 @@ public class ArbDetail {
 	double limitPrice;		//***跌停
 
 	double averPrice;		//***均价
-	
-	
+
 	public ArbDetail(){}
-	
-	
+
 	private ArbDetail cloneArb() {
 		ArbDetail arbDetail = new ArbDetail();
 		arbDetail.symbol = this.symbol;
@@ -53,7 +50,6 @@ public class ArbDetail {
 		arbDetail.bid = this.bid;
 		arbDetail.ask = this.ask;
 		arbDetail.vol = this.vol;
-		arbDetail.preRepository = this.preRepository;
 		arbDetail.repository = this.repository;
 		arbDetail.dailyWarehouse = this.dailyWarehouse;
 		arbDetail.preClose = this.preClose;
@@ -182,14 +178,6 @@ public class ArbDetail {
 
 	public void setVol(int vol) {
 		this.vol = vol;
-	}
-
-	public int getPreRepository() {
-		return preRepository;
-	}
-
-	public void setPreRepository(int preRepository) {
-		this.preRepository = preRepository;
 	}
 
 	public int getRepository() {
