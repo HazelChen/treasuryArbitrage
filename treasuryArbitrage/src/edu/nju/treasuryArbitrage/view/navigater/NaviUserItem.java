@@ -18,8 +18,8 @@ public class NaviUserItem extends JPanel{
 	private static final long serialVersionUID = -1940967418792821751L;
 	
 	private JLabel userMessageLabel;
-	private JLabel setModelButton = new JLabel("��������");
-	private JLabel loggoutLabel = new JLabel("��ȫ�˳�");
+	private JLabel setModelButton = new JLabel("参数设置");
+	private JLabel loggoutLabel = new JLabel("安全退出");
 	
 	/*package*/ NaviUserItem() {
 		this.setBackground(NavigationBar.BACKGROUND_COLOR);
@@ -63,28 +63,28 @@ public class NaviUserItem extends JPanel{
 	}
 
 	private void assemble() {
-		String userMessage = "���," + LoginedUser.getLoginedUser();
+		String userMessage = "你好," + LoginedUser.getLoginedUser();
 		userMessageLabel = new JLabel(userMessage);
 		userMessageLabel.setForeground(NavigationBar.FOREGROUND_COLOR);
-		userMessageLabel.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		userMessageLabel.setFont(new Font("微软雅黑", Font.PLAIN, 16));
 		this.add(userMessageLabel);
 		
-		setModelButton.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		setModelButton.setFont(new Font("微软雅黑", Font.PLAIN, 16));
 		setModelButton.setForeground(ColorConstants.LINK_BLUE);
 		this.add(setModelButton);
 		
-		JLabel gapLabel = new JLabel("��");
-		gapLabel.setFont(new Font("΢���ź�", Font.BOLD, 16));
+		JLabel gapLabel = new JLabel("·");
+		gapLabel.setFont(new Font("微软雅黑", Font.BOLD, 16));
 		gapLabel.setForeground(ColorConstants.LINK_BLUE);
 		this.add(gapLabel);
 		
 		loggoutLabel.setForeground(ColorConstants.LINK_BLUE);
-		loggoutLabel.setFont(new Font("΢���ź�", Font.PLAIN, 16));
+		loggoutLabel.setFont(new Font("微软雅黑", Font.PLAIN, 16));
 		this.add(loggoutLabel);
 	}
 
 	public void setUserName(String username) {
-		userMessageLabel.setText("���," + username);
+		userMessageLabel.setText("你好," + username);
 	}
 
 }

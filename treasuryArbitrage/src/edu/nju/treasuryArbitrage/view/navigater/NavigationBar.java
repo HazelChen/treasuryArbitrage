@@ -70,9 +70,9 @@ public class NavigationBar extends JPanel{
 			if (i == items.length - 1) {
 				continue;
 			}
-			JLabel dotLabel = new JLabel(" 锟斤拷 ");
+			JLabel dotLabel = new JLabel(" - ");
 			dotLabel.setForeground(FOREGROUND_COLOR);
-			dotLabel.setFont(new Font("微锟斤拷锟脚猴拷", Font.BOLD, 15));
+			dotLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
 			dotLabel.setBackground(BACKGROUND_COLOR);
 			left.add(dotLabel);
 		}
