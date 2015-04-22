@@ -267,8 +267,8 @@ public class CTPArbDetail {
         detail.setClock(clockString);
         //================================================
         detail.setPresentPrice(lastPrice);
-        //detail.setChange(change);
-        //detail.setPriceChange(temp.getDouble("RT_CHG"));//û���ҵ�
+        detail.setChange(lastPrice - preClosePrice);
+        detail.setPriceChange((lastPrice - preClosePrice) / preClosePrice);
         detail.setBidPrice(bidPrice1);
         detail.setBid((int) bidVolume1);
         detail.setAskPrice(askPrice1);

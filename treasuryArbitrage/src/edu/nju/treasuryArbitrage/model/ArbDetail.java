@@ -4,42 +4,36 @@ package edu.nju.treasuryArbitrage.model;
 public class ArbDetail {
 	String symbol;			//***国债期货代码
 	String month;			//***交割月份
-	
-	//˵��2��change��swingȡ��Ϊ��%�ŵ�String����ת��Ϊdouble����ʹ��ʱ��Ҫ ����*100�����%��ʾʵ�ʺ���
-	//==========================================================
 	String date;			//***日期
-	String clock;				//***时间
+	String clock;			//***时间
 
 	double presentPrice;	//***现价（即“成交”、“合约价格”）
 	double change;			//***涨跌幅（即涨幅）
 	double	priceChange;	//***跌涨
 
 	double bidPrice;		//***买价
-	double askPrice;		//***����
-	int bid;				//***����
-	int ask;				//***����
+	double askPrice;		//***卖价
+	int bid;				//***买量
+	int ask;				//***卖量
 
-	//==========================================================
-	//˵��3��ȥ��nvol,settlePrice,ratio,outvol,invol
-	//==========================================================
- 	int vol;				//***�ɽ��������ֵ��ڳɽ�����ͳһ�ɳɽ�����
-	int preRepository;		//***��ֲ�
-	int repository;			//***�ֲ���
+ 	int vol;				//***成交量（即总手）
+	int preRepository;		//***昨持仓
+	int repository;			//***持仓量
 	
-	int dailyWarehouse;		//***������
-	double preClose;		//***����
-	double open;			//***���̣��񿪵��ڿ��̣�ͳһ�ɿ��̣�
-	double high;			//***���
-	double low;				//***���
-	double fullAmount;		//***���
-	double preSettlePrice;	//***ǰ����ۣ�������ǰ����ۣ�ͳһ��ǰ����ۣ�
-	double swing;			//***���
+	int dailyWarehouse;		//***日增仓
+	double preClose;		//***昨收
+	double open;			//***开盘（即今开）
+	double high;			//***最高
+	double low;				//***最低
+	double fullAmount;		//***金额
+	double preSettlePrice;	//***前结算价（即昨结）
+	double swing;			//***振幅
 
 
-	double hardenPrice;		//***��ͣ
-	double limitPrice;		//***��ͣ	
+	double hardenPrice;		//***涨停
+	double limitPrice;		//***跌停
 
-	double averPrice;		//***����
+	double averPrice;		//***均价
 	
 	
 	public ArbDetail(){}
@@ -51,7 +45,6 @@ public class ArbDetail {
 		arbDetail.month = this.month;
 		arbDetail.date = this.date;
 		arbDetail.clock = this.clock;
-		//arbDetail.time = this.time;
 		arbDetail.presentPrice = this.presentPrice;
 		arbDetail.change = this.change;
 		arbDetail.priceChange = this.priceChange;
@@ -59,7 +52,6 @@ public class ArbDetail {
 		arbDetail.askPrice = this.askPrice;
 		arbDetail.bid = this.bid;
 		arbDetail.ask = this.ask;
-		//arbDetail.nvol = this.nvol;
 		arbDetail.vol = this.vol;
 		arbDetail.preRepository = this.preRepository;
 		arbDetail.repository = this.repository;
@@ -70,13 +62,9 @@ public class ArbDetail {
 		arbDetail.low = this.low;
 		arbDetail.fullAmount = this.fullAmount;
 		arbDetail.preSettlePrice = this.preSettlePrice;
-		//arbDetail.settlePrice = this.settlePrice;
 		arbDetail.swing = this.swing;
-		//arbDetail.ratio = this.ratio;
 		arbDetail.hardenPrice = this.hardenPrice;
 		arbDetail.limitPrice = this.limitPrice;
-		//arbDetail.outvol = this.outvol;
-		//arbDetail.invol = this.invol;
 		arbDetail.averPrice = this.averPrice;
 		return arbDetail;
 	}
