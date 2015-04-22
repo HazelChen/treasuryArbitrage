@@ -30,7 +30,7 @@ public class LineChart extends JPanel {
 	private static final long serialVersionUID = 1323688315244501166L;
 
 	@SuppressWarnings("deprecation")
-	private TimeSeries timeseries = new TimeSeries("�۸�", Second.class);
+	private TimeSeries timeseries = new TimeSeries("价格", Second.class);
 	private JFreeChart jfreechart;
 	
 	public LineChart() {
@@ -80,14 +80,14 @@ public class LineChart extends JPanel {
 	private ChartPanel init() {
 		XYDataset xydataset = createDataset(); 
 		jfreechart = ChartFactory.createTimeSeriesChart(
-				"��ʱ����", "", "", xydataset, true, true,true);
+				"分时走势", "", "", xydataset, true, true,true);
 		ChartPanel chartPanel = new ChartPanel(jfreechart, true);
 		
 		jfreechart.setBackgroundPaint(Color.BLACK);
 		
-		// ���ñ�������
+		//Set the title font
 		TextTitle title = jfreechart.getTitle();
-		title.setFont(new Font("΢���ź�", Font.PLAIN, 15));
+		title.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		title.setHorizontalAlignment(HorizontalAlignment.LEFT);
 		title.setPaint(Color.WHITE);
 		
@@ -127,7 +127,7 @@ public class LineChart extends JPanel {
 		
 //		yAxis.setRange(95.0, 97.0);
 		
-		//ͼ��
+		//图例
 		jfreechart.getLegend().setVisible(false);
 		return chartPanel;
 	}

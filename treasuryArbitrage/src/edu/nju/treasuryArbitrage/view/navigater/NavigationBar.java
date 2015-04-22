@@ -44,9 +44,9 @@ public class NavigationBar extends JPanel{
 	
 	public void naviPanelInit() {
 		ViewFactory factory = ViewFactory.getInstance();
-		items[0] = new NavigationBarItem(this, factory.getFuturesMarket(), "锟节伙拷锟斤拷锟斤拷");
-		items[1] = new NavigationBarItem(this, factory.getArbitragePortfolio(), "锟斤拷锟斤拷锟斤拷锟�");
-		items[2] = new NavigationBarItem(this, factory.getHoldings(), "锟街诧拷锟斤拷锟�"){
+		items[0] = new NavigationBarItem(this, factory.getFuturesMarket(), "期货行情");
+		items[1] = new NavigationBarItem(this, factory.getArbitragePortfolio(), "套利组合");
+		items[2] = new NavigationBarItem(this, factory.getHoldings(), "持仓情况"){
 			private static final long serialVersionUID = -4590415644339941609L;
 
 			@Override
@@ -57,8 +57,6 @@ public class NavigationBar extends JPanel{
 				}
 			}
 		}; 
-		//items[3] = new NavigaterItem(this, factory.getNews(), "锟狡撅拷要锟斤拷", false, false);
-//		items[3] = new NavigaterItem(this, factory.getPersonalCenter(), "锟斤拷锟斤拷锟斤拷锟斤拷");
 	}
 	
 	public void assemble() {
