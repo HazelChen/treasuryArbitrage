@@ -2,21 +2,19 @@ package edu.nju.treasuryArbitrage.model;
 
 
 public class ArbDetail {
-	String symbol;			//***��ծ�ڻ�����
-	String month;			//***�����·�
+	String symbol;			//***国债期货代码
+	String month;			//***交割月份
 	
-	//==========================================================
-	//˵��1��ȥ��time����ԭ����day��Ϊclock;date,clock��ΪString����
 	//˵��2��change��swingȡ��Ϊ��%�ŵ�String����ת��Ϊdouble����ʹ��ʱ��Ҫ ����*100�����%��ʾʵ�ʺ���
 	//==========================================================
-	String date;			//***����
-	String clock;				//***ʱ��
+	String date;			//***日期
+	String clock;				//***时间
 
-	double presentPrice;	//***�ּۣ����ּۡ����ڡ��ɽ������ڡ���Լ�۸񡱣�ͳһ���ּۣ�
-	double change;			//***�ǵ������Ƿ������ǵ�����ͳһ���ǵ�����
-	double	priceChange;	//***����
+	double presentPrice;	//***现价（即“成交”、“合约价格”）
+	double change;			//***涨跌幅（即涨幅）
+	double	priceChange;	//***跌涨
 
-	double bidPrice;		//***���
+	double bidPrice;		//***买价
 	double askPrice;		//***����
 	int bid;				//***����
 	int ask;				//***����
