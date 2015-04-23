@@ -12,9 +12,11 @@ import java.util.Map;
 public class LiveData {
     private static final String FUTURES_CODE_CONFIG_FILE = "config/futures-codes";
 
-	private static LiveData self = new LiveData();
-
+	private static LiveData self;
     public static LiveData getInstance() {
+        if (self == null) {
+            self = new LiveData();
+        }
         return self;
     }
 
