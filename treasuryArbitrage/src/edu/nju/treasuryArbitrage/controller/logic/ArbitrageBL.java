@@ -26,7 +26,7 @@ public class ArbitrageBL {
 		this.helper = netHelper;
 	}
 	
-	public ArrayList<ArbBrief> getBriefList(String symbol){
+	public ArrayList<ArbBrief> getPastPrice(String symbol){
 		brief_list = new ArrayList<ArbBrief>();
 		
 		HashMap<String, String> params = new HashMap<String, String>();
@@ -44,7 +44,7 @@ public class ArbitrageBL {
 		
 		for(int i=0;i<ret.length();i++){
 			JSONObject temp = ret.getJSONObject(i);
-			String time = temp.getString("UpdataTime");
+			String time = temp.getString("Updatetime");
 			double price = temp.getDouble("LastPrice");
 			ArbBrief brief = new ArbBrief(symbol,time,price);
 			brief_list.add(brief);
