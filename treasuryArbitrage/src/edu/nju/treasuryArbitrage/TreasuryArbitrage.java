@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
 import edu.nju.treasuryArbitrage.controller.fileIO.FileOperater;
+import edu.nju.treasuryArbitrage.controller.logic.CtpDataAdapter;
 import edu.nju.treasuryArbitrage.controller.threads.AnalyseThread;
 import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.controller.threads.ThreadDiag;
@@ -63,6 +64,9 @@ public class TreasuryArbitrage {
 	}
 
 	private void startDataFetch() {
+		CtpDataAdapter ctpAdapter = new CtpDataAdapter();
+		ctpAdapter.startOrder();
+		
 		Thread analyseThread = new Thread(new AnalyseThread());
 		analyseThread.start();
 	}

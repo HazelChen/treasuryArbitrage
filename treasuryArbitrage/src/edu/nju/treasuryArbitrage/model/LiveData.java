@@ -12,20 +12,17 @@ import java.util.Map;
 public class LiveData {
     private static final String FUTURES_CODE_CONFIG_FILE = "config/futures-codes";
 
-	private static LiveData self;
-    public static LiveData getInstance() {
-        if (self == null) {
-            self = new LiveData();
-        }
-        return self;
-    }
-
-
     private String[] futuresCodes;
     private ArrayList<ArbDetail> arbDetails = new ArrayList<>();
-    private Map<String, ArrayList<ArbBrief>> historyPriceToday;
+    private Map<String, ArrayList<ArbBrief>> historyPriceToday
+    			= new HashMap<>();
 	private ArrayList<ArbGroup> arbGroups = new ArrayList<>();
 
+	private static LiveData self = new LiveData();
+	public synchronized static LiveData getInstance() {
+		return self;
+	}
+	
 	private LiveData(){
         loadFutureCodes();
         initArbDetails();
@@ -68,7 +65,6 @@ public class LiveData {
         DataInterface dataInterface =
                 DataInterfaceFactory.getInstance().getDataInterfaceToServer();
 
-        historyPriceToday = new HashMap<>();
         for (String futureCode : futuresCodes) {
             ArrayList<ArbBrief> history = dataInterface.getPastPriceToday(futureCode);
             historyPriceToday.put(futureCode, history);

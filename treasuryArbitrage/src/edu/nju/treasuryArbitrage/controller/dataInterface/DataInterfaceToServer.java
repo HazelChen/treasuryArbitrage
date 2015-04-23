@@ -33,8 +33,6 @@ public class DataInterfaceToServer implements DataInterface {
 
 	CalculateBL calcbl;
 	
-	CtpDataAdapter ctpAdapter;
-
 	public DataInterfaceToServer() {
 		NetHelper netHelper = new NetHelper();
 		userbl = new UserBL(netHelper);
@@ -45,9 +43,6 @@ public class DataInterfaceToServer implements DataInterface {
 		arbtbl = new ArbitrageBL(netHelper);
 		tradebl = new TradeBL(netHelper);
 		calcbl = new CalculateBL();
-		ctpAdapter = new CtpDataAdapter();
-		ctpAdapter.startOrder();
-		
 	}
 
 	// ==================================================================================================
@@ -174,7 +169,7 @@ public class DataInterfaceToServer implements DataInterface {
 
 	@Override
 	public boolean cancleOrder(int record_ID) {
-		UserVO user = userbl.getUser();
+		UserVO user = userbl.getUser(); 
 		return tradebl.cancleOrder(user.getUserID(), record_ID);
 	}
 
