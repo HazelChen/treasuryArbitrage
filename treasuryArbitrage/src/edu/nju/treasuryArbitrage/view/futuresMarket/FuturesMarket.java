@@ -278,11 +278,8 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 
 	private void initCharts() {
 		charts[0] = new LineChart(Color.YELLOW);
-		charts[0].setYRange(95.0, 96.0);
 		charts[1] = new LineChart(ColorConstants.BRIGHT_BLUE);
-		charts[1].setYRange(95.5, 96.5);
 		charts[2] = new LineChart(Color.WHITE);
-		charts[2].setYRange(96.0, 97.0);
 	}
 
 	private void initPoints(int index, final ArrayList<ArbBrief> arbBriefs) {

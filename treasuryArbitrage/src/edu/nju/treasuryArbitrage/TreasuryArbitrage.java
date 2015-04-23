@@ -36,8 +36,8 @@ public class TreasuryArbitrage {
 	}
 	
 	public void launch() {
-        ViewHelper.getInstance().init();
 		startDataFetch();
+        ViewHelper.getInstance().init();
 		setOverallHotKey();
 		launchLoginPage();
 	}

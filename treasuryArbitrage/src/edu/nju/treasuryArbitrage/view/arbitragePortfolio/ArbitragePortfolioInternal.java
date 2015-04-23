@@ -41,8 +41,7 @@ public class ArbitragePortfolioInternal extends JPanel{
 
 	private void initComponents() {
 		spreadLineChart.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, BORDER_COLOR));
-//		spreadLineChart.setYRange(-1.5, 1.5);
-		spreadLineChart.setTitle("�۲�����");
+		spreadLineChart.setTitle("价差走势");
 		
 	}
 	
