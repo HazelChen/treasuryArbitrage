@@ -47,12 +47,10 @@ public class FuturesMarket extends JPanel implements ComponentPanel {
 	}
 	
 	public void initPoint() {
-        DataInterface dataInterface = DataInterfaceFactory.getInstance()
-                .getDataInterfaceToServer();
-        String[] futuresCodes = LiveData.getInstance().getFuturesCodes();
-		initPoints(0, dataInterface.getPastPriceToday(futuresCodes[0]));
-		initPoints(1, dataInterface.getPastPriceToday(futuresCodes[1]));
-		initPoints(2, dataInterface.getPastPriceToday(futuresCodes[2]));
+        LiveData liveData = LiveData.getInstance();
+		initPoints(0, liveData.getHistoryPrice(0));
+		initPoints(1, liveData.getHistoryPrice(1));
+		initPoints(2, liveData.getHistoryPrice(2));
 	}
 
 	private void addListeners() {

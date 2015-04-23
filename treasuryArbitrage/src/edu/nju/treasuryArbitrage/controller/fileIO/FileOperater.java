@@ -36,7 +36,7 @@ public class FileOperater {
 		return sb.toString();
 	}
 	
-	public void write(String filename, String content) {
+	public static void write(String filename, String content) {
 		try {
 			PrintWriter printWriter = new PrintWriter(filename);
 			printWriter.print(content);

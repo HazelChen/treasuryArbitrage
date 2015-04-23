@@ -1,8 +1,12 @@
 package edu.nju.treasuryArbitrage.model;
 
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.controller.fileIO.FileOperater;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class LiveData {
@@ -17,12 +21,13 @@ public class LiveData {
 
     private String[] futuresCodes;
     private ArrayList<ArbDetail> arbDetails = new ArrayList<>();
-
+    private Map<String, ArrayList<ArbBrief>> historyPriceToday;
 	private ArrayList<ArbGroup> arbGroups = new ArrayList<>();
 
 	private LiveData(){
         loadFutureCodes();
         initArbDetails();
+        initHistoryToday();
 	}
 
     /**
@@ -47,6 +52,24 @@ public class LiveData {
     private void initArbDetails() {
         for (int i = 0; i < futuresCodes.length; i++) {
             arbDetails.add(ArbDetail.nullObject(futuresCodes[i]));
+        }
+    }
+
+    /**
+     * Get history price today to draw the line graph.
+     *
+     * To shorten the time of setting up,
+     * we'd better get the history only once here but not
+     * get histories everywhere in views.
+     */
+    private void initHistoryToday() {
+        DataInterface dataInterface =
+                DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+
+        historyPriceToday = new HashMap<>();
+        for (String futureCode : futuresCodes) {
+            ArrayList<ArbBrief> history = dataInterface.getPastPriceToday(futureCode);
+            historyPriceToday.put(futureCode, history);
         }
     }
 
@@ -91,5 +114,13 @@ public class LiveData {
 	public void setArbGroups(ArrayList<ArbGroup> arbGroups) {
 		this.arbGroups = arbGroups;
 	}
+
+    public ArrayList<ArbBrief> getHistoryPrice(String symbol) {
+        return historyPriceToday.get(symbol);
+    }
+
+    public ArrayList<ArbBrief> getHistoryPrice(int symbolIndex) {
+        return historyPriceToday.get(futuresCodes[symbolIndex]);
+    }
 
 }

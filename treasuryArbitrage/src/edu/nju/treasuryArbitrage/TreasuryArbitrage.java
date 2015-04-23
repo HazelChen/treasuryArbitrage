@@ -4,12 +4,16 @@ import java.awt.AWTEvent;
 import java.awt.Toolkit;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.controller.fileIO.FileOperater;
 import edu.nju.treasuryArbitrage.controller.threads.AnalyseThread;
 import edu.nju.treasuryArbitrage.model.LiveData;
 import edu.nju.treasuryArbitrage.controller.threads.ThreadDiag;
@@ -20,13 +24,13 @@ import edu.nju.treasuryArbitrage.view.personalCenter.LoginFrame;
 
 public class TreasuryArbitrage {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		try {
 			TreasuryArbitrage treasuryArbitrage = new TreasuryArbitrage();
 			treasuryArbitrage.launch();
 		} catch(Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "软件好像遇到了一点问题");
+			JOptionPane.showMessageDialog(null, "软件好像遇到了一点问题，详情请查看log文件。");
+            e.printStackTrace(new PrintWriter(new FileWriter("log/exceptions.log")));
 		}
 	}
 	

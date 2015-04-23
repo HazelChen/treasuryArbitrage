@@ -17,8 +17,8 @@ public class callBack_Double implements Callback{
 	}
 	
 	private void show(){
-		CTPArbDetail ctpArbDetal = CTPArbDetail.getInstance();
-        LiveData.getInstance().register(ctpArbDetal.getArbDetail());
+		CTPArbDetail ctpArbDetail = CTPArbDetail.getInstance();
+        LiveData.getInstance().register(ctpArbDetail.getArbDetail());
         ViewHelper.getInstance().updateViews();
 	}
 	
