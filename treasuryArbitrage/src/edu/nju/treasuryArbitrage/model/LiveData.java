@@ -26,7 +26,6 @@ public class LiveData {
 	private LiveData(){
         loadFutureCodes();
         initArbDetails();
-        initHistoryToday();
 	}
 
     /**
@@ -51,23 +50,6 @@ public class LiveData {
     private void initArbDetails() {
         for (int i = 0; i < futuresCodes.length; i++) {
             arbDetails.add(ArbDetail.nullObject(futuresCodes[i]));
-        }
-    }
-
-    /**
-     * Get history price today to draw the line graph.
-     *
-     * To shorten the time of setting up,
-     * we'd better get the history only once here but not
-     * get histories everywhere in views.
-     */
-    private void initHistoryToday() {
-        DataInterface dataInterface =
-                DataInterfaceFactory.getInstance().getDataInterfaceToServer();
-
-        for (String futureCode : futuresCodes) {
-            ArrayList<ArbBrief> history = dataInterface.getPastPriceToday(futureCode);
-            historyPriceToday.put(futureCode, history);
         }
     }
 
@@ -113,12 +95,29 @@ public class LiveData {
 		this.arbGroups = arbGroups;
 	}
 
-    public ArrayList<ArbBrief> getHistoryPrice(String symbol) {
-        return historyPriceToday.get(symbol);
+    public ArrayList<ArbBrief> getHistoryPrice(String futureCode) {
+        DataInterface dataInterface =
+                DataInterfaceFactory.getInstance().getDataInterfaceToServer();
+
+        if (!historyPriceToday.containsKey(futureCode)) {
+            ArrayList<ArbBrief> history = dataInterface.getPastPriceToday(futureCode);
+            historyPriceToday.put(futureCode, history);
+        }
+
+        return historyPriceToday.get(futureCode);
     }
 
+    /**
+     * Get history price today to draw the line graph.
+     *
+     * To shorten the time of setting up,
+     * we'd better get the history only once here but not
+     * get histories everywhere in views.
+     * So saving the history data here.
+     */
     public ArrayList<ArbBrief> getHistoryPrice(int symbolIndex) {
-        return historyPriceToday.get(futuresCodes[symbolIndex]);
+        String symbol = futuresCodes[symbolIndex];
+        return getHistoryPrice(symbol);
     }
 
 }
