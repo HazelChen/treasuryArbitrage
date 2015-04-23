@@ -22,27 +22,27 @@ public class BuyDialog extends JDialog {
 	private static final Color BACKGROUND_COLOR = NavigationBar.BACKGROUND_COLOR;
 	private static final Color FOREGROUND_COLOR = Color.BLACK;
 
-	private static final Font NORMAL_FONT = new Font("΢���ź�", Font.PLAIN, 18);
+	private static final Font NORMAL_FONT = new Font("微软雅黑", Font.PLAIN, 18);
 
-	private JLabel name = new BordedLabel("��Լ����", JLabel.CENTER);
+	private JLabel name = new BordedLabel("合约名称", JLabel.CENTER);
 	private JLabel name1 = new BordedLabel("", JLabel.CENTER);
 	private JLabel name2 = new BordedLabel("", JLabel.CENTER);
 
-	private JLabel direction = new BordedLabel("��������", JLabel.CENTER);
+	private JLabel direction = new BordedLabel("套利方向", JLabel.CENTER);
 	private JLabel dir1 = new BordedLabel("", JLabel.CENTER);
 	private JLabel dir2 = new BordedLabel("", JLabel.CENTER);
 
-	private JLabel price = new BordedLabel("��Լ�۸�", JLabel.CENTER);
+	private JLabel price = new BordedLabel("合约价格", JLabel.CENTER);
 	private JLabel price1 = new BordedLabel("", JLabel.CENTER);
 	private JLabel price2 = new BordedLabel("", JLabel.CENTER);
 
-	private JLabel holdings = new BordedLabel("����", JLabel.CENTER);
-	private JLabel hld = new BordedLabel("��", JLabel.CENTER);
+	private JLabel holdings = new BordedLabel("手数", JLabel.CENTER);
+	private JLabel hld = new BordedLabel("手", JLabel.CENTER);
 
-	private JLabel money = new BordedLabel("Ͷ�뱣֤��", JLabel.CENTER);
+	private JLabel money = new BordedLabel("投入保证金", JLabel.CENTER);
 	private JLabel mny = new BordedLabel("", JLabel.CENTER);
 
-	private JButton confirm = new JButton("ȷ���µ�");
+	private JButton confirm = new JButton("确认下单");
 	
 	private ArbDetail[] arbGroup;
 	private boolean isRecentBuy;
@@ -60,7 +60,7 @@ public class BuyDialog extends JDialog {
 		this.setSize(700, 380);
 		this.setResizable(false);
 		this.setModal(true);
-		this.setTitle("�µ�");
+		this.setTitle("下单");
 		this.setLocationRelativeTo(null);
 		
 		name.setBounds(30, 50, 200, 40);
@@ -133,22 +133,22 @@ public class BuyDialog extends JDialog {
 		name1.setText(arbGroup[0].getSymbol());
 		name2.setText(arbGroup[1].getSymbol());
 		if (isRecentBuy) {
-			dir1.setText("��ͷ");
-			dir2.setText("��ͷ");
+			dir1.setText("多头");
+			dir2.setText("空头");
 		} else {
-			dir1.setText("��ͷ");
-			dir2.setText("��ͷ");
+			dir1.setText("空头");
+			dir2.setText("多头");
 		}
 		price1.setText(String.valueOf(arbGroup[0].getPresentPrice()));
 		price2.setText(String.valueOf(arbGroup[1].getPresentPrice()));
-		hld.setText(hold + "��");
-		mny.setText(guar + "Ԫ");
+		hld.setText(hold + "手");
+		mny.setText(guar + "元");
 	}
 
 	public class ConfirmListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			BuyDialog.this.setVisible(false);
-			JOptionPane.showMessageDialog(null, "�µ��ɹ���");
+			JOptionPane.showMessageDialog(null, "下单成功！");
 			
 			ArbDetail buy, sell;
 			if (isRecentBuy) {

@@ -25,30 +25,30 @@ public class TakeAOrder extends JPanel {
 	private static final Color BACKGROUND_COLOR = new Color(13,13,13);
 	private static final Color FOREGROUND_COLOR = ArbitragePortfolio.FOREGROUND_COLOR;
 
-	private static final Font NORMAL_FONT = new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 18);
+	private static final Font NORMAL_FONT = new Font("微软雅黑", Font.PLAIN, 18);
 
 	private JLabel title;
-	private JLabel name = new BordedLabel("锟斤拷约锟斤拷锟斤拷", JLabel.CENTER);
+	private JLabel name = new BordedLabel("合约名称", JLabel.CENTER);
 	private JLabel name1 = new BordedLabel("", JLabel.CENTER);
 	private JLabel name2 = new BordedLabel("", JLabel.CENTER);
 
-	private JLabel direction = new BordedLabel("锟斤拷锟斤拷锟斤拷锟斤拷", JLabel.CENTER);
+	private JLabel direction = new BordedLabel("套利方向", JLabel.CENTER);
 	private JLabel dir1 = new BordedLabel("", JLabel.CENTER);
 	private JLabel dir2 = new BordedLabel("", JLabel.CENTER);
 
-	private JLabel price = new BordedLabel("锟斤拷约锟桔革拷", JLabel.CENTER);
+	private JLabel price = new BordedLabel("合约价格", JLabel.CENTER);
 	private JLabel price1 = new BordedLabel("", JLabel.CENTER);
 	private JLabel price2 = new BordedLabel("", JLabel.CENTER);
 
-	private JLabel holdings = new BordedLabel("锟斤拷锟斤拷", JLabel.CENTER);
-	private JLabel hld = new BordedLabel("锟斤拷", JLabel.CENTER);
+	private JLabel holdings = new BordedLabel("手数", JLabel.CENTER);
+	private JLabel hld = new BordedLabel("手", JLabel.CENTER);
 
-	private JLabel money = new BordedLabel("锟斤拷锟借保证锟斤拷", JLabel.CENTER);
+	private JLabel money = new BordedLabel("所需保证金", JLabel.CENTER);
 	private JLabel mny = new BordedLabel("", JLabel.CENTER);
-	private JLabel restMoneyLabel = new BordedLabel("剩锟洁保证锟斤拷", JLabel.CENTER);
+	private JLabel restMoneyLabel = new BordedLabel("剩余保证金", JLabel.CENTER);
 	private JLabel restMny = new BordedLabel("", JLabel.CENTER);
 
-	private JButton confirm = new JButton("锟铰碉拷");
+	private JButton confirm = new JButton("下单");
 	public JTextField tfdHoldings = new JTextField();
 	
 	private ArbDetail[] arbGroups;
@@ -60,9 +60,9 @@ public class TakeAOrder extends JPanel {
 		this.setBackground(BACKGROUND_COLOR);
 		this.setLayout(null);
 
-		title = new JLabel("锟铰碉拷锟斤拷息");
+		title = new JLabel("下单信息");
 		title.setBounds(3, 0, 100, 30);
-		title.setFont(new Font("微锟斤拷锟脚猴拷", Font.PLAIN, 22));
+		title.setFont(new Font("微软雅黑", Font.PLAIN, 22));
 		title.setForeground(Color.YELLOW);
 		this.add(title);
 
@@ -156,11 +156,11 @@ public class TakeAOrder extends JPanel {
 		this.isRecentBuy = isRecentBuy;
 		
 		if (isRecentBuy) {
-			dir1.setText("锟斤拷头");
-			dir2.setText("锟斤拷头");
+			dir1.setText("多头");
+			dir2.setText("空头");
 		} else {
-			dir1.setText("锟斤拷头");
-			dir2.setText("锟斤拷头");
+			dir1.setText("空头");
+			dir2.setText("多头");
 		}
 		prePrice1 = arbGroups[0].getPresentPrice();
 		prePrice2 = arbGroups[1].getPresentPrice();
@@ -202,7 +202,7 @@ public class TakeAOrder extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			String text = tfdHoldings.getText();
 			if (text.length() == 0) {
-				JOptionPane.showMessageDialog(null, "锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�","luanmale",
+				JOptionPane.showMessageDialog(null, "手数输入错误","错误提示",
 						JOptionPane.WARNING_MESSAGE);
 			} else {
 				if (Integer.parseInt(text) > 0 && restMoney >= 0) {
@@ -212,10 +212,10 @@ public class TakeAOrder extends JPanel {
 					mny.setText("");
 					restMny.setText("");
 				} else if (restMoney < 0){
-					JOptionPane.showMessageDialog(null, "剩锟洁保证锟斤拷锟斤拷", "锟斤拷锟斤拷锟斤拷示",
+					JOptionPane.showMessageDialog(null, "剩余保证金不足", "错误提示",
 							JOptionPane.WARNING_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(null, "锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�", "锟斤拷锟斤拷锟斤拷示",
+					JOptionPane.showMessageDialog(null, "手数输入错误", "错误提示",
 							JOptionPane.WARNING_MESSAGE);
 					
 				}
