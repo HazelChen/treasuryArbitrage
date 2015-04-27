@@ -1,31 +1,27 @@
 package edu.nju.treasuryArbitrage.controller.dataInterface;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import Arbitrage_Main.*;
 
 import com.mathworks.toolbox.javabuilder.*;
-//����java�Դ�Matlab��ذ�
-//�������Ա�Լ���matlab�����jar��
+
 
 public class DataInterface2Matlab {
 	 ArrayList<Double> Lmarket_condition = null;	
 	public double opt_x,opt_y,opt_k;
 	 ArrayList<Double> Llambda = null;
-	Arbitrage_Main m;
 	Open open_position;
 	Close close_position;
 	public DataInterface2Matlab(){
 		try {
-			m = new Arbitrage_Main();
 			open_position = new Open(); 
-			close_position = new Close(); 			
+			close_position = new Close(); 		
+			
 		} catch (MWException e3) {
 			// 
 			e3.printStackTrace();
@@ -39,43 +35,20 @@ public class DataInterface2Matlab {
 	    Lmarket_condition.add(0.028);
 	    //{4, 0.05, 0.002, 0.028};
 		opt_x = 0;opt_y = 0;opt_k = 0;
-		File file = new File("para_xyk");
-	 	BufferedReader reader = null;
-	 	String s = "";
-        try {
-            reader = new BufferedReader(new FileReader(file));
-            String tempString = null;
-            // һ�ζ���һ�У�ֱ������nullΪ�ļ�����
-            while ((tempString = reader.readLine()) != null) {
-                // ��ʾ�к�
-                s = tempString.trim();
-                String t[]=s.split("\t");
-            	opt_x = (Double.parseDouble(t[0]));
-            	opt_y = (Double.parseDouble(t[1]));
-            	opt_k = (Double.parseDouble(t[2]));
-            	s = "";
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e1) {
-                }
-            }
-        }
+		//Get x,y,k from Server
+//		int group=306;//1503 1509
+//		double[] params=getFromServer(group);
+//		opt_x = params[0];
+//		opt_y = params[1];
+//		opt_k = params[2];
+		//
         File file2 = new File("para_lambda");
 	 	BufferedReader reader2 = null;
 	 	String s2 = "";
         try {
-            //System.out.println("����Ϊ��λ��ȡ�ļ����ݣ�һ�ζ�һ���У�");
             reader2 = new BufferedReader(new FileReader(file2));
             String tempString2 = null;
-            // һ�ζ���һ�У�ֱ������nullΪ�ļ�����
             while ((tempString2 = reader2.readLine()) != null) {
-                // ��ʾ�к�
                 s2 = tempString2.trim();
                 String t2[]=s2.split("\t");
                 Llambda.add(Double.parseDouble(t2[0]));
@@ -97,62 +70,11 @@ public class DataInterface2Matlab {
 	
 	
 	/*
-	 * resultΪ���ض������飬��Ԫ�طֱ�Ϊx,y,k
-	 */
-	public Object[] Arbitrage_Main(ArrayList<Double>  Lf1,ArrayList<Double>  Lf2,double stop_loss,double stop_profit){
-		Object[] result = null;
-		MWNumericArray f1 = null,f2 = null;   
-		int[] dims1 = {Lf1.size(), 1};  
-        f1 = MWNumericArray.newInstance(dims1,   
-           MWClassID.DOUBLE, MWComplexity.REAL);  
-        for(int i = 1;i <= Lf1.size();i++){
-        	f1.set(i, Double.valueOf(Lf1.get(i - 1)));
-        }
-        int[] dims2 = {Lf2.size(), 1};  
-        f2 = MWNumericArray.newInstance(dims2,   
-           MWClassID.DOUBLE, MWComplexity.REAL);
-        for(int i = 1;i <= Lf2.size();i++){
-        	f2.set(i, Double.valueOf(Lf2.get(i - 1)));
-        }
-		try {
-			//Arbitrage_Main��������ʾ��
-			//��һ���������ֱ�ʾ��Ҫ��õĽ�������������3����ʾ���������x,y,k;���д2,��ֻ�ܵõ�x,y;
-			//��ͬ
-			result =m.Arbitrage_Main(3,f1,f2,stop_loss, stop_profit);
-			//optimization_x,optimization_y,optimization_k
-			double x,y,k;
-			x = Double.valueOf(String.valueOf(result[0]));
-			y = Double.valueOf(String.valueOf(result[1]));
-			k = Double.valueOf(String.valueOf(result[2]));
-			File parafile =new File("para_xyk");
-		    if(!parafile.exists()){
-		    	try {
-					parafile.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-	        }
-	        FileWriter fileWriter;
-			try {
-				fileWriter = new FileWriter(parafile.getName());
-	             BufferedWriter bufferWriter = new BufferedWriter(fileWriter);
-	             bufferWriter.write(x + "\t" + y+ "\t" + k);
-	             bufferWriter.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (Exception e) {
-			System.out.println("Arbitrage_MAin Exception catched!");
-			System.out.println(e.toString());
-		}	
-		MWArray.disposeArray(f1);
-		MWArray.disposeArray(f2);
-		return result;
-	}
-	
-	/*
-	 * 
-	 * resultΪ���ض������飬��Ԫ�طֱ�Ϊsignal,buyprice,saleprice
+	 * %l_signal当前交易状态（状态，取-2，-1,0,1,2）
+	 *	% 输出：signal按照当前的最新价格，是否应当交易。signal=1，正向套利建仓；
+	 *	%signal=-1，反向套利建仓；signal=0，不交易；signal=2，止盈平仓；signal=-2,止
+	 *	%损平仓。
+	 * result {signal,buyprice,saleprice}
 	 */
 	public Object[] Open(ArrayList<Double>  Lf1,ArrayList<Double>  Lf2,
 			double newprice1,double newprice2,double x,double y,double k){
@@ -179,7 +101,6 @@ public class DataInterface2Matlab {
 		mwy =  new MWNumericArray(y,MWClassID.DOUBLE);
 		mwk =  new MWNumericArray(k,MWClassID.DOUBLE);  
 		try {
-			//Open��������ʾ��
 		    result =open_position.open(3,f1,f2,mwnewprice1,mwnewprice2,mwx,mwy,mwk);
 		    //signal,buyprice1,saleprice1
 		} catch (Exception e) {
@@ -191,13 +112,11 @@ public class DataInterface2Matlab {
 	}
 	
 	/*
-	 * ����� resultΪ���ض������飬��Ԫ�طֱ�Ϊsignal,buyprice,saleprice
-	 * ���룺%signal��ǰ����״̬��״̬��ȡ-3,-2��-1,0,1,2,3��
-	 * Lf1��Lf2��ǰһ�����տ��̵�����ǰһ��ļ۸�����
-	 * % �����signal���յ�ǰ�����¼۸��Ƿ�Ӧ�����ס�signal=1����������֣�
-	 * %signal=-1����������֣�signal=0�������ף�signal=2��ֹӯƽ�֣�signal=-2,ֹ
-	 * %��ƽ��,signal=3����������ƽ�֣�signal=-3����������ƽ�֣�
-	 * 
+	 * %l_signal当前交易状态（状态，取-3,-2，-1,0,1,2,3）
+	 * % 输出：signal按照当前的最新价格，是否应当交易。signal=1，正向套利建仓；
+	 * %signal=-1，反向套利建仓；signal=0，不交易；signal=2，止盈平仓；signal=-2,止
+	 * %损平仓,signal=3，正向套利平仓；signal=-3，反向套利平仓；
+	 * result {signal,buyprice,saleprice}
 	 */
 	public Object[] Close(ArrayList<Double> Lf1,ArrayList<Double>  Lf2,
 			double newprice1,double newprice2,double buyprice,double saleprice,
@@ -242,22 +161,6 @@ public class DataInterface2Matlab {
 	/*
 	 * [signal long_name short_name long short current_state current_trade_return units_time_return]
 	 * =judge(name1,name2,f1,f2,new_price1,new_price2,lambda,last_time_state,last_trade_return,spoint,market_condition,sigma_method)
-	 * %% �жϵ�ǰ�ļ۸��Ƿ�ƫ�룬���������������ź�
-	 * %% ���룺
-	 * %  name1����Լ1����ƣ�����'TF1412';name2����Լ2�����
-	 * %  f1��ʷ�������1��һά���飩��f2��ʷ�������2��һά���飩����Ϊ������
-	 * %  new_price1Ϊ�¼۸�1��double����new_price2�����2��double����lambda���Բ���2*1��������
-	 * %  last_time_state��ǰ����״̬��ȡ-1,0,1���ֱ��?��������ϡ��ղֺ�����������ϣ�
-	 * %  last_trade_returnָ���ǵ�ǰ�ֲֵ�ĿǰΪֹ���ۼ��������
-	 * %  spointΪֹ��㣬����-0.02
-	 * %  market_condition��Ϊ��ӳ��ǰ�г�״����һϵ�в����乹��Ϊ[һ�ֽ��׷�,��֤�����,���Ƶĳ���ɱ�,�޷�������]
-	 * %  sigma_methodΪ����δ�������ʵľ��巽������Ϊ'garch'������ǰ�߾��ȸߵ��ٶ�����߾��ȵ͵��ٶȿ���
-	 * %% �����
-	 * %  signal���յ�ǰ�����¼۸��Ƿ�Ӧ�����ס�
-	 * %  signal=1����������֣�signal=-1����������֣�signal=0���޶�����signal=2��ֹӯƽ�֣�signal=-2,ֹ��ƽ�֡�
-	 * %  long_name������ĺ�Լ��ƣ�short_name�����յĺ�Լ��ƣ�long�������Լ�Ĳο�����short�����պ�Լ�Ĳο�����
-	 * %  current_state���ڰ��յ�ǰ�źŽ�����ɺ󣬵�ǰ�ĳֲ��Ǹ���������ϡ��ղֻ�������������ϣ��ֱ�Ϊ-1,0��1����Ӧ��last_time_state��
-	 * %  current_trade_return��ǰ�ֲ��ڱ��ν�����ɺ���µ��ۼ��������unit_time_return����ǰ�����ڵ�λ����ʱ�������������޽�����Ϊ0��
 	 * 	 */
 	public Object[] Judge(String name1,String name2,ArrayList<Double> Lf1,ArrayList<Double> Lf2,
 			double new_price1,double new_price2,
@@ -292,21 +195,13 @@ public class DataInterface2Matlab {
         market_condition.set(4, Double.valueOf(Lmarket_condition.get(3)));
 		//System.out.println("complete convertion ...");
 		try {
-			//Arbitrage_Main��������ʾ��
-			//��һ���������ֱ�ʾ��Ҫ��õĽ�������������3����ʾ���������x,y,k;���д2,��ֻ�ܵõ�x,y;
-			//��ͬ
+
 			J = new Judge();  //!!!!important
 			//System.out.println("Judging ...");
 			result = J.judge(8,name1,name2,f1,f2,new_price1,new_price2,lambda,
 					last_time_state,last_trade_return,spoint,market_condition);
 			//[signal long_name short_name long short current_state current_trade_return unit_time_return]
-			/*   8�����
-			 * %% �����signal���յ�ǰ�����¼۸��Ƿ�Ӧ�����ס�
-			 * %  signal=1����������֣�signal=-1����������֣�signal=0���޶�����signal=2��ֹӯƽ�֣�signal=-2,ֹ��ƽ�֡�
-			 * %  long_name������ĺ�Լ��ƣ�short_name�����յĺ�Լ��ƣ�long�������Լ�Ĳο�����short�����պ�Լ�Ĳο�����
-			 * %  current_state���ڰ��յ�ǰ�źŽ�����ɺ󣬵�ǰ�ĳֲ��Ǹ���������ϡ��ղֻ�������������ϣ��ֱ�Ϊ-1,0��1����Ӧ��last_time_state��
-			 * %  current_trade_return��ǰ�ֲ��ڱ��ν�����ɺ���µ��ۼ��������unit_time_return����ǰ�����ڵ�λ����ʱ�������������޽�����Ϊ0��
-			 *  */
+
 		} catch (Exception e) {
 			System.out.println("Judge Exception catched!");
 			System.out.println(e.toString());
@@ -323,14 +218,6 @@ public class DataInterface2Matlab {
 	 * [all_return,trade_count,opt_lambda,prob_of_win,
 	 *  trade,trade_stddev,trade_maxloss sharpe_ratio]
 	 * =back_test(f1,f2,spoint,opt_option,market_condition,sigma_method)
-	 * %% �ز⺯�������е���ݻز����ŵĲ��Բ��������������
-	 * %% ���룺f1��ʷ�������1������������f2��ʷ�������2������������spointֹ���
-	 * %  opt_choice���Ż�ѡ�1Ϊ��������󻯣�2Ϊ���յ�����������󻯣�3Ϊʤ�����4Ϊʤ�ʵ������������
-	 * %  market_conditionΪ��ӳ��ǰ�г�״����һϵ�в����乹��Ϊ[һ�ֽ��׷�,��֤�����,���Ƶĳ���ɱ�,�޷�������]
-	 * %  sigma_methodΪ���Ʋ����ʵķ�������Ϊgarch������ȡֵΪ��Garch��ʱʹ��GARCHģ�ͣ�����ִ�Сд���������������ʹ����ʷ������
-	 * %% �����all_returnΪ�ز�õ���������棬opt_lambdaΪ���ŵĲ��Բ���
-	 * %  prob_of_winΪ����ӯ��ĸ��ʣ�tradeΪ������ϸ���ṹΪ[�Ƿ�ֲ� �в����� �۲����� ���������� ƫ����� ��ǰʱ��������� ��ǰ�����������]
-	 * %  trade_stddev trade_maxloss sharpe_ratio�ֱ�Ϊ��׼����س��Ͳ������ձ���
 	 * */
 	public Object[] BackTest(ArrayList<Double> Lf1, ArrayList<Double> Lf2,double spoint,
 			int opt_option,ArrayList<Double> Lmarket_condition){
@@ -361,10 +248,6 @@ public class DataInterface2Matlab {
 			result = back_test.back_test(8,f1,f2,spoint,opt_option,market_condition);
 			//[all_return,trade_count,opt_lambda,prob_of_win,
 			//trade,trade_stddev,trade_maxloss,sharpe_ratio]
-			/* %% �����all_returnΪ�ز�õ���������棬opt_lambdaΪ���ŵĲ��Բ���
-			 * %  prob_of_winΪ����ӯ��ĸ��ʣ�tradeΪ������ϸ���ṹΪ[�Ƿ�ֲ� �в����� �۲����� ���������� ƫ����� ��ǰʱ��������� ��ǰ�����������]
-			 * %  trade_stddev trade_maxloss sharpe_ratio�ֱ�Ϊ��׼����س��Ͳ������ձ���
-			 * */
 		} catch (Exception e) {
 			System.out.println("BackTest Exception catched!");
 			System.out.println(e.toString());
@@ -378,8 +261,6 @@ public class DataInterface2Matlab {
 	
 	/*
 	 * return_ratio=convert2ratio(return_of_trade,market_condition,trade_count)
-	 * %% ���һ���ĵ������������
-	 * % ���룺��������г�����
 	 * */
 	public double Convert2ratio(double return_of_trade,ArrayList<Double> Lmarket_condition,double trade_count){
 		double result = 0.0;
