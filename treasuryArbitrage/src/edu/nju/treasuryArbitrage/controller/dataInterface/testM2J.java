@@ -23,7 +23,7 @@ public class testM2J {
 		MatlabCaller dm = new MatlabCaller();
 		Object[] result = null;
 		
-		System.out.println("dm-x,y,k:" + dm.opt_x + "," + dm.opt_y + "," + dm.opt_k);
+		//System.out.println("dm-x,y,k:" + dm.opt_x + "," + dm.opt_y + "," + dm.opt_k);
 		//-------------��������------------
 		ArrayList<Double> lf1 = null;
 		ArrayList<Double> lf2 = null;//�۸���ʷ��¼

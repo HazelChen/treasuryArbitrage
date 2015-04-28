@@ -47,9 +47,114 @@ public class AnalyseThread implements Runnable {
 		hLf1=LiveData.getInstance().getHistoryPrice(FuturesNames[0]);
 		hLf2=LiveData.getInstance().getHistoryPrice(FuturesNames[1]);
 		hLf3=LiveData.getInstance().getHistoryPrice(FuturesNames[2]);
+		
 		//Modify data to make 3 hlf length be same
-		
-		
+		/**/
+		ArrayList<ArbBrief> hLf1tmp=new ArrayList<ArbBrief>(),
+				hLf2tmp=new ArrayList<ArbBrief>();
+		for(selGroup=1;selGroup<4;selGroup++)
+		{
+			switch(selGroup)
+			{
+			case 1:hLf1tmp = hLf1;hLf2tmp = hLf2;break;
+			case 2:hLf1tmp = hLf1;hLf2tmp = hLf3;break;
+			case 3:hLf1tmp = hLf2;hLf2tmp = hLf3;break;
+			}
+			for (int i = 0; i < hLf1tmp.size() - 1;) {
+				if (hLf1tmp.get(i).getTime().substring(0, 5).equals( 
+						hLf1tmp.get(i + 1).getTime().substring(0, 5))) {
+					hLf1tmp.remove(i);
+				} else {
+					i++;
+				}
+			}
+			for (int i = 0; i < hLf2tmp.size() - 1;) {
+				if (hLf2tmp.get(i).getTime().substring(0, 5).equals(
+						hLf2tmp.get(i + 1).getTime().substring(0, 5)) 
+						) {
+					hLf2tmp.remove(i);
+				} else {
+					i++;
+				}
+			}
+			// 
+			int i1 = hLf1tmp.size() - 1, i2 = hLf1tmp.size() - 1, maxdt = 2;
+			// Double lf2lp=lf2.get(i2).price,lf1lp=lf1.get(i1).price;
+			String dt1 = hLf1tmp.get(i1).getTime(), dt10 = hLf1tmp.get(0).getTime(), 
+					dt2 = hLf2tmp.get(i2).getTime(), dt20 = hLf2tmp.get(0).getTime(),
+					nt = hLf2tmp.get(i2).getTime();
+			if (dt1.compareTo(dt2)>0) {
+				nt = dt1;
+				maxdt = 1;
+			} else {
+			}
+			long l = minLength(nt,dt10,dt20);
+			long ntMins = getMinTime(nt);
+			long st = ntMins - l;
+			String tmpt;
+			while (ntMins >= st ) {
+				if (i1 >= 0
+						&& hLf1tmp.get(i1).getTime().substring(0,hLf1tmp.get(i1).getTime().lastIndexOf(':') )
+						.compareTo(nt.substring(0, nt.lastIndexOf(':')))<0) {
+					tmpt = hLf1tmp.get(i1).getTime();
+					hLf1tmp.add(i1, hLf1tmp.get(i1));
+					ArbBrief tmp = new ArbBrief(FuturesNames[0], hLf1tmp.get(i1).getTime(),
+							hLf1tmp.get(i1).getPrice());
+					tmp.setTime(nt);
+					hLf1tmp.set(i1 + 1, tmp);
+					ArbBrief tmp2 = new ArbBrief(FuturesNames[0], hLf1tmp.get(i1).getTime(),
+							hLf1tmp.get(i1).getPrice());
+					String tt =tmpt;
+					tmp2.setTime(tt);
+					hLf1tmp.set(i1, tmp2);
+				} else if (i1 > 0) // if(lf1.get(i1).date.getTime()/60000>=nt.getTime()/60000)
+				{
+					i1--;
+				}
+				if (i2 >= 0
+						&& hLf2tmp.get(i2).getTime().substring(0, hLf2tmp.get(i2).getTime().lastIndexOf(':'))
+						.compareTo(nt.substring(0, nt.lastIndexOf(':')))<0) {
+					tmpt = hLf2tmp.get(i2).getTime();
+					hLf2tmp.add(i2, hLf2tmp.get(i2));
+					ArbBrief tmp20 = new ArbBrief(FuturesNames[1],hLf2tmp.get(i2).getTime(),
+							hLf2tmp.get(i2).getPrice());
+					tmp20.setTime(nt);
+					hLf2tmp.set(i2 + 1, tmp20);
+					ArbBrief tmp22 = new ArbBrief(FuturesNames[1],hLf2tmp.get(i2).getTime(),
+							hLf2tmp.get(i2).getPrice());
+					String tt2 = tmpt;
+					tmp22.setTime(tt2);
+					hLf2tmp.set(i2, tmp22);
+				} else if (i2 > 0) // if(lf2.get(i2).date.getTime()/60000>=nt.getTime()/60000)
+				{
+					i2--;
+				}
+				// 
+				ntMins --;
+				nt = String.valueOf(ntMins/60 + ":" + ntMins%60 + ":00");
+				// System.out.println("i1:"+i1+" i2:"+i2+" nt:"+nt.getTime()/60000);
+			}
+			// fix bug
+			if (maxdt == 2) {
+				ArbBrief ftmp22 = new ArbBrief(FuturesNames[1], dt2,
+						hLf2.get(hLf2.size() - 1).getPrice());
+				hLf2.set(hLf2.size() - 1, ftmp22);
+			} else if (maxdt == 1) {
+				ArbBrief ftmp11 = new ArbBrief(FuturesNames[0], dt1,
+						hLf1.get(hLf1.size() - 1).getPrice());
+				hLf1.set(hLf1.size() - 1, ftmp11);
+			}// 
+			if (hLf1tmp.size() < hLf2tmp.size()) {
+				for (int j = 0; j < hLf2tmp.size() - hLf1tmp.size();) {
+					hLf2tmp.remove(j);
+				}
+			} else if (hLf1tmp.size() > hLf2.size()) {
+				for (int j = 0; j < hLf1tmp.size() - hLf2tmp.size();) {
+					hLf1tmp.remove(j);
+				}
+			}
+		}
+		/* modify data end*/
 		
 		while (true) {
 			now=new Date();
@@ -199,6 +304,13 @@ public class AnalyseThread implements Runnable {
 			}
 		}// end of while(true)
 	}
+	
+	public long getMinTime(String nt) {
+		return Integer.parseInt(nt.substring(0,nt.indexOf(':')))*60
+				+Integer.parseInt(
+						nt.substring(nt.indexOf(':') + 1,nt.lastIndexOf(':'))
+						);
+	}
 	private ArrayList<Double> getPrice(ArrayList<ArbBrief> hLf) {
 		ArrayList<Double> result = new ArrayList<Double>();
 		for(int i=0;i<hLf.size();i++)
@@ -206,36 +318,6 @@ public class AnalyseThread implements Runnable {
 		return result;
 	}
 	
-	public static void main(String[] args){
-		Date now=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String str=sdf.format(now);
-	      String str2 = "\tTime" + "\t\t " + "Signal" 
-	    		  	+ "\t" + "BuyPrice" + " " + "SalePrice\r\n";
-	      String str3 = str + "\t " + 31 
-	    		  	+ "\t" + 32 + "\t " + 33 + "\r\n";
-		System.out.println(str2);System.out.println(str3);
-		boolean newfile=false;
-		try{  
-		      File file =new File("OC.log");
-		      //if file doesnt exists, then create it
-		      if(!file.exists()){
-		       file.createNewFile();
-		       newfile=true;
-		      }
-		      //true = append file
-		      FileWriter fileWritter = new FileWriter(file.getName(),true);
-		             BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
-		             if(newfile){
-		            	 bufferWritter.write(str2);
-		             }
-		             bufferWritter.write(str3);
-		             bufferWritter.close();
-
-		     }catch(IOException e){e.printStackTrace();}
-		//System.out.println(System.getProperty("user.dir"));//user.dir指定了当前的路径
-	}
-
 	public double getBuyprice() {
 		return buyprice;
 	}
@@ -243,4 +325,20 @@ public class AnalyseThread implements Runnable {
 	public double getSaleprice() {
 		return saleprice;
 	}
+
+	public long minLength(String n, String a, String b) {
+		int hn=Integer.parseInt(n.substring(0,n.indexOf(':'))),
+			mn=Integer.parseInt(n.substring(n.indexOf(':')+1,n.lastIndexOf(':'))),
+					ha=Integer.parseInt(a.substring(0,a.indexOf(':'))),
+					ma=Integer.parseInt(a.substring(a.indexOf(':')+1,a.lastIndexOf(':'))),
+							hb=Integer.parseInt(b.substring(0,b.indexOf(':'))),
+							mb=Integer.parseInt(b.substring(b.indexOf(':')+1,b.lastIndexOf(':')));
+		long l1=hn*60 + mn-(ha*60 + ma) + 1,
+				l2=hn*60 + mn-(hb*60 + mb) + 1;
+		
+		return l1<l2?l1:l2;
+	}
+	
+	
+
 }

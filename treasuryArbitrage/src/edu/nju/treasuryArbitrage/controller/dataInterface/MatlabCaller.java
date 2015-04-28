@@ -1,9 +1,5 @@
 package edu.nju.treasuryArbitrage.controller.dataInterface;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import Arbitrage_Main.*;
@@ -12,9 +8,6 @@ import com.mathworks.toolbox.javabuilder.*;
 
 
 public class MatlabCaller {
-	ArrayList<Double> Lmarket_condition = null;	
-	public double opt_x,opt_y,opt_k;
-	ArrayList<Double> Llambda = null;
 	//-------------------------------Server---------------------------------------
 	Arbitrage_Main mFXY;
 	Arbitrage_Main1 mWXY;
@@ -43,46 +36,6 @@ public class MatlabCaller {
 			// 
 			e3.printStackTrace();
 		}
-		
-	    Lmarket_condition = new ArrayList<Double>();
-	    Llambda = new ArrayList<Double>();
-	    Lmarket_condition.add(4.0);
-	    Lmarket_condition.add(0.05);
-	    Lmarket_condition.add(0.002);
-	    Lmarket_condition.add(0.028);
-	    //{4, 0.05, 0.002, 0.028};
-		opt_x = 0;opt_y = 0;opt_k = 0;
-		//Get x,y,k from Server
-//		int group=306;//1503 1509
-//		double[] params=getFromServer(group);
-//		opt_x = params[0];
-//		opt_y = params[1];
-//		opt_k = params[2];
-		//
-        File file2 = new File("para_lambda");
-	 	BufferedReader reader2 = null;
-	 	String s2 = "";
-        try {
-            reader2 = new BufferedReader(new FileReader(file2));
-            String tempString2 = null;
-            while ((tempString2 = reader2.readLine()) != null) {
-                s2 = tempString2.trim();
-                String t2[]=s2.split("\t");
-                Llambda.add(Double.parseDouble(t2[0]));
-                Llambda.add(Double.parseDouble(t2[1]));
-            	s2 = "";
-            }
-            reader2.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (reader2 != null) {
-                try {
-                    reader2.close();
-                } catch (IOException e2) {
-                }
-            }
-        }
 	}
 	
 	//-------------------------------Server---------------------------------------
@@ -112,6 +65,7 @@ public class MatlabCaller {
 			//下同
 			result =mFXY.Arbitrage_Main(3,f1,f2,mwSL, mwSP);
 			//optimization_x,optimization_y,optimization_k
+			//-------------------------------Server---------------------------------------
 			double x,y,k;
 			x = Double.valueOf(String.valueOf(result[0]));
 			y = Double.valueOf(String.valueOf(result[1]));
@@ -155,6 +109,7 @@ public class MatlabCaller {
 		
 		try {
 			result =mWXY.Arbitrage_Main_W(2,f1,f2,mwSL, mwSP,mwTC);
+			//-------------------------------Server---------------------------------------
 			double l1,l2;
 			l1 = Double.valueOf(String.valueOf(result[0]));
 			l2 = Double.valueOf(String.valueOf(result[1]));	
@@ -201,6 +156,7 @@ public class MatlabCaller {
 		
 		try {
 			result =mDJ.Arbitrage_Main_D(6,f1,f2,mwSL, mwSP);
+			//-------------------------------Server---------------------------------------
 			double optimization_K,optimization_T,max_pay,num,loss,win;
 			optimization_K = Double.valueOf(String.valueOf(result[0]));
 			optimization_T = Double.valueOf(String.valueOf(result[1]));
@@ -633,13 +589,6 @@ public class MatlabCaller {
 			System.out.println(e.toString());
 		}	
 		return result;
-	}
-	
-	public ArrayList<Double> getMarket_condition(){
-		return Lmarket_condition;
-	}
-	public ArrayList<Double> getLambda(){
-		return Llambda;
 	}
 
 }
