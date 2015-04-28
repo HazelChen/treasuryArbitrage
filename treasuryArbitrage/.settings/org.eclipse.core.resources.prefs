@@ -1,6 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/edu/nju/treasuryArbitrage/controller/dataInterface/DataInterface.java=UTF-8
-encoding//src/edu/nju/treasuryArbitrage/controller/dataInterface/DataInterface2Matlab.java=UTF-8
+encoding//src/edu/nju/treasuryArbitrage/controller/dataInterface/MatlabCaller.java=UTF-8
 encoding//src/edu/nju/treasuryArbitrage/view/arbitragePortfolio/ArbitragePortfolio.java=UTF-8
 encoding//src/edu/nju/treasuryArbitrage/view/arbitragePortfolio/FuturesDetailInPortfolio.java=UTF-8
 encoding//src/edu/nju/treasuryArbitrage/view/arbitragePortfolio/PortfolioDetailStyle1.java=UTF-8

@@ -11,7 +11,7 @@ import Arbitrage_Main.*;
 import com.mathworks.toolbox.javabuilder.*;
 
 
-public class DataInterface2Matlab {
+public class MatlabCaller {
 	ArrayList<Double> Lmarket_condition = null;	
 	public double opt_x,opt_y,opt_k;
 	ArrayList<Double> Llambda = null;
@@ -26,7 +26,7 @@ public class DataInterface2Matlab {
 	Close1 close_position1;
 	Open2 open_position2;
 	Close2 close_position2;
-	public DataInterface2Matlab(){
+	public MatlabCaller(){
 		try {
 			mFXY = new Arbitrage_Main();
 			mWXY = new Arbitrage_Main1();

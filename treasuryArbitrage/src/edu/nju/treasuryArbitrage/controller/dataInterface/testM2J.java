@@ -20,7 +20,7 @@ public class testM2J {
 	 */
 	public static void main(String[] args) {
 		
-		DataInterface2Matlab dm = new DataInterface2Matlab();
+		MatlabCaller dm = new MatlabCaller();
 		Object[] result = null;
 		
 		System.out.println("dm-x,y,k:" + dm.opt_x + "," + dm.opt_y + "," + dm.opt_k);

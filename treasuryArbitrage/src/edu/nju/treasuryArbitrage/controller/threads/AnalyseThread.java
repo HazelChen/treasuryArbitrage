@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface2Matlab;
+import edu.nju.treasuryArbitrage.controller.dataInterface.MatlabCaller;
 import edu.nju.treasuryArbitrage.model.ArbBrief;
 import edu.nju.treasuryArbitrage.model.LiveData;
 
@@ -22,7 +22,7 @@ public class AnalyseThread implements Runnable {
 	ArrayList<Double> Lf1=new ArrayList<Double>(),
 			Lf2=new ArrayList<Double>();
 	String message = "DMsg",Name1="",Name2="",logFile;
-	DataInterface2Matlab dm= new DataInterface2Matlab();
+	MatlabCaller dm= new MatlabCaller();
 	Object[] result = null;
 	int signal,stop_loss=-1,stop_profit=1,selModel=0,selGroup=0;
 	Date now=new Date();
