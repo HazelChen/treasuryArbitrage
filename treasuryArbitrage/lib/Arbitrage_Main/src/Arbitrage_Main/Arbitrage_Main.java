@@ -1,19 +1,36 @@
 /*
  * MATLAB Compiler: 4.18.1 (R2013a)
- * Date: Thu Oct 30 21:11:24 2014
- * Arguments: "-B" "macro_default" "-W" "java:Arbitrage_Main,Arbitrage_Main" "-T" 
- * "link:lib" "-d" "E:\\nju\\2014»¨Æì±­\\fxy\\Arbitrage_Main\\src" "-w" 
- * "enable:specified_file_mismatch" "-w" "enable:repeated_file" "-w" 
+ * Date: Tue Apr 28 10:04:27 2015
+ * Arguments: "-B" "macro_default" "-W" "java:Arbitrage_Main,Open" "-T" "link:lib" "-d" 
+ * "E:\\nju\\2014»¨Æì±­\\LHGroup\\NewTA\\treasuryArbitrage\\treasuryArbitrage\\lib\\Arbitrage_Main\\src" 
+ * "-w" "enable:specified_file_mismatch" "-w" "enable:repeated_file" "-w" 
  * "enable:switch_ignored" "-w" "enable:missing_lib_sentinel" "-w" "enable:demo_license" 
- * "-v" "class{Arbitrage_Main:E:\\nju\\2014»¨Æì±­\\fxy\\Arbitrage_Main.m}" 
- * "class{Open:E:\\nju\\2014»¨Æì±­\\fxy\\open.m}" 
- * "class{Close:E:\\nju\\2014»¨Æì±­\\fxy\\close.m}" 
- * "class{getFlen:E:\\nju\\2014»¨Æì±­\\fxy\\mygetFlen.m}" "-a" 
- * "E:\\nju\\2014»¨Æì±­\\fxy\\Arbitrage_Main.m" "-a" 
- * "E:\\nju\\2014»¨Æì±­\\fxy\\arbitrage_return.m" "-a" 
- * "E:\\nju\\2014»¨Æì±­\\fxy\\bias_ratio.m" "-a" "E:\\nju\\2014»¨Æì±­\\fxy\\close.m" "-a" 
- * "E:\\nju\\2014»¨Æì±­\\fxy\\max_occupying_fund.m" "-a" 
- * "E:\\nju\\2014»¨Æì±­\\fxy\\mygetFlen.m" "-a" "E:\\nju\\2014»¨Æì±­\\fxy\\open.m" 
+ * "-S" "-v" "class{Open:E:\\nju\\2014»¨Æì±­\\LHGroup\\MATLABbyFXY\\open.m}" 
+ * "class{Close:E:\\nju\\2014»¨Æì±­\\LHGroup\\MATLABbyFXY\\close.m}" 
+ * "class{Open1:E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by WXY\\open1.m}" 
+ * "class{Close1:E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by WXY\\close1.m}" 
+ * "class{Open2:E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by DJ\\open2.m}" 
+ * "class{Close2:E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by DJ\\close2.m}" 
+ * "class{Arbitrage_Main:E:\\nju\\2014»¨Æì±­\\LHGroup\\MATLABbyFXY\\Arbitrage_Main.m}" 
+ * "class{Arbitrage_Main1:E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by WXY\\Arbitrage_Main_W.m}" 
+ * "class{Arbitrage_Main2:E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by DJ\\Arbitrage_Main_D.m}" 
+ * "-a" "E:\\nju\\2014»¨Æì±­\\LHGroup\\MATLABbyFXY\\Arbitrage_Main.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by DJ\\Arbitrage_Main_D.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by WXY\\Arbitrage_Main_W.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\LHGroup\\MATLABbyFXY\\arbitrage_return.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by WXY\\Arbitrage_Return_W.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\LHGroup\\MATLABbyFXY\\bias_ratio.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\fxy\\close.m" "-a" "E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by 
+ * WXY\\close1.m" "-a" "E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by DJ\\close2.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\WXYNew\\enumerate.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\WXYNew\\hanglieshi.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\WXYNew\\judge.m" "-a" "E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by 
+ * WXY\\linreg.m" "-a" "E:\\nju\\2014»¨Æì±­\\fxy\\max_occupying_fund.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by DJ\\model2.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\fxy\\mygetFlen.m" "-a" "E:\\nju\\2014»¨Æì±­\\WXYNew\\nijuzhen.m" 
+ * "-a" "E:\\nju\\2014»¨Æì±­\\fxy\\open.m" "-a" "E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by 
+ * WXY\\open1.m" "-a" "E:\\nju\\2014»¨Æì±­\\LHGroup\\OC by DJ\\open2.m" "-a" 
+ * "E:\\nju\\2014»¨Æì±­\\LHGroup\\MATLABbyFXY\\return_sum.m" 
  */
 
 package Arbitrage_Main;
@@ -26,7 +43,7 @@ import java.util.*;
  * The <code>Arbitrage_Main</code> class provides a Java interface to the M-functions
  * from the files:
  * <pre>
- *  E:\\nju\\2014»¨Æì±­\\fxy\\Arbitrage_Main.m
+ *  E:\\nju\\2014»¨Æì±­\\LHGroup\\MATLABbyFXY\\Arbitrage_Main.m
  * </pre>
  * The {@link #dispose} method <b>must</b> be called on a <code>Arbitrage_Main</code> 
  * instance when it is no longer needed to ensure that native resources allocated by this 
@@ -48,7 +65,7 @@ public class Arbitrage_Main extends MWComponentInstance<Arbitrage_Main>
         new MWFunctionSignature(/* max outputs = */ 3,
                                 /* has varargout = */ false,
                                 /* function name = */ "Arbitrage_Main",
-                                /* max inputs = */ 4,
+                                /* max inputs = */ 5,
                                 /* has varargin = */ false);
 
     /**
@@ -68,7 +85,7 @@ public class Arbitrage_Main extends MWComponentInstance<Arbitrage_Main>
      */
     public Arbitrage_Main() throws MWException
     {
-        this(Arbitrage_MainMCRFactory.newInstance());
+        this(Arbitrage_MainSharedMCRFactory.newInstance());
     }
     
     private static MWComponentOptions getPathToComponentOptions(String path)
@@ -86,7 +103,7 @@ public class Arbitrage_Main extends MWComponentInstance<Arbitrage_Main>
      */
     public Arbitrage_Main(String pathToComponent) throws MWException
     {
-        this(Arbitrage_MainMCRFactory.newInstance(getPathToComponentOptions(pathToComponent)));
+        this(Arbitrage_MainSharedMCRFactory.newInstance(getPathToComponentOptions(pathToComponent)));
     }
     
     /**
@@ -97,7 +114,7 @@ public class Arbitrage_Main extends MWComponentInstance<Arbitrage_Main>
      */
     public Arbitrage_Main(MWComponentOptions componentOptions) throws MWException
     {
-        this(Arbitrage_MainMCRFactory.newInstance(componentOptions));
+        this(Arbitrage_MainSharedMCRFactory.newInstance(componentOptions));
     }
     
     /** Frees native resources associated with this object */
@@ -119,7 +136,7 @@ public class Arbitrage_Main extends MWComponentInstance<Arbitrage_Main>
     public static void main (String[] args)
     {
         try {
-            MWMCR mcr = Arbitrage_MainMCRFactory.newInstance();
+            MWMCR mcr = Arbitrage_MainSharedMCRFactory.newInstance();
             mcr.runMain( sArbitrage_MainSignature, args);
             mcr.dispose();
         } catch (Throwable t) {
@@ -185,7 +202,7 @@ public class Arbitrage_Main extends MWComponentInstance<Arbitrage_Main>
 
     /**
      * Provides the standard interface for calling the <code>Arbitrage_Main</code>
-     * M-function with 4 input arguments.
+     * M-function with 5 input arguments.
      * Input arguments may be passed as sub-classes of
      * <code>com.mathworks.toolbox.javabuilder.MWArray</code>, or as arrays of
      * any supported Java type. Arguments passed as Java types are converted to
