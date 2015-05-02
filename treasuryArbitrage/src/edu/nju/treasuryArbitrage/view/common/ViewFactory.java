@@ -15,7 +15,6 @@ public class ViewFactory {
 	private FuturesMarket futuresMarket;
 	private ArbitragePortfolio arbitragePortfolio;
 	private Holdings holdings;
-	private PersonalCenter personalCenter;
 	private SettingStopParameters settingStopParameters;
 	
 	public static ViewFactory getInstance() {
@@ -56,14 +55,6 @@ public class ViewFactory {
 		return holdings;
 	}
 
-	public PersonalCenter getPersonalCenter() {
-		if (personalCenter == null) {
-			personalCenter = new PersonalCenter();
-			personalCenter.assemble(ScreenSize.WIDTH, ScreenSize.HEIGHT);
-		}
-		return personalCenter;
-	}
-	
 	public SettingStopParameters getSettingStopParameters() {
 		if (settingStopParameters == null) {
 			settingStopParameters = new SettingStopParameters();
