@@ -5,7 +5,6 @@ import edu.nju.treasuryArbitrage.view.futuresMarket.FuturesMarket;
 import edu.nju.treasuryArbitrage.view.holdings.Holdings;
 import edu.nju.treasuryArbitrage.view.navigater.NavigationBar;
 import edu.nju.treasuryArbitrage.view.navigater.SettingStopParameters;
-import edu.nju.treasuryArbitrage.view.personalCenter.PersonalCenter;
 
 public class ViewFactory {
 	private static ViewFactory self;
