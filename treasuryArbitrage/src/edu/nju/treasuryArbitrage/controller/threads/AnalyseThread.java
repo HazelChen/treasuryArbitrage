@@ -8,9 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterface;
+import edu.nju.treasuryArbitrage.controller.dataInterface.DataInterfaceFactory;
 import edu.nju.treasuryArbitrage.controller.dataInterface.MatlabCaller;
 import edu.nju.treasuryArbitrage.model.ArbBrief;
 import edu.nju.treasuryArbitrage.model.LiveData;
+import edu.nju.treasuryArbitrage.model.calculation.Lambda;
+import edu.nju.treasuryArbitrage.model.calculation.OptimalKT;
+import edu.nju.treasuryArbitrage.model.calculation.Xyz;
 
 public class AnalyseThread implements Runnable {
 	double buyprice = 0, saleprice = 0,newprice1 = -1,newprice2 = -1,newprice3 = -1,
@@ -31,12 +36,14 @@ public class AnalyseThread implements Runnable {
 	boolean newLogFile=false;
 	String[] FuturesNames;//合约名称
 	double x,y,k;//FXY 策略参数
-	ArrayList<Double> Lambda=new ArrayList<Double>();//WXY 策略参数
+	ArrayList<Double> newLambda=new ArrayList<Double>();//WXY 策略参数
 	double T,kdj;//DJ 策略参数
-	
+	 DataInterface dataInterface = DataInterfaceFactory.getInstance()
+             .getDataInterfaceToServer();
+	 
 	public void run() {
 		x=0;y=0;k=0;
-		
+		T=0;kdj=0;
 		//------------------------------------------//
 		//Do not delete any comment!!!  Important!!!
 		//------------------------------------------//
@@ -206,9 +213,31 @@ public class AnalyseThread implements Runnable {
 					
 					//open
 					switch(selModel){
-						case 1:result=dm.Open(Lf1, Lf2, price1, price2, x, y, k);break;
-						case 2:result=dm.Open1(Lf1, Lf2, price1, price2, Lambda);break;
-						case 3:result=dm.Open2(Lf1, Lf2, price1, price2, k, T);break;
+						case 1:
+							Xyz xyz = dataInterface.getTodayXyz(selGroup);
+							if(xyz != null)
+							{
+							x=xyz.getX();
+							y=xyz.getY();
+							k=xyz.getZ();
+							result=dm.Open(Lf1, Lf2, price1, price2, x, y, k );break;
+							}
+						case 2:
+							Lambda lambda = dataInterface.getTodayLambda(selGroup);
+							if(lambda != null)
+							{
+							newLambda.add(lambda.getLambda1());
+							newLambda.add(lambda.getLambda2());
+							result=dm.Open1(Lf1, Lf2, price1, price2, newLambda);break;
+							}
+						case 3:
+							OptimalKT optimalKT = dataInterface.getTodayKt(selGroup);
+							if(optimalKT != null)
+							{
+							kdj = optimalKT.getOptimalK();
+							T = optimalKT.getOptimalT();
+							result=dm.Open2(Lf1, Lf2, price1, price2, kdj, T);break;
+							}
 					}
 					if(result!=null)
 					{
@@ -251,10 +280,10 @@ public class AnalyseThread implements Runnable {
 									saleprice, k, signal, stop_loss, stop_profit);break;
 						case 2:
 							result=dm.Close1(Lf1, Lf2, price1, price2, buyprice,
-									saleprice, Lambda, signal, stop_loss, stop_profit);break;
+									saleprice, newLambda, signal, stop_loss, stop_profit);break;
 						case 3:
 							result=dm.Close2(Lf1, Lf2, price1, price2, buyprice,
-									saleprice, signal,k, T, stop_loss, stop_profit);break;
+									saleprice, signal, kdj, T, stop_loss, stop_profit);break;
 					}
 					if(result!=null)
 					{
